@@ -70,6 +70,21 @@ const responseInterceptorErrortHanler = async (error) => {
   return Promise.reject(error.response.data[key]);
 };
 
+const clientresponseInterceptorErrortHanler = async (error) => {
+  store.dispatch(stoptLoading());
+  if (error.code === "ERR_NETWORK") {
+    return Promise.reject(error.code);
+  }
+  if (error.response.status === 401) {
+    return Promise.reject(error.response.data.detail);
+  }
+  if (error.response.status === 404) {
+    return Promise.reject(error.response.statusText);
+  }
+  const key = Object.keys(error.response.data)[0];
+  return Promise.reject(error.response.data[key]);
+};
+
 axiosServiceApi.interceptors.request.use(
   requestInterceptorRequestHanler,
   requestInterceptorErrortHanler,
@@ -94,5 +109,5 @@ axiosClientServiceApi.interceptors.request.use(
 );
 axiosClientServiceApi.interceptors.response.use(
   responseInterceptorResponseHanler,
-  responseInterceptorErrortHanler,
+  clientresponseInterceptorErrortHanler,
 );

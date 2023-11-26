@@ -21,8 +21,17 @@ const CSRFToken = () => {
 
   useEffect(() => {
     const getcsrfToken = async () => {
-      await axiosClientServiceApi.get(`/user/csrf_cookie/`);
-      setcrsfTokenValue(getCookie("csrftoken"));
+      try{
+        const response = await axiosClientServiceApi.get(`/user/csrf_cookie/`);
+        setcrsfTokenValue(getCookie("csrftoken"));
+      } catch(error){
+        const location = window.location.pathname;
+        if(location !== "/login"){
+          window.location = "/login";
+        }
+     
+      }
+   
     };
     getcsrfToken();
   }, []);

@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from "react";
 import Title from "../../Common/Title";
 import Model from "../../Common/Model";
-
+import EditIcon from "../../Common/AdminEditIcon";
+import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
+import News from "./News";
+import { axiosClientServiceApi } from "../../util/axiosUtil";
+import { removeActiveClass } from "../../util/ulrUtil";
 import ModelBg from "../../Common/ModelBg";
 
 import "./NewsAndUpdates.css";
-import { axiosClientServiceApi } from "../../util/axiosUtil";
-import News from "./News";
-import { removeActiveClass } from "../../util/ulrUtil";
 
 const NewsAndUpdates = () => {
+  const editComponentObj = {
+    banner: false,
+    news: false,
+  };
   const [news, setNews] = useState([]);
+  const [admin, setAdmin] = useState(true);
+  const [show, setShow] = useState(false);
+  const [componentEdit, SetComponentEdit] = useState(editComponentObj);
 
   useEffect(() => {
     removeActiveClass();
@@ -18,12 +26,16 @@ const NewsAndUpdates = () => {
 
   useEffect(() => {
     const getNews = async () => {
+      try{
       const response = await axiosClientServiceApi.get(
         `/appNews/clientAppNews/`,
       );
       if (response?.status == 200) {
         setNews(response.data.appNews);
       }
+    }catch(error){
+      console.log("unable to access ulr because of server is down")
+    }
     };
     getNews();
   }, []);
@@ -51,9 +63,15 @@ const NewsAndUpdates = () => {
     return datestring.slice(0, 10);
   };
 
+  const editHandler = (name, value) => {
+    SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
+    setShow(!show);
+    document.body.style.overflow = "hidden";
+  }
   return (
     <>
       <div className="headerBottomMargin">
+      {admin ? <EditIcon editHandler={() => editHandler("banner", true)} /> : "" }
         <div className=" banner newBanner"></div>
       </div>
       <div className="container my-4 newsAndUpdates">
@@ -72,6 +90,15 @@ const NewsAndUpdates = () => {
       </div>
       {showModal && <Model obj={obj} closeModel={closeModel} flag="news" />}
       {showModal && <ModelBg closeModel={closeModel} />}
+
+
+      {componentEdit.banner ? 
+        <div className='container position-fixed adminEditTestmonial p-1'>
+          <ImageInputsForm editHandler={editHandler} componentType="banner" />
+        </div>
+      : ""}
+      
+      {show && <ModelBg />}
     </>
   );
 };

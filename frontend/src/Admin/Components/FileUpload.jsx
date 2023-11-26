@@ -128,7 +128,7 @@ const FileUpload = ({
         {/* <input className="form-control" type="file" id="addImages" multiple />  */}
 
         <FilePond
-          labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+          labelIdle='Drag & Drop your files or <span className="filepond--label-action">Browse</span>'
           labelInvalidField="invalid files"
           name="path"
           files={files}

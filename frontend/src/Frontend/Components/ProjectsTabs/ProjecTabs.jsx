@@ -48,6 +48,7 @@ const ProjectTabs = () => {
 
   const getProjects = async (projectid) => {
     // const {value} = e.target
+    try{
     const response = await axiosClientServiceApi.get(
       `/project/getSelectedClientProject/${projectid}/`,
     );
@@ -64,6 +65,9 @@ const ProjectTabs = () => {
       filtersImgPdfs(projectData, "avl");
       setSpecifications(projectData?.specificationData);
     }
+  }catch(error){
+    console.log("unable to access ulr because of server is down")
+  }
   };
 
   const filtersImgPdfs = (proj, type) => {

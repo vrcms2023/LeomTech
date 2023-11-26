@@ -6,11 +6,24 @@ import { getCookie, removeAllCookies } from "../../util/cookieUtil";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/auth/authSlice";
 import { toast } from "react-toastify";
+import AdminHeader from "../../Admin/Components/Header";
+
+import ModalBg from '../../Common/ModelBg'
+import EditIcon from "../AdminEditIcon";
 
 import "./Styles.css";
+
 import { hideHandBurgerIcon } from "../../util/ulrUtil";
+import TopStrip from "../../Admin/Components/TopStrip";
 
 const Header = () => {
+  const editComponentObj = {
+    logo: false,
+    menu: false,
+  };
+  const [admin, setAdmin] = useState(true)
+  const [componentEdit, SetComponentEdit] = useState(editComponentObj);
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [loginState, setLoginState] = useState(false);
@@ -43,6 +56,12 @@ const Header = () => {
   ];
   const isHideBurgetIcon = hideHandBurgerIcon(burgetHide);
 
+  const editHandler = (name, value) => {
+    SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
+    setShow(!show);
+    document.body.style.overflow = "hidden";
+  }
+
   useEffect(() => {
     if (userInfo || getCookie("access")) {
       setLoginState(true);
@@ -73,11 +92,20 @@ const Header = () => {
   }
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark fixed-top">
+    {admin ? <TopStrip /> : "" }
+    {componentEdit.menu ? 
+        <div className='container position-fixed adminEditTestmonial p-1'>
+          <AdminHeader editHandler={editHandler} />
+        </div>  : "" }
+      <nav className={admin ? "mt-4 navbar navbar-expand-lg navbar-dark fixed-top" : "navbar navbar-expand-lg navbar-dark fixed-top"}>
+      
         <div className="container">
+        
           <Link to={isHideMenu ? "#" : "/"} className="navbar-brand logo">
             <img src={Logo} alt="" />
           </Link>
+          {admin ? <EditIcon editHandler={() => editHandler("menu", true)} /> : "" }
+
           {!isHideBurgetIcon ? (
             <button
               className="navbar-toggler"
@@ -102,12 +130,14 @@ const Header = () => {
           </div>
         </div>
       </nav>
+      {show && <ModalBg />}
     </>
   );
 };
 
 export const AdminMenu = ({ userName, logOutHandler }) => {
   return (
+    <>
     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
       <li className="text-dark text-capitalize d-flex justify-content-center align-items-center">
         {userName ? (
@@ -131,10 +161,13 @@ export const AdminMenu = ({ userName, logOutHandler }) => {
         />
       </li>
     </ul>
+    
+    </>
   );
 };
 export const ClientMenu = () => {
   return (
+   
     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
       <li className="nav-item">
         <NavLink
@@ -198,6 +231,8 @@ export const ClientMenu = () => {
         </NavLink>
       </li>
     </ul>
+    
+    
   );
 };
 

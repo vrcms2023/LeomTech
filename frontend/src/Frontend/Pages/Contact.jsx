@@ -4,24 +4,45 @@ import BriefIntro from "../../Common/BriefIntro";
 import Alert from "../../Common/Alert";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import "./Contact.css";
-import { axiosClientServiceApi } from "../../util/axiosUtil";
 
-import contactImg from "../../Images/contact.png";
+import AdminBriefIntro from '../../Admin/Components/BriefIntro/index'
+import AddressTextArea from "../../Admin/Components/forms/FooterInputs";
+import EditIcon from "../../Common/AdminEditIcon";
+import ModelBg from "../../Common/ModelBg";
+
+import { axiosClientServiceApi } from "../../util/axiosUtil";
 import { getCookie, removeCookie, setCookie } from "../../util/cookieUtil";
 import { removeActiveClass } from "../../util/ulrUtil";
 
+import "./Contact.css";
+
+import contactImg from "../../Images/contact.png";
+import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
+import GoogleMap from "../../Admin/Components/forms/GoogleMap";
+
 const Contact = () => {
+
+  const editComponentObj = {
+    banner: false,
+    briefIntro: false,
+    address: false,
+    contact: false,
+    map: false,
+  };
+
   const formObject = {
     firstName: "",
     email: "",
     phoneNumber: "",
     description: "",
   };
+  const [admin, setAdmin] = useState(true);
+  const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [formData, setFormData] = useState(formObject);
   const [mesg, setMesg] = useState("");
   const [show, setShow] = useState(false);
   const [formerror, setFormerror] = useState({});
+  const [success, setsuccess] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,6 +50,7 @@ const Contact = () => {
   }, []);
 
   const handleChange = (event) => {
+    setsuccess(false)
     const { name, value } = event.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
     setFormerror((prevFormData) => ({ ...prevFormData, [name]: "" }));
@@ -52,6 +74,7 @@ const Contact = () => {
         setCookie("clientInformation", formData.email, { maxAge: 86400 });
         setFormData(formObject);
         setFormerror("");
+        setsuccess(true)
       } else {
         toast.error("unable to process your request");
       }
@@ -85,13 +108,21 @@ const Contact = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const editHandler = (name, value) => {
+    SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
+    setShow(!show);
+    document.body.style.overflow = "hidden";
+  }
+
   return (
     <>
       <div className="headerBottomMargin">
+      {admin ? <EditIcon editHandler={() => editHandler("banner", true)} /> : "" }
         <div className="banner contactBanner"></div>
       </div>
 
       {/* Introduction */}
+      {admin ? <EditIcon editHandler={() => editHandler("briefIntro", true)} /> : "" }
       <BriefIntro title="Share your views">
         We believe that construction is a man made wonder. The thought of
         bringing imagination to real life structures excites us, each day the
@@ -99,7 +130,8 @@ const Contact = () => {
       </BriefIntro>
       <div className="container-fluid">
         <div className="row">
-          <div className="col-md-4 text-white d-flex justify-content-start align-items-start blueBg-500 p-5 py-3 p-md-5">
+          <div className="contactAddress position-relative col-md-4 text-white d-flex justify-content-start align-items-start blueBg-500 p-5 py-3 p-md-5">
+          {admin ? <EditIcon editHandler={() => editHandler("address", true)} /> : "" }
             <div className="address`">
               <Title title="Address" cssClass="" />
               <Title
@@ -113,6 +145,7 @@ const Contact = () => {
                 Hyderabad - 500081
               </p>
 
+              <div>
               <Title title="Phone Number" cssClass="" />
               <p>40-40036841</p>
 
@@ -126,18 +159,19 @@ const Contact = () => {
                   contact@hprinfraprojects.com
                 </a>
               </p>
+              </div>
+              
             </div>
           </div>
 
           <div className="col-md-8 d-flex justify-content-center align-items-center flex-column">
-            {/* {show && (
+            {success && (
               <Alert
-                mesg={mesg}
-                cssClass={`alert text-white w-75 mt-3 p-2 text-center ${
-                  mesg === "Success" ? "bg-success" : "bg-danger"
-                }`}
+                mesg={'Thank you for contact us'}
+                cssClass={`alert text-white w-75 mt-3 p-2 text-center bg-success`}
               />
-            )} */}
+            )}
+     
             <form
               className="my-2 py-3 py-md-5 contactForm"
               onSubmit={onFormSubmit}
@@ -258,6 +292,7 @@ const Contact = () => {
 
         <div className="row">
           <div className="col">
+          {admin ? <EditIcon editHandler={() => editHandler("map", true)} /> : "" }
             <iframe
               className="googlemap"
               src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15226.413145928846!2d78.441906!3d17.430816!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x80e4d67809745a48!2sHPR+INFRA+PROJECTS!5e0!3m2!1sen!2sin!4v1442574301202"
@@ -267,6 +302,32 @@ const Contact = () => {
           </div>
         </div>
       </div>
+
+      {componentEdit.banner ? 
+        <div className='container position-fixed adminEditTestmonial p-1'>
+          <ImageInputsForm editHandler={editHandler} componentType="banner" />
+        </div>
+      : ""}
+
+      {componentEdit.briefIntro ? 
+        <div className='container position-fixed adminEditTestmonial p-1'>
+          <AdminBriefIntro editHandler={editHandler} componentType="briefIntro" />
+        </div>
+      : ""}
+
+{componentEdit.address ? 
+        <div className='container position-fixed adminEditTestmonial p-1'>
+          <AddressTextArea editHandler={editHandler} componentType="address" />
+        </div>
+      : ""}
+
+      {componentEdit.map ? 
+        <div className='container position-fixed adminEditTestmonial p-1'>
+          <GoogleMap editHandler={editHandler} componentType="map" />
+        </div>
+      : ""}
+
+      {show && <ModelBg />}
     </>
   );
 };

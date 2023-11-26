@@ -180,6 +180,10 @@ body {
   margin-top: 80px !important;
 }
 
+.headerBottomMargin .editIcon{
+  margin-top: 50px;
+}
+
 .banner {
   background-size: cover;
   background-position: top center;

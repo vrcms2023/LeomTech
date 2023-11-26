@@ -44,6 +44,7 @@ import ContactUSAdmin from "./Admin/Pages/Auth/ContactUSAdmin";
 import LoadingSpinner from "./Common/LoadingSpinner";
 
 function App() {
+
   const { userInfo } = useSelector((state) => state.auth);
   const { isLoading } = useSelector((state) => state.loader);
   const [loginState, setLoginState] = useState("");
@@ -63,6 +64,7 @@ function App() {
     "/addproject",
     "/testimonial",
     "/contactUSList",
+    "/userAdmin"
   ];
   let isHideMenu =
     pathList.indexOf(window.location.pathname) >= 0 ? true : false;

@@ -1,14 +1,29 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+import EditIcon from "../AdminEditIcon";
+
+// import Model from "../Model";
+// import ModelBg from "../ModelBg";
+
 import Logo from "../../../src/Images/hpr-infra-logo.png";
 
 import "./Styles.css";
 import Model from "../../Common/Model";
 import ModelBg from "../ModelBg";
+import AddressTextArea from "../../Admin/Components/forms/FooterInputs";
+import ContactInputs from "../../Admin/Components/forms/ContactInputs";
 
 const Footer = () => {
+  const editComponentObj = {
+    address: false,
+    contact: false,
+    social: false
+  };
   const [show, setShow] = useState(false);
+  const [modelShow, setModelShow] = useState(false);
+  const [admin, setAdmin] = useState(true);
+  const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const privacyPolacyObj = {
     title: "Privacy Policy",
     dec: "Personal Information: Some personal information including name, contact numbers, e-mail addresses, and other demographic information is collected through enquiry forms. HPR Infra Group takes precautions to protect your individual / personal information from unauthorized use and makes internal use of your contact information only to inform you of projects and services that may interest you. When you voluntarily send us electronic mail, we will keep a record of this information so that we can respond to you. However, we do not disclose your information to other public bodies or individuals except as authorized by law. \n\n As you travel through the HPR Infra Projects website, our servers log information about your session. Information logged includes items such as your IP address, what browser you are using, the time and date you visited, how long your session lasted, and what pages you visited. We use this information from our server logs primarily to learn about our visitors as a group, to track visitors and readership on our website.\n\n HPR INFRA Group reserves the right to change this policy in any manner at any time without prior notice. If we make material changes to our privacy policy, the same will be updated on the website.",
@@ -17,17 +32,26 @@ const Footer = () => {
   };
 
   const showModel = () => {
-    setShow(!show);
+    setModelShow(!modelShow);
   };
   const closeModel = () => {
-    setShow(!show);
+    setModelShow(!modelShow);
   };
+
+  const editHandler = (name, value) => {
+    SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
+    setShow(!show);
+    document.body.style.overflow = "hidden";
+  }
+  
   return (
     <>
-      <footer className="text-center text-dark py-2 py-md-5 footerTop">
+       <footer className="text-center text-dark py-2 py-md-5 footerTop">
         <div className="container">
           <div className="row">
+          
             <div className="col-md-3 ">
+              {admin ? <EditIcon editHandler={() => editHandler("address", true)} /> : "" }
               <address className="text-center text-sm-start">
                 <strong className="fs-5">Address</strong>
                 <br />
@@ -37,6 +61,7 @@ const Footer = () => {
                 Hyderabad - 500081.
               </address>
             </div>
+
             <hr className="d-block d-sm-none" />
             <div className="col-md-3 text-center text-sm-start">
               <address>
@@ -44,7 +69,6 @@ const Footer = () => {
                 <br />
                 <abbr title="Phone">P:</abbr> 40-40036841
               </address>
-
               <address className="mb-md-0">
                 <strong className="fs-5">Email</strong>
                 <br />
@@ -54,6 +78,7 @@ const Footer = () => {
                   contact@contact@hprinfra.com
                 </a>
               </address>
+
             </div>
             <hr className="d-block d-sm-none" />
             <div className="col-md-3 text-center text-sm-start">
@@ -121,13 +146,27 @@ const Footer = () => {
         Copyrights 2023 - All rights reserved
       </footer>
 
-      {show && (
+      {modelShow && (
         <Model
+          obj={""}
           privacy={privacyPolacyObj}
           closeModel={closeModel}
           flag="footer"
         />
       )}
+
+      {componentEdit.address ? 
+        <div className='container position-fixed adminEditTestmonial p-1'>
+          <AddressTextArea editHandler={editHandler} componentType="address" />
+        </div>
+      : ""}
+
+      {componentEdit.contact ? 
+        <div className='container position-fixed adminEditTestmonial p-1'>
+          <ContactInputs editHandler={editHandler} componentType="contact" />
+        </div>
+      : ""}
+
       {show && <ModelBg />}
     </>
   );

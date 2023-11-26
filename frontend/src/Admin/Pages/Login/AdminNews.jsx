@@ -324,7 +324,7 @@ export const AdminNews = () => {
                               src={`${baseurl}${news.imageUrls[0]}`}
                               alt=" "
                             />{" "}
-                            <span class="badge text-bg-secondary">
+                            <span className="badge text-bg-secondary">
                               {news?.imageUrls.length > 1
                                 ? `${news?.imageUrls.length} img's`
                                 : ""}

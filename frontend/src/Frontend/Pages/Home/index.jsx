@@ -1,20 +1,47 @@
 import React, { useEffect, useState } from "react";
-import Banner from "../Components/Banner";
-import Title from "../../Common/Title";
+import Banner from "../../Components/Banner";
+import Carousel from "../../Components/Carousel";
+import Title from "../../../Common/Title";
+import ModelBg from "../../../Common/ModelBg";
+
 import { Link } from "react-router-dom";
+
+// Edit Components
+
+import AdminBanner from '../../../Admin/Components/forms/ImgTitleIntoForm-List'
+import BriefIntro from '../../../Admin/Components/BriefIntro/'
 
 import "./Home.css";
 
-import imgOngoing from "../../Images/ongoing.png";
-import imgCompleted from "../../Images/completed.png";
-import imgFuture from "../../Images/future.png";
 
-import { axiosClientServiceApi } from "../../util/axiosUtil";
-import Testimonials from "../Components/Testimonials";
-import { removeActiveClass } from "../../util/ulrUtil";
+import imgOngoing from "../../../Images/ongoing.png";
+import imgCompleted from "../../../Images/completed.png";
+import imgFuture from "../../../Images/future.png";
+
+import { axiosClientServiceApi } from "../../../util/axiosUtil";
+import Testimonials from "../../Components/Testimonials";
+import { removeActiveClass } from "../../../util/ulrUtil";
+
+import EditIcon from "../../../Common/AdminEditIcon";
 
 const Home = () => {
+  const editComponentObj = {
+    carousel: false,
+    briefIntro: false,
+    projects: false,
+    testmonial: false,
+  };
+
   const [testimonis, setTestmonis] = useState([]);
+  const [admin, setAdmin] = useState(true);
+  const [componentEdit, SetComponentEdit] = useState(editComponentObj);
+  const [show, setShow] = useState(false);
+
+  const editHandler = (name, value) => {
+    SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
+    setShow(!show);
+    document.body.style.overflow = "hidden";
+  }
 
   useEffect(() => {
     removeActiveClass();
@@ -22,25 +49,35 @@ const Home = () => {
 
   useEffect(() => {
     const getTestimonial = async () => {
-      const response = await axiosClientServiceApi.get(
-        `/testimonials/clientTestimonials/`,
-      );
-      if (response?.status == 200) {
-        setTestmonis(response.data.testimonial);
+
+      try{
+          const response = await axiosClientServiceApi.get(
+            `/testimonials/clientTestimonials/`,
+          );
+          if (response?.status == 200) {
+            setTestmonis(response.data.testimonial);
+          }
+      } catch(e){
+        console.log("unable to access ulr because of server is down")
       }
     };
     getTestimonial();
   }, []);
 
   return (
+    <>
     <div className="container-fluid">
       <div className="row">
-        <div className="col-md-12 p-0">
-          <Banner />
+        <div className="col-md-12 p-0 carousel">
+          {admin ? <EditIcon editHandler={() => editHandler("carousel", true)} /> : "" }
+          
+          <Carousel />
         </div>
       </div>
 
       {/* Introduction */}
+
+      {admin ? <EditIcon editHandler={() => editHandler("briefIntro", true)} /> : "" }
       <div className="row py-3 introGrayBg">
         <div className="col-md-8 offset-md-2 px-4 py-2 py-md-4">
           <Title
@@ -53,9 +90,13 @@ const Home = () => {
             the passion in us grows as we contribute to this industry.
           </p>
         </div>
+
+        
       </div>
 
-      {/* Project Cards */}
+      {/* Edit Project */}
+      {admin ? <EditIcon editHandler={() => editHandler("projects", true)} /> : "" }
+        {/* End Of Edit Project */}
       <div className="row my-5 homeProjectsBg">
         <div className="col-md-12 d-flex justify-content-center align-items-center">
           <div className="container">
@@ -170,6 +211,7 @@ const Home = () => {
       </div>
 
       <div className="row homeSections">
+      
         <div className="col-md-6 ourCulture">
           <Title
             title="Our Culture"
@@ -245,46 +287,43 @@ const Home = () => {
             </div>
           </div>
         </div>
-        <Testimonials testimonis={testimonis} />
+        
+        <div className="col-md-6 p-5 testimonials text-center">
+        {admin ? <EditIcon editHandler={() => editHandler("testmonial", true)} /> : "" }
+       
+        {/* End Of Edit Testimonials */}
+          <Testimonials testimonis={testimonis} />
+        </div>
+        
       </div>
-      {/* <div className='row shadow-lg' style={{margin: "70px"}}>
-        <div className='col-md-7' style={{background: "url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'"}}></div>
-        <div className='col-md-5 p-5 bg-light'>
-            <div className='mx-5 py-5'>
-                <Title title="Let your thoughts fly high" cssClass="mb-4 fw-normal fs-2" />
-                <p className='lh-lg fs-5'>
-                We believe that construction is a manmade wonder. The thought of bringing imagination to real life structures excites us, each day the passion in us grows as we contribute to this industry. It gives us ample satisfaction that we are contributing to your happiness, your lifetime dream and our country’s growth/development.</p>
-                <Link  to='/' className="btn btn-outline-secondary">Read More...</Link >
-            </div>
-        </div>
-    </div> */}
-
-      {/* <div className='row bg-dark'>
-        <div className='col-md-5 p-5'>
-            <div className='mx-5 py-5'>
-                <Title title="Our Culture" cssClass="mb-4 fw-normal fs-2 text-white" />
-                <p className='text-secondary'>Compassion, Innovation, Trust</p>
-                <p className='lh-lg fs-5 text-secondary'>
-                    In our company, we attain to serve you as best as we can in a timely fashion and with assurance that your needs will be satisfied.From initial site studies, to design, to construction and commissioning, we stand by our clients as technical experts throughout the development cycle. We collaborate with planners, architects, consultants, program managers and construction managers to deliver high-performance buildings, infrastructure and communities.</p>
-                    <Link  to='/' className="btn btn-outline-light">Read More...</Link >
-            </div>
-        </div>
-        <div className='col-md-7' style={{background: "url('https://images.unsplash.com/photo-1556912173-3bb406ef7e77?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80')"}}></div>
-    </div> */}
-
-      {/* <div className='row shadow-lg' style={{margin: "70px"}}>
-    <div className='col-md-7' style={{background: "url('https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'"}}></div>
-        <div className='col-md-5 p-5 bg-light'>
-            <div className='mx-5 py-5'>
-            <Title title="Ongoing Projects" />
-            <p>Experience Our Difference Firsthand</p>
-            <p className='lh-lg fs-5'>
-                Custom homebuilding is the sure way to get exactly what your family needs. No modifications. No compromises. No settling for something less. With decades of custom homebuilding experience and a commitment to excellence and innovation in home designs, there is no better way to experience the HPR Homes difference than to explore one of our custom built model homes. Our network of fully-furnished luxury models are available to tour seven days a week.</p>
-                <Link  to='/' className="btn btn-outline-secondary">Read More...</Link >
-            </div>
-        </div>
-        </div> */}
     </div>
+
+    {componentEdit.carousel ? 
+      <div className='container position-absolute adminEditTestmonial p-1'>
+        <AdminBanner editHandler={editHandler} componentType="carousel" />
+      </div> 
+    : ""}
+
+    {componentEdit.briefIntro ? 
+      <div className='container position-fixed adminEditTestmonial p-1'>
+        <BriefIntro editHandler={editHandler} componentType="briefIntro" />
+      </div>
+    : ""}
+
+    {componentEdit.projects ? 
+      <div className='container position-fixed adminEditTestmonial p-1'>
+        <AdminBanner editHandler={editHandler} componentType="projects" />
+      </div>
+    : ""}
+
+    {componentEdit.testmonial ? 
+      <div className='container position-fixed adminEditTestmonial p-1'>
+        <AdminBanner editHandler={editHandler} componentType="testmonial" />
+      </div>
+    : ""}
+
+    {show && <ModelBg />}
+    </>
   );
 };
 
