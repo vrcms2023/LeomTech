@@ -68,10 +68,10 @@ const Testimonials = ({ testimonis }) => {
     }
     return (
       <>
-              <div className={`${position} article position-absolute `} key={item.id}>
+      <div className={`${position} article position-absolute `} key={item.id}>
         <Title
           title={title}
-          cssClass="mb-2 fw-normal fs-2 text-uppercase text-white"
+          cssClass="mb-2 fw-normal fs-2 text-uppercase"
         />
 
         {!imageUrl ? (
@@ -83,7 +83,7 @@ const Testimonials = ({ testimonis }) => {
             alt="User"
           />
         )}
-        <p className="text-white mt-3 px-0 px-md-5">{description}</p>
+        <p className="mt-3 px-0 px-md-5">{description}</p>
         <div className="text-center">
           <Link to="" onClick={() => setIndex(index + 1)}>
             {" "}

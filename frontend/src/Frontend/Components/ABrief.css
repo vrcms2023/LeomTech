@@ -1,0 +1,14 @@
+
+.ABrief h3 {
+    font-size: 2.5rem;
+    padding-left: 15px;
+    border: 0px;
+    border-left-width: 10px;
+    border-style: Solid;
+}
+
+@media (max-width: 991px) {
+    .ABriefImg img {
+        display: none;
+    }
+} 

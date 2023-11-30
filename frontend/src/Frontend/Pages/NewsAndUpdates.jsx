@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+
+// Components 
+
 import Title from "../../Common/Title";
 import Model from "../../Common/Model";
 import EditIcon from "../../Common/AdminEditIcon";
@@ -8,7 +11,13 @@ import { axiosClientServiceApi } from "../../util/axiosUtil";
 import { removeActiveClass } from "../../util/ulrUtil";
 import ModelBg from "../../Common/ModelBg";
 
+import Banner from "../../Common/Banner";
+
+// Styles
 import "./NewsAndUpdates.css";
+
+// Images Imports
+import NewsBanner from '../../Images/Banner_8.jpg'
 
 const NewsAndUpdates = () => {
   const editComponentObj = {
@@ -70,10 +79,12 @@ const NewsAndUpdates = () => {
   }
   return (
     <>
-      <div className="headerBottomMargin">
-      {admin ? <EditIcon editHandler={() => editHandler("banner", true)} /> : "" }
-        <div className=" banner newBanner"></div>
+      {/* Page Banner Component */}
+      <div className="position-relative">
+        {admin ? <EditIcon editHandler={() => editHandler("banner", true)} /> : "" }
+         <Banner bannerImg={NewsBanner} alt="About LeomTech" title={'Leom Tech'} caption={'IT Consulting Services'}/>
       </div>
+
       <div className="container my-4 newsAndUpdates">
         <div className="row">
           <Title title="News And Updates" cssClass="blue-900 fs-4 mb-4" />

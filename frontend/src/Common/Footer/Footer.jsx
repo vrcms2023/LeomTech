@@ -6,7 +6,7 @@ import EditIcon from "../AdminEditIcon";
 // import Model from "../Model";
 // import ModelBg from "../ModelBg";
 
-import Logo from "../../../src/Images/hpr-infra-logo.png";
+import Logo from "../../../src/Images/logo.svg";
 
 import "./Styles.css";
 import Model from "../../Common/Model";
@@ -46,104 +46,92 @@ const Footer = () => {
   
   return (
     <>
-       <footer className="text-center text-dark py-2 py-md-5 footerTop">
-        <div className="container">
+       <footer className="text-center">
+        <div className="container py-5">
           <div className="row">
-          
-            <div className="col-md-3 ">
+            <div className="col-md-3 text-center text-md-start">
+            <h5>Company</h5>
+              <ul className="">
+                <li>
+                  <Link to="/" className="ms-0">
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/about">About Us</Link>
+                </li>
+                <li>
+                  <Link to="/projects">Projects</Link>
+                </li>
+                <li>
+                  <Link to="/gallery">Gallery</Link>
+                </li>
+                <li>
+                  <Link to="/news">News & Updates</Link>
+                </li>
+                <li>
+                  <Link to="/contact">Contact Us</Link>
+                </li>
+                <li>
+                  <Link to="" onClick={showModel}>
+                    Privacy Policy
+                  </Link>
+                </li>
+            </ul>
+            </div>
+              <hr className="d-block d-md-none" />
+            <div className="col-md-3 pb-3 pb-md-0">
               {admin ? <EditIcon editHandler={() => editHandler("address", true)} /> : "" }
-              <address className="text-center text-sm-start">
-                <strong className="fs-5">Address</strong>
-                <br />
+              
+              <div className="text-center text-md-start">
+              <h5>Address</h5>
                 101, Silicon Towers, <br />
                 Image Garden Road, <br />
                 Madhapur, <br />
                 Hyderabad - 500081.
-              </address>
+              </div>
             </div>
 
-            <hr className="d-block d-sm-none" />
-            <div className="col-md-3 text-center text-sm-start">
-              <address>
-                <strong className="fs-5">Phone number</strong>
+            <hr className="d-block d-md-none" />
+            <div className="col-md-3 text-center text-md-start pb-3 pb-md-0">
+              <h5>Reach Us</h5>
+              <div>
+                Phone
                 <br />
-                <abbr title="Phone">P:</abbr> 40-40036841
-              </address>
-              <address className="mb-md-0">
-                <strong className="fs-5">Email</strong>
+                 40-40036841
+              </div>
+              <div className="mb-md-0 mt-3">
+                Email
                 <br />
-                <abbr title="Phone">E:</abbr>{" "}
-                <a href="mailto:contact@hprinfra.com.com" className="text-dark">
-                  {" "}
-                  contact@contact@hprinfra.com
+                <a href="mailto:info@leomtech.com">
+                  info@leomtech.com
                 </a>
-              </address>
-
-            </div>
-            <hr className="d-block d-sm-none" />
-            <div className="col-md-3 text-center text-sm-start">
-              <address>
-                <strong className="fs-5">Social Media</strong>
-                <br />
-                <Link
-                  to="https://www.facebook.com/HPRInfraProjects"
-                  target="_blank"
-                  className="ms-0 text-underline"
-                >
-                  Facebook
-                </Link>{" "}
-                <br />
-                <Link
-                  to="https://plus.google.com/+HprinfraprojectsAdibatlaHyderabad/posts"
-                  target="_blank"
-                  className="ms-0"
-                >
-                  Google Plus
-                </Link>
-              </address>
+              </div>
             </div>
 
-            <div className="col-md-3 text-start d-none d-md-block">
-              <img src={Logo} alt="HPR Infra" />
+            <hr className="d-block d-md-none" />
+            <div className="col-md-3 text-center socialLinks ">
+              <img src={Logo} alt="" />
+              <div>
+                <Link to="#" target="_blank"><i class="fa fa-facebook-square" aria-hidden="true"></i></Link>
+                <Link to="#" target="_blank"><i class="fa fa-twitter-square" aria-hidden="true"></i></Link>
+                <Link to="#" target="_blank"><i class="fa fa-youtube-play" aria-hidden="true"></i></Link>
+                <Link to="#" target="_blank"><i class="fa fa-linkedin-square" aria-hidden="true"></i></Link>
+                <Link to="#" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></Link>
+              </div>
             </div>
           </div>
         </div>
-      </footer>
-      <footer className="text-center text-white py-3 footerLinks">
-        <div className="container d-flex justify-content-between align-items-center flex-column flex-sm-row  ">
-          <ul className="d-lg-flex flex-md-wrapjustify-content-between align-items-center list-unstyled m-0">
-            <li>
-              <Link to="/" className="ms-0">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link to="/about">About Us</Link>
-            </li>
-            <li>
-              <Link to="/projects">Projects</Link>
-            </li>
-            <li>
-              <Link to="/gallery">Gallery</Link>
-            </li>
-            <li>
-              <Link to="/news">News & Updates</Link>
-            </li>
-            <li>
-              <Link to="/contact">Contact Us</Link>
-            </li>
-          </ul>
-          <ul className="d-lg-flex justify-content-between align-items-center list-unstyled m-0">
-            <li>
-              <Link to="" onClick={showModel}>
-                Privacy Policy
-              </Link>
-            </li>
-          </ul>
+
+        <div className="text-center py-3 footerCopyRights">
+          Copyrights 2023 - All rights reserved 
+          <span className="d-inline-block mx-2">|</span> 
+            <Link to="">Terms & Conditions</Link> <span className="d-inline-block mx-2">|</span> 
+            <Link to="">News Updates</Link>
+          <span className="d-block mt-2 dby">
+            designed by <a href="http://www.varadesigns.com"><small className="p-1 fw-bold d-inline-block ">VARA-DESIGNS</small></a>
+          </span>
         </div>
-      </footer>
-      <footer className="text-center text-white text-muted py-2 footerCopyRights">
-        Copyrights 2023 - All rights reserved
       </footer>
 
       {modelShow && (

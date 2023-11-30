@@ -16,9 +16,10 @@ import { removeActiveClass } from "../../util/ulrUtil";
 
 import "./Contact.css";
 
-import contactImg from "../../Images/contact.png";
+import ContactBanner from '../../Images/contact.png'
 import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
 import GoogleMap from "../../Admin/Components/forms/GoogleMap";
+import Banner from "../../Common/Banner";
 
 const Contact = () => {
 
@@ -116,9 +117,10 @@ const Contact = () => {
 
   return (
     <>
-      <div className="headerBottomMargin">
+      {/* Page Banner Component */}
+      <div className="position-relative">
       {admin ? <EditIcon editHandler={() => editHandler("banner", true)} /> : "" }
-        <div className="banner contactBanner"></div>
+      <Banner bannerImg={ContactBanner} alt="Contact us" title={'Leom Tech'} caption={'IT Consulting Services'}/>
       </div>
 
       {/* Introduction */}

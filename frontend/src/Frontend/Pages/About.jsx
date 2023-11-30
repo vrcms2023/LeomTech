@@ -8,11 +8,11 @@ import ModelBg from "../../Common/ModelBg";
 
 import { removeActiveClass } from "../../util/ulrUtil";
 
-import "./About.css";
-
 import Img1 from "../../Images/project1.png";
 import Img2 from "../../Images/future.png";
 import Img3 from "../../Images/quality.png";
+import AboutBanner from '../../Images/Banner_12.jpg'
+import Banner from "../../Common/Banner";
 
 const About = () => {
 
@@ -44,20 +44,22 @@ const About = () => {
 
   return (
     <>
-      <div className="headerBottomMargin">
-      {admin ? <EditIcon editHandler={() => editHandler("banner", true)} /> : "" }
-        <div className="banner aboutBanner"></div>
+      {/* Page Banner Component */}
+      <div className="position-relative">
+        {admin ? <EditIcon editHandler={() => editHandler("banner", true)} /> : "" }
+         <Banner bannerImg={AboutBanner} alt="About LeomTech" title={'Leom Tech'} caption={'IT Consulting Services'}/>
       </div>
 
       {/* Introduction */}
       {admin ? <EditIcon editHandler={() => editHandler("briefIntro", true)} /> : "" }
       
-      <BriefIntro title="Welcome To HPR Infra">
+      <BriefIntro title="Welcome To LeomTech">
         We believe that construction is a man made wonder. The thought of
         bringing imagination to real life structures excites us, each day the
         passion in us grows as we contribute to this industry.
       </BriefIntro>
 
+      
       <div className="container my-md-5 py-md-4">
         {admin ? <EditIcon editHandler={() => editHandler("about", true)} /> : "" } 
         <div className="row shadow-lg">

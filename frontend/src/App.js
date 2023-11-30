@@ -1,33 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import "./App.css";
-import Footer from "./Common/Footer/Footer";
-import Header from "./Common/Header/Header";
-import Home from "./Frontend/Pages/Home";
-import About from "./Frontend/Pages/About";
-import Projects from "./Frontend/Pages/Projects";
-import ProjectGallery from "./Frontend/Pages/ProjectGallery";
-import Contact from "./Frontend/Pages/Contact";
-import Dashboard from "./Admin/Pages/Login/Dashboard";
-import AddProject from "./Admin/Pages/Login/AddProject";
-import ProtectedRoute from "./Frontend/Components/ProtectedRoute";
-import AdminNews from "./Admin/Pages/Login/AdminNews";
-import ProjectTabs from "./Frontend/Components/ProjectsTabs/ProjecTabs";
-import { getCookie } from "./util/cookieUtil";
-import { removeActiveClass } from "./util/ulrUtil";
-import MainPage from "./Admin/Pages/Login/MainPage";
-import NewsAndUpdates from "./Frontend/Pages/NewsAndUpdates";
-import PageNotFound from "./Frontend/Pages/PageNotFound";
-import { ToastContainer } from "react-toastify";
-import AdminTestimonial from "./Admin/Pages/Login/AdminTestimonial";
-import "react-toastify/dist/ReactToastify.min.css";
-
+import { ThemeProvider } from "styled-components";
 import {
   BrowserRouter,
   Routes,
   Route,
   useSearchParams,
 } from "react-router-dom";
+
+// Components
+import Footer from "./Common/Footer/Footer";
+import Header from "./Common/Header/Header";
+import Home from "./Frontend/Pages/Home";
+import About from "./Frontend/Pages/About";
+import Services from './Frontend/Pages/Services';
+import Careers from './Frontend/Pages/Careers';
+import Projects from "./Frontend/Pages/Projects";
+import ProjectGallery from "./Frontend/Pages/ProjectGallery";
+import Contact from "./Frontend/Pages/Contact";
+import MainPage from "./Admin/Pages/Login/MainPage";
+import NewsAndUpdates from "./Frontend/Pages/NewsAndUpdates";
+import PageNotFound from "./Frontend/Pages/PageNotFound";
+import Testimonial from './Frontend/Pages/Testmonial'
 
 import Login from "./Admin/Pages/Auth/Login";
 import Registration from "./Admin/Pages/Auth/Registration";
@@ -39,9 +33,32 @@ import ResetPasswordConfirmation from "./Admin/Pages/Auth/ResetPasswordConfirmat
 import AuthForm from "./Admin/Pages/Auth/AuthForm";
 import UserAdmin from "./Admin/Pages/Auth/UserAdmin";
 import UnauthorizedPage from "./Admin/Pages/Login/UnauthorizedPage";
-import "react-confirm-alert/src/react-confirm-alert.css";
 import ContactUSAdmin from "./Admin/Pages/Auth/ContactUSAdmin";
 import LoadingSpinner from "./Common/LoadingSpinner";
+import TopStrip from "./Common/Header/TopStrip";
+
+import Dashboard from "./Admin/Pages/Login/Dashboard";
+import AddProject from "./Admin/Pages/Login/AddProject";
+import AdminNews from "./Admin/Pages/Login/AdminNews";
+import AdminTestimonial from "./Admin/Pages/Login/AdminTestimonial";
+
+import ProtectedRoute from "./Frontend/Components/ProtectedRoute";
+import ProjectTabs from "./Frontend/Components/ProjectsTabs/ProjecTabs";
+
+import { ToastContainer } from "react-toastify";
+import { getCookie } from "./util/cookieUtil";
+import { removeActiveClass } from "./util/ulrUtil";
+
+// CSS
+import "./App.css";
+import "react-toastify/dist/ReactToastify.min.css";
+import "react-confirm-alert/src/react-confirm-alert.css";
+
+// Themes
+import GlobalTheme from './Common/StyledComponents/GlobalStyles'
+import ThemeOne from './Common/StyledThemes/ThemeOne.json'
+import {GlobalStyles} from './Common/StyledComponents/GlobalStyles'
+
 
 function App() {
 
@@ -92,18 +109,25 @@ function App() {
   };
   return (
     <>
+      <ThemeProvider theme={ThemeOne}>
+      <GlobalStyles />
       <BrowserRouter>
+      
         {isLoading ? <LoadingSpinner /> : ""}
         {/* <LoadingSpinner />  */}
+        <TopStrip />
         <Header />
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="/about" element={<About />} />
+          <Route exact path="/services" element={<Services />} />
           <Route exact path="/projects" element={<Projects />} />
           <Route exact path="/project-details" element={<ProjectTabs />} />
           <Route exact path="/gallery" element={<ProjectGallery />} />
+          <Route exact path="/Careers" element={<Careers />} />
           <Route exact path="/contact" element={<Contact />} />
           <Route exact path="/news" element={<NewsAndUpdates />} />
+          <Route exact path="/testmonial" element={<Testimonial />} />
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/register" element={<Registration />} />
           <Route exact path="/authForm" element={<AuthForm />} />
@@ -210,7 +234,9 @@ function App() {
           ContactUSAdmin
         </Routes>
         {isHideMenu ? null : <Footer />}
+        
       </BrowserRouter>
+      </ThemeProvider>
       <ToastContainer autoClose={2000} theme="colored" />
     </>
   );

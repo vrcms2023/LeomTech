@@ -1,0 +1,21 @@
+.homeServices .row:nth-child(odd) {
+    flex-direction: row-reverse;
+}
+
+.homeServices img {
+    object-fit: cover;
+}
+
+.homeServices h2 {
+    font-weight: bold;
+    font-size: 2.5rem;
+    padding-left: 15px;
+    border: 0px;
+    border-left-width: 15px;
+    border-style: solid;
+}
+
+.homeServices h3 {
+    font-size: 2rem;
+    font-weight: bold;
+}
