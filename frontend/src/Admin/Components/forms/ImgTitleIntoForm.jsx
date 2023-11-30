@@ -24,6 +24,12 @@ const ImageInputsForm = ({editHandler, componentType}) => {
                 </div>
               </div>
               <div className="mb-3 row">
+                <label for="" className="col-sm-2 col-form-label text-start text-md-end">Image Alt Text</label>
+                <div className="col-sm-10">
+                  <input type="text" className="form-control p-2" />
+                </div>
+              </div>
+              <div className="mb-3 row">
                 <label for="" className="col-sm-2 col-form-label text-start text-md-end">Title</label>
                 <div className="col-sm-10">
                   <input type="text" className="form-control p-2" />

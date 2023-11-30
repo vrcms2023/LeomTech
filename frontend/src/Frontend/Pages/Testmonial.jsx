@@ -8,6 +8,7 @@ import EditIcon from "../../Common/AdminEditIcon";
 import ModelBg from "../../Common/ModelBg";
 import Banner from "../../Common/Banner";
 import { removeActiveClass } from "../../util/ulrUtil";
+import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 
 // Images Imports
 import ServicesBanner from '../../Images/Banner_8.jpg'
@@ -23,7 +24,7 @@ const Services = () => {
     mission: false,
   };
 
-  const [admin, setAdmin] = useState(true);
+  const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
 
@@ -45,12 +46,12 @@ const Services = () => {
     <>
       {/* Page Banner Component */}
       <div className="position-relative">
-        {admin ? <EditIcon editHandler={() => editHandler("banner", true)} /> : "" }
+        {isAdmin ? <EditIcon editHandler={() => editHandler("banner", true)} /> : "" }
          <Banner bannerImg={ServicesBanner} alt="About LeomTech" title={'Leom Tech'} caption={'IT Consulting Services'}/>
       </div>
 
       {/* Introduction */}
-      {admin ? <EditIcon editHandler={() => editHandler("briefIntro", true)} /> : "" }
+      {isAdmin ? <EditIcon editHandler={() => editHandler("briefIntro", true)} /> : "" }
       
       <BriefIntro title="Welcome To LeomTech">
         We believe that construction is a man made wonder. The thought of
@@ -61,7 +62,7 @@ const Services = () => {
       
       <div className="container my-md-5 py-md-4">
 
-        {admin ? <EditIcon editHandler={() => editHandler("mission", true)} /> : "" }
+        {isAdmin ? <EditIcon editHandler={() => editHandler("mission", true)} /> : "" }
         <div className="row">
           <div className="col-12 col-md-8 py-4 p-md-5">
             This page has to design
