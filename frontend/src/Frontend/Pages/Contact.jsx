@@ -18,8 +18,6 @@ import { getCookie, removeCookie, setCookie } from "../../util/cookieUtil";
 import { removeActiveClass } from "../../util/ulrUtil";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 
-
-
 // Styles
 import "./Contact.css";
 
@@ -44,7 +42,6 @@ const Contact = () => {
     description: "",
   };
   const isAdmin = useAdminLoginStatus();
-  
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [formData, setFormData] = useState(formObject);
   const [mesg, setMesg] = useState("");

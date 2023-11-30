@@ -1,0 +1,11 @@
+.jobPost {
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+.deletePost a:hover {
+    background-color: rgb(255, 193, 7) !important;
+}
+
+.deletePost a:hover i{
+    color: #fff !important;
+}
