@@ -96,7 +96,7 @@ const UserAdmin = () => {
       <div className="row px-3 px-lg-5">
         <div className="text-end d-flex justify-content-between">
           <Title
-            title={"Application Pages"}
+            title={"User Admin Pages"}
             cssClass="text-center blue-500 fs-4"
           />
           <Button
@@ -113,21 +113,21 @@ const UserAdmin = () => {
           <table className="table table-striped table-hover">
             <thead>
               <tr>
-                <th>UserName</th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>Admin type</th>
-                <th colSpan={2}>isActive</th>
-                <th>Delete</th>
+                <th colSpan={2}>Active status</th>
+                {/* <th>Action</th> */}
               </tr>
             </thead>
             <tbody>
               {userDetails?.map((user) => (
-                <tr key={user.id}>
-                  <td>{user.userName}</td>
-                  <td>{user.email}</td>
-                  <td>{user.is_admin ? "Super Admin" : "User"}</td>
-                  <td>{user.is_appAccess.toString()} </td>
-                  <td>
+                <tr key={user.id} >
+                  <td className={`${user.is_admin ? 'text-danger' : ''}`}>{user.userName}</td>
+                  <td className={`${user.is_admin ? 'text-danger' : ''}`}>{user.email}</td>
+                  <td className={`${user.is_admin ? 'text-danger' : ''}`}>{user.is_admin ? "Super Admin" : "User"}</td>
+                  <td className={`${user.is_admin ? 'text-danger' : ''}`}><span className={`badge ${user.is_appAccess ? 'bg-success' : 'bg-secondary text-mute'} fw-normal`}>{user.is_appAccess ? 'Active' : 'In Active'} </span></td>
+                  <td className={`${user.is_admin ? 'text-danger' : ''}`}>
                     {user.id !== userId && !user.is_admin ? (
                       <input
                         type="checkbox"
@@ -141,7 +141,7 @@ const UserAdmin = () => {
                       ""
                     )}
                   </td>
-                  <td>
+                  {/* <td>
                     {user.id !== userId && !user.is_admin ? (
                       <Link to="" onClick={() => handleUserDelete(user)}>
                         <i
@@ -153,7 +153,7 @@ const UserAdmin = () => {
                     ) : (
                       ""
                     )}
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>

@@ -9,6 +9,8 @@
   width: 60%;
 }
 
+
+
 @media (max-width: 768px) {
   .contactForm {
     width: 90% !important;

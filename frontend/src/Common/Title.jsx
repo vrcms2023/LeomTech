@@ -3,10 +3,10 @@ import React from "react";
 const Title = ({ title, subTitle = "", cssClass }) => {
   return (
     <>
-      <h3 className={`${cssClass}`}>
+      <h3 className={`${cssClass} text-capitalize` }>
         {title}{" "}
         {subTitle ? (
-          <span className={"fa-6 text-black fw-normal"}> / {subTitle}</span>
+          <span className={"fs-6 text-black fw-normal"}> / {subTitle}</span>
         ) : (
           ""
         )}

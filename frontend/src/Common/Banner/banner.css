@@ -1,0 +1,22 @@
+.pageBanner img {
+    object-fit: cover;
+    object-position: top;
+    height: 350px;
+}
+.titleCaption {
+    position: absolute;
+    top: 0;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, .4);
+    padding: 10px 25px;
+}
+
+.titleCaption p {
+    font-size: 1.2rem;
+}
+
+.titleCaption h3 {
+    font-size: 2.5rem;
+}

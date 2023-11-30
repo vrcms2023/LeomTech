@@ -1,16 +1,34 @@
 import React, { useCallback, useEffect, useState } from "react";
-import Button from "../Button";
 import { useNavigate, Link, NavLink } from "react-router-dom";
-import Logo from "../../Images/hpr-infra-logo.png";
+import Button from "../Button";
 import { getCookie, removeAllCookies } from "../../util/cookieUtil";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/auth/authSlice";
 import { toast } from "react-toastify";
+import AdminHeader from "../../Admin/Components/Header";
 
-import "./Styles.css";
+import ModalBg from '../../Common/ModelBg'
+import EditIcon from "../AdminEditIcon";
+import TopStrip from "./TopStrip";
 import { hideHandBurgerIcon } from "../../util/ulrUtil";
 
+// Styled Components
+import {StyledMenu} from '../StyledComponents/Styled-NavMenu'
+
+// Styles
+import "./Styles.css";
+
+// Images
+import Logo from "../../Images/logo.svg"
+
 const Header = () => {
+  const editComponentObj = {
+    logo: false,
+    menu: false,
+  };
+  const [admin, setAdmin] = useState(false)
+  const [componentEdit, SetComponentEdit] = useState(editComponentObj);
+  const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [loginState, setLoginState] = useState(false);
@@ -43,6 +61,12 @@ const Header = () => {
   ];
   const isHideBurgetIcon = hideHandBurgerIcon(burgetHide);
 
+  const editHandler = (name, value) => {
+    SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
+    setShow(!show);
+    document.body.style.overflow = "hidden";
+  }
+
   useEffect(() => {
     if (userInfo || getCookie("access")) {
       setLoginState(true);
@@ -73,11 +97,20 @@ const Header = () => {
   }
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark fixed-top">
+    {admin ? <TopStrip /> : "" }
+    {componentEdit.menu ? 
+        <div className='container position-fixed adminEditTestmonial p-1'>
+          <AdminHeader editHandler={editHandler} />
+        </div>  : "" }
+      <nav className={admin ? "mt-4 navbar navbar-expand-lg navbar-dark" : "navbar navbar-expand-lg navbar-dark"}>
+      
         <div className="container">
+        
           <Link to={isHideMenu ? "#" : "/"} className="navbar-brand logo">
             <img src={Logo} alt="" />
           </Link>
+          {admin ? <EditIcon editHandler={() => editHandler("menu", true)} /> : "" }
+
           {!isHideBurgetIcon ? (
             <button
               className="navbar-toggler"
@@ -102,13 +135,15 @@ const Header = () => {
           </div>
         </div>
       </nav>
+      {show && <ModalBg />}
     </>
   );
 };
 
 export const AdminMenu = ({ userName, logOutHandler }) => {
   return (
-    <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+    <>
+    <ul className="mt-4 navbar-nav ms-auto mb-2 mb-lg-0">
       <li className="text-dark text-capitalize d-flex justify-content-center align-items-center">
         {userName ? (
           <>
@@ -131,11 +166,14 @@ export const AdminMenu = ({ userName, logOutHandler }) => {
         />
       </li>
     </ul>
+    
+    </>
   );
 };
 export const ClientMenu = () => {
   return (
-    <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+    <StyledMenu>
+    <ul className="navbar-nav ms-auto mb-2 mb-lg-0 menu">
       <li className="nav-item">
         <NavLink
           to="/"
@@ -153,10 +191,10 @@ export const ClientMenu = () => {
             isActive ? "nav-Link active" : "nav-Link"
           }
         >
-          About Us
+          AboutUs
         </NavLink>
       </li>
-      <li className="nav-item dropdown">
+      {/* <li className="nav-item dropdown">
         <NavLink
           id="projectLink"
           to="/projects"
@@ -166,7 +204,7 @@ export const ClientMenu = () => {
         >
           Projects
         </NavLink>
-      </li>
+      </li> 
       <li className="nav-item">
         <NavLink
           to="/gallery"
@@ -176,6 +214,27 @@ export const ClientMenu = () => {
         >
           Gallery
         </NavLink>
+      </li> */}
+      <li className="nav-item dropdown">
+        <NavLink
+          id="projectLink"
+          to="/services"
+          className={({ isActive }) =>
+            isActive ? "nav-Link active" : "nav-Link"
+          }
+        >
+          Services
+        </NavLink>
+      </li>
+      <li className="nav-item">
+        <NavLink
+          to="/careers"
+          className={({ isActive }) =>
+            isActive ? "nav-Link active" : "nav-Link"
+          }
+        >
+          Careers
+        </NavLink>
       </li>
       <li className="nav-item">
         <NavLink
@@ -184,7 +243,7 @@ export const ClientMenu = () => {
             isActive ? "nav-Link active" : "nav-Link"
           }
         >
-          News & Updates
+          Knowledge Hub
         </NavLink>
       </li>
       <li className="nav-item">
@@ -194,10 +253,11 @@ export const ClientMenu = () => {
             isActive ? "nav-Link active" : "nav-Link"
           }
         >
-          Contact Us
+          Contact
         </NavLink>
       </li>
     </ul>
+    </StyledMenu>
   );
 };
 

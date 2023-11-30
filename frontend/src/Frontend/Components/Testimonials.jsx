@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Title from "../../Common/Title";
 import { Link } from "react-router-dom";
+import AdminTestimonials from '../../Admin/Components/forms/ImgTitleIntoForm-List'
+import ModelBg from "../../Common/ModelBg";
+
+import EditIcon from "../../Common/AdminEditIcon";
 
 import leftArrow from "../../Images/left.png";
 import rightArrow from "../../Images/right.png";
@@ -10,6 +14,20 @@ import "./Testimonials.css";
 import { getBaseURL } from "../../util/ulrUtil";
 
 const Testimonials = ({ testimonis }) => {
+  const editComponentObj = {
+    logo: false,
+    menu: false,
+  };
+
+  const [admin, setAdmin] = useState(true)
+  const [componentEdit, SetComponentEdit] = useState(editComponentObj);
+  const [show, setShow] = useState(false);
+
+  const editHandler = (name, value) => {
+    SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
+    setShow(!show);
+  }
+
   const [index, setIndex] = useState(0);
   const baseURL = getBaseURL();
   useEffect(() => {
@@ -49,10 +67,11 @@ const Testimonials = ({ testimonis }) => {
       position = "lastSlide";
     }
     return (
+      <>
       <div className={`${position} article position-absolute `} key={item.id}>
         <Title
           title={title}
-          cssClass="mb-2 fw-normal fs-2 text-uppercase text-white"
+          cssClass="mb-2 fw-normal fs-2 text-uppercase"
         />
 
         {!imageUrl ? (
@@ -64,7 +83,7 @@ const Testimonials = ({ testimonis }) => {
             alt="User"
           />
         )}
-        <p className="text-white mt-3 px-0 px-md-5">{description}</p>
+        <p className="mt-3 px-0 px-md-5">{description}</p>
         <div className="text-center">
           <Link to="" onClick={() => setIndex(index + 1)}>
             {" "}
@@ -76,13 +95,15 @@ const Testimonials = ({ testimonis }) => {
           </Link>
         </div>
       </div>
+      </>
+      
     );
   });
 
   return (
-    <div className="col-md-6 p-5 testimonials text-center position-relative">
+    <>
       {test}
-    </div>
+    </>
   );
 };
 

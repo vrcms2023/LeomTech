@@ -232,6 +232,7 @@ const AddProject = () => {
       projectTitle: projectName,
       updated_By: userName,
       percentValue: percentValue,
+      publish : projectPublish
     };
     const basicProjectDetails = axiosServiceApi.put(
       `/project/editProject/${newProject.id}/`,
