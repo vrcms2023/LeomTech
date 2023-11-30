@@ -11,6 +11,7 @@ import ModalBg from '../../Common/ModelBg'
 import EditIcon from "../AdminEditIcon";
 import TopStrip from "./TopStrip";
 import { hideHandBurgerIcon } from "../../util/ulrUtil";
+import { useAdminLoginStatus } from "../customhook/useAdminLoginStatus";
 
 // Styled Components
 import {StyledMenu} from '../StyledComponents/Styled-NavMenu'
@@ -26,7 +27,7 @@ const Header = () => {
     logo: false,
     menu: false,
   };
-  const [admin, setAdmin] = useState(false)
+  const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
@@ -97,19 +98,19 @@ const Header = () => {
   }
   return (
     <>
-    {admin ? <TopStrip /> : "" }
+    {/* {isAdmin ? <TopStrip /> : "" } */}
     {componentEdit.menu ? 
         <div className='container position-fixed adminEditTestmonial p-1'>
           <AdminHeader editHandler={editHandler} />
         </div>  : "" }
-      <nav className={admin ? "mt-4 navbar navbar-expand-lg navbar-dark" : "navbar navbar-expand-lg navbar-dark"}>
+      <nav className={isAdmin ? "mt-4 navbar navbar-expand-lg navbar-dark" : "navbar navbar-expand-lg navbar-dark"}>
       
         <div className="container">
         
           <Link to={isHideMenu ? "#" : "/"} className="navbar-brand logo">
             <img src={Logo} alt="" />
           </Link>
-          {admin ? <EditIcon editHandler={() => editHandler("menu", true)} /> : "" }
+          {isAdmin ? <EditIcon editHandler={() => editHandler("menu", true)} /> : "" }
 
           {!isHideBurgetIcon ? (
             <button
