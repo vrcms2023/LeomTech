@@ -16,7 +16,7 @@ import HomeNews from "../../Components/HomeNews";
 import HomeServices from "../../Components/HomeServices";
 import { axiosClientServiceApi } from "../../../util/axiosUtil";
 import { removeActiveClass } from "../../../util/ulrUtil";
-
+import { useAdminLoginStatus } from '../../../Common/customhook/useAdminLoginStatus'
 // Styles
 
 import "./Home.css";
@@ -30,7 +30,7 @@ const Home = () => {
   };
 
   const [testimonis, setTestmonis] = useState([]);
-  const [admin, setAdmin] = useState(false);
+  const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
 
@@ -67,13 +67,13 @@ const Home = () => {
       {/* Carousel */}
       <div className="row">
         <div className="col-md-12 p-0 carousel">
-          {admin ? <EditIcon editHandler={() => editHandler("carousel", true)} /> : "" }
+          {isAdmin ? <EditIcon editHandler={() => editHandler("carousel", true)} /> : "" }
           <Carousel />
         </div>
       </div>
 
       {/* Introduction */}
-      {admin ? <EditIcon editHandler={() => editHandler("briefIntro", true)} /> : "" }
+      {isAdmin ? <EditIcon editHandler={() => editHandler("briefIntro", true)} /> : "" }
       <BriefIntroFrontend title="To Excel In Delivery Of Work!">
       We believe that construction is a man made wonder. The thought of bringing imagination to real life structures excites us, each day the passion in us grows as we contribute to this industry.
       </BriefIntroFrontend>
@@ -90,7 +90,7 @@ const Home = () => {
       </div>
 
       {/* Edit News */}
-      {admin ? <EditIcon editHandler={() => editHandler("projects", true)} /> : "" }
+      {isAdmin ? <EditIcon editHandler={() => editHandler("projects", true)} /> : "" }
         {/* End Of Edit News */}
       <div className="row py-5 homeNews">
         <div className="col-md-12 d-flex justify-content-center align-items-center">
@@ -109,7 +109,7 @@ const Home = () => {
           <ABrief title="Careers" cssClass="mb-2 fw-bold title mb-4" linkClass="btn btn-primary mt-5"/>
         </div>
         <div className="col-md-6 p-5 testimonials text-center">
-        {admin ? <EditIcon editHandler={() => editHandler("testmonial", true)} /> : "" }
+        {isAdmin ? <EditIcon editHandler={() => editHandler("testmonial", true)} /> : "" }
         {/* End Of Edit Testimonials */}
           <Testimonials testimonis={testimonis} />
         </div>
