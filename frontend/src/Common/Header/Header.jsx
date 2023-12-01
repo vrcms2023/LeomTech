@@ -9,7 +9,6 @@ import AdminHeader from "../../Admin/Components/Header";
 
 import ModalBg from '../../Common/ModelBg'
 import EditIcon from "../AdminEditIcon";
-import TopStrip from "./TopStrip";
 import { hideHandBurgerIcon } from "../../util/ulrUtil";
 import { useAdminLoginStatus } from "../customhook/useAdminLoginStatus";
 
