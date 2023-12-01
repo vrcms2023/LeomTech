@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+// Components
+import { useAdminLoginStatus } from "../customhook/useAdminLoginStatus";
+
 import EditIcon from "../AdminEditIcon";
 
 // import Model from "../Model";
@@ -22,7 +25,7 @@ const Footer = () => {
   };
   const [show, setShow] = useState(false);
   const [modelShow, setModelShow] = useState(false);
-  const [admin, setAdmin] = useState(true);
+  const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const privacyPolacyObj = {
     title: "Privacy Policy",
@@ -81,7 +84,7 @@ const Footer = () => {
             </div>
               <hr className="d-block d-md-none" />
             <div className="col-md-3 pb-3 pb-md-0">
-              {admin ? <EditIcon editHandler={() => editHandler("address", true)} /> : "" }
+              {isAdmin ? <EditIcon editHandler={() => editHandler("address", true)} /> : "" }
               
               <div className="text-center text-md-start">
               <h5>Address</h5>
@@ -113,11 +116,11 @@ const Footer = () => {
             <div className="col-md-3 text-center socialLinks ">
               <img src={Logo} alt="" />
               <div>
-                <Link to="#" target="_blank"><i class="fa fa-facebook-square" aria-hidden="true"></i></Link>
-                <Link to="#" target="_blank"><i class="fa fa-twitter-square" aria-hidden="true"></i></Link>
-                <Link to="#" target="_blank"><i class="fa fa-youtube-play" aria-hidden="true"></i></Link>
-                <Link to="#" target="_blank"><i class="fa fa-linkedin-square" aria-hidden="true"></i></Link>
-                <Link to="#" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></Link>
+                <Link to="#" target="_blank"><i className="fa fa-facebook-square" aria-hidden="true"></i></Link>
+                <Link to="#" target="_blank"><i className="fa fa-twitter-square" aria-hidden="true"></i></Link>
+                <Link to="#" target="_blank"><i className="fa fa-youtube-play" aria-hidden="true"></i></Link>
+                <Link to="#" target="_blank"><i className="fa fa-linkedin-square" aria-hidden="true"></i></Link>
+                <Link to="#" target="_blank"><i className="fa fa-instagram" aria-hidden="true"></i></Link>
               </div>
             </div>
           </div>

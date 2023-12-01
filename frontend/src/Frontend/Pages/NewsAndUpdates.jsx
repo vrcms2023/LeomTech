@@ -10,6 +10,7 @@ import News from "./News";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
 import { removeActiveClass } from "../../util/ulrUtil";
 import ModelBg from "../../Common/ModelBg";
+import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 
 import Banner from "../../Common/Banner";
 
@@ -25,9 +26,9 @@ const NewsAndUpdates = () => {
     news: false,
   };
   const [news, setNews] = useState([]);
-  const [admin, setAdmin] = useState(true);
   const [show, setShow] = useState(false);
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
+  const isAdmin = useAdminLoginStatus();
 
   useEffect(() => {
     removeActiveClass();
@@ -81,7 +82,7 @@ const NewsAndUpdates = () => {
     <>
       {/* Page Banner Component */}
       <div className="position-relative">
-        {admin ? <EditIcon editHandler={() => editHandler("banner", true)} /> : "" }
+        {isAdmin ? <EditIcon editHandler={() => editHandler("banner", true)} /> : "" }
          <Banner bannerImg={NewsBanner} alt="About LeomTech" title={'Leom Tech'} caption={'IT Consulting Services'}/>
       </div>
 

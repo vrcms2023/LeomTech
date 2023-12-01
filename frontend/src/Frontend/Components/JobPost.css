@@ -1,0 +1,38 @@
+.jobPost {
+    border: 1px solid #ddd;
+    background-color: #fff;
+    border-bottom: 4px solid #27AAE1 !important;
+}
+.jobPost:hover {
+    border-bottom: 4px solid rgb(255, 193, 7) !important;
+}
+
+.fa-expand {
+    font-size: 1.2rem;
+}
+
+.deletePost a:hover {
+    background-color: rgb(255, 193, 7) !important;
+}
+
+.deletePost a:hover i{
+    color: #fff !important;
+}
+
+.currentOpenings {
+    border: 1px solid #cccc;
+}
+
+.currentOpenings li a {
+    color: #444;
+    font-size: 1.2rem;
+    text-decoration: underline
+}
+
+.currentOpenings li a:hover {
+    color: #27AAE1;
+}
+
+.jobBriefDetails{
+    background-color: #e5e5e5;
+}

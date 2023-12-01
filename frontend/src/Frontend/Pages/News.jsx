@@ -2,8 +2,12 @@ import React, { useEffect } from "react";
 import Title from "../../Common/Title";
 import { Link } from "react-router-dom";
 import { getBaseURL, removeActiveClass } from "../../util/ulrUtil";
+import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 
 const News = ({ item, dateFormat, articleHandler }) => {
+
+  const isAdmin = useAdminLoginStatus();
+  
   const baseURL = getBaseURL();
   useEffect(() => {
     removeActiveClass();

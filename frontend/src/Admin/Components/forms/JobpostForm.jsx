@@ -2,7 +2,7 @@ import React from 'react'
 
 import EditAdminPopupHeader from '../EditAdminPopupHeader'
 
-const ImageInputsForm = ({editHandler, componentType}) => {
+const JobPost = ({editHandler, componentType}) => {
 
   const closeHandler = () => {
     editHandler(componentType, false)
@@ -18,15 +18,9 @@ const ImageInputsForm = ({editHandler, componentType}) => {
             <div className='col-md-8 offset-md-2 mb-5 mb-md-0'>
             <form className="g-3 mb-md-0">
               <div className="mb-3 row">
-                <label for="" className="col-sm-2 col-form-label text-start text-md-end">Image</label>
+                <label for="" className="col-sm-2 col-form-label text-start text-md-end">Location</label>
                 <div className="col-sm-10">
-                  <input className="form-control p-2" type="file" id="" />
-                </div>
-              </div>
-              <div className="mb-3 row">
-                <label for="" className="col-sm-2 col-form-label text-start text-md-end">Image Alt Text</label>
-                <div className="col-sm-10">
-                  <input type="text" className="form-control p-2" />
+                <input type="text" className="form-control p-2" />
                 </div>
               </div>
               <div className="mb-3 row">
@@ -37,11 +31,30 @@ const ImageInputsForm = ({editHandler, componentType}) => {
               </div>
 
               <div className="mb-3 row">
-                <label for="" className="col-sm-2 col-form-label text-start text-md-end">Caption</label>
+                <label for="" className="col-sm-2 col-form-label text-start text-md-end">Sub Title</label>
+                <div className="col-sm-10">
+                  <input type="text" className="form-control p-2" />
+                </div>
+              </div>
+
+              <div className="mb-3 row">
+                <label for="" className="col-sm-2 col-form-label text-start text-md-end">Description</label>
                 <div className="col-sm-10">
                 <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                 </div>
               </div>
+
+              <div className="mb-3 row">
+                <label for="" className="col-sm-2 col-form-label text-start text-md-end">Experience / Posted On</label>
+                <div className="col-sm-5">
+                  <input type="number" className="form-control p-2" />
+                </div>
+               
+                <div className="col-sm-5">
+                  <input type="date" className="form-control p-2" />
+                </div>
+              </div>
+            
 
               <div className="text-center mt-5">
               <button className='btn btn-secondary mx-3'>Clear</button>  
@@ -56,4 +69,4 @@ const ImageInputsForm = ({editHandler, componentType}) => {
   )
 }
 
-export default ImageInputsForm
+export default JobPost

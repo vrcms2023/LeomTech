@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import {Link} from 'react-router-dom'
 
 // Components
 import BriefIntro from "../../Common/BriefIntro";
@@ -7,10 +8,18 @@ import AdminBriefIntro from '../../Admin/Components/BriefIntro/index'
 import EditIcon from "../../Common/AdminEditIcon";
 import ModelBg from "../../Common/ModelBg";
 import Banner from "../../Common/Banner";
+
 import { removeActiveClass } from "../../util/ulrUtil";
+import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 
 // Images Imports
 import CareersBanner from '../../Images/Banner_8.jpg'
+import Title from "../../Common/Title";
+import Search from "../../Common/Search";
+
+// Styles
+import './Careers.css'
+import JobPost from "../Components/JobPost";
 
 
 const Careers = () => {
@@ -23,7 +32,7 @@ const Careers = () => {
     mission: false,
   };
 
-  const [admin, setAdmin] = useState(true);
+  const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
 
@@ -45,12 +54,12 @@ const Careers = () => {
     <>
       {/* Page Banner Component */}
       <div className="position-relative">
-        {admin ? <EditIcon editHandler={() => editHandler("banner", true)} /> : "" }
+        {isAdmin ? <EditIcon editHandler={() => editHandler("banner", true)} /> : "" }
          <Banner bannerImg={CareersBanner} alt="About LeomTech" title={'Leom Tech'} caption={'IT Consulting Services'}/>
       </div>
 
       {/* Introduction */}
-      {admin ? <EditIcon editHandler={() => editHandler("briefIntro", true)} /> : "" }
+      {isAdmin ? <EditIcon editHandler={() => editHandler("briefIntro", true)} /> : "" }
       
       <BriefIntro title="Welcome To LeomTech">
         We believe that construction is a man made wonder. The thought of
@@ -61,13 +70,21 @@ const Careers = () => {
       
       <div className="container my-md-5 py-md-4">
 
-        {admin ? <EditIcon editHandler={() => editHandler("mission", true)} /> : "" }
-        <div className="row">
-          <div className="col-12 col-md-8 py-4 p-md-5">
-            This page has to design
+        {isAdmin ? 
+          <div className="text-end mb-4">
+            <Link to="" className="btn btn-primary">Add New Career <i class="fa fa-plus ms-2" aria-hidden="true"></i></Link>
           </div>
-          
+        : "" }
+        
+        <div className="row">
+          <div className="col-md-6"><Title title="Careers" /></div>
+          <div className="col-md-6"><Search /></div>
         </div>
+
+        <div className="row">
+          <JobPost />
+        </div>
+        
       </div>
 
       {componentEdit.banner ? 
@@ -82,23 +99,6 @@ const Careers = () => {
         </div>
       : ""}
 
-      {componentEdit.about ? 
-        <div className='container position-fixed adminEditTestmonial p-1'>
-          <ImageInputsForm editHandler={editHandler} componentType="about" />
-        </div>
-      : ""}
-
-      {componentEdit.vision ? 
-        <div className='container position-fixed adminEditTestmonial p-1'>
-          <ImageInputsForm editHandler={editHandler} componentType="vision" />
-        </div>
-      : ""}
-
-      {componentEdit.mission ? 
-        <div className='container position-fixed adminEditTestmonial p-1'>
-          <ImageInputsForm editHandler={editHandler} componentType="mission" />
-        </div>
-      : ""}
       {show && <ModelBg />}
     </>
   );

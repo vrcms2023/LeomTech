@@ -2,24 +2,28 @@ import React, { useState, useEffect } from "react";
 import Title from "../../Common/Title";
 import BriefIntro from "../../Common/BriefIntro";
 import Alert from "../../Common/Alert";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import AdminBriefIntro from '../../Admin/Components/BriefIntro/index'
 import AddressTextArea from "../../Admin/Components/forms/FooterInputs";
 import EditIcon from "../../Common/AdminEditIcon";
 import ModelBg from "../../Common/ModelBg";
-
-import { axiosClientServiceApi } from "../../util/axiosUtil";
-import { getCookie, removeCookie, setCookie } from "../../util/cookieUtil";
-import { removeActiveClass } from "../../util/ulrUtil";
-
-import "./Contact.css";
-
-import ContactBanner from '../../Images/contact.png'
 import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
 import GoogleMap from "../../Admin/Components/forms/GoogleMap";
 import Banner from "../../Common/Banner";
+
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { axiosClientServiceApi } from "../../util/axiosUtil";
+import { getCookie, removeCookie, setCookie } from "../../util/cookieUtil";
+import { removeActiveClass } from "../../util/ulrUtil";
+import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
+
+// Styles
+import "./Contact.css";
+
+// images
+import ContactBanner from '../../Images/contact.png'
+
 
 const Contact = () => {
 
@@ -37,7 +41,7 @@ const Contact = () => {
     phoneNumber: "",
     description: "",
   };
-  const [admin, setAdmin] = useState(true);
+  const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [formData, setFormData] = useState(formObject);
   const [mesg, setMesg] = useState("");
@@ -119,12 +123,12 @@ const Contact = () => {
     <>
       {/* Page Banner Component */}
       <div className="position-relative">
-      {admin ? <EditIcon editHandler={() => editHandler("banner", true)} /> : "" }
+      {isAdmin ? <EditIcon editHandler={() => editHandler("banner", true)} /> : "" }
       <Banner bannerImg={ContactBanner} alt="Contact us" title={'Leom Tech'} caption={'IT Consulting Services'}/>
       </div>
 
       {/* Introduction */}
-      {admin ? <EditIcon editHandler={() => editHandler("briefIntro", true)} /> : "" }
+      {isAdmin ? <EditIcon editHandler={() => editHandler("briefIntro", true)} /> : "" }
       <BriefIntro title="Share your views">
         We believe that construction is a man made wonder. The thought of
         bringing imagination to real life structures excites us, each day the
@@ -133,7 +137,7 @@ const Contact = () => {
       <div className="container-fluid">
         <div className="row">
           <div className="contactAddress position-relative col-md-4 text-white d-flex justify-content-start align-items-start blueBg-500 p-5 py-3 p-md-5">
-          {admin ? <EditIcon editHandler={() => editHandler("address", true)} /> : "" }
+          {isAdmin ? <EditIcon editHandler={() => editHandler("address", true)} /> : "" }
             <div className="address`">
               <Title title="Address" cssClass="" />
               <Title
@@ -294,7 +298,7 @@ const Contact = () => {
 
         <div className="row">
           <div className="col">
-          {admin ? <EditIcon editHandler={() => editHandler("map", true)} /> : "" }
+          {isAdmin ? <EditIcon editHandler={() => editHandler("map", true)} /> : "" }
             <iframe
               className="googlemap"
               src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15226.413145928846!2d78.441906!3d17.430816!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x80e4d67809745a48!2sHPR+INFRA+PROJECTS!5e0!3m2!1sen!2sin!4v1442574301202"
