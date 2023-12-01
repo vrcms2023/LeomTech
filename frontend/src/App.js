@@ -49,6 +49,7 @@ import { ToastContainer } from "react-toastify";
 import { getCookie } from "./util/cookieUtil";
 import { removeActiveClass } from "./util/ulrUtil";
 
+
 // CSS
 import "./App.css";
 import "react-toastify/dist/ReactToastify.min.css";
@@ -62,9 +63,7 @@ import {GlobalStyles} from './Common/StyledComponents/GlobalStyles'
 
 function App() {
 
-  const { userInfo } = useSelector((state) => state.auth);
   const { isLoading } = useSelector((state) => state.loader);
-  const [loginState, setLoginState] = useState("");
   const pathList = [
     "/login",
     "/register",
@@ -86,13 +85,6 @@ function App() {
   let isHideMenu =
     pathList.indexOf(window.location.pathname) >= 0 ? true : false;
 
-  useEffect(() => {
-    if (userInfo || getCookie("access")) {
-      setLoginState(true);
-    } else {
-      setLoginState(false);
-    }
-  }, [userInfo]);
 
   useEffect(() => {
     removeActiveClass();
@@ -115,6 +107,7 @@ function App() {
       
         {isLoading ? <LoadingSpinner /> : ""}
         {/* <LoadingSpinner />  */}
+        
         <TopStrip />
         <Header />
         <Routes>
