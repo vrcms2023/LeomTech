@@ -58,7 +58,7 @@ const JobPost = () => {
             <span className="d-block mb-2"><strong>Experience</strong> {item.exp} Years</span>
             <small className="d-block">Posted {item.postedDate} day ago</small>
             <div className='text-end'>
-              <Link to="#" className="stretched-link text-secondary"><i class="fa fa-expand" aria-hidden="true"></i></Link>
+              <Link to="/career-details" className="stretched-link text-secondary"><i class="fa fa-expand" aria-hidden="true"></i></Link>
             </div>
             {isAdmin ? 
             <div className='mt-3 text-end deletePost'>

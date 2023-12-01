@@ -15,6 +15,7 @@ import Home from "./Frontend/Pages/Home";
 import About from "./Frontend/Pages/About";
 import Services from './Frontend/Pages/Services';
 import Careers from './Frontend/Pages/Careers';
+import CareerDetails from './Frontend/Pages/career-details';
 import Projects from "./Frontend/Pages/Projects";
 import ProjectGallery from "./Frontend/Pages/ProjectGallery";
 import Contact from "./Frontend/Pages/Contact";
@@ -124,7 +125,8 @@ function App() {
           <Route exact path="/projects" element={<Projects />} />
           <Route exact path="/project-details" element={<ProjectTabs />} />
           <Route exact path="/gallery" element={<ProjectGallery />} />
-          <Route exact path="/Careers" element={<Careers />} />
+          <Route exact path="/careers" element={<Careers />} />
+          <Route exact path="/career-details" element={<CareerDetails />} />
           <Route exact path="/contact" element={<Contact />} />
           <Route exact path="/news" element={<NewsAndUpdates />} />
           <Route exact path="/testmonial" element={<Testimonial />} />
