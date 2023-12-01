@@ -97,7 +97,6 @@ const Header = () => {
   }
   return (
     <>
-    {/* {isAdmin ? <TopStrip /> : "" } */}
     {componentEdit.menu ? 
         <div className='container position-fixed adminEditTestmonial p-1'>
           <AdminHeader editHandler={editHandler} />
@@ -217,14 +216,29 @@ export const ClientMenu = () => {
       </li> */}
       <li className="nav-item dropdown">
         <NavLink
-          id="projectLink"
-          to="/services"
-          className={({ isActive }) =>
-            isActive ? "nav-Link active" : "nav-Link"
-          }
+          id="navbarDropdown"
+          data-bs-toggle="dropdown" aria-expanded="false"
+          role="button"
+          to="/leomservices"
+          className={useCallback(({ isActive }) =>
+            isActive ? "nav-Link dropdown-toggle active" : "nav-Link dropdown-toggle",
+          )}
         >
           Services
         </NavLink>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><Link to="/services" class="dropdown-item">IoT Services </Link></li>
+            <li><Link to="#" class="dropdown-item">AI Services Two</Link></li>
+            <li><Link to="#" class="dropdown-item">Project Planning </Link></li>
+            <li><Link to="#" class="dropdown-item">Project development and maintenance </Link></li>
+            <li><Link to="#" class="dropdown-item">Project development and maintenance </Link></li>
+            
+            {/* <li><Link to="/services" class="dropdown-item">IoT Services </Link></li>
+            <li><Link to="#" class="dropdown-item">AI Services Two</Link></li>
+            <li><Link to="#" class="dropdown-item">Project Planning </Link></li>
+            <li><Link to="#" class="dropdown-item">Project development and maintenance </Link></li>
+            <li><Link to="#" class="dropdown-item">Project development and maintenance </Link></li> */}
+          </ul>
       </li>
       <li className="nav-item">
         <NavLink
@@ -236,15 +250,22 @@ export const ClientMenu = () => {
           Careers
         </NavLink>
       </li>
-      <li className="nav-item">
+      <li className="nav-item dropdown">
         <NavLink
-          to="/news"
-          className={({ isActive }) =>
-            isActive ? "nav-Link active" : "nav-Link"
-          }
+          id="navbarDropdown"
+          data-bs-toggle="dropdown" aria-expanded="false"
+          role="button"
+          to="khub"
+          className={useCallback(({ isActive }) =>
+            isActive ? "nav-Link dropdown-toggle active" : "nav-Link dropdown-toggle",
+          )}
         >
-          Knowledge Hub
+          KnowledgeHub
         </NavLink>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><Link to="/News" class="dropdown-item">News</Link></li>
+            <li><Link to="#" class="dropdown-item">Testimonials</Link></li>
+          </ul>
       </li>
       <li className="nav-item">
         <NavLink
