@@ -43,7 +43,7 @@ const JobPost = () => {
   return (
     <>
     {posts.map(item => (
-        <div className="col-sm-6 col-md-4 col-lg-3 mt-3 mt-md-5" key={item.title}>
+        <div className="col-sm-6 col-md-4 col-lg-3 mt-3 mt-md-5 position-relative" key={item.title}>
         {/* Page Banner Component */}
         <div className="position-relative">
             {isAdmin ? <EditIcon editHandler={() => editHandler("job", true)} /> : "" }
@@ -57,10 +57,14 @@ const JobPost = () => {
             </div>
             <span className="d-block mb-2"><strong>Experience</strong> {item.exp} Years</span>
             <small className="d-block">Posted {item.postedDate} day ago</small>
+            <div className='text-end'>
+              <Link to="#" className="stretched-link text-secondary"><i class="fa fa-expand" aria-hidden="true"></i></Link>
+            </div>
             {isAdmin ? 
             <div className='mt-3 text-end deletePost'>
                 <Link to="" className='bg-danger p-2 rounded'><i class="fa fa-trash-o fs-5 text-white" aria-hidden="true"></i></Link>
             </div>
+            
              : "" }
         </div>
     </div>
