@@ -5,7 +5,7 @@ import banner3 from "../../Images/carousel3.jpg";
 
 // Styles
 
-import './Carousel.css'
+import "./Carousel.css";
 
 const Carousel = () => {
   return (
@@ -38,33 +38,21 @@ const Carousel = () => {
       </div> */}
       <div className="carousel-inner">
         <div className="carousel-item active">
-          <img
-            src={banner1}
-            className="d-block w-100"
-            alt="..."
-          />
+          <img src={banner1} className="d-block w-100" alt="..." />
           <div className="carousel-caption d-none d-md-block">
             <h1 className="fw-bold">LEOMTECH </h1>
             <p className="fw-normal fs-5">Exceptional Outcome services.</p>
           </div>
         </div>
         <div className="carousel-item">
-          <img
-            src={banner2}
-            className="d-block w-100"
-            alt="..."
-          />
+          <img src={banner2} className="d-block w-100" alt="..." />
           <div className="carousel-caption d-none d-md-block">
             <h1 className="fw-bold">HPR INFRA</h1>
             <p className="fw-normal fs-5">Cognitive Capabilities.</p>
           </div>
         </div>
         <div className="carousel-item">
-          <img
-            src={banner3}
-            className="d-block w-100"
-            alt="..."
-          />
+          <img src={banner3} className="d-block w-100" alt="..." />
           <div className="carousel-caption d-none d-md-block">
             <h1 className="fw-bold">HPR INFRA</h1>
             <p className="fw-normal fs-5">Cognitive Capabilities.</p>

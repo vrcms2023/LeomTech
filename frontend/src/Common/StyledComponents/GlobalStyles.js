@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
 
@@ -80,7 +80,8 @@ body {
     background-color:${({ theme }) => theme.ABriefAboutBg}; 
     color:${({ theme }) => theme.ABriefAboutTextColor};
 }
-.ABriefAbout h3 { border-color: ${({ theme }) => theme.ABriefAboutTitleBorderColor}; }
+.ABriefAbout h3 { border-color: ${({ theme }) =>
+  theme.ABriefAboutTitleBorderColor}; }
 
 
 .testimonials {
@@ -209,4 +210,4 @@ footer {
         }
     }
 }
-`
+`;

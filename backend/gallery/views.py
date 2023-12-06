@@ -118,7 +118,7 @@ class UpdateGalleryViewSet(viewsets.ModelViewSet):
                                                partial=True)
             if serializer.is_valid():
                 serializer.save()
-                return Response(data=serializer.data, status=status.HTTP_201_CREATED)
+                return Response({"imageModel" : serializer.data}, status=status.HTTP_200_OK)
             else:
                 return Response(data=serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -135,3 +135,22 @@ class DeleteImageGalleryViewSet(viewsets.ModelViewSet):
             return Response({"message":"Object deleted"}, status=status.HTTP_204_NO_CONTENT)
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
+        
+
+
+class GetClientImagesView(viewsets.ModelViewSet):
+    queryset= Gallery.objects.none()
+    serializer_class = GallerySerializer
+    http_method_names = ['get', ]
+
+    def list(self, request):
+        query_params = self.request.query_params
+        id = query_params.get('projectID', None)
+        ctgy = query_params.get('category', None)
+        try:
+            query_set = Gallery.objects.filter(projectID=id,category=ctgy)
+            data = self.serializer_class(query_set, many=True).data
+            return Response({"fileData":data},status=status.HTTP_200_OK)
+        except Exception as e:
+           return Response({'error' : str(e)},status=500)
+    

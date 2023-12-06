@@ -122,12 +122,28 @@ const UserAdmin = () => {
             </thead>
             <tbody>
               {userDetails?.map((user) => (
-                <tr key={user.id} >
-                  <td className={`${user.is_admin ? 'text-danger' : ''}`}>{user.userName}</td>
-                  <td className={`${user.is_admin ? 'text-danger' : ''}`}>{user.email}</td>
-                  <td className={`${user.is_admin ? 'text-danger' : ''}`}>{user.is_admin ? "Super Admin" : "User"}</td>
-                  <td className={`${user.is_admin ? 'text-danger' : ''}`}><span className={`badge ${user.is_appAccess ? 'bg-success' : 'bg-secondary text-mute'} fw-normal`}>{user.is_appAccess ? 'Active' : 'In Active'} </span></td>
-                  <td className={`${user.is_admin ? 'text-danger' : ''}`}>
+                <tr key={user.id}>
+                  <td className={`${user.is_admin ? "text-danger" : ""}`}>
+                    {user.userName}
+                  </td>
+                  <td className={`${user.is_admin ? "text-danger" : ""}`}>
+                    {user.email}
+                  </td>
+                  <td className={`${user.is_admin ? "text-danger" : ""}`}>
+                    {user.is_admin ? "Super Admin" : "User"}
+                  </td>
+                  <td className={`${user.is_admin ? "text-danger" : ""}`}>
+                    <span
+                      className={`badge ${
+                        user.is_appAccess
+                          ? "bg-success"
+                          : "bg-secondary text-mute"
+                      } fw-normal`}
+                    >
+                      {user.is_appAccess ? "Active" : "In Active"}{" "}
+                    </span>
+                  </td>
+                  <td className={`${user.is_admin ? "text-danger" : ""}`}>
                     {user.id !== userId && !user.is_admin ? (
                       <input
                         type="checkbox"

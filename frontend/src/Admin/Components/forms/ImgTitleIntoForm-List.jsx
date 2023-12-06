@@ -1,92 +1,178 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { getBaseURL } from "../../../util/ulrUtil";
 
-import EditAdminPopupHeader from '../EditAdminPopupHeader'
+import FileUpload from "../../Components/FileUpload";
+import EditAdminPopupHeader from "../EditAdminPopupHeader";
 
-import Cimg1 from '../../../Images/carousel1.jpg'
+import Cimg1 from "../../../Images/carousel1.jpg";
+import { getCookie } from "../../../util/cookieUtil";
+import { axiosFileUploadServiceApi } from "../../../util/axiosUtil";
+import { confirmAlert } from "react-confirm-alert";
+import DeleteDialog from "../../../Common/DeleteDialog";
 
-const AdminBanner = ({editHandler, componentType}) => {
+const AdminBanner = ({ editHandler, componentType }) => {
+  const projectID = "a62d7759-ae6b-4e49-a129-1ee208c6789d";
+  const [userName, setUserName] = useState("");
+  const [imgGallery, setImgGallery] = useState([]);
+  const [saveState, setSaveState] = useState(false);
+  const [carousel, setcarouseData] = useState([]);
+  const [project, setProject] = useState({ id: projectID });
+  const baseURL = getBaseURL();
+  const [editCarousel, setEditCarousel] = useState({});
+  const baseurl = getBaseURL();
 
   const closeHandler = () => {
-    editHandler(componentType, false)
+    editHandler(componentType, false);
     document.body.style.overflow = "";
-  }
+  };
+
+  useEffect(() => {
+    setUserName(getCookie("userName"));
+  }, []);
+
+  useEffect(() => {
+    const getCarouselData = async () => {
+      try {
+        const response = await axiosFileUploadServiceApi.get(
+          `/gallery/getSelectedImagesById/?category=carousel&projectID=${projectID}`,
+        );
+        if (response?.status === 200) {
+          setcarouseData(response.data.fileData);
+        }
+      } catch (e) {
+        console.log("unable to access ulr because of server is down");
+      }
+    };
+
+    getCarouselData();
+  }, [imgGallery]);
+
+  const handleNewsEdit = (event, carousel) => {
+    event.preventDefault();
+    setEditCarousel(carousel);
+  };
+
+  /**
+   *
+   * Delete image
+   */
+  const thumbDelete = (id, name) => {
+    const deleteImageByID = async () => {
+      const response = await axiosFileUploadServiceApi.delete(
+        `/gallery/deleteGalleryImage/${id}/`,
+      );
+      if (response.status == 204) {
+        const list = imgGallery.filter((item) => item.id !== id);
+        setImgGallery(list);
+      }
+    };
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <DeleteDialog
+            onClose={onClose}
+            callback={deleteImageByID}
+            message={`deleting the ${name} image?`}
+          />
+        );
+      },
+    });
+  };
 
   return (
-      <div className='bg-white'>
-        <EditAdminPopupHeader closeHandler={closeHandler} title={componentType}/>
-        <div className='container'>
-          <div className='row py-0 pb-md-5'>
-
-            <div className='col-md-6 mb-5 mb-md-0'>
-            <form className="g-3  mb-md-0">
-              <div className="mb-3 row">
-                <label for="" className="col-sm-2 col-form-label text-start text-md-end">Image</label>
-                <div className="col-sm-10">
-                  <input className="form-control p-2" type="file" id="" />
+    <div className="bg-white">
+      <EditAdminPopupHeader closeHandler={closeHandler} title={componentType} />
+      <div className="container">
+        <div className="row py-0 pb-md-5">
+          <div className="col-md-6 mb-5 mb-md-0">
+            <FileUpload
+              title="Add carousel Images"
+              project={project}
+              updated_By={userName}
+              category="carousel"
+              gallerysetState={setImgGallery}
+              maxFiles={1}
+              galleryState={imgGallery}
+              validTypes="image/png,image/jpeg"
+              descriptionTitle="Caption"
+              titleTitle="Title"
+              saveState={setSaveState}
+              showDescription={true}
+              buttonLable="Save"
+              editImage={editCarousel}
+              setEditCarousel={setEditCarousel}
+            />
+          </div>
+          <div className="col-md-6 mt-3 mt-md-0">
+            <div className="container">
+              {carousel.map((item, index) => (
+                <div className="row mb-4 slideItem" key={index}>
+                  <div className="col-4 col-md-2">
+                    <img
+                      src={`${baseURL}${item.path}`}
+                      alt=""
+                      className="w-100"
+                    />
+                  </div>
+                  <div className="col-6 col-md-8 ">
+                    <h6 className="fw-bold m-0 fs-6">{item.imageTitle}</h6>
+                    <small className="text-muted d-none d-md-block">
+                      {item.imageDescription}
+                    </small>
+                  </div>
+                  <div className="col-2 col-md-2 d-flex justify-content-between align-items-center flex-column flex-md-row">
+                    <Link onClick={(event) => handleNewsEdit(event, item)}>
+                      <i
+                        className="fa fa-pencil fs-4 text-warning"
+                        aria-hidden="true"
+                      ></i>
+                    </Link>
+                    <Link
+                      onClick={(event) =>
+                        thumbDelete(item.id, item.originalname)
+                      }
+                    >
+                      <i
+                        className="fa fa-trash fs-4 text-danger"
+                        aria-hidden="true"
+                      ></i>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-              <div className="mb-3 row">
-                <label for="" className="col-sm-2 col-form-label text-start text-md-end">Title</label>
-                <div className="col-sm-10">
-                  <input type="text" className="form-control p-2" />
-                </div>
-              </div>
+              ))}
 
-              <div className="mb-3 row">
-                <label for="" className="col-sm-2 col-form-label text-start text-md-end">Caption</label>
-                <div className="col-sm-10">
-                <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              {/* <div className="row mb-4 slideItem">
+                <div className="col-4 col-md-2">
+                  <img src={Cimg1} alt="" className="w-100" />
                 </div>
-              </div>
-
-              <div className="text-center mt-5">
-              <button className='btn btn-secondary mx-3'>Clear</button>  
-              <button className='btn btn-primary'>Save</button>
-              </div>
-            </form>
+                <div className="col-6 col-md-8 ">
+                  <h6 className="fw-bold m-0 fs-6">Carousel Title</h6>
+                  <small className="text-muted d-none d-md-block">
+                    Slide Description By default one slide form should be shown.
+                  </small>
+                </div>
+                <div className="col-2 col-md-2 d-flex justify-content-between align-items-center flex-column flex-md-row">
+                  <Link to="#">
+                    <i
+                      className="fa fa-pencil fs-4 text-warning"
+                      aria-hidden="true"
+                    ></i>
+                  </Link>
+                  <Link to="#">
+                    <i
+                      className="fa fa-trash fs-4 text-danger"
+                      aria-hidden="true"
+                    ></i>
+                  </Link>
+                </div>
+              </div> */}
             </div>
-            <div className='col-md-6 mt-3 mt-md-0'>
-              <div className='container'>
-
-                <div className='row mb-4 slideItem'>
-                  <div className='col-4 col-md-2'>
-                    <img src={Cimg1} alt="" className='w-100' />
-                  </div>
-                  <div className='col-6 col-md-8 '>
-                    <h6 className='fw-bold m-0 fs-6'>Carousel Title</h6>
-                    <small className='text-muted d-none d-md-block'>Slide Description By default one slide form should be shown.</small>
-                  </div>
-                  <div className='col-2 col-md-2 d-flex justify-content-between align-items-center flex-column flex-md-row'>
-                    <Link to="#"><i className="fa fa-pencil fs-4 text-warning" aria-hidden="true"></i></Link>
-                    <Link to="#"><i className="fa fa-trash fs-4 text-danger" aria-hidden="true"></i></Link>
-                  </div>
-                </div>
-
-                <div className='row mb-4 slideItem'>
-                  <div className='col-4 col-md-2'>
-                    <img src={Cimg1} alt="" className='w-100' />
-                  </div>
-                  <div className='col-6 col-md-8 '>
-                    <h6 className='fw-bold m-0 fs-6'>Carousel Title</h6>
-                    <small className='text-muted d-none d-md-block'>Slide Description By default one slide form should be shown.</small>
-                  </div>
-                  <div className='col-2 col-md-2 d-flex justify-content-between align-items-center flex-column flex-md-row'>
-                    <Link to='#'><i className="fa fa-pencil fs-4 text-warning" aria-hidden="true"></i></Link>
-                    <Link to='#'><i className="fa fa-trash fs-4 text-danger" aria-hidden="true"></i></Link>
-                  </div>
-                </div>
-
-                
-               
-              </div>
-            </div>
-
           </div>
         </div>
       </div>
-    
-  )
-}
+    </div>
+  );
+};
 
-export default AdminBanner
+export default AdminBanner;

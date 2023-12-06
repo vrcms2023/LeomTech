@@ -3,7 +3,7 @@ import BriefIntro from "../../Common/BriefIntro";
 import { useDispatch, useSelector } from "react-redux";
 import { getClientProjects } from "../../features/project/clientProjectActions";
 import ProjectItem from "../Components/projectItem";
-import AdminBriefIntro from '../../Admin/Components/BriefIntro/index'
+import AdminBriefIntro from "../../Admin/Components/BriefIntro/index";
 import EditIcon from "../../Common/AdminEditIcon";
 import ModelBg from "../../Common/ModelBg";
 
@@ -53,16 +53,24 @@ const Projects = () => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
     setShow(!show);
     document.body.style.overflow = "hidden";
-  }
+  };
   return (
     <>
       <div className="headerBottomMargin">
-      {admin ? <EditIcon editHandler={() => editHandler("banner", true)} /> : "" }
+        {admin ? (
+          <EditIcon editHandler={() => editHandler("banner", true)} />
+        ) : (
+          ""
+        )}
         <div className=" banner projectBanner"></div>
       </div>
 
       {/* Introduction */}
-      {admin ? <EditIcon editHandler={() => editHandler("briefIntro", true)} /> : "" }
+      {admin ? (
+        <EditIcon editHandler={() => editHandler("briefIntro", true)} />
+      ) : (
+        ""
+      )}
       <BriefIntro title="Welcome To HPR Infra Projects">
         We believe that construction is a man made wonder. The thought of
         bringing imagination to real life structures excites us, each day the
@@ -89,17 +97,24 @@ const Projects = () => {
         ""
       )}
 
-      {componentEdit.banner ? 
-        <div className='container position-fixed adminEditTestmonial p-1'>
+      {componentEdit.banner ? (
+        <div className="container position-fixed adminEditTestmonial p-1">
           <ImageInputsForm editHandler={editHandler} componentType="banner" />
         </div>
-      : ""}
+      ) : (
+        ""
+      )}
 
-      {componentEdit.briefIntro ? 
-        <div className='container position-fixed adminEditTestmonial p-1'>
-          <AdminBriefIntro editHandler={editHandler} componentType="briefIntro" />
+      {componentEdit.briefIntro ? (
+        <div className="container position-fixed adminEditTestmonial p-1">
+          <AdminBriefIntro
+            editHandler={editHandler}
+            componentType="briefIntro"
+          />
         </div>
-      : ""}
+      ) : (
+        ""
+      )}
 
       {show && <ModelBg />}
     </>

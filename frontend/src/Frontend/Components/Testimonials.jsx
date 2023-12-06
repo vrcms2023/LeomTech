@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Title from "../../Common/Title";
 import { Link } from "react-router-dom";
-import AdminTestimonials from '../../Admin/Components/forms/ImgTitleIntoForm-List'
+import AdminTestimonials from "../../Admin/Components/forms/ImgTitleIntoForm-List";
 import ModelBg from "../../Common/ModelBg";
 
 import EditIcon from "../../Common/AdminEditIcon";
@@ -19,14 +19,14 @@ const Testimonials = ({ testimonis }) => {
     menu: false,
   };
 
-  const [admin, setAdmin] = useState(true)
+  const [admin, setAdmin] = useState(true);
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
 
   const editHandler = (name, value) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
     setShow(!show);
-  }
+  };
 
   const [index, setIndex] = useState(0);
   const baseURL = getBaseURL();
@@ -68,43 +68,35 @@ const Testimonials = ({ testimonis }) => {
     }
     return (
       <>
-      <div className={`${position} article position-absolute `} key={item.id}>
-        <Title
-          title={title}
-          cssClass="mb-2 fw-normal fs-2 text-uppercase"
-        />
+        <div className={`${position} article position-absolute `} key={item.id}>
+          <Title title={title} cssClass="mb-2 fw-normal fs-2 text-uppercase" />
 
-        {!imageUrl ? (
-          <i className="fa fa-user text-white" aria-hidden="true"></i>
-        ) : (
-          <img
-            src={`${baseURL}${imageUrl}`}
-            className="rounded-circle my-4 testimonialImg"
-            alt="User"
-          />
-        )}
-        <p className="mt-3 px-0 px-md-5">{description}</p>
-        <div className="text-center">
-          <Link to="" onClick={() => setIndex(index + 1)}>
-            {" "}
-            <img src={leftArrow} alt="Previous" width="42" height="42" />
-          </Link>
-          <Link to="" onClick={() => setIndex(index - 1)}>
-            {" "}
-            <img src={rightArrow} alt="Next" width="42" height="42" />
-          </Link>
+          {!imageUrl ? (
+            <i className="fa fa-user text-white" aria-hidden="true"></i>
+          ) : (
+            <img
+              src={`${baseURL}${imageUrl}`}
+              className="rounded-circle my-4 testimonialImg"
+              alt="User"
+            />
+          )}
+          <p className="mt-3 px-0 px-md-5">{description}</p>
+          <div className="text-center">
+            <Link to="" onClick={() => setIndex(index + 1)}>
+              {" "}
+              <img src={leftArrow} alt="Previous" width="42" height="42" />
+            </Link>
+            <Link to="" onClick={() => setIndex(index - 1)}>
+              {" "}
+              <img src={rightArrow} alt="Next" width="42" height="42" />
+            </Link>
+          </div>
         </div>
-      </div>
       </>
-      
     );
   });
 
-  return (
-    <>
-      {test}
-    </>
-  );
+  return <>{test}</>;
 };
 
 export default Testimonials;

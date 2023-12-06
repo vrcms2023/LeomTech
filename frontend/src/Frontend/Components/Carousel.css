@@ -12,29 +12,27 @@
   top: 0;
 } */
 
-
-
 .carousel-item img {
-    height: 85vh;
-    object-fit: cover;
+  height: 85vh;
+  object-fit: cover;
+}
+
+.carousel-caption {
+  position: absolute;
+  z-index: 999;
+}
+
+.carousel-caption h1 {
+  letter-spacing: 0.3rem;
+}
+
+@media (max-width: 768px) {
+  .banner {
+    height: 200px !important;
   }
-  
-  .carousel-caption {
-    position: absolute;
-    z-index: 999;
+
+  .carousel-item img,
+  .homeCarousel::after {
+    height: 50vh;
   }
-  
-  .carousel-caption h1 {
-    letter-spacing: 0.3rem;
-  }
-  
-  @media (max-width: 768px) {
-    .banner {
-      height: 200px !important;
-    }
-  
-    .carousel-item img,
-    .homeCarousel::after {
-      height: 50vh;
-    }
-  }
+}
