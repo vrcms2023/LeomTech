@@ -97,8 +97,7 @@ const Header = () => {
   }
   return (
     <>
-      {/* {isAdmin ? <TopStrip /> : "" } */}
-      {componentEdit.menu ? (
+{componentEdit.menu ? (
         <div className="container position-fixed adminEditTestmonial p-1">
           <AdminHeader editHandler={editHandler} />
         </div>
@@ -221,48 +220,72 @@ export const ClientMenu = () => {
           Gallery
         </NavLink>
       </li> */}
-        <li className="nav-item dropdown">
-          <NavLink
-            id="projectLink"
-            to="/services"
-            className={({ isActive }) =>
-              isActive ? "nav-Link active" : "nav-Link"
-            }
-          >
-            Services
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink
-            to="/careers"
-            className={({ isActive }) =>
-              isActive ? "nav-Link active" : "nav-Link"
-            }
-          >
-            Careers
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink
-            to="/news"
-            className={({ isActive }) =>
-              isActive ? "nav-Link active" : "nav-Link"
-            }
-          >
-            Knowledge Hub
-          </NavLink>
-        </li>
-        <li className="nav-item">
-          <NavLink
-            to="/contact"
-            className={({ isActive }) =>
-              isActive ? "nav-Link active" : "nav-Link"
-            }
-          >
-            Contact
-          </NavLink>
-        </li>
-      </ul>
+
+      <li className="nav-item dropdown">
+        <NavLink
+          id="navbarDropdown"
+          data-bs-toggle="dropdown" aria-expanded="false"
+          role="button"
+          to="/leomservices"
+          className={useCallback(({ isActive }) =>
+            isActive ? "nav-Link dropdown-toggle active" : "nav-Link dropdown-toggle",
+          )}
+        >
+          Services
+        </NavLink>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><Link to="/services" class="dropdown-item">IoT Services </Link></li>
+            <li><Link to="#" class="dropdown-item">AI Services Two</Link></li>
+            <li><Link to="#" class="dropdown-item">Project Planning </Link></li>
+            <li><Link to="#" class="dropdown-item">Project development and maintenance </Link></li>
+            <li><Link to="#" class="dropdown-item">Project development and maintenance </Link></li>
+            
+            {/* <li><Link to="/services" class="dropdown-item">IoT Services </Link></li>
+            <li><Link to="#" class="dropdown-item">AI Services Two</Link></li>
+            <li><Link to="#" class="dropdown-item">Project Planning </Link></li>
+            <li><Link to="#" class="dropdown-item">Project development and maintenance </Link></li>
+            <li><Link to="#" class="dropdown-item">Project development and maintenance </Link></li> */}
+          </ul>
+      </li>
+      <li className="nav-item">
+        <NavLink
+          to="/careers"
+          className={({ isActive }) =>
+            isActive ? "nav-Link active" : "nav-Link"
+          }
+        >
+          Careers
+        </NavLink>
+      </li>
+      <li className="nav-item dropdown">
+        <NavLink
+          id="navbarDropdown"
+          data-bs-toggle="dropdown" aria-expanded="false"
+          role="button"
+          to="khub"
+          className={useCallback(({ isActive }) =>
+            isActive ? "nav-Link dropdown-toggle active" : "nav-Link dropdown-toggle",
+          )}
+        >
+          KnowledgeHub
+        </NavLink>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><Link to="/News" class="dropdown-item">News</Link></li>
+            <li><Link to="#" class="dropdown-item">Testimonials</Link></li>
+          </ul>
+      </li>
+      <li className="nav-item">
+        <NavLink
+          to="/contact"
+          className={({ isActive }) =>
+            isActive ? "nav-Link active" : "nav-Link"
+          }
+        >
+          Contact
+        </NavLink>
+      </li>
+    </ul>
+
     </StyledMenu>
   );
 };
