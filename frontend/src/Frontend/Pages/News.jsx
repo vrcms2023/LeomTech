@@ -5,9 +5,8 @@ import { getBaseURL, removeActiveClass } from "../../util/ulrUtil";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 
 const News = ({ item, dateFormat, articleHandler }) => {
-
   const isAdmin = useAdminLoginStatus();
-  
+
   const baseURL = getBaseURL();
   useEffect(() => {
     removeActiveClass();

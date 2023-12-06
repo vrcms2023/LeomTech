@@ -3,7 +3,7 @@ import Title from "../../Common/Title";
 import BriefIntro from "../../Common/BriefIntro";
 import Alert from "../../Common/Alert";
 
-import AdminBriefIntro from '../../Admin/Components/BriefIntro/index'
+import AdminBriefIntro from "../../Admin/Components/BriefIntro/index";
 import AddressTextArea from "../../Admin/Components/forms/FooterInputs";
 import EditIcon from "../../Common/AdminEditIcon";
 import ModelBg from "../../Common/ModelBg";
@@ -22,11 +22,9 @@ import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus
 import "./Contact.css";
 
 // images
-import ContactBanner from '../../Images/contact.png'
-
+import ContactBanner from "../../Images/contact.png";
 
 const Contact = () => {
-
   const editComponentObj = {
     banner: false,
     briefIntro: false,
@@ -55,7 +53,7 @@ const Contact = () => {
   }, []);
 
   const handleChange = (event) => {
-    setsuccess(false)
+    setsuccess(false);
     const { name, value } = event.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
     setFormerror((prevFormData) => ({ ...prevFormData, [name]: "" }));
@@ -79,7 +77,7 @@ const Contact = () => {
         setCookie("clientInformation", formData.email, { maxAge: 86400 });
         setFormData(formObject);
         setFormerror("");
-        setsuccess(true)
+        setsuccess(true);
       } else {
         toast.error("unable to process your request");
       }
@@ -117,18 +115,31 @@ const Contact = () => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
     setShow(!show);
     document.body.style.overflow = "hidden";
-  }
+  };
 
   return (
     <>
       {/* Page Banner Component */}
       <div className="position-relative">
-      {isAdmin ? <EditIcon editHandler={() => editHandler("banner", true)} /> : "" }
-      <Banner bannerImg={ContactBanner} alt="Contact us" title={'Leom Tech'} caption={'IT Consulting Services'}/>
+        {isAdmin ? (
+          <EditIcon editHandler={() => editHandler("banner", true)} />
+        ) : (
+          ""
+        )}
+        <Banner
+          bannerImg={ContactBanner}
+          alt="Contact us"
+          title={"Leom Tech"}
+          caption={"IT Consulting Services"}
+        />
       </div>
 
       {/* Introduction */}
-      {isAdmin ? <EditIcon editHandler={() => editHandler("briefIntro", true)} /> : "" }
+      {isAdmin ? (
+        <EditIcon editHandler={() => editHandler("briefIntro", true)} />
+      ) : (
+        ""
+      )}
       <BriefIntro title="Share your views">
         We believe that construction is a man made wonder. The thought of
         bringing imagination to real life structures excites us, each day the
@@ -137,7 +148,11 @@ const Contact = () => {
       <div className="container-fluid">
         <div className="row">
           <div className="contactAddress position-relative col-md-4 text-white d-flex justify-content-start align-items-start blueBg-500 p-5 py-3 p-md-5">
-          {isAdmin ? <EditIcon editHandler={() => editHandler("address", true)} /> : "" }
+            {isAdmin ? (
+              <EditIcon editHandler={() => editHandler("address", true)} />
+            ) : (
+              ""
+            )}
             <div className="address`">
               <Title title="Address" cssClass="" />
               <Title
@@ -152,32 +167,31 @@ const Contact = () => {
               </p>
 
               <div>
-              <Title title="Phone Number" cssClass="" />
-              <p>40-40036841</p>
+                <Title title="Phone Number" cssClass="" />
+                <p>40-40036841</p>
 
-              <Title title="Email Id" cssClass="" />
-              <p>
-                <a
-                  href="mailto:contact@hprinfraprojects.com"
-                  className="fs-6 text-white"
-                >
-                  {" "}
-                  contact@hprinfraprojects.com
-                </a>
-              </p>
+                <Title title="Email Id" cssClass="" />
+                <p>
+                  <a
+                    href="mailto:contact@hprinfraprojects.com"
+                    className="fs-6 text-white"
+                  >
+                    {" "}
+                    contact@hprinfraprojects.com
+                  </a>
+                </p>
               </div>
-              
             </div>
           </div>
 
           <div className="col-md-8 d-flex justify-content-center align-items-center flex-column">
             {success && (
               <Alert
-                mesg={'Thank you for contact us'}
+                mesg={"Thank you for contact us"}
                 cssClass={`alert text-white w-75 mt-3 p-2 text-center bg-success`}
               />
             )}
-     
+
             <form
               className="my-2 py-3 py-md-5 contactForm"
               onSubmit={onFormSubmit}
@@ -298,7 +312,11 @@ const Contact = () => {
 
         <div className="row">
           <div className="col">
-          {isAdmin ? <EditIcon editHandler={() => editHandler("map", true)} /> : "" }
+            {isAdmin ? (
+              <EditIcon editHandler={() => editHandler("map", true)} />
+            ) : (
+              ""
+            )}
             <iframe
               className="googlemap"
               src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15226.413145928846!2d78.441906!3d17.430816!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x80e4d67809745a48!2sHPR+INFRA+PROJECTS!5e0!3m2!1sen!2sin!4v1442574301202"
@@ -309,29 +327,40 @@ const Contact = () => {
         </div>
       </div>
 
-      {componentEdit.banner ? 
-        <div className='container position-fixed adminEditTestmonial p-1'>
+      {componentEdit.banner ? (
+        <div className="container position-fixed adminEditTestmonial p-1">
           <ImageInputsForm editHandler={editHandler} componentType="banner" />
         </div>
-      : ""}
+      ) : (
+        ""
+      )}
 
-      {componentEdit.briefIntro ? 
-        <div className='container position-fixed adminEditTestmonial p-1'>
-          <AdminBriefIntro editHandler={editHandler} componentType="briefIntro" />
+      {componentEdit.briefIntro ? (
+        <div className="container position-fixed adminEditTestmonial p-1">
+          <AdminBriefIntro
+            editHandler={editHandler}
+            componentType="briefIntro"
+          />
         </div>
-      : ""}
+      ) : (
+        ""
+      )}
 
-{componentEdit.address ? 
-        <div className='container position-fixed adminEditTestmonial p-1'>
+      {componentEdit.address ? (
+        <div className="container position-fixed adminEditTestmonial p-1">
           <AddressTextArea editHandler={editHandler} componentType="address" />
         </div>
-      : ""}
+      ) : (
+        ""
+      )}
 
-      {componentEdit.map ? 
-        <div className='container position-fixed adminEditTestmonial p-1'>
+      {componentEdit.map ? (
+        <div className="container position-fixed adminEditTestmonial p-1">
           <GoogleMap editHandler={editHandler} componentType="map" />
         </div>
-      : ""}
+      ) : (
+        ""
+      )}
 
       {show && <ModelBg />}
     </>

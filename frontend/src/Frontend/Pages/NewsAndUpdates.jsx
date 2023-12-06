@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-// Components 
+// Components
 
 import Title from "../../Common/Title";
 import Model from "../../Common/Model";
@@ -18,7 +18,7 @@ import Banner from "../../Common/Banner";
 import "./NewsAndUpdates.css";
 
 // Images Imports
-import NewsBanner from '../../Images/Banner_8.jpg'
+import NewsBanner from "../../Images/Banner_8.jpg";
 
 const NewsAndUpdates = () => {
   const editComponentObj = {
@@ -36,16 +36,16 @@ const NewsAndUpdates = () => {
 
   useEffect(() => {
     const getNews = async () => {
-      try{
-      const response = await axiosClientServiceApi.get(
-        `/appNews/clientAppNews/`,
-      );
-      if (response?.status == 200) {
-        setNews(response.data.appNews);
+      try {
+        const response = await axiosClientServiceApi.get(
+          `/appNews/clientAppNews/`,
+        );
+        if (response?.status == 200) {
+          setNews(response.data.appNews);
+        }
+      } catch (error) {
+        console.log("unable to access ulr because of server is down");
       }
-    }catch(error){
-      console.log("unable to access ulr because of server is down")
-    }
     };
     getNews();
   }, []);
@@ -77,13 +77,22 @@ const NewsAndUpdates = () => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
     setShow(!show);
     document.body.style.overflow = "hidden";
-  }
+  };
   return (
     <>
       {/* Page Banner Component */}
       <div className="position-relative">
-        {isAdmin ? <EditIcon editHandler={() => editHandler("banner", true)} /> : "" }
-         <Banner bannerImg={NewsBanner} alt="About LeomTech" title={'Leom Tech'} caption={'IT Consulting Services'}/>
+        {isAdmin ? (
+          <EditIcon editHandler={() => editHandler("banner", true)} />
+        ) : (
+          ""
+        )}
+        <Banner
+          bannerImg={NewsBanner}
+          alt="About LeomTech"
+          title={"Leom Tech"}
+          caption={"IT Consulting Services"}
+        />
       </div>
 
       <div className="container my-4 newsAndUpdates">
@@ -103,13 +112,14 @@ const NewsAndUpdates = () => {
       {showModal && <Model obj={obj} closeModel={closeModel} flag="news" />}
       {showModal && <ModelBg closeModel={closeModel} />}
 
-
-      {componentEdit.banner ? 
-        <div className='container position-fixed adminEditTestmonial p-1'>
+      {componentEdit.banner ? (
+        <div className="container position-fixed adminEditTestmonial p-1">
           <ImageInputsForm editHandler={editHandler} componentType="banner" />
         </div>
-      : ""}
-      
+      ) : (
+        ""
+      )}
+
       {show && <ModelBg />}
     </>
   );

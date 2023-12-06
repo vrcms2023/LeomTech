@@ -21,7 +21,7 @@ const Footer = () => {
   const editComponentObj = {
     address: false,
     contact: false,
-    social: false
+    social: false,
   };
   const [show, setShow] = useState(false);
   const [modelShow, setModelShow] = useState(false);
@@ -45,15 +45,15 @@ const Footer = () => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
     setShow(!show);
     document.body.style.overflow = "hidden";
-  }
-  
+  };
+
   return (
     <>
-       <footer className="text-center">
+      <footer className="text-center">
         <div className="container py-5">
           <div className="row">
             <div className="col-md-3 text-center text-md-start">
-            <h5>Company</h5>
+              <h5>Company</h5>
               <ul className="">
                 <li>
                   <Link to="/" className="ms-0">
@@ -80,14 +80,18 @@ const Footer = () => {
                     Privacy Policy
                   </Link>
                 </li>
-            </ul>
+              </ul>
             </div>
-              <hr className="d-block d-md-none" />
+            <hr className="d-block d-md-none" />
             <div className="col-md-3 pb-3 pb-md-0">
-              {isAdmin ? <EditIcon editHandler={() => editHandler("address", true)} /> : "" }
-              
+              {isAdmin ? (
+                <EditIcon editHandler={() => editHandler("address", true)} />
+              ) : (
+                ""
+              )}
+
               <div className="text-center text-md-start">
-              <h5>Address</h5>
+                <h5>Address</h5>
                 101, Silicon Towers, <br />
                 Image Garden Road, <br />
                 Madhapur, <br />
@@ -101,14 +105,12 @@ const Footer = () => {
               <div>
                 Phone
                 <br />
-                 40-40036841
+                40-40036841
               </div>
               <div className="mb-md-0 mt-3">
                 Email
                 <br />
-                <a href="mailto:info@leomtech.com">
-                  info@leomtech.com
-                </a>
+                <a href="mailto:info@leomtech.com">info@leomtech.com</a>
               </div>
             </div>
 
@@ -116,23 +118,39 @@ const Footer = () => {
             <div className="col-md-3 text-center socialLinks ">
               <img src={Logo} alt="" />
               <div>
-                <Link to="#" target="_blank"><i className="fa fa-facebook-square" aria-hidden="true"></i></Link>
-                <Link to="#" target="_blank"><i className="fa fa-twitter-square" aria-hidden="true"></i></Link>
-                <Link to="#" target="_blank"><i className="fa fa-youtube-play" aria-hidden="true"></i></Link>
-                <Link to="#" target="_blank"><i className="fa fa-linkedin-square" aria-hidden="true"></i></Link>
-                <Link to="#" target="_blank"><i className="fa fa-instagram" aria-hidden="true"></i></Link>
+                <Link to="#" target="_blank">
+                  <i className="fa fa-facebook-square" aria-hidden="true"></i>
+                </Link>
+                <Link to="#" target="_blank">
+                  <i className="fa fa-twitter-square" aria-hidden="true"></i>
+                </Link>
+                <Link to="#" target="_blank">
+                  <i className="fa fa-youtube-play" aria-hidden="true"></i>
+                </Link>
+                <Link to="#" target="_blank">
+                  <i className="fa fa-linkedin-square" aria-hidden="true"></i>
+                </Link>
+                <Link to="#" target="_blank">
+                  <i className="fa fa-instagram" aria-hidden="true"></i>
+                </Link>
               </div>
             </div>
           </div>
         </div>
 
         <div className="text-center py-3 footerCopyRights">
-          Copyrights 2023 - All rights reserved 
-          <span className="d-inline-block mx-2">|</span> 
-            <Link to="">Terms & Conditions</Link> <span className="d-inline-block mx-2">|</span> 
-            <Link to="">News Updates</Link>
+          Copyrights 2023 - All rights reserved
+          <span className="d-inline-block mx-2">|</span>
+          <Link to="">Terms & Conditions</Link>{" "}
+          <span className="d-inline-block mx-2">|</span>
+          <Link to="">News Updates</Link>
           <span className="d-block mt-2 dby">
-            designed by <a href="http://www.varadesigns.com"><small className="p-1 fw-bold d-inline-block ">VARA-DESIGNS</small></a>
+            designed by{" "}
+            <a href="http://www.varadesigns.com">
+              <small className="p-1 fw-bold d-inline-block ">
+                VARA-DESIGNS
+              </small>
+            </a>
           </span>
         </div>
       </footer>
@@ -146,17 +164,21 @@ const Footer = () => {
         />
       )}
 
-      {componentEdit.address ? 
-        <div className='container position-fixed adminEditTestmonial p-1'>
+      {componentEdit.address ? (
+        <div className="container position-fixed adminEditTestmonial p-1">
           <AddressTextArea editHandler={editHandler} componentType="address" />
         </div>
-      : ""}
+      ) : (
+        ""
+      )}
 
-      {componentEdit.contact ? 
-        <div className='container position-fixed adminEditTestmonial p-1'>
+      {componentEdit.contact ? (
+        <div className="container position-fixed adminEditTestmonial p-1">
           <ContactInputs editHandler={editHandler} componentType="contact" />
         </div>
-      : ""}
+      ) : (
+        ""
+      )}
 
       {show && <ModelBg />}
     </>

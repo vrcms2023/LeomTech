@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Title from "../../Common/Title";
 import BriefIntro from "../../Common/BriefIntro";
 import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
-import AdminBriefIntro from '../../Admin/Components/BriefIntro/index'
+import AdminBriefIntro from "../../Admin/Components/BriefIntro/index";
 import EditIcon from "../../Common/AdminEditIcon";
 import ModelBg from "../../Common/ModelBg";
 
@@ -12,11 +12,10 @@ import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus
 import Img1 from "../../Images/project1.png";
 import Img2 from "../../Images/future.png";
 import Img3 from "../../Images/quality.png";
-import AboutBanner from '../../Images/Banner_12.jpg'
+import AboutBanner from "../../Images/Banner_12.jpg";
 import Banner from "../../Common/Banner";
 
 const About = () => {
-
   const editComponentObj = {
     banner: false,
     briefIntro: false,
@@ -41,28 +40,44 @@ const About = () => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
     setShow(!show);
     document.body.style.overflow = "hidden";
-  }
+  };
 
   return (
     <>
       {/* Page Banner Component */}
       <div className="position-relative">
-        {isAdmin ? <EditIcon editHandler={() => editHandler("banner", true)} /> : "" }
-         <Banner bannerImg={AboutBanner} alt="About LeomTech" title={'Leom Tech'} caption={'IT Consulting Services'}/>
+        {isAdmin ? (
+          <EditIcon editHandler={() => editHandler("banner", true)} />
+        ) : (
+          ""
+        )}
+        <Banner
+          bannerImg={AboutBanner}
+          alt="About LeomTech"
+          title={"Leom Tech"}
+          caption={"IT Consulting Services"}
+        />
       </div>
 
       {/* Introduction */}
-      {isAdmin ? <EditIcon editHandler={() => editHandler("briefIntro", true)} /> : "" }
-      
+      {isAdmin ? (
+        <EditIcon editHandler={() => editHandler("briefIntro", true)} />
+      ) : (
+        ""
+      )}
+
       <BriefIntro title="Welcome To LeomTech">
         We believe that construction is a man made wonder. The thought of
         bringing imagination to real life structures excites us, each day the
         passion in us grows as we contribute to this industry.
       </BriefIntro>
 
-      
       <div className="container my-md-5 py-md-4">
-        {isAdmin ? <EditIcon editHandler={() => editHandler("about", true)} /> : "" } 
+        {isAdmin ? (
+          <EditIcon editHandler={() => editHandler("about", true)} />
+        ) : (
+          ""
+        )}
         <div className="row shadow-lg">
           <div className="col-12 col-md-8  py-4 p-md-5">
             <img
@@ -136,7 +151,11 @@ const About = () => {
           </div>
         </div>
 
-        {isAdmin ? <EditIcon editHandler={() => editHandler("vision", true)} /> : "" }
+        {isAdmin ? (
+          <EditIcon editHandler={() => editHandler("vision", true)} />
+        ) : (
+          ""
+        )}
         <div className="row shadow-lg my-5">
           <div className="col-12 col-md-4 d-none d-md-block p-0 ">
             <img
@@ -146,7 +165,7 @@ const About = () => {
               style={{ objectFit: "cover", backgroundPosition: "center" }}
             />
           </div>
-          
+
           <div className="col-md-8  py-4 p-md-5">
             <img
               src={Img2}
@@ -165,9 +184,12 @@ const About = () => {
           </div>
         </div>
 
-        {isAdmin ? <EditIcon editHandler={() => editHandler("mission", true)} /> : "" }
+        {isAdmin ? (
+          <EditIcon editHandler={() => editHandler("mission", true)} />
+        ) : (
+          ""
+        )}
         <div className="row shadow-lg">
-        
           <div className="col-12 col-md-8 py-4 p-md-5">
             <img
               src={Img3}
@@ -204,37 +226,48 @@ const About = () => {
         </div>
       </div>
 
-
-
-      {componentEdit.banner ? 
-        <div className='container position-fixed adminEditTestmonial p-1'>
+      {componentEdit.banner ? (
+        <div className="container position-fixed adminEditTestmonial p-1">
           <ImageInputsForm editHandler={editHandler} componentType="banner" />
         </div>
-      : ""}
+      ) : (
+        ""
+      )}
 
-      {componentEdit.briefIntro ? 
-        <div className='container position-fixed adminEditTestmonial p-1'>
-          <AdminBriefIntro editHandler={editHandler} componentType="briefIntro" />
+      {componentEdit.briefIntro ? (
+        <div className="container position-fixed adminEditTestmonial p-1">
+          <AdminBriefIntro
+            editHandler={editHandler}
+            componentType="briefIntro"
+          />
         </div>
-      : ""}
+      ) : (
+        ""
+      )}
 
-      {componentEdit.about ? 
-        <div className='container position-fixed adminEditTestmonial p-1'>
+      {componentEdit.about ? (
+        <div className="container position-fixed adminEditTestmonial p-1">
           <ImageInputsForm editHandler={editHandler} componentType="about" />
         </div>
-      : ""}
+      ) : (
+        ""
+      )}
 
-      {componentEdit.vision ? 
-        <div className='container position-fixed adminEditTestmonial p-1'>
+      {componentEdit.vision ? (
+        <div className="container position-fixed adminEditTestmonial p-1">
           <ImageInputsForm editHandler={editHandler} componentType="vision" />
         </div>
-      : ""}
+      ) : (
+        ""
+      )}
 
-      {componentEdit.mission ? 
-        <div className='container position-fixed adminEditTestmonial p-1'>
+      {componentEdit.mission ? (
+        <div className="container position-fixed adminEditTestmonial p-1">
           <ImageInputsForm editHandler={editHandler} componentType="mission" />
         </div>
-      : ""}
+      ) : (
+        ""
+      )}
       {show && <ModelBg />}
     </>
   );

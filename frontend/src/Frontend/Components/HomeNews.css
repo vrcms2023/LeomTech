@@ -1,18 +1,18 @@
 .homeNews h2 {
-    font-weight: bold;
-    font-size: 2.5rem;
-    padding-left: 15px;
-    border: 0px;
-    border-left-width: 15px;
-    border-style: solid;
+  font-weight: bold;
+  font-size: 2.5rem;
+  padding-left: 15px;
+  border: 0px;
+  border-left-width: 15px;
+  border-style: solid;
 }
 
 .homeNews .card {
-    border-radius: 0px;
-    border: 0px;
+  border-radius: 0px;
+  border: 0px;
 }
 
 .card-body h3 {
-    font-size: 1.1rem;
-    font-weight: bold;
+  font-size: 1.1rem;
+  font-weight: bold;
 }
