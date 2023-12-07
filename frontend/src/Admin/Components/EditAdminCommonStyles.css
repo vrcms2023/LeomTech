@@ -1,7 +1,7 @@
 .adminEditTestmonial {
   border: 2px dashed rgb(255, 193, 7);
   position: fixed;
-  margin: 10% auto;
+  margin: 25px auto;
   top: 0;
   left: 0;
   right: 0;
@@ -15,4 +15,18 @@
 
 .adminEditTestmonialHeader {
   border-bottom: 1px solid #444;
+}
+
+@media (max-width: 768px) {
+  .adminEditTestmonial {
+    overflow: auto;
+    max-height: 650px;
+  }
+}
+
+.slideItem .description {
+  overflow: hidden;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }

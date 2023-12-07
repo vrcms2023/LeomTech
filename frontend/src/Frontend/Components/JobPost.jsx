@@ -122,14 +122,14 @@ const JobPost = () => {
                 to="/career-details"
                 className="stretched-link text-secondary"
               >
-                <i class="fa fa-expand" aria-hidden="true"></i>
+                <i className="fa fa-expand" aria-hidden="true"></i>
               </Link>
             </div>
             {isAdmin ? (
               <div className="mt-3 text-end deletePost">
                 <Link to="" className="bg-danger p-2 rounded">
                   <i
-                    class="fa fa-trash-o fs-5 text-white"
+                    className="fa fa-trash-o fs-5 text-white"
                     aria-hidden="true"
                   ></i>
                 </Link>

@@ -36,7 +36,7 @@ const ABriefAbout = ({ title, cssClass, linkClass }) => {
         </div>
       </div>
       <div className="col-md-5 p-0 text-center">
-        <img src={whoweare} alt="" className="" />
+        <img src={whoweare} alt="" className="w-100" />
       </div>
     </>
   );
