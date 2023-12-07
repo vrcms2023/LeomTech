@@ -1,4 +1,4 @@
-.homeServices .row:nth-child(odd) {
+.homeServices .row.service:nth-child(odd) {
   flex-direction: row-reverse;
 }
 

@@ -2,6 +2,7 @@ import React from "react";
 import "./AdminEditIcon.css";
 
 const EditIcon = ({ editHandler }) => {
+  console.log(editHandler)
   return (
     <span className="position-absolute editIcon">
       <i
