@@ -38,7 +38,7 @@ const AdminBanner = ({ editHandler, componentType }) => {
           `/gallery/getSelectedImagesById/?category=carousel&projectID=${projectID}`,
         );
         if (response?.status === 200) {
-          setcarouseData(response.data.fileData);
+          setcarouseData(response.data.fileData).reverse();
         }
       } catch (e) {
         console.log("unable to access ulr because of server is down");
@@ -67,6 +67,7 @@ const AdminBanner = ({ editHandler, componentType }) => {
         setImgGallery(list);
       }
     };
+
     confirmAlert({
       customUI: ({ onClose }) => {
         return (
@@ -81,7 +82,7 @@ const AdminBanner = ({ editHandler, componentType }) => {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white h-100">
       <EditAdminPopupHeader closeHandler={closeHandler} title={componentType} />
       <div className="container">
         <div className="row py-0 pb-md-5">
@@ -104,7 +105,7 @@ const AdminBanner = ({ editHandler, componentType }) => {
               setEditCarousel={setEditCarousel}
             />
           </div>
-          <div className="col-md-6 mt-3 mt-md-0">
+          <div className="col-md-6 mt-3 mt-md-0 overflow-auto" style={{maxHeight: "450px"}}>
             <div className="container">
               {carousel.map((item, index) => (
                 <div className="row mb-4 slideItem" key={index}>
@@ -117,7 +118,7 @@ const AdminBanner = ({ editHandler, componentType }) => {
                   </div>
                   <div className="col-6 col-md-8 ">
                     <h6 className="fw-bold m-0 fs-6">{item.imageTitle}</h6>
-                    <small className="text-muted d-none d-md-block">
+                    <small className="description text-muted d-none d-md-block">
                       {item.imageDescription}
                     </small>
                   </div>
@@ -130,7 +131,7 @@ const AdminBanner = ({ editHandler, componentType }) => {
                     </Link>
                     <Link
                       onClick={(event) =>
-                        thumbDelete(item.id, item.originalname)
+                        thumbDelete(item.id, item.imageTitle)
                       }
                     >
                       <i

@@ -221,11 +221,11 @@ const FileUpload = ({
   return (
     <>
       <div className="mb-3 row">
-        <div className="col-sm-2 col-form-label text-start text-md-end">
-          <Title title={title} cssClass="fs-6" />
-        </div>
+        <label className="col-sm-2 col-form-label text-start text-md-end">
+          <Title title={title} cssClass="" />
+        </label>
         <div className="col-sm-10">
-          <div className="border border-3 mb-4 shadow-lg">
+          <div className="border border-3 mb-0 shadow-lg">
             <FilePond
               labelIdle='Drag & Drop your files or <span className="filepond--label-action">Browse</span>'
               labelInvalidField="invalid files"
@@ -244,7 +244,7 @@ const FileUpload = ({
           </div>
           {imagePath ? (
             <div>
-              <img src={`${baseURL}${imagePath}`} alt="" className="w-100" />
+              <img src={`${baseURL}${imagePath}`} alt="" className="" style={{width: "100%", height: "100px", objectFit: "cover"}} />
               {/* <span
                         onClick={() => thumbDelete(editImg.id, editImg.originalname)}
                       >
@@ -267,7 +267,7 @@ const FileUpload = ({
               {" "}
               <Title
                 title={titleTitle ? titleTitle : "Title"}
-                cssClass="fs-5"
+                cssClass=""
               />
             </label>
             <div className="col-sm-10">
@@ -282,14 +282,14 @@ const FileUpload = ({
           </div>
 
           <div className="mb-3 row">
-            <div className="col-sm-2 col-form-label text-start text-md-end">
+            <label className="col-sm-2 col-form-label text-start text-md-end">
               <Title
                 title={
                   descriptionTitle ? descriptionTitle : "Image desccription"
                 }
-                cssClass="fs-5"
+                cssClass=""
               />
-            </div>
+            </label>
             <div className="col-sm-10">
               <textarea
                 className="form-control"

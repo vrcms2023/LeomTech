@@ -233,18 +233,18 @@ export const ClientMenu = () => {
         >
           Services
         </NavLink>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <li><Link to="/services" class="dropdown-item">IoT Services </Link></li>
-            <li><Link to="#" class="dropdown-item">AI Services Two</Link></li>
-            <li><Link to="#" class="dropdown-item">Project Planning </Link></li>
-            <li><Link to="#" class="dropdown-item">Project development and maintenance </Link></li>
-            <li><Link to="#" class="dropdown-item">Project development and maintenance </Link></li>
+          <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><Link to="/services" className="dropdown-item">IoT Services </Link></li>
+            <li><Link to="#" className="dropdown-item">AI Services Two</Link></li>
+            <li><Link to="#" className="dropdown-item">Project Planning </Link></li>
+            <li><Link to="#" className="dropdown-item">Project development and maintenance </Link></li>
+            <li><Link to="#" className="dropdown-item">Project development and maintenance </Link></li>
             
-            {/* <li><Link to="/services" class="dropdown-item">IoT Services </Link></li>
-            <li><Link to="#" class="dropdown-item">AI Services Two</Link></li>
-            <li><Link to="#" class="dropdown-item">Project Planning </Link></li>
-            <li><Link to="#" class="dropdown-item">Project development and maintenance </Link></li>
-            <li><Link to="#" class="dropdown-item">Project development and maintenance </Link></li> */}
+            {/* <li><Link to="/services" className="dropdown-item">IoT Services </Link></li>
+            <li><Link to="#" className="dropdown-item">AI Services Two</Link></li>
+            <li><Link to="#" className="dropdown-item">Project Planning </Link></li>
+            <li><Link to="#" className="dropdown-item">Project development and maintenance </Link></li>
+            <li><Link to="#" className="dropdown-item">Project development and maintenance </Link></li> */}
           </ul>
       </li>
       <li className="nav-item">
@@ -269,9 +269,9 @@ export const ClientMenu = () => {
         >
           KnowledgeHub
         </NavLink>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><Link to="/News" class="dropdown-item">News</Link></li>
-            <li><Link to="#" class="dropdown-item">Testimonials</Link></li>
+          <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><Link to="/News" className="dropdown-item">News</Link></li>
+            <li><Link to="#" className="dropdown-item">Testimonials</Link></li>
           </ul>
       </li>
       <li className="nav-item">
