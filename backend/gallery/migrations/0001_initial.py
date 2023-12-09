@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('projectID', models.CharField(max_length=100)),
                 ('userID', models.CharField(max_length=50)),
                 ('created_by', models.CharField(max_length=50)),
-                ('updated_By', models.CharField(max_length=50)),
+                ('updated_by', models.CharField(max_length=50)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
             ],

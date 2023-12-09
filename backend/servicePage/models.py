@@ -9,7 +9,7 @@ class Services(models.Model):
         services_page_title =   models.CharField(max_length=100 )
         publish =               models.BooleanField(default=False)
         created_by =            models.CharField(max_length=50)
-        updated_By =            models.CharField(max_length=50)
+        updated_by =            models.CharField(max_length=50)
         created_at =            models.DateTimeField(auto_now_add=True)
         updated_at =            models.DateTimeField(auto_now=True)
 
@@ -23,7 +23,7 @@ class ServiceFeature(models.Model):
         imageId =               models.CharField(max_length=100, null=True, blank=True)
         originalname=           models.CharField(max_length=100, null=True, blank=True)
         created_by =            models.CharField(max_length=50)
-        updated_By =            models.CharField(max_length=50)
+        updated_by =            models.CharField(max_length=50)
         created_at =            models.DateTimeField(auto_now_add=True)
         updated_at =            models.DateTimeField(auto_now=True)
 
@@ -34,6 +34,6 @@ class ServiceAccordion(models.Model):
         accordion_sub_title=    models.CharField(max_length=200, null=True, blank=True)
         accordion_description = models.JSONField(null=True, blank=True)
         created_by =            models.CharField(max_length=50)
-        updated_By =            models.CharField(max_length=50)
+        updated_by =            models.CharField(max_length=50)
         created_at =            models.DateTimeField(auto_now_add=True)
         updated_at =            models.DateTimeField(auto_now=True)

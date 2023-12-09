@@ -82,7 +82,8 @@ const Careers = () => {
         {isAdmin ? (
           <div className="text-end mb-4">
             <Link to="" className="btn btn-primary">
-              Add New Career <i className="fa fa-plus ms-2" aria-hidden="true"></i>
+              Add New Career{" "}
+              <i className="fa fa-plus ms-2" aria-hidden="true"></i>
             </Link>
           </div>
         ) : (

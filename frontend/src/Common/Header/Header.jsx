@@ -97,7 +97,7 @@ const Header = () => {
   }
   return (
     <>
-{componentEdit.menu ? (
+      {componentEdit.menu ? (
         <div className="container position-fixed adminEditTestmonial p-1">
           <AdminHeader editHandler={editHandler} />
         </div>
@@ -221,71 +221,104 @@ export const ClientMenu = () => {
         </NavLink>
       </li> */}
 
-      <li className="nav-item dropdown">
-        <NavLink
-          id="navbarDropdown"
-          data-bs-toggle="dropdown" aria-expanded="false"
-          role="button"
-          to="/leomservices"
-          className={useCallback(({ isActive }) =>
-            isActive ? "nav-Link dropdown-toggle active" : "nav-Link dropdown-toggle",
-          )}
-        >
-          Services
-        </NavLink>
+        <li className="nav-item dropdown">
+          <NavLink
+            id="navbarDropdown"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            role="button"
+            to="/leomservices"
+            className={useCallback(({ isActive }) =>
+              isActive
+                ? "nav-Link dropdown-toggle active"
+                : "nav-Link dropdown-toggle",
+            )}
+          >
+            Services
+          </NavLink>
           <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-          <li><Link to="/services" className="dropdown-item">IoT Services </Link></li>
-            <li><Link to="#" className="dropdown-item">AI Services Two</Link></li>
-            <li><Link to="#" className="dropdown-item">Project Planning </Link></li>
-            <li><Link to="#" className="dropdown-item">Project development and maintenance </Link></li>
-            <li><Link to="#" className="dropdown-item">Project development and maintenance </Link></li>
-            
+            <li>
+              <Link to="/services" className="dropdown-item">
+                IoT Services{" "}
+              </Link>
+            </li>
+            <li>
+              <Link to="#" className="dropdown-item">
+                AI Services Two
+              </Link>
+            </li>
+            <li>
+              <Link to="#" className="dropdown-item">
+                Project Planning{" "}
+              </Link>
+            </li>
+            <li>
+              <Link to="#" className="dropdown-item">
+                Project development and maintenance{" "}
+              </Link>
+            </li>
+            <li>
+              <Link to="#" className="dropdown-item">
+                Project development and maintenance{" "}
+              </Link>
+            </li>
+
             {/* <li><Link to="/services" className="dropdown-item">IoT Services </Link></li>
             <li><Link to="#" className="dropdown-item">AI Services Two</Link></li>
             <li><Link to="#" className="dropdown-item">Project Planning </Link></li>
             <li><Link to="#" className="dropdown-item">Project development and maintenance </Link></li>
             <li><Link to="#" className="dropdown-item">Project development and maintenance </Link></li> */}
           </ul>
-      </li>
-      <li className="nav-item">
-        <NavLink
-          to="/careers"
-          className={({ isActive }) =>
-            isActive ? "nav-Link active" : "nav-Link"
-          }
-        >
-          Careers
-        </NavLink>
-      </li>
-      <li className="nav-item dropdown">
-        <NavLink
-          id="navbarDropdown"
-          data-bs-toggle="dropdown" aria-expanded="false"
-          role="button"
-          to="khub"
-          className={useCallback(({ isActive }) =>
-            isActive ? "nav-Link dropdown-toggle active" : "nav-Link dropdown-toggle",
-          )}
-        >
-          KnowledgeHub
-        </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink
+            to="/careers"
+            className={({ isActive }) =>
+              isActive ? "nav-Link active" : "nav-Link"
+            }
+          >
+            Careers
+          </NavLink>
+        </li>
+        <li className="nav-item dropdown">
+          <NavLink
+            id="navbarDropdown"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            role="button"
+            to="khub"
+            className={useCallback(({ isActive }) =>
+              isActive
+                ? "nav-Link dropdown-toggle active"
+                : "nav-Link dropdown-toggle",
+            )}
+          >
+            KnowledgeHub
+          </NavLink>
           <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><Link to="/News" className="dropdown-item">News</Link></li>
-            <li><Link to="#" className="dropdown-item">Testimonials</Link></li>
+            <li>
+              <Link to="/News" className="dropdown-item">
+                News
+              </Link>
+            </li>
+            <li>
+              <Link to="#" className="dropdown-item">
+                Testimonials
+              </Link>
+            </li>
           </ul>
-      </li>
-      <li className="nav-item">
-        <NavLink
-          to="/contact"
-          className={({ isActive }) =>
-            isActive ? "nav-Link active" : "nav-Link"
-          }
-        >
-          Contact
-        </NavLink>
-      </li>
-    </ul>
-
+        </li>
+        <li className="nav-item">
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              isActive ? "nav-Link active" : "nav-Link"
+            }
+          >
+            Contact
+          </NavLink>
+        </li>
+      </ul>
     </StyledMenu>
   );
 };

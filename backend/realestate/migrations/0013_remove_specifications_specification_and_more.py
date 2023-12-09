@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='specifications',
-            name='updated_By',
+            name='updated_by',
             field=models.CharField(default='rama', max_length=50),
             preserve_default=False,
         ),

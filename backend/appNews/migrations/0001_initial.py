@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('newstitle', models.CharField(max_length=500, null=True)),
                 ('description', models.CharField(max_length=5000, null=True)),
                 ('created_by', models.CharField(max_length=50)),
-                ('updated_By', models.CharField(max_length=50)),
+                ('updated_by', models.CharField(max_length=50)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
             ],

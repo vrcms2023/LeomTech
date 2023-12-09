@@ -67,32 +67,30 @@ const Testimonials = ({ testimonis }) => {
       position = "lastSlide";
     }
     return (
-      <>
-        <div className={`${position} article position-absolute `} key={item.id}>
-          <Title title={title} cssClass="mb-2 fw-normal fs-2 text-uppercase" />
+      <div className={`${position} article position-absolute `} key={item.id}>
+        <Title title={title} cssClass="mb-2 fw-normal fs-2 text-uppercase" />
 
-          {!imageUrl ? (
-            <i className="fa fa-user text-white" aria-hidden="true"></i>
-          ) : (
-            <img
-              src={`${baseURL}${imageUrl}`}
-              className="rounded-circle my-4 testimonialImg"
-              alt="User"
-            />
-          )}
-          <p className="mt-3 px-0 px-md-5">{description}</p>
-          <div className="text-center">
-            <Link to="" onClick={() => setIndex(index + 1)}>
-              {" "}
-              <img src={leftArrow} alt="Previous" width="42" height="42" />
-            </Link>
-            <Link to="" onClick={() => setIndex(index - 1)}>
-              {" "}
-              <img src={rightArrow} alt="Next" width="42" height="42" />
-            </Link>
-          </div>
+        {!imageUrl ? (
+          <i className="fa fa-user text-white" aria-hidden="true"></i>
+        ) : (
+          <img
+            src={`${baseURL}${imageUrl}`}
+            className="rounded-circle my-4 testimonialImg"
+            alt="User"
+          />
+        )}
+        <p className="mt-3 px-0 px-md-5">{description}</p>
+        <div className="text-center">
+          <Link to="" onClick={() => setIndex(index + 1)}>
+            {" "}
+            <img src={leftArrow} alt="Previous" width="42" height="42" />
+          </Link>
+          <Link to="" onClick={() => setIndex(index - 1)}>
+            {" "}
+            <img src={rightArrow} alt="Next" width="42" height="42" />
+          </Link>
         </div>
-      </>
+      </div>
     );
   });
 

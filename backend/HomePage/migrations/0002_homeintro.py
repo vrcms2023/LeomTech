@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('intro_morelink', models.CharField(max_length=100, null=True)),
                 ('subTitle', models.JSONField(null=True)),
                 ('created_by', models.CharField(max_length=50)),
-                ('updated_By', models.CharField(max_length=50)),
+                ('updated_by', models.CharField(max_length=50)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
             ],

@@ -12,7 +12,7 @@ import { confirmAlert } from "react-confirm-alert";
 import DeleteDialog from "../../../Common/DeleteDialog";
 
 const AdminBanner = ({ editHandler, componentType }) => {
-  const projectID = "a62d7759-ae6b-4e49-a129-1ee208c6789d";
+  const projectID = "a62d7759-a e6b-4e49-a129-1ee208c6789d";
   const [userName, setUserName] = useState("");
   const [imgGallery, setImgGallery] = useState([]);
   const [saveState, setSaveState] = useState(false);
@@ -35,7 +35,7 @@ const AdminBanner = ({ editHandler, componentType }) => {
     const getCarouselData = async () => {
       try {
         const response = await axiosFileUploadServiceApi.get(
-          `/gallery/getSelectedImagesById/?category=carousel&projectID=${projectID}`,
+          `/carousel/createCarousel/`,
         );
         if (response?.status === 200) {
           setcarouseData(response.data.fileData).reverse();
@@ -60,7 +60,7 @@ const AdminBanner = ({ editHandler, componentType }) => {
   const thumbDelete = (id, name) => {
     const deleteImageByID = async () => {
       const response = await axiosFileUploadServiceApi.delete(
-        `/gallery/deleteGalleryImage/${id}/`,
+        `/carousel/updateCarousel/${id}/`,
       );
       if (response.status == 204) {
         const list = imgGallery.filter((item) => item.id !== id);
@@ -90,7 +90,7 @@ const AdminBanner = ({ editHandler, componentType }) => {
             <FileUpload
               title="Add carousel Images"
               project={project}
-              updated_By={userName}
+              updated_by={userName}
               category="carousel"
               gallerysetState={setImgGallery}
               maxFiles={1}
@@ -98,16 +98,22 @@ const AdminBanner = ({ editHandler, componentType }) => {
               validTypes="image/png,image/jpeg"
               descriptionTitle="Caption"
               titleTitle="Title"
+              alternitivetextTitle="Alt text"
               saveState={setSaveState}
               showDescription={true}
               buttonLable="Save"
               editImage={editCarousel}
               setEditCarousel={setEditCarousel}
+              imagePostURL={"carousel/createCarousel/"}
+              imageUpdateURL={"carousel/updateCarousel/"}
             />
           </div>
-          <div className="col-md-6 mt-3 mt-md-0 overflow-auto" style={{maxHeight: "450px"}}>
+          <div
+            className="col-md-6 mt-3 mt-md-0 overflow-auto"
+            style={{ maxHeight: "450px" }}
+          >
             <div className="container">
-              {carousel.map((item, index) => (
+              {carousel?.map((item, index) => (
                 <div className="row mb-4 slideItem" key={index}>
                   <div className="col-4 col-md-2">
                     <img
@@ -130,9 +136,7 @@ const AdminBanner = ({ editHandler, componentType }) => {
                       ></i>
                     </Link>
                     <Link
-                      onClick={(event) =>
-                        thumbDelete(item.id, item.imageTitle)
-                      }
+                      onClick={(event) => thumbDelete(item.id, item.imageTitle)}
                     >
                       <i
                         className="fa fa-trash fs-4 text-danger"
@@ -142,32 +146,6 @@ const AdminBanner = ({ editHandler, componentType }) => {
                   </div>
                 </div>
               ))}
-
-              {/* <div className="row mb-4 slideItem">
-                <div className="col-4 col-md-2">
-                  <img src={Cimg1} alt="" className="w-100" />
-                </div>
-                <div className="col-6 col-md-8 ">
-                  <h6 className="fw-bold m-0 fs-6">Carousel Title</h6>
-                  <small className="text-muted d-none d-md-block">
-                    Slide Description By default one slide form should be shown.
-                  </small>
-                </div>
-                <div className="col-2 col-md-2 d-flex justify-content-between align-items-center flex-column flex-md-row">
-                  <Link to="#">
-                    <i
-                      className="fa fa-pencil fs-4 text-warning"
-                      aria-hidden="true"
-                    ></i>
-                  </Link>
-                  <Link to="#">
-                    <i
-                      className="fa fa-trash fs-4 text-danger"
-                      aria-hidden="true"
-                    ></i>
-                  </Link>
-                </div>
-              </div> */}
             </div>
           </div>
         </div>

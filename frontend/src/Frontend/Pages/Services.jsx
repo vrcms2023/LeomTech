@@ -12,11 +12,10 @@ import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus
 import Title from "../../Common/Title";
 
 // Images Imports
-import ServicesBanner from '../../Images/Banner_8.jpg'
-import insured from '../../Images/insrued.png'
+import ServicesBanner from "../../Images/Banner_8.jpg";
+import insured from "../../Images/insrued.png";
 
-import './services.css'
-
+import "./services.css";
 
 const Services = () => {
   const editComponentObj = {
@@ -75,14 +74,12 @@ const Services = () => {
         passion in us grows as we contribute to this industry.
       </BriefIntro>
 
-
       <div className="container my-md-5 py-md-4">
         {isAdmin ? (
           <EditIcon editHandler={() => editHandler("mission", true)} />
         ) : (
           ""
         )}
-
 
         <div className="row">
           <div className="col-12 col-md-8">
@@ -92,24 +89,53 @@ const Services = () => {
 
         <div className="row">
           <div className="col-md-9">
-            <Title title="PROGRAM MANAGEMENT & INDEPENDENT VERIFICATION & VALIDATION (IV&V)" cssClass="fs-3 mt-3 mb-2" />
-            <Title title="Program Management Office (PMO) Support" cssClass="fs-5 fw-bold" />
+            <Title
+              title="PROGRAM MANAGEMENT & INDEPENDENT VERIFICATION & VALIDATION (IV&V)"
+              cssClass="fs-3 mt-3 mb-2"
+            />
+            <Title
+              title="Program Management Office (PMO) Support"
+              cssClass="fs-5 fw-bold"
+            />
             <p>
-              Peridot Solutions offers a complete range of program management operations and program assessment capabilities designed to maximize the effectiveness of operations and ensure our clients achieve their program objectives.
+              Peridot Solutions offers a complete range of program management
+              operations and program assessment capabilities designed to
+              maximize the effectiveness of operations and ensure our clients
+              achieve their program objectives.
             </p>
-            <p>We have expertise with federal clients in this area and understand client-specific issues and challenges as practitioners and experienced managers. This service includes:</p>
+            <p>
+              We have expertise with federal clients in this area and understand
+              client-specific issues and challenges as practitioners and
+              experienced managers. This service includes:
+            </p>
 
             <ul className="list-group">
-              <li className="list-group-item">PMO design and set up , which includes key role fulfillment, policies and procedures development, requirement development and analysis, and investment planning.</li>
-              <li className="list-group-item">PMO operations and performance, which includes organization alignment, budget and schedule management, earned value management, integrated master schedule development and maintenance, capital planning and investment control, performance management and metrics, managing meetings, strategic communications, change management and risk and issue management.</li>
-              <li className="list-group-item">Program assessments, which include program strategy, planning, execution and management.</li>
-              <li className="list-group-item">Program administration services to assist with day-to-day management of large programs.</li>
+              <li className="list-group-item">
+                PMO design and set up , which includes key role fulfillment,
+                policies and procedures development, requirement development and
+                analysis, and investment planning.
+              </li>
+              <li className="list-group-item">
+                PMO operations and performance, which includes organization
+                alignment, budget and schedule management, earned value
+                management, integrated master schedule development and
+                maintenance, capital planning and investment control,
+                performance management and metrics, managing meetings, strategic
+                communications, change management and risk and issue management.
+              </li>
+              <li className="list-group-item">
+                Program assessments, which include program strategy, planning,
+                execution and management.
+              </li>
+              <li className="list-group-item">
+                Program administration services to assist with day-to-day
+                management of large programs.
+              </li>
             </ul>
           </div>
-<div className="col-md-3">
+          <div className="col-md-3">
             <img src={insured} alt="" />
           </div>
-
         </div>
       </div>
 
