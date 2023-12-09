@@ -6,7 +6,7 @@ import "./EditAdminCommonStyles.css";
 
 const EditAdminPopupHeader = ({ closeHandler, title }) => {
   return (
-    <div className="d-flex align-items-center justify-content-between border mb-5 adminEditTestmonialHeader">
+    <div className="d-flex align-items-center justify-content-between border mb-3 adminEditTestmonialHeader">
       <h6 className="p-3 fw-normal text-warning m-0 ">
         <Title title={title} subTitle="Edit-Mode" />
         {/* <small className='text-dark'></small> */}
