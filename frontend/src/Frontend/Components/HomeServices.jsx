@@ -9,21 +9,18 @@ import "./HomeServices.css";
 
 import serviceImg1 from "../../Images/service1.png";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
-import ServiceForm from '../../Admin/Components/forms/ImgTitleIntoForm-List'
+import ServiceForm from "../../Admin/Components/forms/ImgTitleIntoForm-List";
 import ModelBg from "../../Common/ModelBg";
 import EditIcon from "../../Common/AdminEditIcon";
 
 const HomeServices = ({ title }) => {
-
   const editComponentObj = {
     service: false,
   };
-  
+
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
-
-  
 
   const editHandler = (name, value) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -69,19 +66,17 @@ const HomeServices = ({ title }) => {
     },
   ]);
 
-  
-
   return (
     <>
       {services.map((item, index) => (
         <div className="row service mb-4" key={`${index}+homeService`}>
           <div className="position-relative">
-          {isAdmin ? (
+            {isAdmin ? (
               <EditIcon editHandler={() => editHandler("service", true)} />
             ) : (
               ""
             )}
-            </div>
+          </div>
           <div className="col-md-6 p-2">
             <img src={serviceImg1} alt="" className="img-fluid w-100 h-100" />
           </div>

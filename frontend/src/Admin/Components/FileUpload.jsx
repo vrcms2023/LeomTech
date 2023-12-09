@@ -22,27 +22,34 @@ registerPlugin(
 const FileUpload = ({
   title,
   project,
-  updated_By,
+  updated_by,
   category,
   gallerysetState,
   galleryState,
   saveState,
   validTypes,
   disabledFile = false,
-  descriptionTitle,
-  titleTitle,
+  descriptionTitle = "Image desccription",
+  titleTitle = "Title",
   showDescription = false,
   maxFiles,
   buttonLable,
   editImage,
   setEditCarousel,
+  imagePostURL = "/gallery/createGallery/",
+  imageUpdateURL = "/gallery/updateGalleryDetails/",
+  alternitivetextTitle = "Alt Text",
 }) => {
   const [files, setFiles] = useState([]);
   const [extTypes, setExtTypes] = useState([]);
   const baseURL = getBaseURL();
   const accessToken = useState(getCookie("access"));
-  const [imageDescription, setimageDescription] = useState("");
-  const [imageTitle, setimageTitle] = useState("");
+  const formObject = {
+    imageDescription: "",
+    imageTitle: "",
+    alternitivetext: "",
+  };
+  const [formValue, setFormValues] = useState(formObject);
   const [imagePath, setimagePath] = useState("");
   const [editImg, setEditimg] = useState(editImage);
 
@@ -66,8 +73,11 @@ const FileUpload = ({
     }
   };
   useEffect(() => {
-    setimageDescription(editImage.imageDescription);
-    setimageTitle(editImage.imageTitle);
+    setFormValues({
+      imageTitle: editImage.imageTitle,
+      imageDescription: editImage.imageDescription,
+      alternitivetext: editImage.alternitivetext,
+    });
     setimagePath(editImage.path);
     setEditimg(editImage);
   }, [editImage]);
@@ -81,10 +91,11 @@ const FileUpload = ({
   const setFormData = (formData) => {
     formData.append("projectID", project?.id);
     formData.append("category", category);
-    formData.append("imageTitle", imageTitle);
-    formData.append("imageDescription", imageDescription);
+    formData.append("imageTitle", formValue.imageTitle);
+    formData.append("imageDescription", formValue.imageDescription);
+    formData.append("alternitivetext", formValue.alternitivetext);
     formData.append("created_by", getCookie("userName"));
-    formData.append("updated_By", getCookie("userName"));
+    formData.append("updated_by", getCookie("userName"));
     return formData;
   };
 
@@ -116,7 +127,7 @@ const FileUpload = ({
       formData.append("id", editImg.id);
       formData = setFormData(formData);
       const response = await axiosFileUploadServiceApi.patch(
-        `/gallery/updateGalleryDetails/${editImg.id}/`,
+        `${imageUpdateURL}${editImg.id}/`,
         formData,
       );
       if (response?.status === 200) {
@@ -136,9 +147,8 @@ const FileUpload = ({
       let formData = new FormData();
       formData.append("path", element.file);
       formData = setFormData(formData);
-      arrURL.push(
-        axiosFileUploadServiceApi.post(`/gallery/createGallery/`, formData),
-      );
+
+      arrURL.push(axiosFileUploadServiceApi.post(imagePostURL, formData));
     });
 
     try {
@@ -193,8 +203,7 @@ const FileUpload = ({
    * Reset form
    */
   const resetFileUploadForm = () => {
-    setimageDescription("");
-    setimageTitle("");
+    setFormValues(formObject);
     setimagePath("");
     saveState(false);
     setFiles([]);
@@ -206,12 +215,10 @@ const FileUpload = ({
       console.log("error upload fil");
     }
   };
-  const changeHandler = (e) => {
-    setimageDescription(e.target.value);
-  };
 
-  const changeTitleHandler = (e) => {
-    setimageTitle(e.target.value);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormValues((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
   const clearField = () => {
@@ -244,7 +251,12 @@ const FileUpload = ({
           </div>
           {imagePath ? (
             <div>
-              <img src={`${baseURL}${imagePath}`} alt="" className="" style={{width: "100%", height: "100px", objectFit: "cover"}} />
+              <img
+                src={`${baseURL}${imagePath}`}
+                alt=""
+                className=""
+                style={{ width: "100%", height: "100px", objectFit: "cover" }}
+              />
               {/* <span
                         onClick={() => thumbDelete(editImg.id, editImg.originalname)}
                       >
@@ -265,37 +277,44 @@ const FileUpload = ({
           <div className="mb-3 row">
             <label className="col-sm-2 col-form-label text-start text-md-end">
               {" "}
-              <Title
-                title={titleTitle ? titleTitle : "Title"}
-                cssClass=""
-              />
+              <Title title={titleTitle} cssClass="" />
             </label>
             <div className="col-sm-10">
               <input
                 type="text"
-                name="{imageTitle}"
-                value={imageTitle}
+                name="imageTitle"
+                value={formValue.imageTitle || ""}
                 className="form-control p-2"
-                onChange={(e) => changeTitleHandler(e)}
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+          </div>
+          <div className="mb-3 row">
+            <label className="col-sm-2 col-form-label text-start text-md-end">
+              {" "}
+              <Title title={alternitivetextTitle} cssClass="" />
+            </label>
+            <div className="col-sm-10">
+              <input
+                type="text"
+                name="alternitivetext"
+                value={formValue.alternitivetext || ""}
+                className="form-control p-2"
+                onChange={(e) => handleChange(e)}
               />
             </div>
           </div>
 
           <div className="mb-3 row">
             <label className="col-sm-2 col-form-label text-start text-md-end">
-              <Title
-                title={
-                  descriptionTitle ? descriptionTitle : "Image desccription"
-                }
-                cssClass=""
-              />
+              <Title title={descriptionTitle} cssClass="" />
             </label>
             <div className="col-sm-10">
               <textarea
                 className="form-control"
-                name={"imageDescription"}
-                value={imageDescription}
-                onChange={(e) => changeHandler(e)}
+                name="imageDescription"
+                value={formValue.imageDescription || ""}
+                onChange={(e) => handleChange(e)}
                 id="amenitiesDescription"
                 rows="3"
               ></textarea>

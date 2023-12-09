@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('case_studies_title', models.CharField(max_length=500, null=True)),
                 ('case_studies_description', models.JSONField(null=True)),
                 ('created_by', models.CharField(max_length=50)),
-                ('updated_By', models.CharField(max_length=50)),
+                ('updated_by', models.CharField(max_length=50)),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('updated_at', models.DateTimeField(auto_now=True)),
             ],

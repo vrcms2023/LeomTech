@@ -14,7 +14,7 @@ class AppNews(models.Model):
     newstitle =     models.CharField(max_length=500, null=True, blank=True)
     description =   models.CharField(max_length=5000, null=True, blank=True)
     created_by =    models.CharField(max_length=50, null=False)
-    updated_By =    models.CharField(max_length=50, null=False)
+    updated_by =    models.CharField(max_length=50, null=False)
     created_at =    models.DateTimeField(auto_now_add=True)
     updated_at =    models.DateTimeField(auto_now=True)
   

@@ -1,10 +1,11 @@
 from django.contrib import admin
 from .models import *
+from common.BaseModel import ImageModel
 
 # Register your models here.
-@admin.register(Carousel)
-class AddCarousel(admin.ModelAdmin):
-    list_display =("carousel_title", "description")
+# @admin.register(ImageModel)
+# class AddCarousel(admin.ModelAdmin):
+#     list_display =("carouseTitle",'imageDescription')
 
 
 @admin.register(HomeIntro)

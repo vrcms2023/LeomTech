@@ -1,63 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import banner1 from "../../Images/carousel1.jpg";
 import banner2 from "../../Images/carousel2.jpg";
 import banner3 from "../../Images/carousel3.jpg";
+import { axiosClientServiceApi } from "../../util/axiosUtil";
+import { getBaseURL } from "../../util/ulrUtil";
 
 // Styles
 
 import "./Carousel.css";
 
 const Carousel = () => {
+  const [carousel, setCarousel] = useState([]);
+  const baseURL = getBaseURL();
+
+  useEffect(() => {
+    const getCarousels = async () => {
+      try {
+        const response = await axiosClientServiceApi.get(
+          `carousel/clientCarousel/`,
+        );
+        if (response?.status == 200) {
+          setCarousel(response.data.imageModel);
+        }
+      } catch (error) {
+        console.log("unable to access ulr because of server is down");
+      }
+    };
+    getCarousels();
+  }, []);
+
   return (
     <div
       id="carouselExampleIndicators"
       className="homeCarousel carousel slide"
       data-bs-ride="carousel"
     >
-      {/* <div className="carousel-indicators">
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="0"
-          className="active"
-          aria-current="true"
-          aria-label="Slide 1"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="1"
-          aria-label="Slide 2"
-        ></button>
-        <button
-          type="button"
-          data-bs-target="#carouselExampleIndicators"
-          data-bs-slide-to="2"
-          aria-label="Slide 3"
-        ></button>
-      </div> */}
       <div className="carousel-inner">
-        <div className="carousel-item active">
-          <img src={banner1} className="d-block w-100" alt="..." />
-          <div className="carousel-caption d-none d-md-block">
-            <h1 className="fw-bold">LEOMTECH </h1>
-            <p className="fw-normal fs-5">Exceptional Outcome services.</p>
+        {carousel?.map((item, index) => (
+          <div
+            className={`carousel-item ${index == 0 ? "active" : ""}`}
+            key={item.id}
+          >
+            <img
+              src={`${baseURL}${item.path}`}
+              alt={item.alternitivetext}
+              className="d-block w-100"
+            />
+            <div className="carousel-caption d-none d-md-block">
+              <h1 className="fw-bold">{item.imageTitle} </h1>
+              <p className="fw-normal fs-5">{item.imageDescription} </p>
+            </div>
           </div>
-        </div>
-        <div className="carousel-item">
-          <img src={banner2} className="d-block w-100" alt="..." />
-          <div className="carousel-caption d-none d-md-block">
-            <h1 className="fw-bold">HPR INFRA</h1>
-            <p className="fw-normal fs-5">Cognitive Capabilities.</p>
-          </div>
-        </div>
-        <div className="carousel-item">
-          <img src={banner3} className="d-block w-100" alt="..." />
-          <div className="carousel-caption d-none d-md-block">
-            <h1 className="fw-bold">HPR INFRA</h1>
-            <p className="fw-normal fs-5">Cognitive Capabilities.</p>
-          </div>
-        </div>
+        ))}
       </div>
       <button
         className="carousel-control-prev"
