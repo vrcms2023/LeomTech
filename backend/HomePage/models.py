@@ -8,9 +8,10 @@ class Carousel(ImageModel):
 
 class HomeIntro(BaseModel):
     intro_title =   models.CharField(max_length=100, null=True, blank=True)
-    intro_desc =    models.CharField(max_length=100, null=True, blank=True)
+    intro_desc =    models.CharField(max_length=5000, null=True, blank=True)
     intro_morelink = models.CharField(max_length=100, null=True, blank=True)
     subTitle =      models.JSONField(null=True, blank=True)
+    pageType =      models.CharField(max_length=100, null=False)
    
 
 class ClientLogo(BaseModel):

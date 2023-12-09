@@ -112,7 +112,7 @@ class HomeIntroUpdateAndDeleteView(APIView):
     """
     def get_object(self, pk):
         try:
-            return HomeIntro.objects.get(pk=pk)
+            return HomeIntro.objects.get(pageType=pk)
         except HomeIntro.DoesNotExist:
             raise Http404
 
@@ -144,10 +144,15 @@ class ClientHomeIntroView(generics.CreateAPIView):
     """
     List all carousel, or create a new carousel.
     """
+    def get_object(self, pk):
+        try:
+            return HomeIntro.objects.get(pageType=pk)
+        except HomeIntro.DoesNotExist:
+            raise Http404
 
-    def get(self, request, format=None):
-        snippets = HomeIntro.objects.all()
-        serializer = HomeIntroSerializer(snippets, many=True)
+    def get(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        serializer = HomeIntroSerializer(snippet)
         return Response({"intro": serializer.data}, status=status.HTTP_200_OK)
     
 '''
@@ -163,6 +168,7 @@ class ClientLogoAPIView(generics.CreateAPIView):
      """
      List all ClientLogo, or create a new ClientLogo.
      """
+
 
      def get(self, request, format=None):
         snippets = ClientLogo.objects.all()

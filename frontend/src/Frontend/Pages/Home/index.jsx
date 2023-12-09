@@ -33,6 +33,8 @@ const Home = () => {
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
+  const [introValue, setIntroValues] = useState([]);
+
 
   const editHandler = (name, value) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -43,7 +45,25 @@ const Home = () => {
   useEffect(() => {
     removeActiveClass();
   }, []);
-
+/**
+ * BriefIntroFrontend API call
+ */
+  useEffect(() => {
+    const getBriefIntro = async () => {
+      try {
+        const response = await axiosClientServiceApi.get(
+          `/carousel/clientHomeIntro/Home/`
+        );
+        if (response?.status == 200) {
+          setIntroValues(response.data.intro);
+        }
+      } catch (error) {
+        console.log("unable to access ulr because of server is down");
+      }
+    };
+    getBriefIntro();
+  }, [componentEdit.briefIntro]);
+  
   useEffect(() => {
     const getTestimonial = async () => {
       try {
@@ -81,10 +101,8 @@ const Home = () => {
         ) : (
           ""
         )}
-        <BriefIntroFrontend title="To Excel In Delivery Of Work!">
-          We believe that construction is a man made wonder. The thought of
-          bringing imagination to real life structures excites us, each day the
-          passion in us grows as we contribute to this industry.
+        <BriefIntroFrontend title={`${introValue.intro_title ? introValue.intro_title : 'Please Update Title'}`}>
+        {introValue.intro_desc ? introValue.intro_desc : 'Please Update Description'}
         </BriefIntroFrontend>
 
         {/* Services */}
@@ -155,7 +173,7 @@ const Home = () => {
 
       {componentEdit.briefIntro ? (
         <div className="container position-fixed adminEditTestmonial p-1">
-          <BriefIntro editHandler={editHandler} componentType="briefIntro" />
+          <BriefIntro editHandler={editHandler} componentType="briefIntro" pageType='Home' />
         </div>
       ) : (
         ""
