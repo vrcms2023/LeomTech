@@ -61,7 +61,9 @@ const Home = () => {
         console.log("unable to access ulr because of server is down");
       }
     };
-    getBriefIntro();
+    if(!componentEdit.briefIntro){
+      getBriefIntro();
+    }
   }, [componentEdit.briefIntro]);
   
   useEffect(() => {
@@ -91,7 +93,7 @@ const Home = () => {
             ) : (
               ""
             )}
-            <Carousel />
+            <Carousel carouselState={componentEdit.carousel}/>
           </div>
         </div>
 
