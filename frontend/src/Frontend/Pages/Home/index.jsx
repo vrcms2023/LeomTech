@@ -164,7 +164,7 @@ const Home = () => {
       </div>
 
       {componentEdit.carousel ? (
-        <div className="container position-absolute adminEditTestmonial p-1">
+        <div className="container position-fixed adminEditTestmonial p-1">
           <AdminBanner editHandler={editHandler} componentType="carousel" />
         </div>
       ) : (

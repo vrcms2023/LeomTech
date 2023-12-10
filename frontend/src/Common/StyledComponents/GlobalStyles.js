@@ -74,13 +74,13 @@ body {
     background-color:${({ theme }) => theme.ABriefBg}; 
     color:${({ theme }) => theme.ABriefTextColor};
 }
-.ABrief h3 {border-color: ${({ theme }) => theme.ABriefTitleBorderColor}; }
+.ABrief h3, .ABrief .title {border-color: ${({ theme }) => theme.ABriefTitleBorderColor}; }
 
 .ABriefAbout {
     background-color:${({ theme }) => theme.ABriefAboutBg}; 
     color:${({ theme }) => theme.ABriefAboutTextColor};
 }
-.ABriefAbout h3 { border-color: ${({ theme }) =>
+.ABriefAbout h3, .ABriefAbout .title { border-color: ${({ theme }) =>
   theme.ABriefAboutTitleBorderColor}; }
 
 
