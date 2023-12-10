@@ -9,7 +9,7 @@ import { getBaseURL } from "../../util/ulrUtil";
 
 import "./Carousel.css";
 
-const Carousel = () => {
+const Carousel = ({carouselState}) => {
   const [carousel, setCarousel] = useState([]);
   const baseURL = getBaseURL();
 
@@ -26,8 +26,11 @@ const Carousel = () => {
         console.log("unable to access ulr because of server is down");
       }
     };
-    getCarousels();
-  }, []);
+    if(!carouselState){
+      getCarousels();
+    }
+  
+  }, [carouselState]);
 
   return (
     <div
