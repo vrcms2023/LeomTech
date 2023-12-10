@@ -7,7 +7,7 @@ import Carousel from "../../Components/Carousel";
 import Testimonials from "../../Components/Testimonials";
 import ModelBg from "../../../Common/ModelBg";
 import AdminBanner from "../../../Admin/Components/forms/ImgTitleIntoForm-List";
-import BriefIntro from "../../../Admin/Components/BriefIntro/";
+import BriefIntroAdmin from "../../../Admin/Components/BriefIntro/";
 
 import EditIcon from "../../../Common/AdminEditIcon";
 import ABrief from "../../Components/ABrief";
@@ -33,8 +33,6 @@ const Home = () => {
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
-  const [introValue, setIntroValues] = useState([]);
-
 
   const editHandler = (name, value) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -45,27 +43,7 @@ const Home = () => {
   useEffect(() => {
     removeActiveClass();
   }, []);
-/**
- * BriefIntroFrontend API call
- */
-  useEffect(() => {
-    const getBriefIntro = async () => {
-      try {
-        const response = await axiosClientServiceApi.get(
-          `/carousel/clientHomeIntro/Home/`
-        );
-        if (response?.status == 200) {
-          setIntroValues(response.data.intro);
-        }
-      } catch (error) {
-        console.log("unable to access ulr because of server is down");
-      }
-    };
-    if(!componentEdit.briefIntro){
-      getBriefIntro();
-    }
-  }, [componentEdit.briefIntro]);
-  
+
   useEffect(() => {
     const getTestimonial = async () => {
       try {
@@ -93,9 +71,17 @@ const Home = () => {
             ) : (
               ""
             )}
-            <Carousel carouselState={componentEdit.carousel}/>
+            <Carousel carouselState={componentEdit.carousel} />
           </div>
         </div>
+
+        {componentEdit.carousel ? (
+          <div className="container position-fixed adminEditTestmonial p-1">
+            <AdminBanner editHandler={editHandler} componentType="carousel" />
+          </div>
+        ) : (
+          ""
+        )}
 
         {/* Introduction */}
         {isAdmin ? (
@@ -103,9 +89,22 @@ const Home = () => {
         ) : (
           ""
         )}
-        <BriefIntroFrontend title={`${introValue.intro_title ? introValue.intro_title : 'Please Update Title'}`}>
-        {introValue.intro_desc ? introValue.intro_desc : 'Please Update Description'}
-        </BriefIntroFrontend>
+        <BriefIntroFrontend
+          introState={componentEdit.briefIntro}
+          pageType="Home"
+        />
+
+        {componentEdit.briefIntro ? (
+          <div className="container position-fixed adminEditTestmonial p-1">
+            <BriefIntroAdmin
+              editHandler={editHandler}
+              componentType="briefIntro"
+              pageType="Home"
+            />
+          </div>
+        ) : (
+          ""
+        )}
 
         {/* Services */}
         <div className="container py-5 homeServices">
@@ -164,22 +163,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-
-      {componentEdit.carousel ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
-          <AdminBanner editHandler={editHandler} componentType="carousel" />
-        </div>
-      ) : (
-        ""
-      )}
-
-      {componentEdit.briefIntro ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
-          <BriefIntro editHandler={editHandler} componentType="briefIntro" pageType='Home' />
-        </div>
-      ) : (
-        ""
-      )}
 
       {componentEdit.projects ? (
         <div className="container position-fixed adminEditTestmonial p-1">

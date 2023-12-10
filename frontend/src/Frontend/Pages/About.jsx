@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Title from "../../Common/Title";
-import BriefIntro from "../../Common/BriefIntro";
+import BriefIntroFrontend from "../../Common/BriefIntro";
 import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
-import AdminBriefIntro from "../../Admin/Components/BriefIntro/index";
+import BriefIntroAdmin from "../../Admin/Components/BriefIntro/index";
 import EditIcon from "../../Common/AdminEditIcon";
 import ModelBg from "../../Common/ModelBg";
 
@@ -66,11 +66,22 @@ const About = () => {
         ""
       )}
 
-      <BriefIntro title="Welcome To LeomTech">
-        We believe that construction is a man made wonder. The thought of
-        bringing imagination to real life structures excites us, each day the
-        passion in us grows as we contribute to this industry.
-      </BriefIntro>
+      <BriefIntroFrontend
+        introState={componentEdit.briefIntro}
+        pageType="AboutUs"
+      />
+
+      {componentEdit.briefIntro ? (
+        <div className="container position-fixed adminEditTestmonial p-1">
+          <BriefIntroAdmin
+            editHandler={editHandler}
+            componentType="briefIntro"
+            pageType="AboutUs"
+          />
+        </div>
+      ) : (
+        ""
+      )}
 
       <div className="container my-md-5 py-md-4">
         {isAdmin ? (
@@ -229,17 +240,6 @@ const About = () => {
       {componentEdit.banner ? (
         <div className="container position-fixed adminEditTestmonial p-1">
           <ImageInputsForm editHandler={editHandler} componentType="banner" />
-        </div>
-      ) : (
-        ""
-      )}
-
-      {componentEdit.briefIntro ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
-          <AdminBriefIntro
-            editHandler={editHandler}
-            componentType="briefIntro"
-          />
         </div>
       ) : (
         ""

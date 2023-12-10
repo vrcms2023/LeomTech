@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import { axiosClientServiceApi } from "../../util/axiosUtil";
 // Components
 import { useAdminLoginStatus } from "../customhook/useAdminLoginStatus";
 
@@ -23,6 +23,7 @@ const Footer = () => {
     contact: false,
     social: false,
   };
+  const [footerValues, setFooterValues] = useState(false);
   const [show, setShow] = useState(false);
   const [modelShow, setModelShow] = useState(false);
   const isAdmin = useAdminLoginStatus();
@@ -40,6 +41,24 @@ const Footer = () => {
   const closeModel = () => {
     setModelShow(!modelShow);
   };
+
+  useEffect(() => {
+    const getFooterValues = async () => {
+      try {
+        const response = await axiosClientServiceApi.get(
+          `footer/getClientAddress/`,
+        );
+        if (response?.data?.address?.length > 0) {
+          setFooterValues(response.data.address[0]);
+        }
+      } catch (e) {
+        console.log("unable to access ulr because of server is down");
+      }
+    };
+    if (!componentEdit.address) {
+      getFooterValues();
+    }
+  }, [componentEdit.address]);
 
   const editHandler = (name, value) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));

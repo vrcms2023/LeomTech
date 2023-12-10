@@ -74,7 +74,8 @@ body {
     background-color:${({ theme }) => theme.ABriefBg}; 
     color:${({ theme }) => theme.ABriefTextColor};
 }
-.ABrief h3, .ABrief .title {border-color: ${({ theme }) => theme.ABriefTitleBorderColor}; }
+.ABrief h3, .ABrief .title {border-color: ${({ theme }) =>
+  theme.ABriefTitleBorderColor}; }
 
 .ABriefAbout {
     background-color:${({ theme }) => theme.ABriefAboutBg}; 
