@@ -7,7 +7,6 @@ import Button from "../../../Common/Button";
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
 
 export const BriefIntro = ({ editHandler, componentType, pageType }) => {
-
   const closeHandler = () => {
     editHandler(componentType, false);
     document.body.style.overflow = "";
@@ -15,14 +14,14 @@ export const BriefIntro = ({ editHandler, componentType, pageType }) => {
 
   const formObject = {
     intro_title: "",
-    subTitle:"",
+    subTitle: "",
     intro_desc: "",
     intro_morelink: "",
-    id:"",
-    pageType: pageType
+    id: "",
+    pageType: pageType,
   };
   const [introFormValue, setIntroFormValues] = useState(formObject);
-  
+
   const [userName, setUserName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -31,16 +30,18 @@ export const BriefIntro = ({ editHandler, componentType, pageType }) => {
   }, []);
 
   useEffect(() => {
-    const getintroValues = async() => {
+    const getintroValues = async () => {
       try {
-        let response = await axiosServiceApi.get(`/carousel/updateHomeIntro/${pageType}/`);
-        let value  = updateResponseData(response.data.intro)
-        setIntroFormValues(value)
-      }catch (error) {
+        let response = await axiosServiceApi.get(
+          `/carousel/updateHomeIntro/${pageType}/`,
+        );
+        let value = updateResponseData(response.data.intro);
+        setIntroFormValues(value);
+      } catch (error) {
         toast.error("Unable to get the intro");
       }
-    }
-    getintroValues()
+    };
+    getintroValues();
   }, []);
 
   const changeHandler = (e) => {
@@ -50,110 +51,130 @@ export const BriefIntro = ({ editHandler, componentType, pageType }) => {
 
   const updateResponseData = (data) => {
     return {
-      intro_title : data.intro_title,
-      subTitle : data.subTitle,
-      intro_desc : data.intro_desc,
-      intro_morelink : data.intro_morelink,
+      intro_title: data.intro_title,
+      subTitle: data.subTitle,
+      intro_desc: data.intro_desc,
+      intro_morelink: data.intro_morelink,
       id: data.id,
-      pageType: pageType
-    }
-  }
+      pageType: pageType,
+    };
+  };
 
-    const saveandUpdateIntro = async() => {
-      const intro = {
-        intro_title : introFormValue.intro_title,
-        subTitle : introFormValue.subTitle,
-        intro_desc : introFormValue.intro_desc,
-        intro_morelink : introFormValue.intro_morelink,
-        pageType: pageType,
-        updated_by: userName
-      };
+  const saveandUpdateIntro = async () => {
+    const intro = {
+      intro_title: introFormValue.intro_title,
+      subTitle: introFormValue.subTitle,
+      intro_desc: introFormValue.intro_desc,
+      intro_morelink: introFormValue.intro_morelink,
+      pageType: pageType,
+      updated_by: userName,
+    };
 
-      try{
-        let response = "";
-        if (introFormValue.id) {
-          intro.updated_by = userName;
-          response = await axiosServiceApi.put(`/carousel/updateHomeIntro/${pageType}/`, {
+    try {
+      let response = "";
+      if (introFormValue.id) {
+        intro.updated_by = userName;
+        response = await axiosServiceApi.put(
+          `/carousel/updateHomeIntro/${pageType}/`,
+          {
             ...intro,
-          });
-        } else {
-          intro.created_by= userName;
-          response = await axiosServiceApi.post(`/carousel/createHomeIntro/`, {
-            ...intro,
-          });
-        }
-        setIntroFormValues(updateResponseData(response.data.intro))
-      }catch (error) {
+          },
+        );
+      } else {
+        intro.created_by = userName;
+        response = await axiosServiceApi.post(`/carousel/createHomeIntro/`, {
+          ...intro,
+        });
+      }
+      setIntroFormValues(updateResponseData(response.data.intro));
+    } catch (error) {
       toast.error("Unable to save the intro");
     }
-    }
+  };
 
-    // const resetForm = () => {
-    //   setIntroFormValues(formObject)
-    // }
-
-
+  // const resetForm = () => {
+  //   setIntroFormValues(formObject)
+  // }
 
   return (
     <div className="bg-white">
       <EditAdminPopupHeader closeHandler={closeHandler} title={componentType} />
 
-     
-        <div className="mb-3 row">
-          <label
-            htmlFor=""
-            className="col-sm-2 col-form-label text-start text-md-end"
-          >
-            Title
-          </label>
-          <div className="col-sm-10">
-            <input name="intro_title" value={introFormValue.intro_title ? introFormValue.intro_title : ''} type="text" className="form-control p-2"  onChange={changeHandler}/>
-          </div>
+      <div className="mb-3 row">
+        <label
+          htmlFor=""
+          className="col-sm-2 col-form-label text-start text-md-end"
+        >
+          Title
+        </label>
+        <div className="col-sm-10">
+          <input
+            name="intro_title"
+            value={introFormValue.intro_title ? introFormValue.intro_title : ""}
+            type="text"
+            className="form-control p-2"
+            onChange={changeHandler}
+          />
         </div>
+      </div>
 
-        <div className="mb-3 row">
-          <label
-            htmlFor=""
-            className="col-sm-2 col-form-label text-start text-md-end"
-          >
-            SubTitle
-          </label>
-          <div className="col-sm-10">
-            <input name="subTitle" value={introFormValue.subTitle ? introFormValue.subTitle : ''} type="text" className="form-control p-2"  onChange={changeHandler}/>
-          </div>
+      <div className="mb-3 row">
+        <label
+          htmlFor=""
+          className="col-sm-2 col-form-label text-start text-md-end"
+        >
+          SubTitle
+        </label>
+        <div className="col-sm-10">
+          <input
+            name="subTitle"
+            value={introFormValue.subTitle ? introFormValue.subTitle : ""}
+            type="text"
+            className="form-control p-2"
+            onChange={changeHandler}
+          />
         </div>
+      </div>
 
-        <div className="mb-3 row">
-          <label
-            htmlFor=""
-            className="col-sm-2 col-form-label text-start text-md-end"
-          >
-            Description
-          </label>
-          <div className="col-sm-10">
-            <textarea
-              name="intro_desc"
-              className="form-control"
-              id="exampleFormControlTextarea1"
-              rows="3"
-              value={introFormValue.intro_desc ? introFormValue.intro_desc : ''}
-              onChange={changeHandler}
-            ></textarea>
-          </div>
+      <div className="mb-3 row">
+        <label
+          htmlFor=""
+          className="col-sm-2 col-form-label text-start text-md-end"
+        >
+          Description
+        </label>
+        <div className="col-sm-10">
+          <textarea
+            name="intro_desc"
+            className="form-control"
+            id="exampleFormControlTextarea1"
+            rows="3"
+            value={introFormValue.intro_desc ? introFormValue.intro_desc : ""}
+            onChange={changeHandler}
+          ></textarea>
         </div>
-        <div className="mb-3 row">
-          <label
-            htmlFor=""
-            className="col-sm-2 col-form-label text-start text-md-end"
-          >
-            Morelink
-          </label>
-          <div className="col-sm-10">
-            <input name="intro_morelink" value={introFormValue.intro_morelink ? introFormValue.intro_morelink : ''} type="text"  onChange={changeHandler} className="form-control p-2" />
-          </div>
+      </div>
+      <div className="mb-3 row">
+        <label
+          htmlFor=""
+          className="col-sm-2 col-form-label text-start text-md-end"
+        >
+          Morelink
+        </label>
+        <div className="col-sm-10">
+          <input
+            name="intro_morelink"
+            value={
+              introFormValue.intro_morelink ? introFormValue.intro_morelink : ""
+            }
+            type="text"
+            onChange={changeHandler}
+            className="form-control p-2"
+          />
         </div>
+      </div>
 
-        <div className="text-center mt-5">
+      <div className="text-center mt-5">
         {/* <Button
                 type="submit"
                 cssClass="btn btn-secondary mx-3"
@@ -161,14 +182,12 @@ export const BriefIntro = ({ editHandler, componentType, pageType }) => {
                 handlerChange={resetForm}
               /> */}
         <Button
-                type="submit"
-                cssClass="btn btn-secondary mx-3"
-                label={"Save"}
-                handlerChange={saveandUpdateIntro}
-              />
-
-          
-        </div>
+          type="submit"
+          cssClass="btn btn-secondary mx-3"
+          label={"Save"}
+          handlerChange={saveandUpdateIntro}
+        />
+      </div>
     </div>
   );
 };
