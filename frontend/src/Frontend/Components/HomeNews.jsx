@@ -10,7 +10,7 @@ import newsImg3 from "../../Images/news3.png";
 import EditIcon from "../../Common/AdminEditIcon";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 import AdminBanner from "../../Admin/Components/forms/ImgTitleIntoForm-List";
-import NewsForm from '../../Admin/Components/News/index';
+import NewsForm from "../../Admin/Components/News/index";
 import ModelBg from "../../Common/ModelBg";
 
 const HomeNews = () => {
@@ -59,7 +59,6 @@ const HomeNews = () => {
     document.body.style.overflow = "hidden";
   };
 
-
   return (
     <>
       {news.map((item, index) => (
@@ -93,8 +92,6 @@ const HomeNews = () => {
             ) : (
               ""
             )}
-
-
           </div>
         </div>
       ))}

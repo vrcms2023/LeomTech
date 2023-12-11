@@ -12,10 +12,9 @@ class Address(BaseModel):
         city =              models.CharField(max_length=100, null=False )
         state =             models.CharField(max_length=100, null=False )
         postcode =          models.CharField(max_length=100, null=False )
-        emailid =            models.CharField(max_length=100, null=False )
-        phonen_number =      models.CharField(max_length=100, null=False )
-        terms_condition =   models.CharField(max_length=5000, null=True, blank=True )
-        privacy_policy =    models.CharField(max_length=5000, null=True, blank=True )
+        emailid =           models.CharField(max_length=100, null=False )
+        phonen_number =     models.CharField(max_length=100, null=False )
+        phonen_number_2 =   models.CharField(max_length=100, null=False )
         twitter_url =       models.CharField(max_length=500, null=True, blank=True )
         facebook_url =      models.CharField(max_length=500, null=True, blank=True )
         linkedIn_url =      models.CharField(max_length=500, null=True, blank=True )
@@ -25,3 +24,6 @@ class Address(BaseModel):
         pinterest_url =     models.CharField(max_length=500, null=True, blank=True )
  
 
+class TermsandCondition(BaseModel):
+        terms_condition =   models.CharField(max_length=5000, null=True, blank=True )
+        privacy_policy =    models.CharField(max_length=5000, null=True, blank=True )

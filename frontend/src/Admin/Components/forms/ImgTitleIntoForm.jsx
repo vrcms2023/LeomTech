@@ -1,11 +1,91 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
+import { getBaseURL } from "../../../util/ulrUtil";
+import { toast } from "react-toastify";
+import FileUpload from "../../Components/FileUpload";
+import { getCookie } from "../../../util/cookieUtil";
+import { axiosFileUploadServiceApi } from "../../../util/axiosUtil";
+import { confirmAlert } from "react-confirm-alert";
+import DeleteDialog from "../../../Common/DeleteDialog";
 
-const ImageInputsForm = ({ editHandler, componentType }) => {
+const ImageInputsForm = ({
+  editHandler,
+  componentType,
+  pageType,
+  category = "banner",
+  extraFormParamas,
+  imagePostURL = "banner/createBannerIntro/",
+  imageGetURL = "banner/getBannerByPageType/",
+  imageUpdateURL = "banner/updateBannerIntro/",
+  imageDeleteURL = "banner/updateBannerIntro/",
+}) => {
+  const projectID = "a62d7759-a e6b-4e49-a129-1ee208c6789d";
+  const [userName, setUserName] = useState("");
+  const [imgGallery, setImgGallery] = useState([]);
+  const [saveState, setSaveState] = useState(false);
+  const [project, setProject] = useState({ id: projectID });
+  const [editCarousel, setEditCarousel] = useState({});
+  const [carousel, setcarouseData] = useState("");
+
+  const baseURL = getBaseURL();
+
   const closeHandler = () => {
     editHandler(componentType, false);
     document.body.style.overflow = "";
+  };
+  useEffect(() => {
+    setUserName(getCookie("userName"));
+  }, []);
+
+  useEffect(() => {
+    const getBannerData = async () => {
+      try {
+        const response = await axiosFileUploadServiceApi.get(
+          `${imageGetURL}${pageType}/`,
+        );
+        if (response?.status === 200 && response.data.imageModel) {
+          setcarouseData(response.data.imageModel);
+          setEditCarousel(response.data.imageModel);
+        }
+      } catch (e) {
+        console.log("unable to access ulr because of server is down");
+      }
+    };
+
+    getBannerData();
+  }, [imgGallery]);
+
+  const handleBannerEdit = (event, carousel) => {
+    event.preventDefault();
+    setEditCarousel(carousel);
+  };
+  /**
+   *
+   * Delete image
+   */
+  const thumbDelete = (id, name) => {
+    const deleteImageByID = async () => {
+      const response = await axiosFileUploadServiceApi.delete(
+        `${imageDeleteURL}${id}/`,
+      );
+      if (response.status == 204) {
+        setcarouseData("");
+        toast.success(`Banner Object deleted successfully`);
+      }
+    };
+
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <DeleteDialog
+            onClose={onClose}
+            callback={deleteImageByID}
+            message={`deleting the ${name} image?`}
+          />
+        );
+      },
+    });
   };
 
   return (
@@ -14,64 +94,29 @@ const ImageInputsForm = ({ editHandler, componentType }) => {
       <div className="container">
         <div className="row py-0 pb-md-5">
           <div className="col-md-8 offset-md-2 mb-5 mb-md-0">
-            <form className="g-3 mb-md-0">
-              <div className="container">
-              <div className="mb-3 row">
-                <label
-                  for=""
-                  className="col-sm-2 col-form-label text-start text-md-end"
-                >
-                  Image
-                </label>
-                <div className="col-sm-10">
-                  <input className="form-control p-2" type="file" id="" />
-                </div>
-              </div>
-              <div className="mb-3 row">
-                <label
-                  for=""
-                  className="col-sm-2 col-form-label text-start text-md-end"
-                >
-                  Image Alt Text
-                </label>
-                <div className="col-sm-10">
-                  <input type="text" className="form-control p-2" />
-                </div>
-              </div>
-              <div className="mb-3 row">
-                <label
-                  for=""
-                  className="col-sm-2 col-form-label text-start text-md-end"
-                >
-                  Title
-                </label>
-                <div className="col-sm-10">
-                  <input type="text" className="form-control p-2" />
-                </div>
-              </div>
-
-              <div className="mb-3 row">
-                <label
-                  for=""
-                  className="col-sm-2 col-form-label text-start text-md-end"
-                >
-                  Caption
-                </label>
-                <div className="col-sm-10">
-                  <textarea
-                    className="form-control"
-                    id="exampleFormControlTextarea1"
-                    rows="3"
-                  ></textarea>
-                </div>
-              </div>
-
-              <div className="text-center mt-5">
-                <button className="btn btn-secondary mx-3">Clear</button>
-                <button className="btn btn-primary">Save</button>
-              </div>
-              </div>
-            </form>
+            <div className="container">
+              <FileUpload
+                title="Banner Image"
+                project={project}
+                updated_by={userName}
+                category={category}
+                gallerysetState={setImgGallery}
+                maxFiles={1}
+                galleryState={imgGallery}
+                validTypes="image/png,image/jpeg"
+                descriptionTitle="Caption"
+                titleTitle="Title"
+                alternitivetextTitle="Image Alt Text"
+                saveState={setSaveState}
+                showDescription={true}
+                buttonLable="Save"
+                editImage={editCarousel}
+                setEditCarousel={setEditCarousel}
+                imagePostURL={imagePostURL}
+                imageUpdateURL={imageUpdateURL}
+                extraFormParamas={extraFormParamas}
+              />
+            </div>
           </div>
         </div>
       </div>

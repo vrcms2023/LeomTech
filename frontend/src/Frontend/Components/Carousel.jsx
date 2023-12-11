@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from "react";
-import banner1 from "../../Images/carousel1.jpg";
-import banner2 from "../../Images/carousel2.jpg";
-import banner3 from "../../Images/carousel3.jpg";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
 import { getBaseURL } from "../../util/ulrUtil";
 

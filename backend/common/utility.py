@@ -30,3 +30,11 @@ def get_image_data_from_request(request):
                 'updated_by': request.data["updated_by"],
                 'alternitivetext' : request.data["alternitivetext"]
         }
+
+
+def get_banner_data_From_request_Object(request):
+        requestObj = get_image_data_from_request(request)
+        requestObj['pageType'] = request.data["pageType"]
+        requestObj['bannerTitle'] = request.data["bannerTitle"]
+        return requestObj
+

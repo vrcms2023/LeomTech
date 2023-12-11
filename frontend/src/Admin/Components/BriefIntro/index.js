@@ -6,7 +6,7 @@ import Button from "../../../Common/Button";
 
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
 
-export const BriefIntro = ({ editHandler, componentType, pageType }) => {
+export const BriefIntroAdmin = ({ editHandler, componentType, pageType }) => {
   const closeHandler = () => {
     editHandler(componentType, false);
     document.body.style.overflow = "";
@@ -102,101 +102,105 @@ export const BriefIntro = ({ editHandler, componentType, pageType }) => {
       <div className="container">
         <div className="row p-4">
           <div className="col-md-8 offset-md-2">
-          <div className="mb-3 row">
-        <label
-          htmlFor=""
-          className="col-sm-3 col-form-label text-start text-md-end"
-        >
-          Title
-        </label>
-        <div className="col-sm-9">
-          <input
-            name="intro_title"
-            value={introFormValue.intro_title ? introFormValue.intro_title : ""}
-            type="text"
-            className="form-control p-2"
-            onChange={changeHandler}
-          />
-        </div>
-      </div>
+            <div className="mb-3 row">
+              <label
+                htmlFor=""
+                className="col-sm-3 col-form-label text-start text-md-end"
+              >
+                Title
+              </label>
+              <div className="col-sm-9">
+                <input
+                  name="intro_title"
+                  value={
+                    introFormValue.intro_title ? introFormValue.intro_title : ""
+                  }
+                  type="text"
+                  className="form-control p-2"
+                  onChange={changeHandler}
+                />
+              </div>
+            </div>
 
-      <div className="mb-3 row">
-        <label
-          htmlFor=""
-          className="col-sm-3 col-form-label text-start text-md-end"
-        >
-          SubTitle
-        </label>
-        <div className="col-sm-9">
-          <input
-            name="subTitle"
-            value={introFormValue.subTitle ? introFormValue.subTitle : ""}
-            type="text"
-            className="form-control p-2"
-            onChange={changeHandler}
-          />
-        </div>
-      </div>
+            <div className="mb-3 row">
+              <label
+                htmlFor=""
+                className="col-sm-3 col-form-label text-start text-md-end"
+              >
+                SubTitle
+              </label>
+              <div className="col-sm-9">
+                <input
+                  name="subTitle"
+                  value={introFormValue.subTitle ? introFormValue.subTitle : ""}
+                  type="text"
+                  className="form-control p-2"
+                  onChange={changeHandler}
+                />
+              </div>
+            </div>
 
-      <div className="mb-3 row">
-        <label
-          htmlFor=""
-          className="col-sm-3 col-form-label text-start text-md-end"
-        >
-          Description
-        </label>
-        <div className="col-sm-9">
-          <textarea
-            name="intro_desc"
-            className="form-control"
-            id="exampleFormControlTextarea1"
-            rows="8"
-            value={introFormValue.intro_desc ? introFormValue.intro_desc : ""}
-            onChange={changeHandler}
-          ></textarea>
-        </div>
-      </div>
-      <div className="mb-3 row">
-        <label
-          htmlFor=""
-          className="col-sm-3 col-form-label text-start text-md-end"
-        >
-          Morelink
-        </label>
-        <div className="col-sm-9">
-          <input
-            name="intro_morelink"
-            value={
-              introFormValue.intro_morelink ? introFormValue.intro_morelink : ""
-            }
-            type="text"
-            onChange={changeHandler}
-            className="form-control p-2"
-          />
-        </div>
-      </div>
+            <div className="mb-3 row">
+              <label
+                htmlFor=""
+                className="col-sm-3 col-form-label text-start text-md-end"
+              >
+                Description
+              </label>
+              <div className="col-sm-9">
+                <textarea
+                  name="intro_desc"
+                  className="form-control"
+                  id="exampleFormControlTextarea1"
+                  rows="8"
+                  value={
+                    introFormValue.intro_desc ? introFormValue.intro_desc : ""
+                  }
+                  onChange={changeHandler}
+                ></textarea>
+              </div>
+            </div>
+            <div className="mb-3 row">
+              <label
+                htmlFor=""
+                className="col-sm-3 col-form-label text-start text-md-end"
+              >
+                Morelink
+              </label>
+              <div className="col-sm-9">
+                <input
+                  name="intro_morelink"
+                  value={
+                    introFormValue.intro_morelink
+                      ? introFormValue.intro_morelink
+                      : ""
+                  }
+                  type="text"
+                  onChange={changeHandler}
+                  className="form-control p-2"
+                />
+              </div>
+            </div>
 
-      <div className="text-center mt-5">
-        {/* <Button
+            <div className="text-center mt-5">
+              {/* <Button
                 type="submit"
                 cssClass="btn btn-secondary mx-3"
                 label={"clear"}
                 handlerChange={resetForm}
               /> */}
-        <Button
-          type="submit"
-          cssClass="btn btn-primary"
-          label={"Save"}
-          handlerChange={saveandUpdateIntro}
-        />
-      </div>
-
+              <Button
+                type="submit"
+                cssClass="btn btn-primary"
+                label={"Save"}
+                handlerChange={saveandUpdateIntro}
+              />
+            </div>
           </div>
         </div>
-      
-    </div>
+      </div>
     </>
   );
 };
 
-export default BriefIntro;
+export default BriefIntroAdmin;

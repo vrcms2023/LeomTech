@@ -6,7 +6,7 @@ import { axiosClientServiceApi } from "../util/axiosUtil";
 
 import "./BriefIntro.css";
 
-const BriefIntro = ({ pageType, introState }) => {
+const BriefIntroFrontend = ({ pageType, introState }) => {
   const [introValue, setIntroValues] = useState([]);
 
   useEffect(() => {
@@ -50,4 +50,4 @@ const BriefIntro = ({ pageType, introState }) => {
   );
 };
 
-export default BriefIntro;
+export default BriefIntroFrontend;

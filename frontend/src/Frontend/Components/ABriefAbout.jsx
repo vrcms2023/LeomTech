@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 // Components
 import Title from "../../Common/Title";
-import NewsForm from '../../Admin/Components/News/index';
+import NewsForm from "../../Admin/Components/News/index";
 
 // Styles
 
@@ -16,7 +16,6 @@ import EditIcon from "../../Common/AdminEditIcon";
 import ModelBg from "../../Common/ModelBg";
 
 const ABriefAbout = ({ title, cssClass, linkClass }) => {
-
   const editComponentObj = {
     whoweare: false,
   };
@@ -36,10 +35,10 @@ const ABriefAbout = ({ title, cssClass, linkClass }) => {
       <div className="col-md-7">
         {/* Edit News */}
         {isAdmin ? (
-              <EditIcon editHandler={() => editHandler("whoweare", true)} />
-            ) : (
-              ""
-            )}
+          <EditIcon editHandler={() => editHandler("whoweare", true)} />
+        ) : (
+          ""
+        )}
         <div className="row h-100">
           <div className="col-md-12 p-5 d-flex justify-content-center align-items-start flex-column">
             <Title title={title} cssClass={cssClass} />

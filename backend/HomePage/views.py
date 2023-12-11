@@ -49,11 +49,13 @@ class CarouselUpdateAndDeleteView(APIView):
     def get(self, request, pk, format=None):
         snippet = self.get_object(pk)
         serializer = CarouselSerializer(snippet)
-        return Response({"fileData": serializer.data}, status=status.HTTP_200_OK)
+        return Response({"imageModel": serializer.data}, status=status.HTTP_200_OK)
 
     def patch(self, request, pk, format=None):
         snippet = self.get_object(pk)
-        serializer = CarouselSerializer(snippet, data=request.data)
+        requestObj = get_image_data_from_request(request)
+        requestObj['updated_by'] = request.data["updated_by"]
+        serializer = CarouselSerializer(snippet, data=requestObj)
         if serializer.is_valid():
             serializer.save()
             return Response({"imageModel": serializer.data}, status=status.HTTP_200_OK)

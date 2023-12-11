@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Title from "../../Common/Title";
 import BriefIntroFrontend from "../../Common/BriefIntro";
 import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
-import BriefIntroAdmin from "../../Admin/Components/BriefIntro/index";
+import AdminBriefIntro from "../../Admin/Components/BriefIntro/index";
 import EditIcon from "../../Common/AdminEditIcon";
 import ModelBg from "../../Common/ModelBg";
 
@@ -24,6 +24,7 @@ const About = () => {
     mission: false,
   };
 
+  const pageType = "aboutus";
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
@@ -52,12 +53,25 @@ const About = () => {
           ""
         )}
         <Banner
-          bannerImg={AboutBanner}
-          alt="About LeomTech"
-          title={"Leom Tech"}
-          caption={"IT Consulting Services"}
+          getBannerAPIURL={`banner/clientBannerIntro/${pageType}/`}
+          bannerState={componentEdit.banner}
         />
       </div>
+      {componentEdit.banner ? (
+        <div className="adminEditTestmonial">
+          <ImageInputsForm
+            editHandler={editHandler}
+            componentType="banner"
+            pageType={pageType}
+            extraFormParamas={[
+              { pageType: pageType },
+              { bannerTitle: "About us" },
+            ]}
+          />
+        </div>
+      ) : (
+        ""
+      )}
 
       {/* Introduction */}
       {isAdmin ? (
@@ -68,15 +82,19 @@ const About = () => {
 
       <BriefIntroFrontend
         introState={componentEdit.briefIntro}
-        pageType="AboutUs"
+        pageType={pageType}
       />
 
       {componentEdit.briefIntro ? (
         <div className="adminEditTestmonial">
-          <BriefIntroAdmin
+          <AdminBriefIntro
             editHandler={editHandler}
             componentType="briefIntro"
-            pageType="AboutUs"
+            pageType={pageType}
+            extraFormParamas={[
+              { pageType: pageType },
+              { bannerTitle: "Aboutus" },
+            ]}
           />
         </div>
       ) : (
@@ -236,14 +254,6 @@ const About = () => {
           </div>
         </div>
       </div>
-
-      {componentEdit.banner ? (
-        <div className="adminEditTestmonial">
-          <ImageInputsForm editHandler={editHandler} componentType="banner" />
-        </div>
-      ) : (
-        ""
-      )}
 
       {componentEdit.about ? (
         <div className="adminEditTestmonial">

@@ -39,6 +39,7 @@ const FileUpload = ({
   imagePostURL = "/gallery/createGallery/",
   imageUpdateURL = "/gallery/updateGalleryDetails/",
   alternitivetextTitle = "Alt Text",
+  extraFormParamas,
 }) => {
   const [files, setFiles] = useState([]);
   const [extTypes, setExtTypes] = useState([]);
@@ -96,6 +97,13 @@ const FileUpload = ({
     formData.append("alternitivetext", formValue.alternitivetext);
     formData.append("created_by", getCookie("userName"));
     formData.append("updated_by", getCookie("userName"));
+    if (extraFormParamas) {
+      extraFormParamas.forEach((item) => {
+        let key = Object.keys(item);
+        formData.append(key, item[key]);
+        console.log(key, item[key]);
+      });
+    }
     return formData;
   };
 
@@ -257,14 +265,6 @@ const FileUpload = ({
                 className=""
                 style={{ width: "100%", height: "100px", objectFit: "cover" }}
               />
-              {/* <span
-                        onClick={() => thumbDelete(editImg.id, editImg.originalname)}
-                      >
-                        <i
-                          className="fa fa-trash-o fs-4 text-danger"
-                          aria-hidden="true"
-                        ></i>
-                      </span> */}
             </div>
           ) : (
             ""
@@ -277,21 +277,6 @@ const FileUpload = ({
           <div className="mb-3 row">
             <label className="col-sm-3 col-form-label text-start text-md-end">
               {" "}
-              <Title title={titleTitle} cssClass="" />
-            </label>
-            <div className="col-sm-9">
-              <input
-                type="text"
-                name="imageTitle"
-                value={formValue.imageTitle || ""}
-                className="form-control p-2"
-                onChange={(e) => handleChange(e)}
-              />
-            </div>
-          </div>
-          <div className="mb-3 row">
-            <label className="col-sm-3 col-form-label text-start text-md-end">
-              {" "}
               <Title title={alternitivetextTitle} cssClass="" />
             </label>
             <div className="col-sm-9">
@@ -299,6 +284,22 @@ const FileUpload = ({
                 type="text"
                 name="alternitivetext"
                 value={formValue.alternitivetext || ""}
+                className="form-control p-2"
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+          </div>
+
+          <div className="mb-3 row">
+            <label className="col-sm-3 col-form-label text-start text-md-end">
+              {" "}
+              <Title title={titleTitle} cssClass="" />
+            </label>
+            <div className="col-sm-9">
+              <input
+                type="text"
+                name="imageTitle"
+                value={formValue.imageTitle || ""}
                 className="form-control p-2"
                 onChange={(e) => handleChange(e)}
               />
