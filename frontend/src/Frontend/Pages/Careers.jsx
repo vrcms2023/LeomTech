@@ -92,7 +92,7 @@ const Careers = () => {
 
         <div className="row">
           <div className="col-md-6">
-            <Title title="Careers" />
+            <Title title="Careers" cssClass="fs-3" />
           </div>
           <div className="col-md-6">
             <Search />

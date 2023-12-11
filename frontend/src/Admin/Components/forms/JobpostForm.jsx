@@ -17,7 +17,7 @@ const JobPost = ({ editHandler, componentType }) => {
             <form className="g-3 mb-md-0">
               <div className="mb-3 row">
                 <label
-                  for=""
+                  htmlFor=""
                   className="col-sm-3 col-form-label text-start text-md-end"
                 >
                   Location
@@ -28,7 +28,7 @@ const JobPost = ({ editHandler, componentType }) => {
               </div>
               <div className="mb-3 row">
                 <label
-                  for=""
+                  htmlFor=""
                   className="col-sm-3 col-form-label text-start text-md-end"
                 >
                   Title
@@ -40,7 +40,7 @@ const JobPost = ({ editHandler, componentType }) => {
 
               <div className="mb-3 row">
                 <label
-                  for=""
+                  htmlFor=""
                   className="col-sm-3 col-form-label text-start text-md-end"
                 >
                   Sub Title
@@ -52,7 +52,7 @@ const JobPost = ({ editHandler, componentType }) => {
 
               <div className="mb-3 row">
                 <label
-                  for=""
+                  htmlFor=""
                   className="col-sm-3 col-form-label text-start text-md-end"
                 >
                   Description
@@ -68,7 +68,7 @@ const JobPost = ({ editHandler, componentType }) => {
 
               <div className="mb-3 row">
                 <label
-                  for=""
+                  htmlFor=""
                   className="col-sm-3 col-form-label text-start text-md-end"
                 >
                   Experience / Posted On

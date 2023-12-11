@@ -84,7 +84,6 @@ body {
 .ABriefAbout h3, .ABriefAbout .title { border-color: ${({ theme }) =>
   theme.ABriefAboutTitleBorderColor}; }
 
-
 .testimonials {
     background-color:${({ theme }) => theme.testimonialsBg}; 
     color:${({ theme }) => theme.white};
