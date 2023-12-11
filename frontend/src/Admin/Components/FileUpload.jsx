@@ -228,10 +228,10 @@ const FileUpload = ({
   return (
     <>
       <div className="mb-3 row">
-        <label className="col-sm-2 col-form-label text-start text-md-end">
+        <label className="col-sm-3 col-form-label text-start text-md-end">
           <Title title={title} cssClass="" />
         </label>
-        <div className="col-sm-10">
+        <div className="col-sm-9">
           <div className="border border-3 mb-0 shadow-lg">
             <FilePond
               labelIdle='Drag & Drop your files or <span className="filepond--label-action">Browse</span>'
@@ -275,11 +275,11 @@ const FileUpload = ({
       {showDescription ? (
         <>
           <div className="mb-3 row">
-            <label className="col-sm-2 col-form-label text-start text-md-end">
+            <label className="col-sm-3 col-form-label text-start text-md-end">
               {" "}
               <Title title={titleTitle} cssClass="" />
             </label>
-            <div className="col-sm-10">
+            <div className="col-sm-9">
               <input
                 type="text"
                 name="imageTitle"
@@ -290,11 +290,11 @@ const FileUpload = ({
             </div>
           </div>
           <div className="mb-3 row">
-            <label className="col-sm-2 col-form-label text-start text-md-end">
+            <label className="col-sm-3 col-form-label text-start text-md-end">
               {" "}
               <Title title={alternitivetextTitle} cssClass="" />
             </label>
-            <div className="col-sm-10">
+            <div className="col-sm-9">
               <input
                 type="text"
                 name="alternitivetext"
@@ -306,10 +306,10 @@ const FileUpload = ({
           </div>
 
           <div className="mb-3 row">
-            <label className="col-sm-2 col-form-label text-start text-md-end">
+            <label className="col-sm-3 col-form-label text-start text-md-end">
               <Title title={descriptionTitle} cssClass="" />
             </label>
-            <div className="col-sm-10">
+            <div className="col-sm-9">
               <textarea
                 className="form-control"
                 name="imageDescription"
@@ -320,17 +320,17 @@ const FileUpload = ({
               ></textarea>
             </div>
           </div>
-          <div className="mb-3 row">
-            <div className="col-sm-12 text-center ">
+          <div className="row">
+            <div className="text-center ">
               <Button
                 type="submit"
-                cssClass="btn btn-secondary mx-3"
+                cssClass="btn btn-secondary m-3"
                 label="Clear"
                 handlerChange={clearField}
               />
               <Button
                 type="submit"
-                cssClass="btn btn-success mx-2"
+                cssClass="btn btn-primary"
                 label={buttonLable ? buttonLable : "upload Image"}
                 handlerChange={uploadFile}
               />

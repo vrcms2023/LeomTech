@@ -15,6 +15,7 @@ const ImageInputsForm = ({ editHandler, componentType }) => {
         <div className="row py-0 pb-md-5">
           <div className="col-md-8 offset-md-2 mb-5 mb-md-0">
             <form className="g-3 mb-md-0">
+              <div className="container">
               <div className="mb-3 row">
                 <label
                   for=""
@@ -68,6 +69,7 @@ const ImageInputsForm = ({ editHandler, componentType }) => {
               <div className="text-center mt-5">
                 <button className="btn btn-secondary mx-3">Clear</button>
                 <button className="btn btn-primary">Save</button>
+              </div>
               </div>
             </form>
           </div>

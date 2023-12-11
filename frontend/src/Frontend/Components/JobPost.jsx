@@ -142,7 +142,7 @@ const JobPost = () => {
       ))}
 
       {componentEdit.job ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <JobPostFrom editHandler={editHandler} componentType="job" />
         </div>
       ) : (

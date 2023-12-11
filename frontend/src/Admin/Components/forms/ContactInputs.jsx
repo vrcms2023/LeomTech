@@ -8,7 +8,7 @@ const ContactInputs = ({ editHandler, componentType }) => {
   };
 
   return (
-    <div className="bg-white">
+    <>
       <EditAdminPopupHeader closeHandler={closeHandler} title={componentType} />
       <div className="container">
         <div className="row py-0 pb-md-5">
@@ -16,7 +16,7 @@ const ContactInputs = ({ editHandler, componentType }) => {
             <form className="g-3 mb-md-0">
               <div className="mb-3 row">
                 <label
-                  for=""
+                  htmlFor=""
                   className="col-sm-2 col-form-label text-start text-md-end"
                 >
                   Phone
@@ -27,7 +27,7 @@ const ContactInputs = ({ editHandler, componentType }) => {
               </div>
               <div className="mb-3 row">
                 <label
-                  for=""
+                  htmlFor=""
                   className="col-sm-2 col-form-label text-start text-md-end"
                 >
                   Email
@@ -45,7 +45,7 @@ const ContactInputs = ({ editHandler, componentType }) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

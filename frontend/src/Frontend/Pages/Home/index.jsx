@@ -76,7 +76,7 @@ const Home = () => {
         </div>
 
         {componentEdit.carousel ? (
-          <div className="container position-fixed adminEditTestmonial p-1">
+          <div className="adminEditTestmonial">
             <AdminBanner editHandler={editHandler} componentType="carousel" />
           </div>
         ) : (
@@ -95,7 +95,7 @@ const Home = () => {
         />
 
         {componentEdit.briefIntro ? (
-          <div className="container position-fixed adminEditTestmonial p-1">
+          <div className="adminEditTestmonial">
             <BriefIntroAdmin
               editHandler={editHandler}
               componentType="briefIntro"
@@ -165,7 +165,7 @@ const Home = () => {
       </div>
 
       {componentEdit.projects ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <AdminBanner editHandler={editHandler} componentType="projects" />
         </div>
       ) : (
@@ -173,7 +173,7 @@ const Home = () => {
       )}
 
       {componentEdit.testmonial ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <AdminBanner editHandler={editHandler} componentType="testmonial" />
         </div>
       ) : (

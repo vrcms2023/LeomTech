@@ -113,7 +113,7 @@ const NewsAndUpdates = () => {
       {showModal && <ModelBg closeModel={closeModel} />}
 
       {componentEdit.banner ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <ImageInputsForm editHandler={editHandler} componentType="banner" />
         </div>
       ) : (

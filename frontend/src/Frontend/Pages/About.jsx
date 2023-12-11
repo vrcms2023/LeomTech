@@ -72,7 +72,7 @@ const About = () => {
       />
 
       {componentEdit.briefIntro ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <BriefIntroAdmin
             editHandler={editHandler}
             componentType="briefIntro"
@@ -238,7 +238,7 @@ const About = () => {
       </div>
 
       {componentEdit.banner ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <ImageInputsForm editHandler={editHandler} componentType="banner" />
         </div>
       ) : (
@@ -246,7 +246,7 @@ const About = () => {
       )}
 
       {componentEdit.about ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <ImageInputsForm editHandler={editHandler} componentType="about" />
         </div>
       ) : (
@@ -254,7 +254,7 @@ const About = () => {
       )}
 
       {componentEdit.vision ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <ImageInputsForm editHandler={editHandler} componentType="vision" />
         </div>
       ) : (
@@ -262,7 +262,7 @@ const About = () => {
       )}
 
       {componentEdit.mission ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <ImageInputsForm editHandler={editHandler} componentType="mission" />
         </div>
       ) : (

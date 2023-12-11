@@ -104,11 +104,11 @@ body {
         color:${({ theme }) => theme.secondaryColor}; 
     }
 
-    a {
+    a.btn {
         background-color:${({ theme }) => theme.primaryHoverColor};
     }
 
-    a:hover {
+    a.btn:hover {
         background-color:${({ theme }) => theme.primaryColor};
     }
 }
