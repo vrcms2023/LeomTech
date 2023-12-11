@@ -5,7 +5,7 @@ import { getCookie } from "../../../util/cookieUtil";
 import { axiosServiceApi } from "../../../util/axiosUtil";
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
 
-const AddressTextArea = ({ editHandler, componentType }) => {
+const FooterAdminFeilds = ({ editHandler, componentType }) => {
   const [userName, setUserName] = useState("");
   const { register, reset, handleSubmit } = useForm();
 
@@ -66,7 +66,7 @@ const AddressTextArea = ({ editHandler, componentType }) => {
           <div className="row p-4">
             <div className="col-md-6 mb-md-0">
               <InputField
-                label="Address"
+                label="Door Number"
                 fieldName="address_dr_no"
                 register={register}
               />
@@ -98,11 +98,11 @@ const AddressTextArea = ({ editHandler, componentType }) => {
                 register={register}
               />
               <InputField
-                label="Phone"
-                fieldName="phonen_number"
+                label="Phone 2"
+                fieldName="phonen_number_2"
                 register={register}
               />
-              <TextAreaField
+              {/* <TextAreaField
                 label="Terms Ccondition"
                 fieldName="terms_condition"
                 register={register}
@@ -111,7 +111,7 @@ const AddressTextArea = ({ editHandler, componentType }) => {
                 label="Privacy Policy"
                 fieldName="privacy_policy"
                 register={register}
-              />
+              /> */}
             </div>
 
             <div className="col-md-6 mb-md-0">
@@ -204,4 +204,4 @@ const TextAreaField = ({ label, fieldName, register }) => {
   );
 };
 
-export default AddressTextArea;
+export default FooterAdminFeilds;

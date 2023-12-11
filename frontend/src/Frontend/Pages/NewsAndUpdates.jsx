@@ -25,6 +25,8 @@ const NewsAndUpdates = () => {
     banner: false,
     news: false,
   };
+
+  const pageType = "news";
   const [news, setNews] = useState([]);
   const [show, setShow] = useState(false);
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
@@ -88,12 +90,22 @@ const NewsAndUpdates = () => {
           ""
         )}
         <Banner
-          bannerImg={NewsBanner}
-          alt="About LeomTech"
-          title={"Leom Tech"}
-          caption={"IT Consulting Services"}
+          getBannerAPIURL={`banner/clientBannerIntro/${pageType}/`}
+          bannerState={componentEdit.banner}
         />
       </div>
+      {componentEdit.banner ? (
+        <div className="adminEditTestmonial">
+          <ImageInputsForm
+            editHandler={editHandler}
+            componentType="banner"
+            pageType={pageType}
+            extraFormParamas={[{ pageType: pageType }, { bannerTitle: "News" }]}
+          />
+        </div>
+      ) : (
+        ""
+      )}
 
       <div className="container my-4 newsAndUpdates">
         <div className="row">
@@ -111,14 +123,6 @@ const NewsAndUpdates = () => {
       </div>
       {showModal && <Model obj={obj} closeModel={closeModel} flag="news" />}
       {showModal && <ModelBg closeModel={closeModel} />}
-
-      {componentEdit.banner ? (
-        <div className="adminEditTestmonial">
-          <ImageInputsForm editHandler={editHandler} componentType="banner" />
-        </div>
-      ) : (
-        ""
-      )}
 
       {show && <ModelBg />}
     </>

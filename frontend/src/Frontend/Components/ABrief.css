@@ -8,9 +8,8 @@
 }
 
 .ABrief label {
-  color: #333 !important
+  color: #333 !important;
 }
-
 
 @media (max-width: 756px) {
   .ABriefImg img {

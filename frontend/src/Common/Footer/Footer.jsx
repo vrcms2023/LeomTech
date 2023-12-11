@@ -14,7 +14,7 @@ import Logo from "../../../src/Images/logo.svg";
 import "./Styles.css";
 import Model from "../../Common/Model";
 import ModelBg from "../ModelBg";
-import AddressTextArea from "../../Admin/Components/forms/FooterInputs";
+import FooterAdminFeilds from "../../Admin/Components/forms/FooterInputs";
 import ContactInputs from "../../Admin/Components/forms/ContactInputs";
 
 const Footer = () => {
@@ -111,10 +111,10 @@ const Footer = () => {
 
               <div className="text-center text-md-start">
                 <h5>Address</h5>
-                101, Silicon Towers, <br />
-                Image Garden Road, <br />
-                Madhapur, <br />
-                Hyderabad - 500081.
+                {footerValues.address_dr_no}, {footerValues.location} <br />
+                {footerValues.street} <br />
+                {footerValues.city} - {footerValues.postcode} <br />
+                {footerValues.state}
               </div>
             </div>
 
@@ -124,12 +124,13 @@ const Footer = () => {
               <div>
                 Phone
                 <br />
-                40-40036841
+                {footerValues.phonen_number} <br />
+                {footerValues.phonen_number_2}
               </div>
               <div className="mb-md-0 mt-3">
                 Email
                 <br />
-                <a href="mailto:info@leomtech.com">info@leomtech.com</a>
+                <a href="mailto:info@leomtech.com">{footerValues.emailid} </a>
               </div>
             </div>
 
@@ -137,21 +138,61 @@ const Footer = () => {
             <div className="col-md-3 text-center socialLinks ">
               <img src={Logo} alt="" />
               <div>
-                <Link to="#" target="_blank">
-                  <i className="fa fa-facebook-square" aria-hidden="true"></i>
-                </Link>
-                <Link to="#" target="_blank">
-                  <i className="fa fa-twitter-square" aria-hidden="true"></i>
-                </Link>
-                <Link to="#" target="_blank">
-                  <i className="fa fa-youtube-play" aria-hidden="true"></i>
-                </Link>
-                <Link to="#" target="_blank">
-                  <i className="fa fa-linkedin-square" aria-hidden="true"></i>
-                </Link>
-                <Link to="#" target="_blank">
-                  <i className="fa fa-instagram" aria-hidden="true"></i>
-                </Link>
+                {footerValues.facebook_url ? (
+                  <Link to="#" target="_blank">
+                    <i className="fa fa-facebook-square" aria-hidden="true"></i>
+                  </Link>
+                ) : (
+                  ""
+                )}
+
+                {footerValues.twitter_url ? (
+                  <Link to="#" target="_blank">
+                    <i className="fa fa-twitter-square" aria-hidden="true"></i>
+                  </Link>
+                ) : (
+                  ""
+                )}
+
+                {footerValues.youtube_url ? (
+                  <Link to="#" target="_blank">
+                    <i className="fa fa-youtube-play" aria-hidden="true"></i>
+                  </Link>
+                ) : (
+                  ""
+                )}
+
+                {footerValues.linkedIn_url ? (
+                  <Link to="#" target="_blank">
+                    <i className="fa fa-linkedin-square" aria-hidden="true"></i>
+                  </Link>
+                ) : (
+                  ""
+                )}
+
+                {footerValues.instagram_url ? (
+                  <Link to="#" target="_blank">
+                    <i className="fa fa-instagram" aria-hidden="true"></i>
+                  </Link>
+                ) : (
+                  ""
+                )}
+
+                {footerValues.vimeo_url ? (
+                  <Link to="#" target="_blank">
+                    <i className="fa fa-vimeo" aria-hidden="true"></i>
+                  </Link>
+                ) : (
+                  ""
+                )}
+
+                {footerValues.pinterest_url ? (
+                  <Link to="#" target="_blank">
+                    <i className="fa fa-pinterest" aria-hidden="true"></i>
+                  </Link>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </div>
@@ -185,7 +226,10 @@ const Footer = () => {
 
       {componentEdit.address ? (
         <div className="adminEditTestmonial">
-          <AddressTextArea editHandler={editHandler} componentType="address" />
+          <FooterAdminFeilds
+            editHandler={editHandler}
+            componentType="address"
+          />
         </div>
       ) : (
         ""

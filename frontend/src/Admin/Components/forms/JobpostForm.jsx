@@ -88,7 +88,6 @@ const JobPost = ({ editHandler, componentType }) => {
                   <button className="btn btn-primary">Save</button>
                 </div>
               </div>
-              
             </form>
           </div>
         </div>

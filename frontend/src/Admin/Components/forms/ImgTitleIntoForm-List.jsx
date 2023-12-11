@@ -5,13 +5,12 @@ import { getBaseURL } from "../../../util/ulrUtil";
 import FileUpload from "../../Components/FileUpload";
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
 
-import Cimg1 from "../../../Images/carousel1.jpg";
 import { getCookie } from "../../../util/cookieUtil";
 import { axiosFileUploadServiceApi } from "../../../util/axiosUtil";
 import { confirmAlert } from "react-confirm-alert";
 import DeleteDialog from "../../../Common/DeleteDialog";
 
-const AdminBanner = ({ editHandler, componentType }) => {
+const AdminBanner = ({ editHandler, componentType, extraFormParamas }) => {
   const projectID = "a62d7759-a e6b-4e49-a129-1ee208c6789d";
   const [userName, setUserName] = useState("");
   const [imgGallery, setImgGallery] = useState([]);
@@ -20,7 +19,6 @@ const AdminBanner = ({ editHandler, componentType }) => {
   const [project, setProject] = useState({ id: projectID });
   const baseURL = getBaseURL();
   const [editCarousel, setEditCarousel] = useState({});
-  const baseurl = getBaseURL();
 
   const closeHandler = () => {
     editHandler(componentType, false);
@@ -48,7 +46,7 @@ const AdminBanner = ({ editHandler, componentType }) => {
     getCarouselData();
   }, [imgGallery]);
 
-  const handleNewsEdit = (event, carousel) => {
+  const handleCarouselEdit = (event, carousel) => {
     event.preventDefault();
     setEditCarousel(carousel);
   };
@@ -98,7 +96,7 @@ const AdminBanner = ({ editHandler, componentType }) => {
               validTypes="image/png,image/jpeg"
               descriptionTitle="Caption"
               titleTitle="Title"
-              alternitivetextTitle="Alt text"
+              alternitivetextTitle="Image Alt Text"
               saveState={setSaveState}
               showDescription={true}
               buttonLable="Save"
@@ -106,11 +104,10 @@ const AdminBanner = ({ editHandler, componentType }) => {
               setEditCarousel={setEditCarousel}
               imagePostURL={"carousel/createCarousel/"}
               imageUpdateURL={"carousel/updateCarousel/"}
+              extraFormParamas={extraFormParamas}
             />
           </div>
-          <div
-            className="col-md-6 mt-3 mt-md-0 "
-          >
+          <div className="col-md-6 mt-3 mt-md-0 ">
             <div className="container">
               {carousel?.map((item, index) => (
                 <div className="row mb-4 slideItem" key={index}>
@@ -128,7 +125,7 @@ const AdminBanner = ({ editHandler, componentType }) => {
                     </small>
                   </div>
                   <div className="col-2 col-md-2 d-flex justify-content-between align-items-center flex-column flex-md-row">
-                    <Link onClick={(event) => handleNewsEdit(event, item)}>
+                    <Link onClick={(event) => handleCarouselEdit(event, item)}>
                       <i
                         className="fa fa-pencil fs-4 text-warning"
                         aria-hidden="true"
