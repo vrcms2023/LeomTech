@@ -7,6 +7,11 @@ import Title from "../../Common/Title";
 import "./HomeNews.css";
 
 import newsImg3 from "../../Images/news3.png";
+import EditIcon from "../../Common/AdminEditIcon";
+import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
+import AdminBanner from "../../Admin/Components/forms/ImgTitleIntoForm-List";
+import NewsForm from '../../Admin/Components/News/index';
+import ModelBg from "../../Common/ModelBg";
 
 const HomeNews = () => {
   const [news, setNews] = useState([
@@ -40,6 +45,21 @@ const HomeNews = () => {
     },
   ]);
 
+  const editComponentObj = {
+    news: false,
+  };
+
+  const isAdmin = useAdminLoginStatus();
+  const [componentEdit, SetComponentEdit] = useState(editComponentObj);
+  const [show, setShow] = useState(false);
+
+  const editHandler = (name, value) => {
+    SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
+    setShow(!show);
+    document.body.style.overflow = "hidden";
+  };
+
+
   return (
     <>
       {news.map((item, index) => (
@@ -47,16 +67,47 @@ const HomeNews = () => {
           className="col-sm-6 col-md-3 mb-4 mb-md-0"
           key={`${index}+homenews`}
         >
-          <div className="card">
+          <div className="card position-relative homeNews">
+            {/* Edit News */}
+            {isAdmin ? (
+              <EditIcon editHandler={() => editHandler("news", true)} />
+            ) : (
+              ""
+            )}
             <img src={newsImg3} className="img-fluid" alt="Ongoing Projects" />
             <div className="card-body p-4">
-              <Title title={item.title} cssClass="" />
+              <Title title={item.title} cssClass="fs-5 fw-bold lh-sm mb-2" />
               <p className="card-text mb-4">{item.description}</p>
               <Link to={item.link}>Read more</Link>
             </div>
+
+            {isAdmin ? (
+              <div className="text-end deleteNews">
+                <Link to="" className="bg-danger p-2 rounded">
+                  <i
+                    className="fa fa-trash-o fs-5 text-white"
+                    aria-hidden="true"
+                  ></i>
+                </Link>
+              </div>
+            ) : (
+              ""
+            )}
+
+
           </div>
         </div>
       ))}
+
+      {componentEdit.news ? (
+        <div className="adminEditTestmonial">
+          <NewsForm editHandler={editHandler} componentType="news" />
+        </div>
+      ) : (
+        ""
+      )}
+
+      {show && <ModelBg />}
     </>
   );
 };

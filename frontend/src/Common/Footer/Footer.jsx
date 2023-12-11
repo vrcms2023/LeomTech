@@ -184,7 +184,7 @@ const Footer = () => {
       )}
 
       {componentEdit.address ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <AddressTextArea editHandler={editHandler} componentType="address" />
         </div>
       ) : (
@@ -192,7 +192,7 @@ const Footer = () => {
       )}
 
       {componentEdit.contact ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <ContactInputs editHandler={editHandler} componentType="contact" />
         </div>
       ) : (

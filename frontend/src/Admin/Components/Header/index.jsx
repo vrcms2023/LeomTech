@@ -7,15 +7,15 @@ const AdminHeader = ({ editHandler }) => {
   };
 
   return (
-    <div className="bg-white">
+    <>
       <EditAdminPopupHeader closeHandler={closeHandler} title="Header" />
       <div className="container">
-        <div className="row py-0 pb-md-5">
-          <div className="col-md-6 offset-md-3 mb-5 mb-md-0">
-            <form className="g-3 mb-md-0">
-              <div className="mb-3 row">
+        <div className="row p-4">
+          <div className="col-md-8 offset-md-2">
+            <form className="">
+              <div className="row mb-3">
                 <label
-                  for=""
+                  htmlFor=""
                   className="col-sm-2 col-form-label text-start text-md-end"
                 >
                   Logo
@@ -24,9 +24,9 @@ const AdminHeader = ({ editHandler }) => {
                   <input className="form-control p-2" type="file" id="" />
                 </div>
               </div>
-              <div className="mb-3 row">
+              <div className="row mb-3">
                 <label
-                  for=""
+                  htmlFor=""
                   className="col-sm-2 col-form-label text-start text-md-end"
                 >
                   Alt
@@ -35,15 +35,17 @@ const AdminHeader = ({ editHandler }) => {
                   <input type="text" className="form-control p-2" />
                 </div>
               </div>
-              <div className="text-center mt-5">
-                <button className="btn btn-secondary mx-3">Clear</button>
-                <button className="btn btn-primary">Save</button>
+              <div className="row">
+                <div className="text-center">
+                  <button className="btn btn-secondary m-3 ">Clear</button>
+                  <button className="btn btn-primary">Save</button>
+                </div>
               </div>
             </form>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 export default AdminHeader;

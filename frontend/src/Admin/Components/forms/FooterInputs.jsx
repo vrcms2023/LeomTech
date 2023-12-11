@@ -59,12 +59,12 @@ const AddressTextArea = ({ editHandler, componentType }) => {
   }, []);
 
   return (
-    <div className="bg-white">
+    <div className="">
       <EditAdminPopupHeader closeHandler={closeHandler} title={componentType} />
-      <form className="g-3 mb-md-0" onSubmit={handleSubmit(onSubmit)}>
+      <form className="" onSubmit={handleSubmit(onSubmit)}>
         <div className="container">
-          <div className="row py-0 pb-md-5">
-            <div className="col-md-6 mb-5 mb-md-0">
+          <div className="row p-4">
+            <div className="col-md-6 mb-md-0">
               <InputField
                 label="Address"
                 fieldName="address_dr_no"
@@ -114,7 +114,7 @@ const AddressTextArea = ({ editHandler, componentType }) => {
               />
             </div>
 
-            <div className="col-md-6 mb-5 mb-md-0">
+            <div className="col-md-6 mb-md-0">
               <InputField
                 label="Facebook"
                 fieldName="facebook_url"
@@ -152,8 +152,8 @@ const AddressTextArea = ({ editHandler, componentType }) => {
               />
             </div>
           </div>
-          <div className="row py-0 pb-md-5">
-            <div className="text-center">
+          <div className="row">
+            <div className="text-center mb-4">
               <button className="btn btn-secondary mx-3">Clear</button>
               <button className="btn btn-primary">Save</button>
             </div>
@@ -169,11 +169,11 @@ const InputField = ({ label, fieldName, register }) => {
     <div className="mb-3 row">
       <label
         htmlFor=""
-        className="col-sm-2 col-form-label text-start text-md-end text-capitalize"
+        className="col-sm-3 col-form-label text-start text-md-end text-capitalize"
       >
         {label}
       </label>
-      <div className="col-sm-10">
+      <div className="col-sm-9">
         <input
           {...register(fieldName)}
           type="text"
@@ -189,11 +189,11 @@ const TextAreaField = ({ label, fieldName, register }) => {
     <div className="mb-3 row">
       <label
         htmlFor=""
-        className="col-sm-2 col-form-label text-start text-md-end"
+        className="col-sm-3 col-form-label text-start text-md-end"
       >
         {label}
       </label>
-      <div className="col-sm-10">
+      <div className="col-sm-9">
         <textarea
           className="form-control"
           {...register(fieldName)}

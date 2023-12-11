@@ -98,7 +98,7 @@ const Projects = () => {
       )}
 
       {componentEdit.banner ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <ImageInputsForm editHandler={editHandler} componentType="banner" />
         </div>
       ) : (
@@ -106,7 +106,7 @@ const Projects = () => {
       )}
 
       {componentEdit.briefIntro ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <AdminBriefIntro
             editHandler={editHandler}
             componentType="briefIntro"

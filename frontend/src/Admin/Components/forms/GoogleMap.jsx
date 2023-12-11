@@ -24,7 +24,7 @@ const GoogleMap = ({ editHandler, componentType }) => {
                 <textarea
                   className="form-control"
                   id="exampleFormControlTextarea1"
-                  rows="3"
+                  rows="8"
                 ></textarea>
                 <small className="mt-3 mb-2 fw-bold d-inline-block">
                   Example : Copy the google "Embed a map" script like below
@@ -37,9 +37,11 @@ const GoogleMap = ({ editHandler, componentType }) => {
               </div>
             </div>
 
-            <div className="text-center mt-5">
-              <button className="btn btn-secondary mx-3">Clear</button>
-              <button className="btn btn-primary">Save</button>
+            <div className="row">
+              <div className="text-center">
+                <button className="btn btn-secondary mx-3">Clear</button>
+                <button className="btn btn-primary">Save</button>
+              </div>
             </div>
           </div>
         </div>

@@ -84,7 +84,6 @@ body {
 .ABriefAbout h3, .ABriefAbout .title { border-color: ${({ theme }) =>
   theme.ABriefAboutTitleBorderColor}; }
 
-
 .testimonials {
     background-color:${({ theme }) => theme.testimonialsBg}; 
     color:${({ theme }) => theme.white};
@@ -104,11 +103,11 @@ body {
         color:${({ theme }) => theme.secondaryColor}; 
     }
 
-    a {
+    a.btn {
         background-color:${({ theme }) => theme.primaryHoverColor};
     }
 
-    a:hover {
+    a.btn:hover {
         background-color:${({ theme }) => theme.primaryColor};
     }
 }

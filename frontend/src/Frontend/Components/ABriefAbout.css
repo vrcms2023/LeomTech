@@ -11,3 +11,7 @@
   object-fit: cover;
   height: 100%;
 }
+
+.ABriefAbout label {
+  color: #333 !important
+}

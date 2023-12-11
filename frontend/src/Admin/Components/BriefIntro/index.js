@@ -97,17 +97,19 @@ export const BriefIntro = ({ editHandler, componentType, pageType }) => {
   // }
 
   return (
-    <div className="bg-white">
+    <>
       <EditAdminPopupHeader closeHandler={closeHandler} title={componentType} />
-
-      <div className="mb-3 row">
+      <div className="container">
+        <div className="row p-4">
+          <div className="col-md-8 offset-md-2">
+          <div className="mb-3 row">
         <label
           htmlFor=""
-          className="col-sm-2 col-form-label text-start text-md-end"
+          className="col-sm-3 col-form-label text-start text-md-end"
         >
           Title
         </label>
-        <div className="col-sm-10">
+        <div className="col-sm-9">
           <input
             name="intro_title"
             value={introFormValue.intro_title ? introFormValue.intro_title : ""}
@@ -121,11 +123,11 @@ export const BriefIntro = ({ editHandler, componentType, pageType }) => {
       <div className="mb-3 row">
         <label
           htmlFor=""
-          className="col-sm-2 col-form-label text-start text-md-end"
+          className="col-sm-3 col-form-label text-start text-md-end"
         >
           SubTitle
         </label>
-        <div className="col-sm-10">
+        <div className="col-sm-9">
           <input
             name="subTitle"
             value={introFormValue.subTitle ? introFormValue.subTitle : ""}
@@ -139,16 +141,16 @@ export const BriefIntro = ({ editHandler, componentType, pageType }) => {
       <div className="mb-3 row">
         <label
           htmlFor=""
-          className="col-sm-2 col-form-label text-start text-md-end"
+          className="col-sm-3 col-form-label text-start text-md-end"
         >
           Description
         </label>
-        <div className="col-sm-10">
+        <div className="col-sm-9">
           <textarea
             name="intro_desc"
             className="form-control"
             id="exampleFormControlTextarea1"
-            rows="3"
+            rows="8"
             value={introFormValue.intro_desc ? introFormValue.intro_desc : ""}
             onChange={changeHandler}
           ></textarea>
@@ -157,11 +159,11 @@ export const BriefIntro = ({ editHandler, componentType, pageType }) => {
       <div className="mb-3 row">
         <label
           htmlFor=""
-          className="col-sm-2 col-form-label text-start text-md-end"
+          className="col-sm-3 col-form-label text-start text-md-end"
         >
           Morelink
         </label>
-        <div className="col-sm-10">
+        <div className="col-sm-9">
           <input
             name="intro_morelink"
             value={
@@ -183,12 +185,17 @@ export const BriefIntro = ({ editHandler, componentType, pageType }) => {
               /> */}
         <Button
           type="submit"
-          cssClass="btn btn-secondary mx-3"
+          cssClass="btn btn-primary"
           label={"Save"}
           handlerChange={saveandUpdateIntro}
         />
       </div>
+
+          </div>
+        </div>
+      
     </div>
+    </>
   );
 };
 

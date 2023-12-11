@@ -16,3 +16,9 @@
   font-size: 1.1rem;
   font-weight: bold;
 }
+
+.deleteNews {
+  position: absolute;
+  bottom: 10px;
+  right: 10px
+}

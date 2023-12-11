@@ -98,7 +98,7 @@ const Header = () => {
   return (
     <>
       {componentEdit.menu ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <AdminHeader editHandler={editHandler} />
         </div>
       ) : (

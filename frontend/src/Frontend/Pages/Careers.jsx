@@ -92,7 +92,7 @@ const Careers = () => {
 
         <div className="row">
           <div className="col-md-6">
-            <Title title="Careers" />
+            <Title title="Careers" cssClass="fs-3" />
           </div>
           <div className="col-md-6">
             <Search />
@@ -105,7 +105,7 @@ const Careers = () => {
       </div>
 
       {componentEdit.banner ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <ImageInputsForm editHandler={editHandler} componentType="banner" />
         </div>
       ) : (
@@ -113,7 +113,7 @@ const Careers = () => {
       )}
 
       {componentEdit.briefIntro ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <AdminBriefIntro
             editHandler={editHandler}
             componentType="briefIntro"

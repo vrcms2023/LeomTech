@@ -91,7 +91,7 @@ const HomeServices = ({ title }) => {
       ))}
 
       {componentEdit.service ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <ServiceForm editHandler={editHandler} componentType="service" />
         </div>
       ) : (

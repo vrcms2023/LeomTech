@@ -328,7 +328,7 @@ const Contact = () => {
       </div>
 
       {componentEdit.banner ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <ImageInputsForm editHandler={editHandler} componentType="banner" />
         </div>
       ) : (
@@ -336,7 +336,7 @@ const Contact = () => {
       )}
 
       {componentEdit.briefIntro ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <AdminBriefIntro
             editHandler={editHandler}
             componentType="briefIntro"
@@ -347,7 +347,7 @@ const Contact = () => {
       )}
 
       {componentEdit.address ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <AddressTextArea editHandler={editHandler} componentType="address" />
         </div>
       ) : (
@@ -355,7 +355,7 @@ const Contact = () => {
       )}
 
       {componentEdit.map ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <GoogleMap editHandler={editHandler} componentType="map" />
         </div>
       ) : (

@@ -82,10 +82,10 @@ const AdminBanner = ({ editHandler, componentType }) => {
   };
 
   return (
-    <div className="bg-white h-100">
+    <>
       <EditAdminPopupHeader closeHandler={closeHandler} title={componentType} />
       <div className="container">
-        <div className="row py-0 pb-md-5">
+        <div className="row">
           <div className="col-md-6 mb-5 mb-md-0">
             <FileUpload
               title="Add carousel Images"
@@ -109,8 +109,7 @@ const AdminBanner = ({ editHandler, componentType }) => {
             />
           </div>
           <div
-            className="col-md-6 mt-3 mt-md-0 overflow-auto"
-            style={{ maxHeight: "450px" }}
+            className="col-md-6 mt-3 mt-md-0 "
           >
             <div className="container">
               {carousel?.map((item, index) => (
@@ -150,7 +149,7 @@ const AdminBanner = ({ editHandler, componentType }) => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

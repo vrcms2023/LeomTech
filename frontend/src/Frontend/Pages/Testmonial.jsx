@@ -84,7 +84,7 @@ const Services = () => {
       </div>
 
       {componentEdit.banner ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <ImageInputsForm editHandler={editHandler} componentType="banner" />
         </div>
       ) : (
@@ -92,7 +92,7 @@ const Services = () => {
       )}
 
       {componentEdit.briefIntro ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <AdminBriefIntro
             editHandler={editHandler}
             componentType="briefIntro"
@@ -103,7 +103,7 @@ const Services = () => {
       )}
 
       {componentEdit.about ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <ImageInputsForm editHandler={editHandler} componentType="about" />
         </div>
       ) : (
@@ -111,7 +111,7 @@ const Services = () => {
       )}
 
       {componentEdit.vision ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <ImageInputsForm editHandler={editHandler} componentType="vision" />
         </div>
       ) : (
@@ -119,7 +119,7 @@ const Services = () => {
       )}
 
       {componentEdit.mission ? (
-        <div className="container position-fixed adminEditTestmonial p-1">
+        <div className="adminEditTestmonial">
           <ImageInputsForm editHandler={editHandler} componentType="mission" />
         </div>
       ) : (
