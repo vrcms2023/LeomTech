@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { axiosServiceApi } from "../../../util/axiosUtil";
 import { getCookie } from "../../../util/cookieUtil";
 import Button from "../../../Common/Button";
-
+import RichTextEditor from "../../../Frontend/Components/RichTextEditor";
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
 
 export const News = ({ editHandler, componentType, pageType, type }) => {
@@ -21,7 +21,7 @@ export const News = ({ editHandler, componentType, pageType, type }) => {
     pageType: pageType,
   };
   const [introFormValue, setIntroFormValues] = useState(formObject);
-
+  const [editorState, setEditorState] = useState("");
   const [userName, setUserName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -196,7 +196,10 @@ export const News = ({ editHandler, componentType, pageType, type }) => {
                 Description
               </label>
               <div className="col-sm-9">
-                <textarea
+
+              <RichTextEditor 
+                RichEditorState={setEditorState}/>
+                {/* <textarea
                   name="intro_desc"
                   className="form-control"
                   id="exampleFormControlTextarea1"
@@ -205,7 +208,7 @@ export const News = ({ editHandler, componentType, pageType, type }) => {
                     introFormValue.intro_desc ? introFormValue.intro_desc : ""
                   }
                   onChange={changeHandler}
-                ></textarea>
+                ></textarea> */}
               </div>
             </div>
 

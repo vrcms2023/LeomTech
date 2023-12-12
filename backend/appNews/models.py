@@ -1,20 +1,8 @@
 from django.db import models
-import uuid
-import os
-from django.utils import timezone
-
+from common.BaseModel import ImageModel
 # Create your models here.
 
-class AppNews(models.Model):
-    id =            models.UUIDField(primary_key=True, default = uuid.uuid4, unique=True, editable=False)
-    projectID =     models.CharField(max_length=100, null=False)
-    imageUrls =      models.JSONField(null=True, blank=True)
-    imageIds =       models.JSONField(null=True, blank=True)
-    originalnames=   models.JSONField(null=True, blank=True)
+class AppNews(ImageModel):
     newstitle =     models.CharField(max_length=500, null=True, blank=True)
-    description =   models.CharField(max_length=5000, null=True, blank=True)
-    created_by =    models.CharField(max_length=50, null=False)
-    updated_by =    models.CharField(max_length=50, null=False)
-    created_at =    models.DateTimeField(auto_now_add=True)
-    updated_at =    models.DateTimeField(auto_now=True)
+
   
