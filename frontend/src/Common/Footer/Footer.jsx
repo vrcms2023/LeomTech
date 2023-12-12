@@ -25,6 +25,7 @@ const Footer = () => {
     contact: false,
     social: false,
   };
+  
   const [footerValues, setFooterValues] = useState(false);
   const [show, setShow] = useState(false);
   const [modelShow, setModelShow] = useState(false);
@@ -207,6 +208,7 @@ const Footer = () => {
               ) : (
                 ""
               )}
+
           Copyrights 2023 - All rights reserved
           <span className="d-inline-block mx-2">|</span>
           <Link to="">Terms & Conditions</Link>{" "}

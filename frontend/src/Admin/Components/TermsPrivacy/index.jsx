@@ -1,16 +1,14 @@
-import React, {useState} from 'react'
+import React from 'react'
 import EditAdminPopupHeader from '../EditAdminPopupHeader';
-import { useAdminLoginStatus } from '../../../Common/customhook/useAdminLoginStatus';
 import Button from '../../../Common/Button';
 
 const AdminTermsAndPrivacy = ({editHandler, componentType, pageType, type}) => {
-
     const closeHandler = () => {
         editHandler(componentType, false);
         document.body.style.overflow = "";
       };
 
-  return (
+return (
     <>
       <EditAdminPopupHeader closeHandler={closeHandler} title={componentType} type={type} />
       <div className="container">
