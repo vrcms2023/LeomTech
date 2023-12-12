@@ -6,7 +6,7 @@ import Button from "../../../Common/Button";
 
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
 
-export const News = ({ editHandler, componentType, pageType }) => {
+export const News = ({ editHandler, componentType, pageType, type }) => {
   const closeHandler = () => {
     editHandler(componentType, false);
     document.body.style.overflow = "";
@@ -98,7 +98,7 @@ export const News = ({ editHandler, componentType, pageType }) => {
 
   return (
     <>
-      <EditAdminPopupHeader closeHandler={closeHandler} title={componentType} />
+      <EditAdminPopupHeader closeHandler={closeHandler} title={componentType} type={type} />
       <div className="container">
         <div className="row p-4">
           <div className="col-md-8 offset-md-2">
@@ -161,6 +161,32 @@ export const News = ({ editHandler, componentType, pageType }) => {
                 />
               </div>
             </div>
+            
+            {componentType === "addSection" || componentType === "editSection"  ?
+            (
+              <div className="mb-3 row">
+              <label
+                htmlFor=""
+                className="col-sm-3 col-form-label text-start text-md-end"
+              >
+                Subtitle
+              </label>
+              <div className="col-sm-9">
+                <input
+                  name="intro_title"
+                  value={
+                    introFormValue.intro_title ? introFormValue.intro_title : ""
+                  }
+                  type="text"
+                  className="form-control p-2"
+                  onChange={changeHandler}
+                />
+              </div>
+            </div>
+            )
+
+            : ""}
+            
 
             <div className="mb-3 row">
               <label
@@ -182,7 +208,10 @@ export const News = ({ editHandler, componentType, pageType }) => {
                 ></textarea>
               </div>
             </div>
-            <div className="mb-3 row">
+
+            {componentType === "addSection" || componentType === "editSection"  ? "" : 
+            (
+              <div className="mb-3 row">
               <label
                 htmlFor=""
                 className="col-sm-3 col-form-label text-start text-md-end"
@@ -203,8 +232,10 @@ export const News = ({ editHandler, componentType, pageType }) => {
                 />
               </div>
             </div>
+            )
+            }
 
-            <div className="text-center mt-5">
+            <div className="text-center mt-4">
               {/* <Button
                 type="submit"
                 cssClass="btn btn-secondary mx-3"

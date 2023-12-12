@@ -17,9 +17,13 @@ import insured from "../../Images/insrued.png";
 
 import "./services.css";
 import { Link } from "react-router-dom";
+import AddService from "../../Admin/Components/Services";
+import News from "../../Admin/Components/News";
 
 const Services = () => {
   const editComponentObj = {
+    addSection: false,
+    editSection: false,
     banner: false,
     briefIntro: false,
     about: false,
@@ -45,7 +49,6 @@ const Services = () => {
     setShow(!show);
     document.body.style.overflow = "hidden";
   };
-  console.log("isAdmin", isAdmin);
   return (
     <>
       {/* Page Banner Component */}
@@ -100,26 +103,45 @@ const Services = () => {
         ""
       )}
 
+      {isAdmin ? (
+          <AddService />
+        ) : (
+          ""
+        )}
+
+
       <div className="container my-md-5 py-md-4">
         {isAdmin ? (
-          <EditIcon editHandler={() => editHandler("mission", true)} />
+          <>
+          <button type="submit" class="btn btn-primary mt-2"
+            onClick={() => editHandler("addSection", true)}
+          style={{position: "absolute", right: "60px"}}>
+              Add New Service
+            <i className="fa fa-plus ms-2" aria-hidden="true"></i>
+            </button>
+            <EditIcon editHandler={() => editHandler("editSection", true)} />
+          </>
         ) : (
           ""
         )}
+
+      {componentEdit.addSection ? (
+        <div className="adminEditTestmonial">
+          <News editHandler={editHandler} componentType="addSection" type="add" />
+        </div>
+      ) : (
+        ""
+      )}
+
+      {componentEdit.editSection ? (
+        <div className="adminEditTestmonial">
+          <News editHandler={editHandler} componentType="editSection" />
+        </div>
+      ) : (
+        ""
+      )}
 
         <div className="row">
-          
-        {isAdmin ? (
-          <div className="text-end mb-4">
-            <Link to="" className="btn btn-primary">
-              Add New Service{" "}
-              <i className="fa fa-plus ms-2" aria-hidden="true"></i>
-            </Link>
-          </div>
-        ) : (
-          ""
-        )}
-
           <div className="col-12 col-md-8">
             <Title title="Services" cssClass="fs-3 mb-2"/>
           </div>
