@@ -12,16 +12,17 @@ import { removeActiveClass } from "../../util/ulrUtil";
 import ModelBg from "../../Common/ModelBg";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 
+import AddEditAdminNews from '../../Admin/Components/News/index'
+
 import Banner from "../../Common/Banner";
 
 // Styles
 import "./NewsAndUpdates.css";
-
-// Images Imports
-import NewsBanner from "../../Images/Banner_8.jpg";
+import { Link } from "react-router-dom";
 
 const NewsAndUpdates = () => {
   const editComponentObj = {
+    addNews: false,
     banner: false,
     news: false,
   };
@@ -108,8 +109,29 @@ const NewsAndUpdates = () => {
       )}
 
       <div className="container my-4 newsAndUpdates">
+
         <div className="row">
           <Title title="News And Updates" cssClass="blue-900 fs-4 mb-4" />
+
+          {isAdmin ? (
+          <div className="text-end mb-4">
+            <Link to="#" className="btn btn-primary" onClick={() => editHandler("addNews", true)}>
+              Add News{" "}
+              <i className="fa fa-plus ms-2" aria-hidden="true"></i>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
+
+      {componentEdit.addNews ? (
+        <div className="adminEditTestmonial">
+          <AddEditAdminNews editHandler={editHandler} componentType="addNews" type="add" />
+        </div>
+      ) : (
+        ""
+      )}
+
           {news?.length > 0 &&
             news.map((item) => (
               <News
