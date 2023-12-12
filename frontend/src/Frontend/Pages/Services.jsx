@@ -17,6 +17,7 @@ import insured from "../../Images/insrued.png";
 
 import "./services.css";
 import { Link } from "react-router-dom";
+import AddService from "../../Admin/Components/Services";
 
 const Services = () => {
   const editComponentObj = {
@@ -100,6 +101,13 @@ const Services = () => {
         ""
       )}
 
+      {isAdmin ? (
+          <AddService />
+        ) : (
+          ""
+        )}
+
+
       <div className="container my-md-5 py-md-4">
         {isAdmin ? (
           <EditIcon editHandler={() => editHandler("mission", true)} />
@@ -109,16 +117,7 @@ const Services = () => {
 
         <div className="row">
           
-        {isAdmin ? (
-          <div className="text-end mb-4">
-            <Link to="" className="btn btn-primary">
-              Add New Service{" "}
-              <i className="fa fa-plus ms-2" aria-hidden="true"></i>
-            </Link>
-          </div>
-        ) : (
-          ""
-        )}
+        
 
           <div className="col-12 col-md-8">
             <Title title="Services" cssClass="fs-3 mb-2"/>
