@@ -2,7 +2,7 @@ import React from "react";
 
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
 
-const JobPost = ({ editHandler, componentType }) => {
+const JobPost = ({ editHandler, componentType, type }) => {
   const closeHandler = () => {
     editHandler(componentType, false);
     document.body.style.overflow = "";
@@ -10,7 +10,7 @@ const JobPost = ({ editHandler, componentType }) => {
 
   return (
     <>
-      <EditAdminPopupHeader closeHandler={closeHandler} title={componentType} />
+      <EditAdminPopupHeader closeHandler={closeHandler} title={componentType} type={type} />
       <div className="container">
         <div className="row p-4">
           <div className="col-md-8 offset-md-2 mb-5 mb-md-0">

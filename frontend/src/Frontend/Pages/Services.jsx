@@ -16,6 +16,7 @@ import ServicesBanner from "../../Images/Banner_8.jpg";
 import insured from "../../Images/insrued.png";
 
 import "./services.css";
+import { Link } from "react-router-dom";
 
 const Services = () => {
   const editComponentObj = {
@@ -107,8 +108,20 @@ const Services = () => {
         )}
 
         <div className="row">
+          
+        {isAdmin ? (
+          <div className="text-end mb-4">
+            <Link to="" className="btn btn-primary">
+              Add New Service{" "}
+              <i className="fa fa-plus ms-2" aria-hidden="true"></i>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
+
           <div className="col-12 col-md-8">
-            <Title title="Services" />
+            <Title title="Services" cssClass="fs-3 mb-2"/>
           </div>
         </div>
 

@@ -6,7 +6,7 @@ import Title from "../../Common/Title";
 import Model from "../../Common/Model";
 import EditIcon from "../../Common/AdminEditIcon";
 import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
-import News from "./News";
+import News from "../Components/News";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
 import { removeActiveClass } from "../../util/ulrUtil";
 import ModelBg from "../../Common/ModelBg";
