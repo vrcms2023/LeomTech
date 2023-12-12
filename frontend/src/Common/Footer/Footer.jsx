@@ -16,13 +16,16 @@ import Model from "../../Common/Model";
 import ModelBg from "../ModelBg";
 import FooterAdminFeilds from "../../Admin/Components/forms/FooterInputs";
 import ContactInputs from "../../Admin/Components/forms/ContactInputs";
+import AdminTermsPolicy from "../../Admin/Components/TermsPrivacy/index";
 
 const Footer = () => {
   const editComponentObj = {
+    termsPolacy: false,
     address: false,
     contact: false,
     social: false,
   };
+  
   const [footerValues, setFooterValues] = useState(false);
   const [show, setShow] = useState(false);
   const [modelShow, setModelShow] = useState(false);
@@ -199,6 +202,13 @@ const Footer = () => {
         </div>
 
         <div className="text-center py-3 footerCopyRights">
+
+          {isAdmin ? (
+                <EditIcon editHandler={() => editHandler("termsPolacy", true)} />
+              ) : (
+                ""
+              )}
+
           Copyrights 2023 - All rights reserved
           <span className="d-inline-block mx-2">|</span>
           <Link to="">Terms & Conditions</Link>{" "}
@@ -234,6 +244,15 @@ const Footer = () => {
       ) : (
         ""
       )}
+
+      {componentEdit.termsPolacy ? (
+        <div className="adminEditTestmonial">
+          <AdminTermsPolicy editHandler={editHandler} componentType="termsPolacy" />
+        </div>
+      ) : (
+        ""
+      )}
+
 
       {componentEdit.contact ? (
         <div className="adminEditTestmonial">
