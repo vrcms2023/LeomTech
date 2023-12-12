@@ -19,9 +19,11 @@ import Search from "../../Common/Search";
 // Styles
 import "./Careers.css";
 import JobPost from "../Components/JobPost";
+import JobPostFrom from "../../Admin/Components/forms/JobpostForm";
 
 const Careers = () => {
   const editComponentObj = {
+    addjob: false,
     banner: false,
     briefIntro: false,
     about: false,
@@ -29,6 +31,7 @@ const Careers = () => {
     mission: false,
   };
 
+  
   const pageType = "careers";
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
@@ -111,7 +114,7 @@ const Careers = () => {
       <div className="container my-md-5 py-md-4">
         {isAdmin ? (
           <div className="text-end mb-4">
-            <Link to="" className="btn btn-primary">
+            <Link to="#" className="btn btn-primary" onClick={() => editHandler("addjob", true)}>
               Add New Career{" "}
               <i className="fa fa-plus ms-2" aria-hidden="true"></i>
             </Link>
@@ -119,6 +122,14 @@ const Careers = () => {
         ) : (
           ""
         )}
+
+      {componentEdit.addjob ? (
+        <div className="adminEditTestmonial">
+          <JobPostFrom editHandler={editHandler} componentType="addjob" type="add" />
+        </div>
+      ) : (
+        ""
+      )}
 
         <div className="row">
           <div className="col-md-6">
