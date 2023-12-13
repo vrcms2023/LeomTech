@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { EditorState } from 'draft-js';
+import { EditorState, ContentState, convertFromHTML  } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-
+import { convertToHTML } from 'draft-convert';
 
 const RichTextEditor = ({
-    RichEditorState
+    RichEditorState,
+    initialText
 }) => {
-    const [editorState, setEditorState] = useState(() => EditorState.createEmpty());
-
+   
+    const [editorState, setEditorState] = useState(() => EditorState.createWithContent(ContentState.createFromBlockArray(convertFromHTML(initialText))))
+ 
     useEffect(()=>{
-        RichEditorState(editorState.getCurrentContent())
+        let html = convertToHTML(editorState.getCurrentContent());
+        RichEditorState(html)
     },[editorState])
     
-
+    
     return (
         <Editor
-            defaultEditorState={editorState}
             editorState={editorState}
             onEditorStateChange={setEditorState}
       />

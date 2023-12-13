@@ -1,12 +1,61 @@
-import React from "react";
-
+import React,{useEffect, useState,useMemo} from "react";
+import { useForm } from "react-hook-form";
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
+import RichTextEditor from "../../../Frontend/Components/RichTextEditor";
+import {InputField, SelectField} from './FormFields';
+import { getUserName } from "../../../util/ulrUtil";
+import { axiosServiceApi } from "../../../util/axiosUtil";
+import { toast } from "react-toastify"; 
+import moment from "moment";
+import { generateOptionLength } from "../../../util/commonUtil";
 
-const JobPost = ({ editHandler, componentType, type }) => {
+const JobPost = ({ editHandler, componentType, type, editPost }) => {
+  const [editorState, setEditorState] = useState("");
+
+  const [userName, setUserName] = useState(getUserName());
+  const { register, reset, handleSubmit } = useForm({
+    defaultValues: useMemo(() => {
+      return editPost;
+  }, [editPost])
+  });
+
   const closeHandler = () => {
     editHandler(componentType, false);
     document.body.style.overflow = "";
   };
+  
+  useEffect(() =>{
+    reset(editPost);
+  },[editPost])
+
+  const onSubmit = async(data) => {
+    let response = "";
+    try {
+      data["description"] = editorState
+      if(data.id){
+        data["updated_by"] = userName;
+        response = await axiosServiceApi.put(`/careers/updateCareer/${data.id}/`, data);
+      }else {
+        data["created_by"] = userName;
+        response = await axiosServiceApi.post(`/careers/createCareer/`, data);
+      }
+      if (response.status == 200 || response.status == 201) {
+        setEditorState("")
+        reset();
+        toast.success(`Career Values are updated successfully `);
+        closeHandler()
+      }
+    } catch (error) {
+      console.log("unable to save the career form");
+    }
+  }
+
+  const resetForm = () => {
+    reset();
+    setEditorState("")
+  }
+
+  
 
   return (
     <>
@@ -14,41 +63,67 @@ const JobPost = ({ editHandler, componentType, type }) => {
       <div className="container">
         <div className="row p-4">
           <div className="col-md-8 offset-md-2 mb-5 mb-md-0">
-            <form className="g-3 mb-md-0">
-              <div className="mb-3 row">
+            <form className="g-3 mb-md-0"  onSubmit={handleSubmit(onSubmit)}>
+            <InputField
+                label="Title"
+                fieldName="job_title"
+                register={register}
+              />
+            <InputField
+                label="Location"
+                fieldName="job_location"
+                register={register}
+              />
+              
+              <SelectField
+                label="From Experience"
+                fieldName="experience_from"
+                register={register}
+                options={generateOptionLength(20)}
+              />
+ <            SelectField
+                label="To Experience"
+                fieldName="experience_to"
+                register={register}
+                options={generateOptionLength(20)}
+              />
+
+
+            <InputField
+                label="Education"
+                fieldName="education"
+                register={register}
+              />
+
+          <SelectField
+                label="Openings"
+                fieldName="openings"
+                register={register}
+                options={generateOptionLength(10)}
+              />
+
+        <InputField
+                label="ContactEmail"
+                fieldName="contactEmail"
+                type="email"
+                register={register}
+              />
+
+
+<div className="mb-3 row">
                 <label
                   htmlFor=""
                   className="col-sm-3 col-form-label text-start text-md-end"
-                >
-                  Location
+                > Posted On
                 </label>
-                <div className="col-sm-9">
-                  <input type="text" className="form-control p-2" />
-                </div>
-              </div>
-              <div className="mb-3 row">
-                <label
-                  htmlFor=""
-                  className="col-sm-3 col-form-label text-start text-md-end"
-                >
-                  Title
-                </label>
-                <div className="col-sm-9">
-                  <input type="text" className="form-control p-2" />
+
+                <div className="col-sm-5 mb-3">
+                <input type="date" {...register('posted_date')} name="posted_date" className="form-control p-2" />
+                  
                 </div>
               </div>
 
-              <div className="mb-3 row">
-                <label
-                  htmlFor=""
-                  className="col-sm-3 col-form-label text-start text-md-end"
-                >
-                  Sub Title
-                </label>
-                <div className="col-sm-9">
-                  <input type="text" className="form-control p-2" />
-                </div>
-              </div>
+
 
               <div className="mb-3 row">
                 <label
@@ -58,33 +133,20 @@ const JobPost = ({ editHandler, componentType, type }) => {
                   Description
                 </label>
                 <div className="col-sm-9">
-                  <textarea
-                    className="form-control"
-                    id="exampleFormControlTextarea1"
-                    rows="3"
-                  ></textarea>
+                  
+                <RichTextEditor 
+                description="description"
+                initialText={editPost?.description ? editPost?.description : ""}
+                RichEditorState={setEditorState}/>
                 </div>
               </div>
 
-              <div className="mb-3 row">
-                <label
-                  htmlFor=""
-                  className="col-sm-3 col-form-label text-start text-md-end"
-                >
-                  Experience / Posted On
-                </label>
-                <div className="col-sm-4 mb-3">
-                  <input type="number" className="form-control p-2" />
-                </div>
-
-                <div className="col-sm-5 mb-3">
-                  <input type="date" className="form-control p-2" />
-                </div>
-              </div>
+              
 
               <div className="row">
                 <div className="text-center">
-                  <button className="btn btn-secondary m-3">Clear</button>
+                  {!editPost?.id ? (<button className="btn btn-secondary m-3" onClick={resetForm}>Clear</button>) : ('')}
+                  
                   <button className="btn btn-primary">Save</button>
                 </div>
               </div>

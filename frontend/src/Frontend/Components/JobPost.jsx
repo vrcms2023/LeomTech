@@ -1,133 +1,152 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import moment from 'moment'
+import { toast } from "react-toastify"; 
 // Components
-import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
+import  useAdminLoginStatus  from "../../Common/customhook/useAdminLoginStatus";
 
 // Components
 import Title from "../../Common/Title";
 import EditIcon from "../../Common/AdminEditIcon";
 import ModelBg from "../../Common/ModelBg";
 import JobPostFrom from "../../Admin/Components/forms/JobpostForm";
+import { axiosServiceApi } from "../../util/axiosUtil";
+import { confirmAlert } from "react-confirm-alert";
+import DeleteDialog from "../../Common/DeleteDialog";
+import { axiosClientServiceApi } from "../../util/axiosUtil";
 
 // Styles
 import "./JobPost.css";
+import { getFirstShortDescription } from "../../util/dataFormatUtil";
+import { showPosteddate } from "../../util/commonUtil";
 
-const JobPost = () => {
-  const jobPosts = [
-    {
-      location: "Stafford, VA",
-      title: "QUALITY CONTROL SPECIALIST III",
-      subTitle: "Job Description",
-      exp: "2 - 10 Years",
-      postedDate: "1",
-    },
-    {
-      location: "Stafford, VA",
-      title: "Logisticks Analyst",
-      subTitle: "Job Description",
-      exp: "12 Years",
-      postedDate: "7",
-    },
-    {
-      location: "Stafford, VA",
-      title: "Data Engineer",
-      subTitle: "Job Description",
-      exp: "20 Years",
-      postedDate: "2",
-    },
-    {
-      location: "Stafford, VA",
-      title: "Developer",
-      subTitle: "Job Description",
-      exp: "5 Years",
-      postedDate: "9",
-    },
-    {
-      location: "Stafford, VA",
-      title: "React Developer",
-      subTitle: "Job Description",
-      exp: "2 Years",
-      postedDate: "10",
-    },
-    {
-      location: "Stafford, VA",
-      title: "Fullstack Developer",
-      subTitle: "Job Description",
-      exp: "2 - 5 Years",
-      postedDate: "22",
-    },
-    {
-      location: "Stafford, VA",
-      title: "Frontend Developer",
-      subTitle: "Job Description",
-      exp: "2 - 10 Years",
-      postedDate: "13",
-    },
-    {
-      location: "Stafford, VA",
-      title: "Linex Administrator",
-      subTitle: "Job Description",
-      exp: "6 Years",
-      postedDate: "20",
-    },
-  ];
+const JobPost = ({addJobs}) => {
 
   const editComponentObj = {
     job: false,
   };
 
-  const [posts, setPosts] = useState(jobPosts);
+  const [posts, setPosts] = useState([]);
+  const [editPost, setEditPosts] = useState({});
   const [show, setShow] = useState(false);
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
 
-  const editHandler = (name, value) => {
+  const editHandler = (name, value, item) => {
+    setEditPosts(item)
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
     setShow(!show);
     document.body.style.overflow = "hidden";
   };
 
+  useEffect(() => {
+    if(!componentEdit.job){
+      getCareerData();
+    }
+   
+  }, [componentEdit.job, addJobs]);
+
+  const getCareerData = async () => {
+    let response = null
+    try {
+      response = await axiosServiceApi.get(`/careers/createCareer/`);
+      // if(!isAdmin){
+      //   response = await axiosClientServiceApi.get(`/careers/clientCareersList/`);
+      // } else {
+      //   response = await axiosServiceApi.get(`/careers/createCareer/`);
+      // }
+      setPosts(response.data.careers)
+    } catch (error) {
+      console.log("Unable to get the Career data");
+    }
+  };
+
+
+  const deleteJobPost = (id, title) => {
+    const deleteImageByID = async () => {
+      const response = await axiosServiceApi.delete(`/careers/updateCareer/${id}/`);
+      if (response.status == 204) {
+        toast.success(`${title} Career is delete successfully `);
+        getCareerData();
+      }
+    };
+
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <DeleteDialog
+            onClose={onClose}
+            callback={deleteImageByID}
+            message={`deleting the ${title} image?`}
+          />
+        );
+      },
+    });
+  }
+
+  const publishCareer = async(item) => {
+    let response = "";
+    try {
+        response = await axiosServiceApi.patch(`/careers/publishCareers/${item.id}/`, {'publish': !item.publish});
+    
+      if (response.status == 200) {
+        toast.success(`Career  published successfully `);
+        getCareerData();
+       }
+    } catch (error) {
+      console.log("unable to save the career form");
+    }
+  }
+
+
   return (
     <>
-      {posts.map((item) => (
+      {posts.length > 0 ? posts.map((item, index) => (
         <div
-          className="col-sm-6 col-md-4 col-lg-3 mt-3 mt-md-5 position-relative"
-          key={item.title}
+          className={`col-sm-6 col-md-4 col-lg-3 mt-3 mt-md-5 position-relative ${item.publish ? 'border border-success':''}`}
+          key={item.id} 
         >
           {/* Page Banner Component */}
           <div className="position-relative">
             {isAdmin ? (
-              <EditIcon editHandler={() => editHandler("job", true)} />
+              <EditIcon editHandler={() => editHandler("job", true, item)} />
             ) : (
               ""
             )}
           </div>
+           
+           {/* publihser Icon */}
+
+          <div className="col-sm-6 col-md-4 col-lg-3 mt-3 mt-md-5 position-relative">  
+          <EditIcon editHandler={() => publishCareer(item)} />
+        </div>
           <div className="p-3 jobPost">
             <span className="d-block location mb-3">{item.location}</span>
-            <Title title="QUALITY CONTROL SPECIALIST III" />
+            <Title title={item.job_title} />
             <div className="my-3">
               <Title title="Job Description" cssClass="fs-6 fw-bold" />
-              <p className="m-0">
-                Peridot is seeking to hire a Quality Control Specialist to
-                support an upcoming Federal contract in Quantico, VA.
+              <p className="m-0" >
+                <div dangerouslySetInnerHTML={{ __html: getFirstShortDescription(item.description) }} />
               </p>
             </div>
             <span className="d-block mb-2">
-              <strong>Experience</strong> {item.exp} Years
+              <strong>Experience</strong> {item.experience_from ? item.experience_from : 0} to {item.experience_to ? item.experience_to : 0} Years
             </span>
-            <small className="d-block">Posted {item.postedDate} day ago</small>
-            <div className="text-end">
+            <small className="d-block">Posted {showPosteddate(item.posted_date )} days ago{" "}</small>
+            {isAdmin ? (<div className="text-end">
               <Link
-                to="/career-details"
+                to={`/career-details/${item.id}/`}
                 className="stretched-link text-secondary"
               >
                 <i className="fa fa-expand" aria-hidden="true"></i>
               </Link>
             </div>
+            ) : (
+              ""
+            )}
             {isAdmin ? (
               <div className="mt-3 text-end deletePost">
-                <Link to="" className="bg-danger p-2 rounded">
+                <Link onClick={(event) => deleteJobPost(item.id, item.job_title)}  className="bg-danger p-2 rounded">
                   <i
                     className="fa fa-trash-o fs-5 text-white"
                     aria-hidden="true"
@@ -139,11 +158,11 @@ const JobPost = () => {
             )}
           </div>
         </div>
-      ))}
+      )) : ''}
 
       {componentEdit.job ? (
         <div className="adminEditTestmonial">
-          <JobPostFrom editHandler={editHandler} componentType="job" />
+          <JobPostFrom editHandler={editHandler} componentType="job" editPost={editPost}/>
         </div>
       ) : (
         ""
