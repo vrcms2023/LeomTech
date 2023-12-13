@@ -88,5 +88,5 @@ class ClientCareerAPIView(generics.ListAPIView):
       
         snippets = self.get_object()
         serviceList = CareerSerializer(snippets, many=True)
-        return Response({"careersList" : serviceList.data}, status=status.HTTP_200_OK)
+        return Response({"careers" : serviceList.data}, status=status.HTTP_200_OK)
     

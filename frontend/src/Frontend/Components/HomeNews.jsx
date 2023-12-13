@@ -14,6 +14,7 @@ import NewsForm from "../../Admin/Components/News/index";
 import ModelBg from "../../Common/ModelBg";
 
 const HomeNews = () => {
+ 
   const [news, setNews] = useState([
     {
       img: "../../Images/news1.png",

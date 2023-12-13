@@ -45,3 +45,7 @@ export const sortByDate = (array) => {
     return new Date(b.created_at) - new Date(a.created_at);
   });
 };
+
+export const getFirstShortDescription = (data) => {
+  return data.substring(0,50)
+}

@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { getCookie } from "../../../util/cookieUtil";
 import { axiosServiceApi } from "../../../util/axiosUtil";
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
+import {InputField} from './FormFields';
 
 const FooterAdminFeilds = ({ editHandler, componentType }) => {
   const [userName, setUserName] = useState("");
@@ -65,6 +66,7 @@ const FooterAdminFeilds = ({ editHandler, componentType }) => {
         <div className="container">
           <div className="row p-4">
             <div className="col-md-6 mb-md-0">
+           
               <InputField
                 label="Door Number"
                 fieldName="address_dr_no"
@@ -164,44 +166,5 @@ const FooterAdminFeilds = ({ editHandler, componentType }) => {
   );
 };
 
-const InputField = ({ label, fieldName, register }) => {
-  return (
-    <div className="mb-3 row">
-      <label
-        htmlFor=""
-        className="col-sm-3 col-form-label text-start text-md-end text-capitalize"
-      >
-        {label}
-      </label>
-      <div className="col-sm-9">
-        <input
-          {...register(fieldName)}
-          type="text"
-          className="form-control p-2"
-        />
-      </div>
-    </div>
-  );
-};
-
-const TextAreaField = ({ label, fieldName, register }) => {
-  return (
-    <div className="mb-3 row">
-      <label
-        htmlFor=""
-        className="col-sm-3 col-form-label text-start text-md-end"
-      >
-        {label}
-      </label>
-      <div className="col-sm-9">
-        <textarea
-          className="form-control"
-          {...register(fieldName)}
-          rows="3"
-        ></textarea>
-      </div>
-    </div>
-  );
-};
 
 export default FooterAdminFeilds;

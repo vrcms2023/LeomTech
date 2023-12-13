@@ -38,7 +38,7 @@ export const BriefIntroAdmin = ({ editHandler, componentType, pageType }) => {
         let value = updateResponseData(response.data.intro);
         setIntroFormValues(value);
       } catch (error) {
-        toast.error("Unable to get the intro");
+        console.log("Unable to get the intro");
       }
     };
     getintroValues();

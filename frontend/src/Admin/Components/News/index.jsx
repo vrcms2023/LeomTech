@@ -61,35 +61,36 @@ export const News = ({ editHandler, componentType, pageType, type }) => {
   };
 
   const saveandUpdateIntro = async () => {
-    const intro = {
-      intro_title: introFormValue.intro_title,
-      subTitle: introFormValue.subTitle,
-      intro_desc: introFormValue.intro_desc,
-      intro_morelink: introFormValue.intro_morelink,
-      pageType: pageType,
-      updated_by: userName,
-    };
+    // const intro = {
+    //   intro_title: introFormValue.intro_title,
+    //   subTitle: introFormValue.subTitle,
+    //   intro_desc: introFormValue.intro_desc,
+    //   intro_morelink: introFormValue.intro_morelink,
+    //   pageType: pageType,
+    //   updated_by: userName,
+    // };
+    console.log(editorState)
 
-    try {
-      let response = "";
-      if (introFormValue.id) {
-        intro.updated_by = userName;
-        response = await axiosServiceApi.put(
-          `/carousel/updateHomeIntro/${pageType}/`,
-          {
-            ...intro,
-          },
-        );
-      } else {
-        intro.created_by = userName;
-        response = await axiosServiceApi.post(`/carousel/createHomeIntro/`, {
-          ...intro,
-        });
-      }
-      setIntroFormValues(updateResponseData(response.data.intro));
-    } catch (error) {
-      toast.error("Unable to save the intro");
-    }
+    // try {
+    //   let response = "";
+    //   if (introFormValue.id) {
+    //     intro.updated_by = userName;
+    //     response = await axiosServiceApi.put(
+    //       `/carousel/updateHomeIntro/${pageType}/`,
+    //       {
+    //         ...intro,
+    //       },
+    //     );
+    //   } else {
+    //     intro.created_by = userName;
+    //     response = await axiosServiceApi.post(`/carousel/createHomeIntro/`, {
+    //       ...intro,
+    //     });
+    //   }
+    //   setIntroFormValues(updateResponseData(response.data.intro));
+    // } catch (error) {
+    //   toast.error("Unable to save the intro");
+    // }
   };
 
   // const resetForm = () => {
@@ -198,6 +199,7 @@ export const News = ({ editHandler, componentType, pageType, type }) => {
               <div className="col-sm-9">
 
               <RichTextEditor 
+                initialText={'<p>My initial content.</p><p><strong>sdfsd sdfsd</strong></p><p><strong>sf</strong></p><p><strong>sd</strong></p><p><strong>fs</strong></p><p><strong>dfsdf</strong></p>'}
                 RichEditorState={setEditorState}/>
                 {/* <textarea
                   name="intro_desc"
