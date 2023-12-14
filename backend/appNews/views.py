@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from django.http import Http404
+from common.utility import get_image_data_from_request 
 
 # Create your views here.
     
@@ -24,10 +25,13 @@ class CreateAppNews(generics.CreateAPIView):
         return Response({"appNews": serializer.data}, status=status.HTTP_200_OK)
     
     def post(self, request, format=None):
-        serializer = AppNewsSerializer(data=request.data)
+        requestObj = get_image_data_from_request(request)
+        requestObj['created_by'] = request.data["created_by"]
+    
+        serializer = AppNewsSerializer(data=requestObj)
         if serializer.is_valid():
             serializer.save()
-            return Response({"appNews": serializer.data}, status=status.HTTP_201_CREATED)
+            return Response({"imageModel": serializer.data}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -44,14 +48,16 @@ class AppNewsDetail(APIView):
     def get(self, request, pk, format=None):
         snippet = self.get_object(pk)
         serializer = AppNewsSerializer(snippet)
-        return Response({"appNews": serializer.data}, status=status.HTTP_200_OK)
+        return Response({"imageModel": serializer.data}, status=status.HTTP_200_OK)
 
-    def put(self, request, pk, format=None):
+    def patch(self, request, pk, format=None):
         snippet = self.get_object(pk)
-        serializer = AppNewsSerializer(snippet, data=request.data)
+        requestObj = get_image_data_from_request(request)
+        requestObj['updated_by'] = request.data["updated_by"]
+        serializer = AppNewsSerializer(snippet, data=requestObj)
         if serializer.is_valid():
             serializer.save()
-            return Response({"appNews": serializer.data}, status=status.HTTP_200_OK)
+            return Response({"imageModel": serializer.data}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):

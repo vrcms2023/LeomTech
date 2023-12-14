@@ -15,6 +15,7 @@ const ImageInputsForm = ({
   pageType,
   category = "banner",
   extraFormParamas,
+  imageLabel='Add Image',
   imagePostURL = "banner/createBannerIntro/",
   imageGetURL = "banner/getBannerByPageType/",
   imageUpdateURL = "banner/updateBannerIntro/",
@@ -56,10 +57,6 @@ const ImageInputsForm = ({
     getBannerData();
   }, [imgGallery]);
 
-  const handleBannerEdit = (event, carousel) => {
-    event.preventDefault();
-    setEditCarousel(carousel);
-  };
   /**
    *
    * Delete image
@@ -71,7 +68,7 @@ const ImageInputsForm = ({
       );
       if (response.status == 204) {
         setcarouseData("");
-        toast.success(`Banner Object deleted successfully`);
+        toast.success(`Record deleted successfully`);
       }
     };
 
@@ -96,7 +93,7 @@ const ImageInputsForm = ({
           <div className="col-md-8 offset-md-2 mb-5 mb-md-0">
             <div className="container">
               <FileUpload
-                title="Banner Image"
+                title={imageLabel}
                 project={project}
                 updated_by={userName}
                 category={category}

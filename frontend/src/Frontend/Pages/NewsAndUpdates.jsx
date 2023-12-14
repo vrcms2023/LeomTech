@@ -19,6 +19,8 @@ import Banner from "../../Common/Banner";
 // Styles
 import "./NewsAndUpdates.css";
 import { Link } from "react-router-dom";
+import AdminBanner from "../../Admin/Components/forms/ImgTitleIntoForm-List";
+import HomeNews from "../Components/HomeNews";
 
 const NewsAndUpdates = () => {
   const editComponentObj = {
@@ -37,21 +39,6 @@ const NewsAndUpdates = () => {
     removeActiveClass();
   }, []);
 
-  useEffect(() => {
-    const getNews = async () => {
-      try {
-        const response = await axiosClientServiceApi.get(
-          `/appNews/clientAppNews/`,
-        );
-        if (response?.status == 200) {
-          setNews(response.data.appNews);
-        }
-      } catch (error) {
-        console.log("unable to access ulr because of server is down");
-      }
-    };
-    getNews();
-  }, []);
 
   const [showModal, setShowModal] = useState(false);
 
@@ -71,10 +58,6 @@ const NewsAndUpdates = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const dateFormat = (date) => {
-    let datestring = date;
-    return datestring.slice(0, 10);
-  };
 
   const editHandler = (name, value) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -124,23 +107,31 @@ const NewsAndUpdates = () => {
           ""
         )}
 
-      {componentEdit.addNews ? (
-        <div className="adminEditTestmonial">
-          <AddEditAdminNews editHandler={editHandler} componentType="addNews" type="add" />
-        </div>
-      ) : (
-        ""
-      )}
+ {componentEdit.addNews ? (
+          <div className="adminEditTestmonial">
+            <AddEditAdminNews
+            editHandler={editHandler} 
+            componentType="addNews" 
+            imageGetURL ='appNews/createAppNews/'
+            imagePostURL='appNews/createAppNews/'
+            imageUpdateURL='appNews/updateAppNews/'
+            imageDeleteURL ='appNews/updateAppNews/'
+            imageLabel='Add News Image'
+            extraFormParamas={[
+              { bannerTitle: {
+                label: "News Title",
+                type: "text",
+                fieldName:"newstitle",
+              } }
+            ]}
+            />
+          </div>
+        ) : (
+          ""
+        )}
 
-          {news?.length > 0 &&
-            news.map((item) => (
-              <News
-                item={item}
-                dateFormat={dateFormat}
-                key={item.id}
-                articleHandler={articleHandler}
-              />
-            ))}
+          <HomeNews addNewsState={componentEdit.addNews}/>
+
         </div>
       </div>
       {showModal && <Model obj={obj} closeModel={closeModel} flag="news" />}

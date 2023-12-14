@@ -30,6 +30,7 @@ const Home = () => {
     testmonial: false,
   };
 
+  const pageType = 'home'
   const [testimonis, setTestmonis] = useState([]);
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
@@ -58,8 +59,11 @@ const Home = () => {
         console.log("unable to access ulr because of server is down");
       }
     };
-    getTestimonial();
-  }, []);
+    if(!componentEdit.testmonial){
+      getTestimonial();
+    }
+   
+  }, [componentEdit.testmonial]);
 
   return (
     <>
@@ -78,7 +82,22 @@ const Home = () => {
 
         {componentEdit.carousel ? (
           <div className="adminEditTestmonial">
-            <AdminBanner editHandler={editHandler} componentType="carousel" />
+            <AdminBanner 
+            editHandler={editHandler} 
+            componentType="carousel" 
+            getImageListURL ='carousel/createCarousel/'
+            deleteImageURL ='carousel/updateCarousel/'
+            imagePostURL='carousel/createCarousel/'
+            imageUpdateURL='carousel/updateCarousel/'
+            imageLabel='Add Carousel Image'
+            extraFormParamas={[
+              { carouseTitle: {
+                readonly: true,
+                defaultValue: "Carouse Title",
+                fieldName:"carouseTitle",
+              } }
+            ]}
+            />
           </div>
         ) : (
           ""
@@ -124,7 +143,7 @@ const Home = () => {
 
         {/* End Of Edit News */}
         <div className="row py-5 homeNews">
-          {isAdmin ? (
+          {/* {isAdmin ? (
             <div className="text-end mb-4">
               <Link to="" className="btn btn-primary">
                 Add News <i className="fa fa-plus ms-2" aria-hidden="true"></i>
@@ -132,7 +151,7 @@ const Home = () => {
             </div>
           ) : (
             ""
-          )}
+          )} */}
           <div className="col-md-12 d-flex justify-content-center align-items-center">
             <div className="container">
               <h2 className="mb-5">News</h2>
@@ -179,7 +198,22 @@ const Home = () => {
 
       {componentEdit.testmonial ? (
         <div className="adminEditTestmonial">
-          <AdminBanner editHandler={editHandler} componentType="testmonial" />
+          <AdminBanner 
+            editHandler={editHandler} 
+            componentType="testmonial" 
+            getImageListURL ='testimonials/clientTestimonials/'
+            deleteImageURL ='testimonials/updateTestimonials/'
+            imagePostURL='testimonials/createTestimonials/'
+            imageUpdateURL='testimonials/updateTestimonials/'
+            imageLabel='Add your Image'
+            extraFormParamas={[
+              { testimonialTitle: {
+                readonly: true,
+                defaultValue: "Testimonal Title",
+                fieldName:"testimonialTitle",
+              } }
+            ]}
+            />
         </div>
       ) : (
         ""

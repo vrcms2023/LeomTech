@@ -12,6 +12,7 @@ import testimonialUser from "../../Images/testimonial.jpg";
 
 import "./Testimonials.css";
 import { getBaseURL } from "../../util/ulrUtil";
+import { getImagePath } from "../../util/commonUtil";
 
 const Testimonials = ({ testimonis }) => {
   const editComponentObj = {
@@ -70,16 +71,16 @@ const Testimonials = ({ testimonis }) => {
       <div className={`${position} article position-absolute `} key={item.id}>
         <Title title={title} cssClass="mb-2 fw-normal fs-2 text-uppercase" />
 
-        {!imageUrl ? (
+        {!item.path ? (
           <i className="fa fa-user text-white" aria-hidden="true"></i>
         ) : (
           <img
-            src={`${baseURL}${imageUrl}`}
+            src={getImagePath(item.path)}
             className="rounded-circle my-4 testimonialImg"
             alt="User"
           />
         )}
-        <p className="mt-3 px-0 px-md-5">{description}</p>
+        <p className="mt-3 px-0 px-md-5">{item.imageDescription}</p>
         <div className="text-center">
           <Link to="" onClick={() => setIndex(index + 1)}>
             {" "}

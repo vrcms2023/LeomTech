@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Title from "../../Common/Title";
@@ -6,46 +6,19 @@ import Title from "../../Common/Title";
 // Styles
 import "./HomeNews.css";
 
-import newsImg3 from "../../Images/news3.png";
 import EditIcon from "../../Common/AdminEditIcon";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
-import AdminBanner from "../../Admin/Components/forms/ImgTitleIntoForm-List";
-import NewsForm from "../../Admin/Components/News/index";
 import ModelBg from "../../Common/ModelBg";
+import { getBaseURL } from "../../util/ulrUtil";
+import AddEditAdminNews from '../../Admin/Components/News/index'
+import { axiosClientServiceApi, axiosFileUploadServiceApi } from "../../util/axiosUtil";
+import { confirmAlert } from "react-confirm-alert";
+import DeleteDialog from "../../Common/DeleteDialog";
 
-const HomeNews = () => {
- 
-  const [news, setNews] = useState([
-    {
-      img: "../../Images/news1.png",
-      title: "Claude & Stable AI Is Stealing ChatGPT’s Lunch",
-      description:
-        "We believe that construction is a man made wonder. The thought of bringing imagination to real life structures excites us, each day the passion in us grows as we contribute to this industry.",
-      link: "#",
-    },
-    {
-      img: "../../Images/news2.png",
-      title: "Impact Of Copilot On Code Generation",
-      description:
-        "We believe that construction is a man made wonder. The thought of bringing imagination to real life structures excites us, each day the passion in us grows as we contribute to this industry.",
-      link: "#",
-    },
-    {
-      img: "newsImg3",
-      title: "Top Six Most Common Password Attacks And How To Avoid Them",
-      description:
-        "We believe that construction is a man made wonder. The thought of bringing imagination to real life structures excites us, each day the passion in us grows as we contribute to this industry.",
-      link: "#",
-    },
-    {
-      img: "newsImg4",
-      title: "Maximizing Customer Engagement With Salesforce",
-      description:
-        "We believe that construction is a man made wonder. The thought of bringing imagination to real life structures excites us, each day the passion in us grows as we contribute to this industry.",
-      link: "#",
-    },
-  ]);
 
+const HomeNews = ({addNewsState}) => {
+
+  const baseURL = getBaseURL();
   const editComponentObj = {
     news: false,
   };
@@ -53,11 +26,62 @@ const HomeNews = () => {
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
+  const [news, setNews] = useState([])
+  const [editNews, setEditNews] = useState({});
+  
 
-  const editHandler = (name, value) => {
+  const editHandler = (name, value, item) => {
+    setEditNews(item)
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
     setShow(!show);
     document.body.style.overflow = "hidden";
+  };
+
+  useEffect(() => {
+    const getNews = async () => {
+      try {
+        const response = await axiosClientServiceApi.get(
+          `/appNews/clientAppNews/`,
+        );
+        if (response?.status == 200) {
+          setNews(response.data.appNews);
+        }
+      } catch (error) {
+        console.log("unable to access ulr because of server is down");
+      }
+    };
+    if(!componentEdit.news || !addNewsState) {
+      getNews();
+    }
+   
+  }, [componentEdit.news, addNewsState]);
+
+  /**
+   *
+   * Delete News
+   */
+  const DeleteNews = (id, name) => {
+    const deleteImageByID = async () => {
+      const response = await axiosFileUploadServiceApi.delete(
+        `appNews/updateAppNews/${id}/`,
+      );
+      if (response.status == 204) {
+        const list = news.filter((item) => item.id !== id);
+        setNews(list);
+      }
+    };
+
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <DeleteDialog
+            onClose={onClose}
+            callback={deleteImageByID}
+            message={`deleting the ${name} News?`}
+          />
+        );
+      },
+    });
   };
 
   return (
@@ -65,25 +89,25 @@ const HomeNews = () => {
       {news.map((item, index) => (
         <div
           className="col-sm-6 col-md-3 mb-4 mb-md-0"
-          key={`${index}+homenews`}
+          key={item.id}
         >
           <div className="card position-relative homeNews">
             {/* Edit News */}
             {isAdmin ? (
-              <EditIcon editHandler={() => editHandler("news", true)} />
+              <EditIcon editHandler={() => editHandler("news", true, item)} />
             ) : (
               ""
             )}
-            <img src={newsImg3} className="img-fluid" alt="Ongoing Projects" />
+            <img  src={`${baseURL}${item.path}`} className="img-fluid" alt={item.alternitivetext} />
             <div className="card-body p-4">
-              <Title title={item.title} cssClass="fs-5 fw-bold lh-sm mb-2" />
-              <p className="card-text mb-4">{item.description}</p>
+              <Title title={item.newstitle ? item.newstitle :'Update news Title' } cssClass="fs-5 fw-bold lh-sm mb-2" />
+              <p className="card-text mb-4">{item.imageDescription ? item.imageDescription : "update new description"}</p>
               <Link to={item.link}>Read more</Link>
             </div>
 
             {isAdmin ? (
               <div className="text-end deleteNews">
-                <Link to="" className="bg-danger p-2 rounded">
+                <Link onClick={(event) => DeleteNews(item.id, item.imageTitle)} className="bg-danger p-2 rounded">
                   <i
                     className="fa fa-trash-o fs-5 text-white"
                     aria-hidden="true"
@@ -99,7 +123,27 @@ const HomeNews = () => {
 
       {componentEdit.news ? (
         <div className="adminEditTestmonial">
-          <NewsForm editHandler={editHandler} componentType="news" />
+          
+          <AddEditAdminNews
+            editHandler={editHandler} 
+            editCarousel={editNews}
+            setEditCarousel={setEditNews}
+            componentType="news" 
+            imageGetURL ='appNews/createAppNews/'
+            imagePostURL='appNews/createAppNews/'
+            imageUpdateURL='appNews/updateAppNews/'
+            imageDeleteURL ='appNews/updateAppNews/'
+            imageLabel='Add News Image'
+            extraFormParamas={[
+              { bannerTitle: {
+                label: "News Title",
+                type: "text",
+                fieldName:"newstitle",
+              } }
+            ]}
+            />
+       
+
         </div>
       ) : (
         ""

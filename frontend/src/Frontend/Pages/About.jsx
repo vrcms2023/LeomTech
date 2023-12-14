@@ -62,6 +62,7 @@ const About = () => {
           <ImageInputsForm
             editHandler={editHandler}
             componentType="banner"
+            imageLabel='Banner Image'
             pageType={pageType}
             extraFormParamas={[
               { pageType: pageType },

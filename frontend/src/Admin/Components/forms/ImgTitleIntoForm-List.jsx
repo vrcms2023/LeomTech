@@ -10,7 +10,16 @@ import { axiosFileUploadServiceApi } from "../../../util/axiosUtil";
 import { confirmAlert } from "react-confirm-alert";
 import DeleteDialog from "../../../Common/DeleteDialog";
 
-const AdminBanner = ({ editHandler, componentType, extraFormParamas }) => {
+const AdminBanner = ({ 
+  editHandler, 
+  componentType, 
+  getImageListURL, 
+  deleteImageURL,
+  imagePostURL, 
+  imageUpdateURL, 
+  imageLabel="Add Images",
+  extraFormParamas 
+}) => {
   const projectID = "a62d7759-a e6b-4e49-a129-1ee208c6789d";
   const [userName, setUserName] = useState("");
   const [imgGallery, setImgGallery] = useState([]);
@@ -32,11 +41,10 @@ const AdminBanner = ({ editHandler, componentType, extraFormParamas }) => {
   useEffect(() => {
     const getCarouselData = async () => {
       try {
-        const response = await axiosFileUploadServiceApi.get(
-          `/carousel/createCarousel/`,
-        );
+        const response = await axiosFileUploadServiceApi.get(getImageListURL);
         if (response?.status === 200) {
-          setcarouseData(response.data.fileData).reverse();
+          let key = Object.keys(response.data)
+          setcarouseData(response.data[key])
         }
       } catch (e) {
         console.log("unable to access ulr because of server is down");
@@ -58,7 +66,7 @@ const AdminBanner = ({ editHandler, componentType, extraFormParamas }) => {
   const thumbDelete = (id, name) => {
     const deleteImageByID = async () => {
       const response = await axiosFileUploadServiceApi.delete(
-        `/carousel/updateCarousel/${id}/`,
+        `${deleteImageURL}${id}/`,
       );
       if (response.status == 204) {
         const list = imgGallery.filter((item) => item.id !== id);
@@ -86,7 +94,7 @@ const AdminBanner = ({ editHandler, componentType, extraFormParamas }) => {
         <div className="row">
           <div className="col-md-6 mb-5 mb-md-0">
             <FileUpload
-              title="Add carousel Images"
+              title={imageLabel}
               project={project}
               updated_by={userName}
               category="carousel"
@@ -102,8 +110,8 @@ const AdminBanner = ({ editHandler, componentType, extraFormParamas }) => {
               buttonLable="Save"
               editImage={editCarousel}
               setEditCarousel={setEditCarousel}
-              imagePostURL={"carousel/createCarousel/"}
-              imageUpdateURL={"carousel/updateCarousel/"}
+              imagePostURL={imagePostURL}
+              imageUpdateURL={imageUpdateURL}
               extraFormParamas={extraFormParamas}
             />
           </div>

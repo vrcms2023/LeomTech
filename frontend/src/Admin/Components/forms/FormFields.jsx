@@ -1,7 +1,7 @@
 import React from "react";
 
 
-export const InputField = ({ label, fieldName, type='text', register }) => {
+export const InputField = ({ label, type='text', fieldName,  register }) => {
     return (
       <div className="mb-3 row">
         <label
