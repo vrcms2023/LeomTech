@@ -200,6 +200,8 @@ const Home = () => {
             imagePostURL="testimonials/createTestimonials/"
             imageUpdateURL="testimonials/updateTestimonials/"
             imageLabel="Add your Image"
+            titleTitle='Testmonial Name'
+            descriptionTitle="Testimonial Writeup "
             extraFormParamas={[
               {
                 testimonialTitle: {

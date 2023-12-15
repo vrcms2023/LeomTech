@@ -19,6 +19,8 @@ const AdminBanner = ({
   imageUpdateURL,
   imageLabel = "Add Images",
   extraFormParamas,
+  titleTitle='Title',
+  descriptionTitle="Description"
 }) => {
   const projectID = "a62d7759-a e6b-4e49-a129-1ee208c6789d";
   const [userName, setUserName] = useState("");
@@ -102,8 +104,8 @@ const AdminBanner = ({
               maxFiles={1}
               galleryState={imgGallery}
               validTypes="image/png,image/jpeg"
-              descriptionTitle="Caption"
-              titleTitle="Title"
+              descriptionTitle={descriptionTitle}
+              titleTitle={titleTitle}
               alternitivetextTitle="Image Alt Text"
               saveState={setSaveState}
               showDescription={true}
