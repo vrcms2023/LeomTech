@@ -93,7 +93,7 @@ const Header = () => {
     setLoginState(false);
     dispatch(logout());
     toast.success("Logout successfully");
-    navigate("/login");
+    navigate("/");
   }
   return (
     <>

@@ -10,7 +10,7 @@ def get_original_name(request):
             return os.path.splitext(filename)[0]
         return ""
     
-def get_content_type(request):
+def     get_content_type(request):
 
         image = request.data["path"]
         if not image == '':
