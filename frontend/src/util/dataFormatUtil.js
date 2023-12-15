@@ -47,5 +47,5 @@ export const sortByDate = (array) => {
 };
 
 export const getFirstShortDescription = (data) => {
-  return data.substring(0,50)
-}
+  return data.substring(0, 50);
+};

@@ -3,10 +3,10 @@ import Title from "../../Common/Title";
 import { Link } from "react-router-dom";
 import { getBaseURL, removeActiveClass } from "../../util/ulrUtil";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
+import { getDateValue } from "../../util/commonUtil";
 
-const News = ({ item, dateFormat, articleHandler }) => {
-  console.log(item)
- const isAdmin = useAdminLoginStatus();
+const News = ({ item, articleHandler }) => {
+  const isAdmin = useAdminLoginStatus();
 
   const baseURL = getBaseURL();
   useEffect(() => {
@@ -17,9 +17,9 @@ const News = ({ item, dateFormat, articleHandler }) => {
       className="col-md-4 border border-5 border-white p-4 bg-light shadow-lg"
       key={item.id}
     >
-      {item.imageUrls.length > 0 ? (
+      {item?.path ? (
         <img
-          src={`${baseURL}${item.imageUrls[0]}`}
+          src={`${baseURL}${item.path}`}
           alt=""
           className="w-100"
           height="100"
@@ -33,9 +33,9 @@ const News = ({ item, dateFormat, articleHandler }) => {
           alt=""
         />
       )}
-      <Title title={item.newstitle} cssClass="text-dark fs-6 mt-3 fw-bold" />
-      <small>Posted at {dateFormat(item.created_at)}</small>
-      <p className="card-text mb-4">{item.description}</p>
+      <Title title={item.imageTitle} cssClass="text-dark fs-6 mt-3 fw-bold" />
+      <small>Posted at {getDateValue(item.created_at)}</small>
+      <p className="card-text mb-4">{item.imageDescription}</p>
       <Link to="" onClick={() => articleHandler(item.id)} className="loadMore">
         Read more
         <svg

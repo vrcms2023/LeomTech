@@ -1,4 +1,4 @@
-import {getCookie} from './cookieUtil';
+import { getCookie } from "./cookieUtil";
 
 export function getBaseURL() {
   return process.env.NODE_ENV === "production"
@@ -22,5 +22,5 @@ export function hideHandBurgerIcon(pathList) {
 }
 
 export const getUserName = () => {
-  return getCookie("userName")
-}
+  return getCookie("userName");
+};

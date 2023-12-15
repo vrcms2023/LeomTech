@@ -8,11 +8,11 @@ export const useAdminLoginStatus = () => {
 
   useEffect(() => {
     if (userInfo || getCookie("access")) {
-      setLoginState(true)
+      setLoginState(true);
     }
   }, [userInfo]);
 
   return loginState;
-}
+};
 
-export default useAdminLoginStatus
+export default useAdminLoginStatus;

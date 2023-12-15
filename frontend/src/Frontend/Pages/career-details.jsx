@@ -31,7 +31,7 @@ const Careers = () => {
     mission: false,
   };
 
-  const pageType = 'career-details'
+  const pageType = "career-details";
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
@@ -49,14 +49,15 @@ const Careers = () => {
   useEffect(() => {
     const getCareerData = async () => {
       try {
-        let response = await axiosServiceApi.get(`/careers/updateCareer/${id}/`);
-        setPosts(response.data.careers)
+        let response = await axiosServiceApi.get(
+          `/careers/updateCareer/${id}/`,
+        );
+        setPosts(response.data.careers);
       } catch (error) {
         console.log("Unable to get the Career data");
       }
     };
-      getCareerData();
-   
+    getCareerData();
   }, [id]);
 
   const editHandler = (name, value) => {
@@ -69,7 +70,7 @@ const Careers = () => {
     <>
       {/* Page Banner Component */}
 
-<div className="position-relative">
+      <div className="position-relative">
         {isAdmin ? (
           <EditIcon editHandler={() => editHandler("banner", true)} />
         ) : (
@@ -81,7 +82,6 @@ const Careers = () => {
         />
       </div>
 
-
       {componentEdit.banner ? (
         <div className="adminEditTestmonial">
           <ImageInputsForm
@@ -89,8 +89,20 @@ const Careers = () => {
             componentType="banner"
             pageType={pageType}
             extraFormParamas={[
-              { pageType: pageType },
-              { bannerTitle: "Careers" },
+              {
+                pageType: {
+                  readonly: true,
+                  defaultValue: pageType,
+                  fieldName: "pageType",
+                },
+              },
+              {
+                bannerTitle: {
+                  label: "Careers Title",
+                  type: "text",
+                  fieldName: "bannerTitle",
+                },
+              },
             ]}
           />
         </div>
@@ -105,7 +117,7 @@ const Careers = () => {
         ""
       )}
 
-  <BriefIntroFrontend
+      <BriefIntroFrontend
         introState={componentEdit.briefIntro}
         pageType={pageType}
       />
@@ -117,18 +129,21 @@ const Careers = () => {
           </div>
           <div className="col-md-6 text-end">
             <Link to="/careers" className="btn btn-secondary">
-              <i className="fa fa-chevron-left me-2" aria-hidden="true"></i> Back{" "}
+              <i className="fa fa-chevron-left me-2" aria-hidden="true"></i>{" "}
+              Back{" "}
             </Link>
           </div>
         </div>
 
         <div className="row mt-4">
           <div className="col-md-9 px-4">
-            <JobBriefDetails  jobDetails={posts}/>
+            <JobBriefDetails jobDetails={posts} />
             <div className="mt-4">
               {posts.description ? (
-                 <div dangerouslySetInnerHTML={{ __html: posts.description }} />
-              ) : ('')}
+                <div dangerouslySetInnerHTML={{ __html: posts.description }} />
+              ) : (
+                ""
+              )}
 
               {/* <div className="mt-3">
                 <span className="d-block">
@@ -146,17 +161,27 @@ const Careers = () => {
         </div>
       </div>
 
-
-
-          {componentEdit.briefIntro ? (
+      {componentEdit.briefIntro ? (
         <div className="adminEditTestmonial">
           <AdminBriefIntro
             editHandler={editHandler}
             componentType="briefIntro"
             pageType={pageType}
             extraFormParamas={[
-              { pageType: pageType },
-              { bannerTitle: "Aboutus" },
+              {
+                pageType: {
+                  readonly: true,
+                  defaultValue: pageType,
+                  fieldName: "pageType",
+                },
+              },
+              {
+                bannerTitle: {
+                  label: "Career Title",
+                  type: "text",
+                  fieldName: "bannerTitle",
+                },
+              },
             ]}
           />
         </div>

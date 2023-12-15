@@ -27,6 +27,7 @@ class CarouselAPIView(generics.CreateAPIView):
      def post(self, request, format=None):
         requestObj = get_image_data_from_request(request)
         requestObj['created_by'] = request.data["created_by"]
+        requestObj['carouseTitle'] = request.data["carouseTitle"]
       
         serializer = CarouselSerializer(data=requestObj)
         if serializer.is_valid():
@@ -55,6 +56,7 @@ class CarouselUpdateAndDeleteView(APIView):
         snippet = self.get_object(pk)
         requestObj = get_image_data_from_request(request)
         requestObj['updated_by'] = request.data["updated_by"]
+        requestObj['carouseTitle'] = request.data["carouseTitle"]
         serializer = CarouselSerializer(snippet, data=requestObj)
         if serializer.is_valid():
             serializer.save()

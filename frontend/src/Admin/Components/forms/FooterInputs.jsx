@@ -2,9 +2,12 @@ import React, { useEffect, useState, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { getCookie } from "../../../util/cookieUtil";
-import { axiosServiceApi } from "../../../util/axiosUtil";
+import {
+  axiosClientServiceApi,
+  axiosServiceApi,
+} from "../../../util/axiosUtil";
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
-import {InputField} from './FormFields';
+import { InputField } from "./FormFields";
 
 const FooterAdminFeilds = ({ editHandler, componentType }) => {
   const [userName, setUserName] = useState("");
@@ -48,7 +51,9 @@ const FooterAdminFeilds = ({ editHandler, componentType }) => {
   useEffect(() => {
     const getFooterValues = async () => {
       try {
-        const response = await axiosServiceApi.get(`/footer/createAddress/`);
+        const response = await axiosClientServiceApi.get(
+          `/footer/getClientAddress/`,
+        );
         if (response?.data?.address?.length > 0) {
           reset(response.data.address[0]);
         }
@@ -66,7 +71,6 @@ const FooterAdminFeilds = ({ editHandler, componentType }) => {
         <div className="container">
           <div className="row p-4">
             <div className="col-md-6 mb-md-0">
-           
               <InputField
                 label="Door Number"
                 fieldName="address_dr_no"
@@ -104,16 +108,6 @@ const FooterAdminFeilds = ({ editHandler, componentType }) => {
                 fieldName="phonen_number_2"
                 register={register}
               />
-              {/* <TextAreaField
-                label="Terms Ccondition"
-                fieldName="terms_condition"
-                register={register}
-              />
-              <TextAreaField
-                label="Privacy Policy"
-                fieldName="privacy_policy"
-                register={register}
-              /> */}
             </div>
 
             <div className="col-md-6 mb-md-0">
@@ -156,8 +150,12 @@ const FooterAdminFeilds = ({ editHandler, componentType }) => {
           </div>
           <div className="row">
             <div className="text-center mb-4">
-              <button className="btn btn-secondary mx-3">Clear</button>
-              <button className="btn btn-primary">Save</button>
+              <button type="reset" className="btn btn-secondary mx-3">
+                Clear
+              </button>
+              <button type="submit" className="btn btn-primary">
+                Save
+              </button>
             </div>
           </div>
         </div>
@@ -165,6 +163,5 @@ const FooterAdminFeilds = ({ editHandler, componentType }) => {
     </div>
   );
 };
-
 
 export default FooterAdminFeilds;

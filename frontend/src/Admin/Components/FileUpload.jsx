@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Title from "../../Common/Title";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import { FilePond, registerPlugin } from "react-filepond";
 import "filepond/dist/filepond.min.css";
 
@@ -12,6 +14,8 @@ import { getBaseURL } from "../../util/ulrUtil";
 import { getCookie } from "../../util/cookieUtil";
 import { axiosFileUploadServiceApi } from "../../util/axiosUtil";
 import Button from "../../Common/Button";
+import { InputField, TextAreaField } from "./forms/FormFields";
+import { getImagePath } from "../../util/commonUtil";
 
 registerPlugin(
   FilePondPluginFileValidateType,
@@ -43,16 +47,24 @@ const FileUpload = ({
 }) => {
   const [files, setFiles] = useState([]);
   const [extTypes, setExtTypes] = useState([]);
+
   const baseURL = getBaseURL();
-  const accessToken = useState(getCookie("access"));
-  const formObject = {
-    imageDescription: "",
-    imageTitle: "",
-    alternitivetext: "",
-  };
-  const [formValue, setFormValues] = useState(formObject);
-  const [imagePath, setimagePath] = useState("");
-  const [editImg, setEditimg] = useState(editImage);
+  const [editImg, setEditimg] = useState({});
+
+  const { register, reset, handleSubmit } = useForm({
+    defaultValues: useMemo(() => {
+      return editImage;
+    }, [editImage]),
+    mode: "onChange",
+  });
+
+  // useEffect(() => {
+  //   setEditimg(editImage?.id ? editImage : {});
+  // }, [editImage]);
+
+  useEffect(() => {
+    reset(editImage?.id ? editImage : {});
+  }, [editImage]);
 
   useEffect(() => {
     let extArr = validTypes.split(",");
@@ -73,15 +85,6 @@ const FileUpload = ({
       setFiles([]);
     }
   };
-  useEffect(() => {
-    setFormValues({
-      imageTitle: editImage.imageTitle,
-      imageDescription: editImage.imageDescription,
-      alternitivetext: editImage.alternitivetext,
-    });
-    setimagePath(editImage.path);
-    setEditimg(editImage);
-  }, [editImage]);
 
   useEffect(() => {
     if (files.length > 0 && !showDescription) {
@@ -89,19 +92,25 @@ const FileUpload = ({
     }
   }, [files, showDescription]);
 
-  const setFormData = (formData) => {
+  const setFormData = (formData, data) => {
     formData.append("projectID", project?.id);
     formData.append("category", category);
-    formData.append("imageTitle", formValue.imageTitle);
-    formData.append("imageDescription", formValue.imageDescription);
-    formData.append("alternitivetext", formValue.alternitivetext);
     formData.append("created_by", getCookie("userName"));
     formData.append("updated_by", getCookie("userName"));
+
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        formData.append(key, data[key]);
+      }
+    }
+
     if (extraFormParamas) {
       extraFormParamas.forEach((item) => {
         let key = Object.keys(item);
-        formData.append(key, item[key]);
-        console.log(key, item[key]);
+        let field = item[key];
+        if (field.readonly) {
+          formData.append(field.fieldName, field.defaultValue);
+        }
       });
     }
     return formData;
@@ -112,17 +121,17 @@ const FileUpload = ({
    * Create dynamic file image
    */
   const creteFileObj = async () => {
-    let response = await fetch(`${baseURL}${imagePath}`);
+    let response = await fetch(`${baseURL}${editImage.path}`);
     let data = await response.blob();
     let metadata = {
-      type: `image/${editImg.contentType.replace(".", "")}`,
+      type: `image/${editImage.contentType.replace(".", "")}`,
     };
-    return new File([data], editImg.originalname, metadata);
+    return new File([data], editImage.originalname, metadata);
   };
   /**
    * update image
    */
-  const updatetheImage = async () => {
+  const updatetheImage = async (data) => {
     try {
       let formData = new FormData();
       if (files.length > 0) {
@@ -132,10 +141,10 @@ const FileUpload = ({
         formData.append("path", file);
       }
 
-      formData.append("id", editImg.id);
-      formData = setFormData(formData);
+      formData.append("id", editImage.id);
+      formData = setFormData(formData, data);
       const response = await axiosFileUploadServiceApi.patch(
-        `${imageUpdateURL}${editImg.id}/`,
+        `${imageUpdateURL}${editImage.id}/`,
         formData,
       );
       if (response?.status === 200) {
@@ -149,12 +158,12 @@ const FileUpload = ({
   /**
    * Post new images
    */
-  const postImages = async () => {
+  const postImages = async (data) => {
     const arrURL = [];
     files.forEach((element, index) => {
       let formData = new FormData();
       formData.append("path", element.file);
-      formData = setFormData(formData);
+      formData = setFormData(formData, data);
 
       arrURL.push(axiosFileUploadServiceApi.post(imagePostURL, formData));
     });
@@ -171,14 +180,13 @@ const FileUpload = ({
   /**
    * Onclick call the upload funciton
    */
-  const uploadFile = async () => {
+  const uploadFile = (data) => {
     const arrURL = [];
     saveState(true);
-
-    if (editImg?.id) {
-      updatetheImage();
+    if (editImage?.id) {
+      updatetheImage(data);
     } else {
-      postImages();
+      postImages(data);
     }
   };
 
@@ -189,7 +197,8 @@ const FileUpload = ({
   const updatedFileChnages = (response) => {
     const imgarr = [];
     response.forEach((item, i) => {
-      const imageResponse = item.data.imageModel;
+      const key = Object.keys(item.data);
+      const imageResponse = item.data[key];
       const img = {
         id: imageResponse.id,
         originalname: imageResponse.originalname,
@@ -204,15 +213,14 @@ const FileUpload = ({
   };
 
   useEffect(() => {
-    resetFileUploadForm();
+    //resetFileUploadForm();
   }, [galleryState]);
 
   /**
    * Reset form
    */
   const resetFileUploadForm = () => {
-    setFormValues(formObject);
-    setimagePath("");
+    reset();
     saveState(false);
     setFiles([]);
     setEditCarousel({});
@@ -224,123 +232,105 @@ const FileUpload = ({
     }
   };
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormValues((prevFormData) => ({ ...prevFormData, [name]: value }));
-  };
-
   const clearField = () => {
     resetFileUploadForm();
   };
 
   return (
     <>
-      <div className="mb-3 row">
-        <label className="col-sm-3 col-form-label text-start text-md-end">
-          <Title title={title} cssClass="" />
-        </label>
-        <div className="col-sm-9">
-          <div className="border border-3 mb-0 shadow-lg">
-            <FilePond
-              labelIdle='Drag & Drop your files or <span className="filepond--label-action">Browse</span>'
-              labelInvalidField="invalid files"
-              name="path"
-              files={files}
-              onerror={onerror}
-              onupdatefiles={setFiles}
-              allowMultiple={true}
-              maxFiles={maxFiles ? maxFiles : 4}
-              maxParallelUploads={4}
-              disabled={disabledFile}
-              credits={false}
-              acceptedFileTypes={extTypes}
-              instantUpload={false}
-            />
-          </div>
-          {imagePath ? (
-            <div>
-              <img
-                src={`${baseURL}${imagePath}`}
-                alt=""
-                className=""
-                style={{ width: "100%", height: "100px", objectFit: "cover" }}
+      <form className="" onSubmit={handleSubmit(uploadFile)}>
+        <div className="mb-3 row">
+          <label className="col-sm-3 col-form-label text-start text-md-end">
+            <Title title={title} cssClass="" />
+          </label>
+          <div className="col-sm-9">
+            <div className="border border-3 mb-0 shadow-lg">
+              <FilePond
+                labelIdle='Drag & Drop your files or <span className="filepond--label-action">Browse</span>'
+                labelInvalidField="invalid files"
+                name="path"
+                files={files}
+                onerror={onerror}
+                onupdatefiles={setFiles}
+                allowMultiple={true}
+                maxFiles={maxFiles ? maxFiles : 4}
+                maxParallelUploads={4}
+                disabled={disabledFile}
+                credits={false}
+                acceptedFileTypes={extTypes}
+                instantUpload={false}
               />
             </div>
-          ) : (
-            ""
-          )}
+            {editImage?.id ? (
+              <div>
+                <img
+                  src={getImagePath(editImage.path, editImage.contentType)}
+                  alt=""
+                  className=""
+                  style={{ width: "100%", height: "100px", objectFit: "cover" }}
+                />
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
         </div>
-      </div>
 
-      {showDescription ? (
-        <>
-          <div className="mb-3 row">
-            <label className="col-sm-3 col-form-label text-start text-md-end">
-              {" "}
-              <Title title={alternitivetextTitle} cssClass="" />
-            </label>
-            <div className="col-sm-9">
-              <input
-                type="text"
-                name="alternitivetext"
-                value={formValue.alternitivetext || ""}
-                className="form-control p-2"
-                onChange={(e) => handleChange(e)}
-              />
-            </div>
-          </div>
+        {showDescription ? (
+          <>
+            <InputField
+              label={alternitivetextTitle}
+              fieldName="alternitivetext"
+              register={register}
+            />
 
-          <div className="mb-3 row">
-            <label className="col-sm-3 col-form-label text-start text-md-end">
-              {" "}
-              <Title title={titleTitle} cssClass="" />
-            </label>
-            <div className="col-sm-9">
-              <input
-                type="text"
-                name="imageTitle"
-                value={formValue.imageTitle || ""}
-                className="form-control p-2"
-                onChange={(e) => handleChange(e)}
-              />
-            </div>
-          </div>
+            <InputField
+              label={titleTitle}
+              fieldName="imageTitle"
+              register={register}
+            />
 
-          <div className="mb-3 row">
-            <label className="col-sm-3 col-form-label text-start text-md-end">
-              <Title title={descriptionTitle} cssClass="" />
-            </label>
-            <div className="col-sm-9">
-              <textarea
-                className="form-control"
-                name="imageDescription"
-                value={formValue.imageDescription || ""}
-                onChange={(e) => handleChange(e)}
-                id="amenitiesDescription"
-                rows="3"
-              ></textarea>
+            <TextAreaField
+              label={descriptionTitle}
+              fieldName="imageDescription"
+              register={register}
+            />
+            <>
+              {extraFormParamas.map((item, index) => {
+                let key = Object.keys(item);
+                let field = item[key];
+                if (field.readonly) return "";
+                return (
+                  <InputField
+                    key={index}
+                    label={field.label}
+                    type={field.type}
+                    fieldName={field.fieldName}
+                    register={register}
+                  />
+                );
+              })}
+            </>
+
+            <div className="row">
+              <div className="text-center ">
+                <button
+                  type="button"
+                  className="btn btn-secondary mx-3"
+                  onClick={clearField}
+                >
+                  Clear
+                </button>
+                <button type="submit" className="btn btn-primary">
+                  Save
+                </button>
+              </div>
             </div>
-          </div>
-          <div className="row">
-            <div className="text-center ">
-              <Button
-                type="submit"
-                cssClass="btn btn-secondary m-3"
-                label="Clear"
-                handlerChange={clearField}
-              />
-              <Button
-                type="submit"
-                cssClass="btn btn-primary"
-                label={buttonLable ? buttonLable : "upload Image"}
-                handlerChange={uploadFile}
-              />
-            </div>
-          </div>
-        </>
-      ) : (
-        ""
-      )}
+          </>
+        ) : (
+          ""
+        )}
+      </form>
     </>
   );
 };

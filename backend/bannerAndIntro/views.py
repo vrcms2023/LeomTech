@@ -28,7 +28,6 @@ class BannerAndIntroAPIView(generics.CreateAPIView):
      def post(self, request, format=None):
         requestObj = get_banner_data_From_request_Object(request)
         requestObj['created_by'] = request.data["created_by"]
-        
 
         serializer = BannerAndIntroSerializer(data=requestObj)
         if serializer.is_valid():

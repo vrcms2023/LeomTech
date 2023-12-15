@@ -40,7 +40,7 @@ const Login = () => {
       setCookie("userId", userInfo.id);
       setCookie("is_admin", JSON.parse(userInfo.is_admin));
       setCookie("is_appAccess", JSON.parse(userInfo.is_appAccess));
-      navigate("/main");
+      navigate("/");
     } else {
       if (getCookie("email")) {
         removeAllCookies();
