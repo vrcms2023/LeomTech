@@ -107,7 +107,7 @@ const Header = () => {
       <nav
         className={
           isAdmin
-            ? "mt-4 navbar navbar-expand-lg navbar-dark"
+            ? "navbar navbar-expand-lg navbar-dark"
             : "navbar navbar-expand-lg navbar-dark"
         }
       >
@@ -115,11 +115,13 @@ const Header = () => {
           <Link to={isHideMenu ? "#" : "/"} className="navbar-brand logo">
             <img src={Logo} alt="" />
           </Link>
-          {isAdmin ? (
+
+          {/* LOGO EDIT OPTION */}
+          {/* {isAdmin ? (
             <EditIcon editHandler={() => editHandler("menu", true)} />
           ) : (
             ""
-          )}
+          )} */}
 
           {!isHideBurgetIcon ? (
             <button
