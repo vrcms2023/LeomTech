@@ -22,7 +22,6 @@ import Contact from "./Frontend/Pages/Contact";
 import MainPage from "./Admin/Pages/Login/MainPage";
 import NewsAndUpdates from "./Frontend/Pages/NewsAndUpdates";
 import PageNotFound from "./Frontend/Pages/PageNotFound";
-import Testimonial from "./Frontend/Pages/Testmonial";
 
 import Login from "./Admin/Pages/Auth/Login";
 import Registration from "./Admin/Pages/Auth/Registration";
@@ -123,10 +122,14 @@ function App() {
             <Route exact path="/project-details" element={<ProjectTabs />} />
             <Route exact path="/gallery" element={<ProjectGallery />} />
             <Route exact path="/careers" element={<Careers />} />
-            <Route exact path="/career-details/:id/" element={<CareerDetails />} />
+            <Route
+              exact
+              path="/career-details/:id/"
+              element={<CareerDetails />}
+            />
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/news" element={<NewsAndUpdates />} />
-            <Route exact path="/testmonial" element={<Testimonial />} />
+            {/* <Route exact path="/testmonial" element={<Testimonial />} /> */}
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/register" element={<Registration />} />
             <Route exact path="/authForm" element={<AuthForm />} />

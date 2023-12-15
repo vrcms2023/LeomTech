@@ -31,7 +31,6 @@ const Careers = () => {
     mission: false,
   };
 
-  
   const pageType = "careers";
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
@@ -73,8 +72,20 @@ const Careers = () => {
             componentType="banner"
             pageType={pageType}
             extraFormParamas={[
-              { pageType: pageType },
-              { bannerTitle: "Careers" },
+              {
+                pageType: {
+                  readonly: true,
+                  defaultValue: pageType,
+                  fieldName: "pageType",
+                },
+              },
+              {
+                bannerTitle: {
+                  label: "Careers Title",
+                  type: "text",
+                  fieldName: "bannerTitle",
+                },
+              },
             ]}
           />
         </div>
@@ -114,7 +125,11 @@ const Careers = () => {
       <div className="container my-md-5 py-md-4">
         {isAdmin ? (
           <div className="text-end mb-4">
-            <Link to="#" className="btn btn-primary" onClick={() => editHandler("addjob", true)}>
+            <Link
+              to="#"
+              className="btn btn-primary"
+              onClick={() => editHandler("addjob", true)}
+            >
               Add New Career{" "}
               <i className="fa fa-plus ms-2" aria-hidden="true"></i>
             </Link>
@@ -123,13 +138,17 @@ const Careers = () => {
           ""
         )}
 
-      {componentEdit.addjob ? (
-        <div className="adminEditTestmonial">
-          <JobPostFrom editHandler={editHandler} componentType="addjob" type="add" />
-        </div>
-      ) : (
-        ""
-      )}
+        {componentEdit.addjob ? (
+          <div className="adminEditTestmonial">
+            <JobPostFrom
+              editHandler={editHandler}
+              componentType="addjob"
+              type="add"
+            />
+          </div>
+        ) : (
+          ""
+        )}
 
         <div className="row">
           <div className="col-md-6">
@@ -141,7 +160,7 @@ const Careers = () => {
         </div>
 
         <div className="row">
-          <JobPost  addJobs={componentEdit.addjob }/>
+          <JobPost addJobs={componentEdit.addjob} />
         </div>
       </div>
 

@@ -3,12 +3,12 @@ import { getCookie } from "../../../util/cookieUtil";
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
 import FileUpload from "../FileUpload";
 
-export const News = ({ 
+export const News = ({
   editHandler,
   componentType,
   category = "news",
   extraFormParamas,
-  imageLabel='Add Image',
+  imageLabel = "Add Image",
   imagePostURL = "banner/createBannerIntro/",
   imageGetURL = "appNews/createAppNews/",
   imageUpdateURL = "banner/updateBannerIntro/",
@@ -16,9 +16,8 @@ export const News = ({
   pageType,
   type,
   editCarousel,
-  setEditCarousel
+  setEditCarousel,
 }) => {
-
   const projectID = "a62d7759-a e6b-4e49-a129-1ee208c6789d";
   const [userName, setUserName] = useState("");
   const [imgGallery, setImgGallery] = useState([]);
@@ -32,17 +31,19 @@ export const News = ({
     setUserName(getCookie("userName"));
   }, []);
 
-  useEffect(() =>{
-    if(imgGallery.length > 0){
+  useEffect(() => {
+    if (imgGallery.length > 0) {
       closeHandler();
     }
-    
-  },[imgGallery])
-  
+  }, [imgGallery]);
 
   return (
     <>
-      <EditAdminPopupHeader closeHandler={closeHandler} title={componentType} type={type} />
+      <EditAdminPopupHeader
+        closeHandler={closeHandler}
+        title={componentType}
+        type={type}
+      />
       <div className="container">
         <div className="row py-0 pb-md-5">
           <div className="col-md-8 offset-md-2 mb-5 mb-md-0">
@@ -68,12 +69,10 @@ export const News = ({
                 imageUpdateURL={imageUpdateURL}
                 extraFormParamas={extraFormParamas}
               />
-              
-              </div>
             </div>
-
           </div>
         </div>
+      </div>
     </>
   );
 };

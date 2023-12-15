@@ -62,11 +62,23 @@ const About = () => {
           <ImageInputsForm
             editHandler={editHandler}
             componentType="banner"
-            imageLabel='Banner Image'
+            imageLabel="Banner Image"
             pageType={pageType}
             extraFormParamas={[
-              { pageType: pageType },
-              { bannerTitle: "About us" },
+              {
+                pageType: {
+                  readonly: true,
+                  defaultValue: pageType,
+                  fieldName: "pageType",
+                },
+              },
+              {
+                bannerTitle: {
+                  label: "Banner Title",
+                  type: "text",
+                  fieldName: "bannerTitle",
+                },
+              },
             ]}
           />
         </div>
@@ -93,8 +105,20 @@ const About = () => {
             componentType="briefIntro"
             pageType={pageType}
             extraFormParamas={[
-              { pageType: pageType },
-              { bannerTitle: "Aboutus" },
+              {
+                pageType: {
+                  readonly: true,
+                  defaultValue: pageType,
+                  fieldName: "pageType",
+                },
+              },
+              {
+                bannerTitle: {
+                  label: "Banner Title",
+                  type: "text",
+                  fieldName: "bannerTitle",
+                },
+              },
             ]}
           />
         </div>

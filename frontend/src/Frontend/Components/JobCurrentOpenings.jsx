@@ -9,20 +9,20 @@ import "./JobPost.css";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
 
 const JobCurrentOpenings = () => {
-  
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     const getCareerData = async () => {
-    
       try {
-        const response = await axiosClientServiceApi.get(`/careers/clientCareersList/`);
-        setPosts(response.data.careers)
+        const response = await axiosClientServiceApi.get(
+          `/careers/clientCareersList/`,
+        );
+        setPosts(response.data.careers);
       } catch (error) {
         console.log("Unable to get the Career data");
       }
     };
-    getCareerData()
-  }, [])
+    getCareerData();
+  }, []);
 
   return (
     <div className="py-4 px-3 currentOpenings">

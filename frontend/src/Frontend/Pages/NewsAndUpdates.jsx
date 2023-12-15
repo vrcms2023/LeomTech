@@ -12,7 +12,7 @@ import { removeActiveClass } from "../../util/ulrUtil";
 import ModelBg from "../../Common/ModelBg";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 
-import AddEditAdminNews from '../../Admin/Components/News/index'
+import AddEditAdminNews from "../../Admin/Components/News/index";
 
 import Banner from "../../Common/Banner";
 
@@ -39,7 +39,6 @@ const NewsAndUpdates = () => {
     removeActiveClass();
   }, []);
 
-
   const [showModal, setShowModal] = useState(false);
 
   const [obj, setObj] = useState({});
@@ -57,7 +56,6 @@ const NewsAndUpdates = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-
 
   const editHandler = (name, value) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -84,7 +82,22 @@ const NewsAndUpdates = () => {
             editHandler={editHandler}
             componentType="banner"
             pageType={pageType}
-            extraFormParamas={[{ pageType: pageType }, { bannerTitle: "News" }]}
+            extraFormParamas={[
+              {
+                pageType: {
+                  readonly: true,
+                  defaultValue: pageType,
+                  fieldName: "pageType",
+                },
+              },
+              {
+                bannerTitle: {
+                  label: "News",
+                  type: "text",
+                  fieldName: "bannerTitle",
+                },
+              },
+            ]}
           />
         </div>
       ) : (
@@ -92,46 +105,49 @@ const NewsAndUpdates = () => {
       )}
 
       <div className="container my-4 newsAndUpdates">
-
         <div className="row">
           <Title title="News And Updates" cssClass="blue-900 fs-4 mb-4" />
 
           {isAdmin ? (
-          <div className="text-end mb-4">
-            <Link to="#" className="btn btn-primary" onClick={() => editHandler("addNews", true)}>
-              Add News{" "}
-              <i className="fa fa-plus ms-2" aria-hidden="true"></i>
-            </Link>
-          </div>
-        ) : (
-          ""
-        )}
+            <div className="text-end mb-4">
+              <Link
+                to="#"
+                className="btn btn-primary"
+                onClick={() => editHandler("addNews", true)}
+              >
+                Add News <i className="fa fa-plus ms-2" aria-hidden="true"></i>
+              </Link>
+            </div>
+          ) : (
+            ""
+          )}
 
- {componentEdit.addNews ? (
-          <div className="adminEditTestmonial">
-            <AddEditAdminNews
-            editHandler={editHandler} 
-            componentType="addNews" 
-            imageGetURL ='appNews/createAppNews/'
-            imagePostURL='appNews/createAppNews/'
-            imageUpdateURL='appNews/updateAppNews/'
-            imageDeleteURL ='appNews/updateAppNews/'
-            imageLabel='Add News Image'
-            extraFormParamas={[
-              { bannerTitle: {
-                label: "News Title",
-                type: "text",
-                fieldName:"newstitle",
-              } }
-            ]}
-            />
-          </div>
-        ) : (
-          ""
-        )}
+          {componentEdit.addNews ? (
+            <div className="adminEditTestmonial">
+              <AddEditAdminNews
+                editHandler={editHandler}
+                componentType="addNews"
+                imageGetURL="appNews/createAppNews/"
+                imagePostURL="appNews/createAppNews/"
+                imageUpdateURL="appNews/updateAppNews/"
+                imageDeleteURL="appNews/updateAppNews/"
+                imageLabel="Add News Image"
+                extraFormParamas={[
+                  {
+                    bannerTitle: {
+                      label: "News Title",
+                      type: "text",
+                      fieldName: "newstitle",
+                    },
+                  },
+                ]}
+              />
+            </div>
+          ) : (
+            ""
+          )}
 
-          <HomeNews addNewsState={componentEdit.addNews}/>
-
+          <HomeNews addNewsState={componentEdit.addNews} />
         </div>
       </div>
       {showModal && <Model obj={obj} closeModel={closeModel} flag="news" />}

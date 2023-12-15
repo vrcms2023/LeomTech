@@ -71,8 +71,20 @@ const Services = () => {
             componentType="banner"
             pageType={pageType}
             extraFormParamas={[
-              { pageType: pageType },
-              { bannerTitle: "Service" },
+              {
+                pageType: {
+                  readonly: true,
+                  defaultValue: pageType,
+                  fieldName: "pageType",
+                },
+              },
+              {
+                bannerTitle: {
+                  label: "Service Title",
+                  type: "text",
+                  fieldName: "bannerTitle",
+                },
+              },
             ]}
           />
         </div>
@@ -103,21 +115,19 @@ const Services = () => {
         ""
       )}
 
-      {isAdmin ? (
-          <AddService />
-        ) : (
-          ""
-        )}
-
+      {isAdmin ? <AddService /> : ""}
 
       <div className="container my-md-5 py-md-4">
         {isAdmin ? (
           <>
-          <button type="submit" class="btn btn-primary mt-2"
-            onClick={() => editHandler("addSection", true)}
-          style={{position: "absolute", right: "60px"}}>
+            <button
+              type="submit"
+              class="btn btn-primary mt-2"
+              onClick={() => editHandler("addSection", true)}
+              style={{ position: "absolute", right: "60px" }}
+            >
               Add New Service
-            <i className="fa fa-plus ms-2" aria-hidden="true"></i>
+              <i className="fa fa-plus ms-2" aria-hidden="true"></i>
             </button>
             <EditIcon editHandler={() => editHandler("editSection", true)} />
           </>
@@ -125,25 +135,29 @@ const Services = () => {
           ""
         )}
 
-      {componentEdit.addSection ? (
-        <div className="adminEditTestmonial">
-          <News editHandler={editHandler} componentType="addSection" type="add" />
-        </div>
-      ) : (
-        ""
-      )}
+        {componentEdit.addSection ? (
+          <div className="adminEditTestmonial">
+            <News
+              editHandler={editHandler}
+              componentType="addSection"
+              type="add"
+            />
+          </div>
+        ) : (
+          ""
+        )}
 
-      {componentEdit.editSection ? (
-        <div className="adminEditTestmonial">
-          <News editHandler={editHandler} componentType="editSection" />
-        </div>
-      ) : (
-        ""
-      )}
+        {componentEdit.editSection ? (
+          <div className="adminEditTestmonial">
+            <News editHandler={editHandler} componentType="editSection" />
+          </div>
+        ) : (
+          ""
+        )}
 
         <div className="row">
           <div className="col-12 col-md-8">
-            <Title title="Services" cssClass="fs-3 mb-2"/>
+            <Title title="Services" cssClass="fs-3 mb-2" />
           </div>
         </div>
 

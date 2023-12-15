@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 // Component Import
@@ -13,15 +13,20 @@ import CareerImg from "../../Images/insrued.png";
 import EditIcon from "../../Common/AdminEditIcon";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 import ModelBg from "../../Common/ModelBg";
+import BriefIntroAdmin from "../../Admin/Components/BriefIntro";
+import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
+import { axiosClientServiceApi } from "../../util/axiosUtil";
+import { getImagePath } from "../../util/commonUtil";
 
 const ABrief = ({ title, cssClass, linkClass, moreLink }) => {
   const editComponentObj = {
-    careers: false,
+    homecareers: false,
   };
-
+  const pageType = "homePageCareer";
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
+  const [bannerdata, setBannerData] = useState([]);
 
   const editHandler = (name, value) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -29,26 +34,52 @@ const ABrief = ({ title, cssClass, linkClass, moreLink }) => {
     document.body.style.overflow = "hidden";
   };
 
+  useEffect(() => {
+    const getBannerData = async () => {
+      try {
+        const response = await axiosClientServiceApi.get(
+          `banner/clientBannerIntro/${pageType}/`,
+        );
+        if (response?.status == 200) {
+          setBannerData(response.data.imageModel);
+        }
+      } catch (error) {
+        console.log("unable to access ulr because of server is down");
+      }
+    };
+    if (!componentEdit.homecareers) {
+      getBannerData();
+    }
+  }, [componentEdit.homecareers]);
+
   return (
     <div className="row h-100">
       {/* Edit News */}
 
       <div className="col-md-5 ABriefImg ">
-        <img src={CareerImg} alt="" className="w-100 h-100 img-fluid" />
+        <img
+          src={bannerdata?.path ? getImagePath(bannerdata.path) : CareerImg}
+          alt=""
+          className="w-100 h-100 img-fluid"
+        />
       </div>
       <div className="col-md-7 p-5 d-flex justify-content-center align-items-start flex-column position-relative">
         {isAdmin ? (
-          <EditIcon editHandler={() => editHandler("careers", true)} />
+          <EditIcon editHandler={() => editHandler("homecareers", true)} />
         ) : (
           ""
         )}
-        <Title title={title} cssClass={cssClass} />
+        <Title
+          title={
+            bannerdata?.imageTitle ? bannerdata.imageTitle : "upload Title"
+          }
+          cssClass={cssClass}
+        />
         <div>
           <p className="lh-md">
-            If you are seeking a career with an organization which promotes
-            innovation and excellence, Rishi Systems is the place to be. Join
-            our family and become part of a winning team that serves to provide
-            services beyond the demand to our customers.
+            {bannerdata?.imageDescription
+              ? bannerdata.imageDescription
+              : "upload Description"}
           </p>
         </div>
         <div>
@@ -57,9 +88,31 @@ const ABrief = ({ title, cssClass, linkClass, moreLink }) => {
           </Link>
         </div>
       </div>
-      {componentEdit.careers ? (
+      {componentEdit.homecareers ? (
         <div className="adminEditTestmonial">
-          <NewsForm editHandler={editHandler} componentType="careers" />
+          <ImageInputsForm
+            editHandler={editHandler}
+            componentType="homecareers"
+            imageLabel="Banner Image"
+            pageType={pageType}
+            extraFormParamas={[
+              {
+                pageType: {
+                  readonly: true,
+                  defaultValue: pageType,
+                  fieldName: "pageType",
+                },
+              },
+              {
+                bannerTitle: {
+                  label: "Career sub Title",
+                  type: "text",
+                  fieldName: "bannerTitle",
+                },
+              },
+            ]}
+          />
+          {/* <NewsForm editHandler={editHandler} componentType="careers" /> */}
         </div>
       ) : (
         ""

@@ -15,9 +15,9 @@ const ImageInputsForm = ({
   pageType,
   category = "banner",
   extraFormParamas,
-  imageLabel='Add Image',
+  imageLabel = "Add Image",
   imagePostURL = "banner/createBannerIntro/",
-  imageGetURL = "banner/getBannerByPageType/",
+  imageGetURL = "banner/clientBannerIntro/",
   imageUpdateURL = "banner/updateBannerIntro/",
   imageDeleteURL = "banner/updateBannerIntro/",
 }) => {

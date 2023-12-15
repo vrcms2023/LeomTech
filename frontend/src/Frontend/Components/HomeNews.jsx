@@ -10,14 +10,15 @@ import EditIcon from "../../Common/AdminEditIcon";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 import ModelBg from "../../Common/ModelBg";
 import { getBaseURL } from "../../util/ulrUtil";
-import AddEditAdminNews from '../../Admin/Components/News/index'
-import { axiosClientServiceApi, axiosFileUploadServiceApi } from "../../util/axiosUtil";
+import AddEditAdminNews from "../../Admin/Components/News/index";
+import {
+  axiosClientServiceApi,
+  axiosFileUploadServiceApi,
+} from "../../util/axiosUtil";
 import { confirmAlert } from "react-confirm-alert";
 import DeleteDialog from "../../Common/DeleteDialog";
 
-
-const HomeNews = ({addNewsState}) => {
-
+const HomeNews = ({ addNewsState }) => {
   const baseURL = getBaseURL();
   const editComponentObj = {
     news: false,
@@ -26,12 +27,11 @@ const HomeNews = ({addNewsState}) => {
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
-  const [news, setNews] = useState([])
+  const [news, setNews] = useState([]);
   const [editNews, setEditNews] = useState({});
-  
 
   const editHandler = (name, value, item) => {
-    setEditNews(item)
+    setEditNews(item);
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
     setShow(!show);
     document.body.style.overflow = "hidden";
@@ -50,10 +50,9 @@ const HomeNews = ({addNewsState}) => {
         console.log("unable to access ulr because of server is down");
       }
     };
-    if(!componentEdit.news || !addNewsState) {
+    if (!componentEdit.news || !addNewsState) {
       getNews();
     }
-   
   }, [componentEdit.news, addNewsState]);
 
   /**
@@ -87,10 +86,7 @@ const HomeNews = ({addNewsState}) => {
   return (
     <>
       {news.map((item, index) => (
-        <div
-          className="col-sm-6 col-md-3 mb-4 mb-md-0"
-          key={item.id}
-        >
+        <div className="col-sm-6 col-md-3 mb-4 mb-md-0" key={item.id}>
           <div className="card position-relative homeNews">
             {/* Edit News */}
             {isAdmin ? (
@@ -98,16 +94,30 @@ const HomeNews = ({addNewsState}) => {
             ) : (
               ""
             )}
-            <img  src={`${baseURL}${item.path}`} className="img-fluid" alt={item.alternitivetext} />
+            <img
+              src={`${baseURL}${item.path}`}
+              className="img-fluid"
+              alt={item.alternitivetext}
+            />
             <div className="card-body p-4">
-              <Title title={item.newstitle ? item.newstitle :'Update news Title' } cssClass="fs-5 fw-bold lh-sm mb-2" />
-              <p className="card-text mb-4">{item.imageDescription ? item.imageDescription : "update new description"}</p>
+              <Title
+                title={item.newstitle ? item.newstitle : "Update news Title"}
+                cssClass="fs-5 fw-bold lh-sm mb-2"
+              />
+              <p className="card-text mb-4">
+                {item.imageDescription
+                  ? item.imageDescription
+                  : "update new description"}
+              </p>
               <Link to={item.link}>Read more</Link>
             </div>
 
             {isAdmin ? (
               <div className="text-end deleteNews">
-                <Link onClick={(event) => DeleteNews(item.id, item.imageTitle)} className="bg-danger p-2 rounded">
+                <Link
+                  onClick={(event) => DeleteNews(item.id, item.imageTitle)}
+                  className="bg-danger p-2 rounded"
+                >
                   <i
                     className="fa fa-trash-o fs-5 text-white"
                     aria-hidden="true"
@@ -123,27 +133,26 @@ const HomeNews = ({addNewsState}) => {
 
       {componentEdit.news ? (
         <div className="adminEditTestmonial">
-          
           <AddEditAdminNews
-            editHandler={editHandler} 
+            editHandler={editHandler}
             editCarousel={editNews}
             setEditCarousel={setEditNews}
-            componentType="news" 
-            imageGetURL ='appNews/createAppNews/'
-            imagePostURL='appNews/createAppNews/'
-            imageUpdateURL='appNews/updateAppNews/'
-            imageDeleteURL ='appNews/updateAppNews/'
-            imageLabel='Add News Image'
+            componentType="news"
+            imageGetURL="appNews/createAppNews/"
+            imagePostURL="appNews/createAppNews/"
+            imageUpdateURL="appNews/updateAppNews/"
+            imageDeleteURL="appNews/updateAppNews/"
+            imageLabel="Add News Image"
             extraFormParamas={[
-              { bannerTitle: {
-                label: "News Title",
-                type: "text",
-                fieldName:"newstitle",
-              } }
+              {
+                bannerTitle: {
+                  label: "News Title",
+                  type: "text",
+                  fieldName: "newstitle",
+                },
+              },
             ]}
-            />
-       
-
+          />
         </div>
       ) : (
         ""

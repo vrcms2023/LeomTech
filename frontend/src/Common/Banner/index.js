@@ -7,6 +7,7 @@ import Title from "../Title";
 
 // Styles
 import "./banner.css";
+import { getImagePath } from "../../util/commonUtil";
 
 const Banner = ({ getBannerAPIURL, bannerState }) => {
   const [bannerdata, setBannerData] = useState([]);
@@ -37,11 +38,17 @@ const Banner = ({ getBannerAPIURL, bannerState }) => {
             : ""
         }
       >
-        <p>{bannerdata.imageDescription}</p>
-        <Title title={bannerdata.imageTitle} />
+        <p>
+          {bannerdata.imageDescription
+            ? bannerdata.imageDescription
+            : "upload description"}
+        </p>
+        <Title
+          title={bannerdata.imageTitle ? bannerdata.imageTitle : "upload title"}
+        />
       </div>
       <img
-        src={`${baseURL}${bannerdata.path}`}
+        src={bannerdata.path ? getImagePath(bannerdata.path) : ""}
         alt={bannerdata.alternitivetext}
         className="w-100"
       />

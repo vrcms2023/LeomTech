@@ -25,7 +25,7 @@ const Footer = () => {
     contact: false,
     social: false,
   };
-  
+
   const [footerValues, setFooterValues] = useState(false);
   const [show, setShow] = useState(false);
   const [modelShow, setModelShow] = useState(false);
@@ -142,7 +142,7 @@ const Footer = () => {
               <img src={Logo} alt="" />
               <div>
                 {footerValues.facebook_url ? (
-                  <Link to="#" target="_blank">
+                  <Link to={footerValues.facebook_url} target="_blank">
                     <i className="fa fa-facebook-square" aria-hidden="true"></i>
                   </Link>
                 ) : (
@@ -150,7 +150,7 @@ const Footer = () => {
                 )}
 
                 {footerValues.twitter_url ? (
-                  <Link to="#" target="_blank">
+                  <Link to={footerValues.twitter_url} target="_blank">
                     <i className="fa fa-twitter-square" aria-hidden="true"></i>
                   </Link>
                 ) : (
@@ -158,7 +158,7 @@ const Footer = () => {
                 )}
 
                 {footerValues.youtube_url ? (
-                  <Link to="#" target="_blank">
+                  <Link to={footerValues.youtube_url} target="_blank">
                     <i className="fa fa-youtube-play" aria-hidden="true"></i>
                   </Link>
                 ) : (
@@ -166,7 +166,7 @@ const Footer = () => {
                 )}
 
                 {footerValues.linkedIn_url ? (
-                  <Link to="#" target="_blank">
+                  <Link to={footerValues.linkedIn_url} target="_blank">
                     <i className="fa fa-linkedin-square" aria-hidden="true"></i>
                   </Link>
                 ) : (
@@ -174,7 +174,7 @@ const Footer = () => {
                 )}
 
                 {footerValues.instagram_url ? (
-                  <Link to="#" target="_blank">
+                  <Link to={footerValues.instagram_url} target="_blank">
                     <i className="fa fa-instagram" aria-hidden="true"></i>
                   </Link>
                 ) : (
@@ -182,7 +182,7 @@ const Footer = () => {
                 )}
 
                 {footerValues.vimeo_url ? (
-                  <Link to="#" target="_blank">
+                  <Link to={footerValues.vimeo_url} target="_blank">
                     <i className="fa fa-vimeo" aria-hidden="true"></i>
                   </Link>
                 ) : (
@@ -190,7 +190,7 @@ const Footer = () => {
                 )}
 
                 {footerValues.pinterest_url ? (
-                  <Link to="#" target="_blank">
+                  <Link to={footerValues.pinterest_url} target="_blank">
                     <i className="fa fa-pinterest" aria-hidden="true"></i>
                   </Link>
                 ) : (
@@ -202,13 +202,11 @@ const Footer = () => {
         </div>
 
         <div className="text-center py-3 footerCopyRights">
-
           {isAdmin ? (
-                <EditIcon editHandler={() => editHandler("termsPolacy", true)} />
-              ) : (
-                ""
-              )}
-
+            <EditIcon editHandler={() => editHandler("termsPolacy", true)} />
+          ) : (
+            ""
+          )}
           Copyrights 2023 - All rights reserved
           <span className="d-inline-block mx-2">|</span>
           <Link to="">Terms & Conditions</Link>{" "}
@@ -247,12 +245,14 @@ const Footer = () => {
 
       {componentEdit.termsPolacy ? (
         <div className="adminEditTestmonial">
-          <AdminTermsPolicy editHandler={editHandler} componentType="termsPolacy" />
+          <AdminTermsPolicy
+            editHandler={editHandler}
+            componentType="termsPolacy"
+          />
         </div>
       ) : (
         ""
       )}
-
 
       {componentEdit.contact ? (
         <div className="adminEditTestmonial">

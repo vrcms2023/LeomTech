@@ -1,4 +1,4 @@
-import React, { useEffect, useState,useMemo } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Title from "../../Common/Title";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -47,22 +47,23 @@ const FileUpload = ({
 }) => {
   const [files, setFiles] = useState([]);
   const [extTypes, setExtTypes] = useState([]);
-  
+
   const baseURL = getBaseURL();
   const [editImg, setEditimg] = useState({});
 
   const { register, reset, handleSubmit } = useForm({
     defaultValues: useMemo(() => {
       return editImage;
-  }, [editImage]),
-    mode: "onChange"});
+    }, [editImage]),
+    mode: "onChange",
+  });
 
-    // useEffect(() => {
-    //   setEditimg(editImage?.id ? editImage : {});
-    // }, [editImage]);
+  // useEffect(() => {
+  //   setEditimg(editImage?.id ? editImage : {});
+  // }, [editImage]);
 
-    useEffect(() => {
-      reset(editImage?.id ? editImage : {});
+  useEffect(() => {
+    reset(editImage?.id ? editImage : {});
   }, [editImage]);
 
   useEffect(() => {
@@ -85,7 +86,6 @@ const FileUpload = ({
     }
   };
 
-
   useEffect(() => {
     if (files.length > 0 && !showDescription) {
       uploadFile();
@@ -95,16 +95,20 @@ const FileUpload = ({
   const setFormData = (formData, data) => {
     formData.append("projectID", project?.id);
     formData.append("category", category);
-    formData.append("imageTitle", data.imageTitle);
-    formData.append("imageDescription", data.imageDescription);
-    formData.append("alternitivetext", data.alternitivetext);
     formData.append("created_by", getCookie("userName"));
     formData.append("updated_by", getCookie("userName"));
+
+    for (const key in data) {
+      if (data.hasOwnProperty(key)) {
+        formData.append(key, data[key]);
+      }
+    }
+
     if (extraFormParamas) {
       extraFormParamas.forEach((item) => {
         let key = Object.keys(item);
-        let field = item[key]
-        if(field.readonly){
+        let field = item[key];
+        if (field.readonly) {
           formData.append(field.fieldName, field.defaultValue);
         }
       });
@@ -176,7 +180,7 @@ const FileUpload = ({
   /**
    * Onclick call the upload funciton
    */
-  const uploadFile =  (data) => {
+  const uploadFile = (data) => {
     const arrURL = [];
     saveState(true);
     if (editImage?.id) {
@@ -193,7 +197,7 @@ const FileUpload = ({
   const updatedFileChnages = (response) => {
     const imgarr = [];
     response.forEach((item, i) => {
-      const key = Object.keys(item.data)
+      const key = Object.keys(item.data);
       const imageResponse = item.data[key];
       const img = {
         id: imageResponse.id,
@@ -216,7 +220,7 @@ const FileUpload = ({
    * Reset form
    */
   const resetFileUploadForm = () => {
-    reset()
+    reset();
     saveState(false);
     setFiles([]);
     setEditCarousel({});
@@ -228,104 +232,105 @@ const FileUpload = ({
     }
   };
 
-
   const clearField = () => {
     resetFileUploadForm();
   };
 
-
   return (
     <>
-     <form className="" onSubmit={handleSubmit(uploadFile)}>
-      <div className="mb-3 row">
-        <label className="col-sm-3 col-form-label text-start text-md-end">
-          <Title title={title} cssClass="" />
-        </label>
-        <div className="col-sm-9">
-          <div className="border border-3 mb-0 shadow-lg">
-            <FilePond
-              labelIdle='Drag & Drop your files or <span className="filepond--label-action">Browse</span>'
-              labelInvalidField="invalid files"
-              name='path'
-              files={files}
-              onerror={onerror}
-              onupdatefiles={setFiles}
-              allowMultiple={true}
-              maxFiles={maxFiles ? maxFiles : 4}
-              maxParallelUploads={4}
-              disabled={disabledFile}
-              credits={false}
-              acceptedFileTypes={extTypes}
-              instantUpload={false}
-            />
-          </div>
-          {editImage?.id ? (
-            <div>
-              <img
-                src={getImagePath(editImage.path, editImage.contentType)}
-                alt=""
-                className=""
-                style={{ width: "100%", height: "100px", objectFit: "cover" }}
+      <form className="" onSubmit={handleSubmit(uploadFile)}>
+        <div className="mb-3 row">
+          <label className="col-sm-3 col-form-label text-start text-md-end">
+            <Title title={title} cssClass="" />
+          </label>
+          <div className="col-sm-9">
+            <div className="border border-3 mb-0 shadow-lg">
+              <FilePond
+                labelIdle='Drag & Drop your files or <span className="filepond--label-action">Browse</span>'
+                labelInvalidField="invalid files"
+                name="path"
+                files={files}
+                onerror={onerror}
+                onupdatefiles={setFiles}
+                allowMultiple={true}
+                maxFiles={maxFiles ? maxFiles : 4}
+                maxParallelUploads={4}
+                disabled={disabledFile}
+                credits={false}
+                acceptedFileTypes={extTypes}
+                instantUpload={false}
               />
             </div>
-          ) : (
-            ""
-          )}
-        </div>
-      </div>
-
-      {showDescription ? (
-        <>
-        <InputField
-                label={alternitivetextTitle}
-                fieldName="alternitivetext"
-                register={register}
-              />
-
-      <InputField
-                label={titleTitle}
-                fieldName="imageTitle"
-                register={register}
-              />
-             
-      <TextAreaField
-                label={descriptionTitle}
-                fieldName="imageDescription"
-                register={register}
-              />
-<>
-
-      {extraFormParamas.map((item, index) => {
-        let key = Object.keys(item);
-        let field = item[key]
-        if(field.readonly) return ''
-        return( 
-           <InputField
-                key={index}
-                  label={field.label}
-                  type={field.type}
-                  fieldName={field.fieldName}
-                  register={register}
+            {editImage?.id ? (
+              <div>
+                <img
+                  src={getImagePath(editImage.path, editImage.contentType)}
+                  alt=""
+                  className=""
+                  style={{ width: "100%", height: "100px", objectFit: "cover" }}
                 />
-        )
-      })}
-
-      </>
-         
-          <div className="row">
-            <div className="text-center ">
-            
-            <button type="button" className="btn btn-secondary mx-3" onClick={clearField}>Clear</button>
-            <button type="submit" className="btn btn-primary" >Save</button>
-
-            </div>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
-         
-        </>
-      ) : (
-        ""
-      )}
-       </form>
+        </div>
+
+        {showDescription ? (
+          <>
+            <InputField
+              label={alternitivetextTitle}
+              fieldName="alternitivetext"
+              register={register}
+            />
+
+            <InputField
+              label={titleTitle}
+              fieldName="imageTitle"
+              register={register}
+            />
+
+            <TextAreaField
+              label={descriptionTitle}
+              fieldName="imageDescription"
+              register={register}
+            />
+            <>
+              {extraFormParamas.map((item, index) => {
+                let key = Object.keys(item);
+                let field = item[key];
+                if (field.readonly) return "";
+                return (
+                  <InputField
+                    key={index}
+                    label={field.label}
+                    type={field.type}
+                    fieldName={field.fieldName}
+                    register={register}
+                  />
+                );
+              })}
+            </>
+
+            <div className="row">
+              <div className="text-center ">
+                <button
+                  type="button"
+                  className="btn btn-secondary mx-3"
+                  onClick={clearField}
+                >
+                  Clear
+                </button>
+                <button type="submit" className="btn btn-primary">
+                  Save
+                </button>
+              </div>
+            </div>
+          </>
+        ) : (
+          ""
+        )}
+      </form>
     </>
   );
 };

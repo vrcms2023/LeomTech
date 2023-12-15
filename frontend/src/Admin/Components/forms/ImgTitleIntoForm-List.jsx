@@ -10,15 +10,15 @@ import { axiosFileUploadServiceApi } from "../../../util/axiosUtil";
 import { confirmAlert } from "react-confirm-alert";
 import DeleteDialog from "../../../Common/DeleteDialog";
 
-const AdminBanner = ({ 
-  editHandler, 
-  componentType, 
-  getImageListURL, 
+const AdminBanner = ({
+  editHandler,
+  componentType,
+  getImageListURL,
   deleteImageURL,
-  imagePostURL, 
-  imageUpdateURL, 
-  imageLabel="Add Images",
-  extraFormParamas 
+  imagePostURL,
+  imageUpdateURL,
+  imageLabel = "Add Images",
+  extraFormParamas,
 }) => {
   const projectID = "a62d7759-a e6b-4e49-a129-1ee208c6789d";
   const [userName, setUserName] = useState("");
@@ -43,8 +43,8 @@ const AdminBanner = ({
       try {
         const response = await axiosFileUploadServiceApi.get(getImageListURL);
         if (response?.status === 200) {
-          let key = Object.keys(response.data)
-          setcarouseData(response.data[key])
+          let key = Object.keys(response.data);
+          setcarouseData(response.data[key]);
         }
       } catch (e) {
         console.log("unable to access ulr because of server is down");

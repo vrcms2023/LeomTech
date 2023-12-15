@@ -6,7 +6,7 @@ import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus
 import { getDateValue } from "../../util/commonUtil";
 
 const News = ({ item, articleHandler }) => {
- const isAdmin = useAdminLoginStatus();
+  const isAdmin = useAdminLoginStatus();
 
   const baseURL = getBaseURL();
   useEffect(() => {
