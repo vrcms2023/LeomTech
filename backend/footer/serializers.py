@@ -11,3 +11,9 @@ class TermsAndConditionsSerializer(serializers.ModelSerializer):
      class Meta:
         model = TermsandCondition
         fields = '__all__'
+
+
+class GoogleMAPURLSerializer(serializers.ModelSerializer):
+     class Meta:
+        model =googleMAPURL
+        fields = '__all__'

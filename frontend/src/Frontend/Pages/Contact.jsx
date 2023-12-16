@@ -40,6 +40,7 @@ const Contact = () => {
     phoneNumber: "",
     description: "",
   };
+  const defautURL =  "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15226.413145928846!2d78.441906!3d17.430816!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x80e4d67809745a48!2sHPR+INFRA+PROJECTS!5e0!3m2!1sen!2sin!4v1442574301202"
   const pageType = "contactus";
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
@@ -48,7 +49,9 @@ const Contact = () => {
   const [show, setShow] = useState(false);
   const [formerror, setFormerror] = useState({});
   const [success, setsuccess] = useState(false);
+  const [footerValues, setFooterValues] = useState(false);
   const navigate = useNavigate();
+  const [mapValues, setMapValues] = useState("")
 
   useEffect(() => {
     removeActiveClass();
@@ -113,11 +116,50 @@ const Contact = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  useEffect(() => {
+    const getFooterValues = async () => {
+      try {
+        const response = await axiosClientServiceApi.get(
+          `footer/getClientAddress/`,
+        );
+        if (response?.data?.address?.length > 0) {
+          setFooterValues(response.data.address[0]);
+        }
+      } catch (e) {
+        console.log("unable to access ulr because of server is down");
+      }
+    };
+    if (!componentEdit.address) {
+      getFooterValues();
+    }
+  }, [componentEdit.address]);
+
+  useEffect(() => {
+    if(!componentEdit.map){
+      getGoogleMapUrl()
+    }
+   
+  }, [componentEdit.map])
+
   const editHandler = (name, value) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
     setShow(!show);
     document.body.style.overflow = "hidden";
   };
+
+  const getGoogleMapUrl = async() => {
+    try {
+      const response = await  axiosClientServiceApi.get(
+        `footer/getGoogleMapURL/`,
+      );
+      if (response?.data?.mapURL) {
+        const data = response.data.mapURL[0]
+        setMapValues(data);
+      }
+    } catch (e) {
+      console.log("unable to access ulr because of server is down");
+    }
+  }
 
   return (
     <>
@@ -134,6 +176,22 @@ const Contact = () => {
         />
        
       </div>
+
+      {componentEdit.banner ? (
+        <div className="adminEditTestmonial">
+          <ImageInputsForm
+            editHandler={editHandler}
+            componentType="banner"
+            pageType={`${pageType}-banner`}
+            imageLabel="Banner Image"
+            showDescription={false}
+            showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
+          />
+        </div>
+      ) : (
+        ""
+      )}
+
 
       {/* Introduction */}
       {isAdmin ? (
@@ -174,25 +232,29 @@ const Contact = () => {
                 cssClass="fs-6 mb-4"
               />
               <p className="mb-5">
-                101, Silicon Towers, <br />
-                Image Garden Road, <br />
-                Madhapur, <br />
-                Hyderabad - 500081
+                {footerValues.address_dr_no}, {footerValues.location} <br />
+                {footerValues.street} <br />
+                {footerValues.city} - {footerValues.postcode} <br />
+                {footerValues.state}
               </p>
 
               <div>
                 <Title title="Phone Number" cssClass="" />
-                <p>40-40036841</p>
-
+            
+                {footerValues.phonen_number} <br />
+                {footerValues.phonen_number_2}
+                <br />
+                <br />
                 <Title title="Email Id" cssClass="" />
                 <p>
-                  <a
+                <a className="fs-6 text-white" href={`mailto:${footerValues.emailid}`}>{footerValues.emailid} </a>
+                  {/* <a
                     href="mailto:contact@hprinfraprojects.com"
                     className="fs-6 text-white"
                   >
                     {" "}
                     contact@hprinfraprojects.com
-                  </a>
+                  </a> */}
                 </p>
               </div>
             </div>
@@ -331,31 +393,25 @@ const Contact = () => {
             ) : (
               ""
             )}
-            <iframe
+       
+               <iframe
+                className="googlemap"
+                src={mapValues.google_map_url ?mapValues.google_map_url : defautURL}
+                height="450"
+                width="100%"
+              ></iframe>
+   
+            {/* <iframe
               className="googlemap"
               src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15226.413145928846!2d78.441906!3d17.430816!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x80e4d67809745a48!2sHPR+INFRA+PROJECTS!5e0!3m2!1sen!2sin!4v1442574301202"
               height="450"
               width="100%"
-            ></iframe>
+            ></iframe> */}
           </div>
         </div>
       </div>
 
-      {componentEdit.banner ? (
-        <div className="adminEditTestmonial">
-          <ImageInputsForm
-            editHandler={editHandler}
-            componentType="banner"
-            pageType={`${pageType}-banner`}
-            imageLabel="Banner Image"
-            showDescription={false}
-            showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
-          />
-        </div>
-      ) : (
-        ""
-      )}
-
+      
 
 
       {componentEdit.address ? (
@@ -368,7 +424,7 @@ const Contact = () => {
 
       {componentEdit.map ? (
         <div className="adminEditTestmonial">
-          <GoogleMap editHandler={editHandler} componentType="map" />
+          <GoogleMap mapValues={mapValues} editHandler={editHandler} componentType="map" />
         </div>
       ) : (
         ""

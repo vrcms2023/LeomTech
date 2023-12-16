@@ -172,33 +172,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route
-              exact
-              path="/addproject"
-              element={
-                <ProtectedRoute>
-                  <AddProject />{" "}
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              exact
-              path="/editproject/:id"
-              element={
-                <ProtectedRoute>
-                  <AddProject />{" "}
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              exact
-              path="/dashboard"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />{" "}
-                </ProtectedRoute>
-              }
-            />
+   
             <Route
               exact
               path="/userAdmin"
@@ -208,26 +182,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route
-              exact
-              path="/adminNews"
-              element={
-                <ProtectedRoute>
-                  {" "}
-                  <AdminNews />{" "}
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              exact
-              path="/testimonial"
-              element={
-                <ProtectedRoute>
-                  {" "}
-                  <AdminTestimonial />
-                </ProtectedRoute>
-              }
-            />
+ 
             <Route
               exact
               path="/contactUSList"
