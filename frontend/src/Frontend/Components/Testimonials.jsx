@@ -56,7 +56,7 @@ const Testimonials = ({ testimonis }) => {
   }, [index]);
 
   const ListOfTestimonials = testimonis?.map((item, indexPeople) => {
-    console.log("testimonial Items", item)
+    // console.log("testimonial Items", item)
     const { imageUrl, title, description } = item;
     let position = "nextSlide";
     if (indexPeople === index) {
