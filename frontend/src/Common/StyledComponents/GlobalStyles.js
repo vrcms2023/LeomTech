@@ -131,10 +131,10 @@ body {
         }
 
         a {
-            color:${({ theme }) => theme.primaryColor}; 
+            color:${({ theme }) => theme.primaryColor} !important; 
 
             &:hover {
-                color:${({ theme }) => theme.secondaryColor}; 
+                color:${({ theme }) => theme.secondaryColor} !important; 
             }
         }
     }

@@ -12,6 +12,13 @@
   border: 0px;
 }
 
+.lineClamp {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+}
+
 .card-body h3 {
   font-size: 1.1rem;
   font-weight: bold;
@@ -21,4 +28,28 @@
   position: absolute;
   bottom: 10px;
   right: 10px;
+}
+
+/* .moreLink {
+  color: #27AAE1 !important
+} */
+
+.newsModel {
+  position: fixed;
+  z-index: 999999;
+  /* background-color: #fff; */
+  top: 50px;
+  left: 0px;
+  width: 500px;
+  min-height: 500px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.newsModalWrapper {
+  width: 70%;
+  margin: auto;
+  border-radius: 10px;
 }
