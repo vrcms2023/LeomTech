@@ -10,6 +10,7 @@ import ModelBg from "../../Common/ModelBg";
 import Banner from "../../Common/Banner";
 
 import { removeActiveClass } from "../../util/ulrUtil";
+import { getFormDynamicFields } from "../../util/dynamicFormFields";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 
 // Images Imports
@@ -60,7 +61,7 @@ const Careers = () => {
           ""
         )}
         <Banner
-          getBannerAPIURL={`banner/clientBannerIntro/${pageType}/`}
+          getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`}
           bannerState={componentEdit.banner}
         />
       </div>
@@ -70,23 +71,10 @@ const Careers = () => {
           <ImageInputsForm
             editHandler={editHandler}
             componentType="banner"
-            pageType={pageType}
-            extraFormParamas={[
-              {
-                pageType: {
-                  readonly: true,
-                  defaultValue: pageType,
-                  fieldName: "pageType",
-                },
-              },
-              {
-                bannerTitle: {
-                  label: "Careers Title",
-                  type: "text",
-                  fieldName: "bannerTitle",
-                },
-              },
-            ]}
+            pageType={`${pageType}-banner`}
+            imageLabel="Banner Image"
+            showDescription={false}
+            showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
           />
         </div>
       ) : (

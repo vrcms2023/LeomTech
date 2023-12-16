@@ -17,6 +17,7 @@ import BriefIntroAdmin from "../../Admin/Components/BriefIntro";
 import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
 import { getImagePath } from "../../util/commonUtil";
+import { getFormDynamicFields } from "../../util/dynamicFormFields";
 
 const ABrief = ({ title, cssClass, linkClass, moreLink }) => {
   const editComponentObj = {
@@ -27,6 +28,30 @@ const ABrief = ({ title, cssClass, linkClass, moreLink }) => {
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
   const [bannerdata, setBannerData] = useState([]);
+  const ServiceBannerFormField = {
+    imageTitle: {
+      label: "Title",
+      type: "text",
+      fieldName: "imageTitle",
+    },
+    bannerTitle: {
+      label: "Sub Title",
+      type: "text",
+      fieldName: "bannerTitle",
+    },
+    imageDescription: {
+      label: "Description",
+      type: "textarea",
+      fieldName: "imageDescription",
+    },
+    pageType: {
+      label: "News Title",
+      readonly: true,
+      type: "hidden",
+      value: pageType ? pageType : "",
+      fieldName: "pageType",
+    },
+  };
 
   const editHandler = (name, value) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -93,25 +118,12 @@ const ABrief = ({ title, cssClass, linkClass, moreLink }) => {
           <ImageInputsForm
             editHandler={editHandler}
             componentType="homecareers"
-            imageLabel="Banner Image"
             pageType={pageType}
-            extraFormParamas={[
-              {
-                pageType: {
-                  readonly: true,
-                  defaultValue: pageType,
-                  fieldName: "pageType",
-                },
-              },
-              {
-                bannerTitle: {
-                  label: "Career sub Title",
-                  type: "text",
-                  fieldName: "bannerTitle",
-                },
-              },
-            ]}
+            imageLabel="Banner Image"
+            showDescription={false}
+            showExtraFormFields={getFormDynamicFields(pageType)}
           />
+
           {/* <NewsForm editHandler={editHandler} componentType="careers" /> */}
         </div>
       ) : (

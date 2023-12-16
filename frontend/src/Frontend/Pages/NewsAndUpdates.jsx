@@ -9,6 +9,10 @@ import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
 import News from "../Components/News";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
 import { removeActiveClass } from "../../util/ulrUtil";
+import {
+  getFormDynamicFields,
+  getCarouselFields,
+} from "../../util/dynamicFormFields";
 import ModelBg from "../../Common/ModelBg";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 
@@ -72,7 +76,7 @@ const NewsAndUpdates = () => {
           ""
         )}
         <Banner
-          getBannerAPIURL={`banner/clientBannerIntro/${pageType}/`}
+          getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`}
           bannerState={componentEdit.banner}
         />
       </div>
@@ -81,23 +85,10 @@ const NewsAndUpdates = () => {
           <ImageInputsForm
             editHandler={editHandler}
             componentType="banner"
-            pageType={pageType}
-            extraFormParamas={[
-              {
-                pageType: {
-                  readonly: true,
-                  defaultValue: pageType,
-                  fieldName: "pageType",
-                },
-              },
-              {
-                bannerTitle: {
-                  label: "News",
-                  type: "text",
-                  fieldName: "bannerTitle",
-                },
-              },
-            ]}
+            pageType={`${pageType}-banner`}
+            imageLabel="Banner Image"
+            showDescription={false}
+            showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
           />
         </div>
       ) : (
@@ -132,15 +123,17 @@ const NewsAndUpdates = () => {
                 imageUpdateURL="appNews/updateAppNews/"
                 imageDeleteURL="appNews/updateAppNews/"
                 imageLabel="Add News Image"
-                extraFormParamas={[
-                  {
-                    bannerTitle: {
-                      label: "News Title",
-                      type: "text",
-                      fieldName: "newstitle",
-                    },
-                  },
-                ]}
+                showDescription={false}
+                showExtraFormFields={getCarouselFields()}
+                // extraFormParamas={[
+                //   {
+                //     bannerTitle: {
+                //       label: "News Title",
+                //       type: "text",
+                //       fieldName: "newstitle",
+                //     },
+                //   },
+                // ]}
               />
             </div>
           ) : (

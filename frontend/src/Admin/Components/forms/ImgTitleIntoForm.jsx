@@ -15,6 +15,8 @@ const ImageInputsForm = ({
   pageType,
   category = "banner",
   extraFormParamas,
+  showDescription = true,
+  showExtraFormFields,
   imageLabel = "Add Image",
   imagePostURL = "banner/createBannerIntro/",
   imageGetURL = "banner/clientBannerIntro/",
@@ -105,13 +107,14 @@ const ImageInputsForm = ({
                 titleTitle="Title"
                 alternitivetextTitle="Image Alt Text"
                 saveState={setSaveState}
-                showDescription={true}
+                showDescription={showDescription}
                 buttonLable="Save"
                 editImage={editCarousel}
                 setEditCarousel={setEditCarousel}
                 imagePostURL={imagePostURL}
                 imageUpdateURL={imageUpdateURL}
                 extraFormParamas={extraFormParamas}
+                showExtraFormFields={showExtraFormFields}
               />
             </div>
           </div>

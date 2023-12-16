@@ -8,6 +8,10 @@ import EditIcon from "../../Common/AdminEditIcon";
 import ModelBg from "../../Common/ModelBg";
 import Banner from "../../Common/Banner";
 import { removeActiveClass } from "../../util/ulrUtil";
+import {
+  getFormDynamicFields,
+  getServiceFormFields,
+} from "../../util/dynamicFormFields";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 import Title from "../../Common/Title";
 
@@ -16,9 +20,11 @@ import ServicesBanner from "../../Images/Banner_8.jpg";
 import insured from "../../Images/insrued.png";
 
 import "./services.css";
-import { Link } from "react-router-dom";
+import { Link, useRouteError } from "react-router-dom";
 import AddService from "../../Admin/Components/Services";
-import News from "../../Admin/Components/News";
+import AddEditAdminNews from "../../Admin/Components/News";
+import { axiosClientServiceApi } from "../../util/axiosUtil";
+import { getImagePath } from "../../util/commonUtil";
 
 const Services = () => {
   const editComponentObj = {
@@ -35,6 +41,36 @@ const Services = () => {
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
+  const [selectedServiceProject, setSelectedServiceProject] = useState({});
+  const [selectedServiceList, setSelectedServiceList] = useState([]);
+  const [editCarousel, setEditCarousel] = useState({});
+
+  const ServiceFormField = {
+    feature_title: {
+      label: "Service Title",
+      type: "text",
+      fieldName: "feature_title",
+      defaultValue: "",
+    },
+    feature_sub_title: {
+      label: "Service Sub Title",
+      type: "text",
+      fieldName: "feature_sub_title",
+      defaultValue: "",
+    },
+    feature_description: {
+      label: "Description",
+      type: "richText",
+      fieldName: "feature_description",
+    },
+    serviceID: {
+      label: "News Title",
+      readonly: true,
+      type: "hidden",
+      defaultValue: selectedServiceProject ? selectedServiceProject.id : "",
+      fieldName: "serviceID",
+    },
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -44,9 +80,42 @@ const Services = () => {
     removeActiveClass();
   }, []);
 
-  const editHandler = (name, value) => {
+  useEffect(() => {
+    if (selectedServiceProject?.id) {
+      setEditCarousel({
+        serviceID: selectedServiceProject ? selectedServiceProject.id : "",
+      });
+      getSelectedServiceObject();
+    }
+  }, [selectedServiceProject]);
+
+  const getSelectedServiceObject = async () => {
+    console.log("onpage load ", selectedServiceProject);
+    try {
+      let response = await axiosClientServiceApi.get(
+        `/services/getSelectedClientService/${selectedServiceProject.id}/`,
+      );
+      setSelectedServiceList(response.data.servicesFeatures);
+    } catch (error) {
+      console.log("Unable to get the intro");
+    }
+  };
+
+  useEffect(() => {
+    if (
+      (!componentEdit.editSection || !componentEdit.addSection) &&
+      selectedServiceProject?.id !== undefined
+    ) {
+      getSelectedServiceObject();
+    }
+  }, [componentEdit.editSection, componentEdit.addSection]);
+
+  const editHandler = (name, value, item) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
     setShow(!show);
+    if (item?.id) {
+      setEditCarousel(item);
+    }
     document.body.style.overflow = "hidden";
   };
   return (
@@ -69,23 +138,10 @@ const Services = () => {
           <ImageInputsForm
             editHandler={editHandler}
             componentType="banner"
-            pageType={pageType}
-            extraFormParamas={[
-              {
-                pageType: {
-                  readonly: true,
-                  defaultValue: pageType,
-                  fieldName: "pageType",
-                },
-              },
-              {
-                bannerTitle: {
-                  label: "Service Title",
-                  type: "text",
-                  fieldName: "bannerTitle",
-                },
-              },
-            ]}
+            pageType={`${pageType}-banner`}
+            imageLabel="Banner Image"
+            showDescription={false}
+            showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
           />
         </div>
       ) : (
@@ -115,10 +171,17 @@ const Services = () => {
         ""
       )}
 
-      {isAdmin ? <AddService /> : ""}
+      {isAdmin ? (
+        <AddService
+          setSelectedServiceProject={setSelectedServiceProject}
+          selectedServiceProject={selectedServiceProject}
+        />
+      ) : (
+        ""
+      )}
 
       <div className="container my-md-5 py-md-4">
-        {isAdmin ? (
+        {isAdmin && selectedServiceProject?.id ? (
           <>
             <button
               type="submit"
@@ -129,27 +192,32 @@ const Services = () => {
               Add New Service
               <i className="fa fa-plus ms-2" aria-hidden="true"></i>
             </button>
-            <EditIcon editHandler={() => editHandler("editSection", true)} />
+            {/* <EditIcon editHandler={() => editHandler("editSection", true)} /> */}
           </>
         ) : (
           ""
         )}
 
-        {componentEdit.addSection ? (
+        {componentEdit.editSection || componentEdit.addSection ? (
           <div className="adminEditTestmonial">
-            <News
+            <AddEditAdminNews
               editHandler={editHandler}
-              componentType="addSection"
-              type="add"
+              category="services"
+              editCarousel={editCarousel}
+              setEditCarousel={setEditCarousel}
+              componentType={`${
+                componentEdit.editSection ? "editSection" : "addSection"
+              }`}
+              imageGetURL="services/createServiceFeatures/"
+              imagePostURL="services/createServiceFeatures/"
+              imageUpdateURL="services/updateFeatureService/"
+              imageDeleteURL="services/updateFeatureService/"
+              imageLabel="Add Service Banner"
+              showDescription={false}
+              showExtraFormFields={getServiceFormFields(
+                selectedServiceProject ? selectedServiceProject.id : "",
+              )}
             />
-          </div>
-        ) : (
-          ""
-        )}
-
-        {componentEdit.editSection ? (
-          <div className="adminEditTestmonial">
-            <News editHandler={editHandler} componentType="editSection" />
           </div>
         ) : (
           ""
@@ -160,62 +228,58 @@ const Services = () => {
             <Title title="Services" cssClass="fs-3 mb-2" />
           </div>
         </div>
-
-        <div className="row">
-          <div className="col-md-9">
-            <Title
-              title="PROGRAM MANAGEMENT & INDEPENDENT VERIFICATION & VALIDATION (IV&V)"
-              cssClass="fs-3 mt-3 mb-2"
-            />
-            <Title
-              title="Program Management Office (PMO) Support"
-              cssClass="fs-5 fw-bold"
-            />
-            <p>
-              Peridot Solutions offers a complete range of program management
-              operations and program assessment capabilities designed to
-              maximize the effectiveness of operations and ensure our clients
-              achieve their program objectives.
-            </p>
-            <p>
-              We have expertise with federal clients in this area and understand
-              client-specific issues and challenges as practitioners and
-              experienced managers. This service includes:
-            </p>
-
-            <ul className="list-group">
-              <li className="list-group-item">
-                PMO design and set up , which includes key role fulfillment,
-                policies and procedures development, requirement development and
-                analysis, and investment planning.
-              </li>
-              <li className="list-group-item">
-                PMO operations and performance, which includes organization
-                alignment, budget and schedule management, earned value
-                management, integrated master schedule development and
-                maintenance, capital planning and investment control,
-                performance management and metrics, managing meetings, strategic
-                communications, change management and risk and issue management.
-              </li>
-              <li className="list-group-item">
-                Program assessments, which include program strategy, planning,
-                execution and management.
-              </li>
-              <li className="list-group-item">
-                Program administration services to assist with day-to-day
-                management of large programs.
-              </li>
-            </ul>
+        {selectedServiceList.map((item, index) => (
+          <div
+            className={`row ${index % 2 == 0 ? "normalCSS" : "flipCSS"}`}
+            key={item.id}
+          >
+            {isAdmin ? (
+              <EditIcon
+                editHandler={() => editHandler("editSection", true, item)}
+              />
+            ) : (
+              ""
+            )}
+            <div className="col-md-9">
+              <Title
+                title={
+                  item.feature_title
+                    ? item.feature_title
+                    : "Update Feature title"
+                }
+                cssClass="fs-3 mt-3 mb-2"
+              />
+              <Title
+                title={
+                  item.feature_sub_title
+                    ? item.feature_sub_title
+                    : "Update Feature sub title"
+                }
+                cssClass="fs-5 fw-bold"
+              />
+              <div>
+                <div
+                  dangerouslySetInnerHTML={{ __html: item.feature_description }}
+                />
+              </div>
+            </div>
+            <div className="col-md-3">
+              <img src={getImagePath(item.path)} alt="" />
+            </div>
           </div>
-          <div className="col-md-3">
-            <img src={insured} alt="" />
-          </div>
-        </div>
+        ))}
       </div>
 
       {componentEdit.about ? (
         <div className="adminEditTestmonial">
-          <ImageInputsForm editHandler={editHandler} componentType="about" />
+          <ImageInputsForm
+            editHandler={editHandler}
+            componentType="banner"
+            pageType={`${pageType}-about`}
+            imageLabel="Banner Image"
+            showDescription={false}
+            showExtraFormFields={getFormDynamicFields(`${pageType}-about`)}
+          />
         </div>
       ) : (
         ""
@@ -223,7 +287,14 @@ const Services = () => {
 
       {componentEdit.vision ? (
         <div className="adminEditTestmonial">
-          <ImageInputsForm editHandler={editHandler} componentType="vision" />
+          <ImageInputsForm
+            editHandler={editHandler}
+            componentType="banner"
+            pageType={`${pageType}-vision`}
+            imageLabel="Banner Image"
+            showDescription={false}
+            showExtraFormFields={getFormDynamicFields(`${pageType}-vision`)}
+          />
         </div>
       ) : (
         ""
@@ -231,7 +302,14 @@ const Services = () => {
 
       {componentEdit.mission ? (
         <div className="adminEditTestmonial">
-          <ImageInputsForm editHandler={editHandler} componentType="mission" />
+          <ImageInputsForm
+            editHandler={editHandler}
+            componentType="banner"
+            pageType={`${pageType}-mission`}
+            imageLabel="Banner Image"
+            showDescription={false}
+            showExtraFormFields={getFormDynamicFields(`${pageType}-mission`)}
+          />
         </div>
       ) : (
         ""

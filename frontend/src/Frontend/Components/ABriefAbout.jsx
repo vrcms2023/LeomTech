@@ -17,6 +17,7 @@ import ModelBg from "../../Common/ModelBg";
 import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
 import { getImagePath } from "../../util/commonUtil";
+import { getFormDynamicFields } from "../../util/dynamicFormFields";
 
 const ABriefAbout = ({ title, cssClass, linkClass }) => {
   const editComponentObj = {
@@ -95,24 +96,10 @@ const ABriefAbout = ({ title, cssClass, linkClass }) => {
           <ImageInputsForm
             editHandler={editHandler}
             componentType="whoweare"
-            imageLabel="Banner Image"
             pageType={pageType}
-            extraFormParamas={[
-              {
-                pageType: {
-                  readonly: true,
-                  defaultValue: pageType,
-                  fieldName: "pageType",
-                },
-              },
-              {
-                bannerTitle: {
-                  label: "Banner Title",
-                  type: "text",
-                  fieldName: "bannerTitle",
-                },
-              },
-            ]}
+            imageLabel="Banner Image"
+            showDescription={false}
+            showExtraFormFields={getFormDynamicFields(pageType)}
           />
         </div>
       ) : (
