@@ -90,7 +90,7 @@ const HomeNews = ({ addNewsState }) => {
 
   return (
     <>
-      {news.map((item, index) => (
+      {news.length > 0 ? news.map((item, index) => (
         <div className="col-sm-6 col-md-3 mb-4 mb-md-0" key={item.id}>
           <div className="card position-relative homeNews">
             {/* Edit News */}
@@ -134,7 +134,12 @@ const HomeNews = ({ addNewsState }) => {
             )}
           </div>
         </div>
-      ))}
+      )) : <div className="text-center">
+      <p className="text-center fs-4">There are no news items found. Please create news items.</p>
+      {isAdmin ? "" :
+      <Link to="/login" className="btn btn-primary fs-5" style={{width: "200px"}}>Login to Add News <i class="fa fa-plus mx-2" aria-hidden="true"></i> </Link>
+        }
+      </div>}
 
       {componentEdit.news ? (
         <div className="adminEditTestmonial">
