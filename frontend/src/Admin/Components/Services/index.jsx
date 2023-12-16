@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import Button from "../../../Common/Button";
+import {Link} from 'react-router-dom'
 import {
   axiosClientServiceApi,
   axiosServiceApi,
@@ -9,6 +10,9 @@ import Error from "../Error";
 import { getCookie } from "../../../util/cookieUtil";
 import { confirmAlert } from "react-confirm-alert";
 import DeleteDialog from "../../../Common/DeleteDialog";
+import Title from "../../../Common/Title";
+
+import './services.css'
 
 const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
   const [serviceName, setServiceName] = useState("");
@@ -64,6 +68,7 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
   const getServiceList = async () => {
     try {
       const response = await axiosServiceApi.get(`/services/createService/`);
+      console.log(response, "Services")
       if (response?.status === 200) {
         setServiceList(response.data.services);
         if (onPageLoadAction.current) {
@@ -150,15 +155,20 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
 
   return (
     <div className="my-5">
-      <h3 className={`text-center ${selectedServiceProject && selectedServiceProject.publish ? 'border border-success' : ''} `}>Add New Service </h3>
 
-      <div className={`container bg-light p-5 border shadow-lg ${selectedServiceProject && selectedServiceProject.publish ? 'border border-success' : ''}`}>
+<h3 className={`text-center `}>Add New Service </h3>
+
+      {/* <h3 className={`text-center ${selectedServiceProject && selectedServiceProject.publish ? 'border border-success' : ''} `}>Add New Service </h3> */}
+
+      <div className={`container bg-light p-5 border shadow-lg`}>
+      {/* <div className={`container bg-light p-5 border shadow-lg ${selectedServiceProject && selectedServiceProject.publish ? 'border border-success' : ''}`}> */}
         <div className="row">
           {error ? <Error>{error}</Error> : ""}
-          <div className="col-md-6 offset-md-3 text-center">
+          <div className="col-md-7 text-center">
+          
             <input
               type="text"
-              class="form-control py-3"
+              class="form-control py-2"
               name="services_page_title"
               id=""
               value={serviceName}
@@ -168,11 +178,42 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
 
             <Button
               type="submit"
-              cssClass="btn btn-lg btn-primary"
+              cssClass="btn btn-lg btn-primary mt-3"
               handlerChange={submitHandler}
               label="Save"
             />
-            <hr className="my-5" />
+            </div>
+
+            <div className="col-md-5 mt-5 mt-md-0 servicePageLinks">
+              <Title title="Services Pages" cssClass="fs-6 fw-bold text-center border-bottom pb-2 mb-2 " />
+            <ul>
+            {serviceList && serviceList.map((item, index) => (
+              <li className="d-flex justify-content-between py-1 cursor-pointer" key={item.id} onClick={(event) => onClickSelectedService(item)}>
+                <div className="fw-bold ">{item.services_page_title} </div>
+                <div>
+                <Link onClick={publishService} className={`p-1 px-3 mx-2 rounded ${item.publish ? "bg-success text-white" : "bg-secondary text-dark"}`}>
+                    <small>{item.publish ? "Published" : "Un Publish"}</small>
+                  </Link>
+                  <Link onClick={deleteService}> <i class="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i></Link>
+                  
+                </div>
+              </li>
+              ))}
+            </ul>
+            {/* <Button
+              type="Delete"
+              cssClass="btn btn-lg btn-primary"
+              handlerChange={deleteService}
+              label="Delete Service"
+            /> */}
+              {/* <Button
+              type="Publish"
+              cssClass="btn btn-lg btn-warning"
+              handlerChange={publishService}
+              label="publish Service"
+            /> */}
+
+            {/* <hr className="my-5" /> */}
             {/* <span className="text-success text-center fw-bold py-2 fs-5 d-block">
               Successfully added the new service
             </span> */}
@@ -191,25 +232,6 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
                 </option>
               ))}
             </select> */}
-            <ul>
-            {serviceList && serviceList.map((item, index) => (
-              <li key={item.id} onClick={(event) => onClickSelectedService(item)}>
-                {item.services_page_title}
-              </li>
-              ))}
-            </ul>
-            <Button
-              type="Delete"
-              cssClass="btn btn-lg btn-primary"
-              handlerChange={deleteService}
-              label="Delete Service"
-            />
-              <Button
-              type="Publish"
-              cssClass="btn btn-lg btn-warning"
-              handlerChange={publishService}
-              label="publish Service"
-            />
           </div>
         </div>
       </div>
