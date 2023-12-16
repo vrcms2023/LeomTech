@@ -99,7 +99,7 @@ const Header = () => {
       try {
         const response = await axiosClientServiceApi.get(`/services/clientServiceList/`);
         if (response?.status === 200) {
-          console.log("response", response.data)
+          setserviceMenuList(response.data.servicesList)
         }
       } catch (e) {
         console.log("unable to access ulr because of server is down");
@@ -170,7 +170,7 @@ const Header = () => {
             ""
           )}
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ClientMenu />
+            <ClientMenu serviceMenuList={serviceMenuList} />
           </div>
         </div>
       </nav>
@@ -208,7 +208,9 @@ export const AdminMenu = ({ userName, logOutHandler }) => {
     </>
   );
 };
-export const ClientMenu = () => {
+export const ClientMenu = ({
+  serviceMenuList
+}) => {
   return (
     <StyledMenu>
       <ul className="navbar-nav ms-auto mb-2 mb-lg-0 menu">
@@ -267,9 +269,17 @@ export const ClientMenu = () => {
                 : "nav-Link dropdown-toggle",
             )}
           >
-            Services
+            Services test
           </NavLink>
           <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+          {serviceMenuList && serviceMenuList.map((item) => (
+                <li>
+                <Link to="/services" className="dropdown-item">
+                  {item.services_page_title}
+                </Link>
+                </li>
+          ))}
+         
             <li>
               <Link to="/services" className="dropdown-item">
                 IoT Services{" "}
