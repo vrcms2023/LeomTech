@@ -31,6 +31,8 @@ const JobPost = ({ addJobs }) => {
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
 
+  console.log(posts)
+
   const editHandler = (name, value, item) => {
     setEditPosts(item);
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -53,7 +55,7 @@ const JobPost = ({ addJobs }) => {
       // }else {
       //   response =  await axiosClientServiceApi.get(`/careers/clientCareersList/`);
       // }
-
+      
       setPosts(response.data.careers);
     } catch (error) {
       console.log("Unable to get the Career data");
@@ -65,7 +67,7 @@ const JobPost = ({ addJobs }) => {
       const response = await axiosServiceApi.delete(
         `/careers/updateCareer/${id}/`,
       );
-      if (response.status == 204) {
+      if (response.status === 204) {
         toast.success(`${title} Career is delete successfully `);
         getCareerData();
       }
@@ -92,8 +94,8 @@ const JobPost = ({ addJobs }) => {
         { publish: !item.publish },
       );
 
-      if (response.status == 200) {
-        toast.success(`Career  published successfully `);
+      if (response.status === 200) {
+        toast.success(`Career published successfully`);
         getCareerData();
       }
     } catch (error) {
@@ -106,13 +108,56 @@ const JobPost = ({ addJobs }) => {
       {posts.length > 0
         ? posts.map((item, index) => (
             <div
-              className={`col-sm-6 col-md-4 col-lg-3 mt-3 mt-md-5 position-relative ${
-                item.publish ? "border border-success" : ""
-              }`}
+              className={`col-sm-6 col-md-4 col-lg-3 mt-3 mt-md-4 position-relative`}
+              // <div
+              // className={`col-sm-6 col-md-4 col-lg-3 mt-3 mt-md-5 position-relative ${
+              //   item.publish ? "border border-success" : ""
+              // }`}
               key={item.id}
             >
+              
+              <div className="d-flex gap-4 justify-content-end mb-2 p-1">
+                {isAdmin ? (
+                  <>
+                  <div onClick={() => editHandler("job", true, item)} className="cursorPointer">
+                  <i class="fa fa-pencil text-warning cursor-pointer fs-5" aria-hidden="true"></i>
+                  </div>
+
+                  {/* <EditIcon
+                    editHandler={() => editHandler("job", true, item)}
+                  /> */}
+
+
+
+                  <div>
+                    <Link to=""
+                      onClick={(event) =>
+                        deleteJobPost(item.id, item.job_title)
+                      }
+                      className=" p-2"
+                    >
+                      <i
+                        className="fa fa-trash-o fs-5 text-danger"
+                        aria-hidden="true"
+                      ></i>
+                    </Link>
+                  </div>
+
+                  <div>
+                  <Link
+                    to={`/career-details/${item.id}/`}
+                    className="text-secondary"
+                  >
+                    <i className="fa fa-expand" aria-hidden="true"></i>
+                  </Link>
+                  </div>
+
+                  </>
+                ) : ""}
+                </div>
+                
               {/* Page Banner Component */}
-              <div className="position-relative">
+              {/* <div className="position-realative">
                 {isAdmin ? (
                   <EditIcon
                     editHandler={() => editHandler("job", true, item)}
@@ -120,18 +165,22 @@ const JobPost = ({ addJobs }) => {
                 ) : (
                   ""
                 )}
-              </div>
+              </div> */}
 
               {/* publihser Icon */}
 
-              <div className="col-sm-6 col-md-4 col-lg-3 mt-3 mt-md-5 position-relative">
-                <EditIcon editHandler={() => publishCareer(item)} />
+              <div className="">
+                <Link to="" editHandler={() => publishCareer(item)}>
+                  {item.publish ? <small className="bg-success p-1 text-white px-3">Published</small> : <small className="bg-secondary p-1 text-white px-3">Un&nbsp;Published</small>}
+                </Link>
+                {/* <EditIcon editHandler={() => publishCareer(item)} /> */}
               </div>
+              
               <div className="p-3 jobPost">
-                <span className="d-block location mb-3">{item.location}</span>
-                <Title title={item.job_title} />
-                <div className="my-3">
-                  <Title title="Job Description" cssClass="fs-6 fw-bold" />
+                <small className="d-block location mb-1"><i class="fa fa-map-marker fs-5" aria-hidden="true"></i> {item.job_location}</small>
+                <Title title={item.job_title} cssClass="fs-5 fw-bold" />
+                <div className="mt-2">
+                  <Title title="Job Description" cssClass="text-secondary fw-bolder" />
                   <p className="m-0">
                     <div
                       dangerouslySetInnerHTML={{
@@ -146,9 +195,10 @@ const JobPost = ({ addJobs }) => {
                   {item.experience_to ? item.experience_to : 0} Years
                 </span>
                 <small className="d-block">
-                  Posted {showPosteddate(item.posted_date)} days ago{" "}
+                <strong>Posted on</strong> {showPosteddate(item.posted_date)} days ago{" "}
                 </small>
-                {isAdmin ? (
+
+                {/* {isAdmin ? (
                   <div className="text-end">
                     <Link
                       to={`/career-details/${item.id}/`}
@@ -176,11 +226,18 @@ const JobPost = ({ addJobs }) => {
                   </div>
                 ) : (
                   ""
-                )}
+                )} */}
               </div>
             </div>
           ))
-        : ""}
+        : 
+        <div className="text-center py-5">
+      <p className="text-center fs-4">There are no news items found. Please create news items.</p>
+      {isAdmin ? "" :
+      <Link to="/login" className="btn btn-primary fs-5 w-25">Login to Add Careers <i class="fa fa-plus mx-2" aria-hidden="true"></i> </Link>
+        }
+      </div>
+        }
 
       {componentEdit.job ? (
         <div className="adminEditTestmonial">

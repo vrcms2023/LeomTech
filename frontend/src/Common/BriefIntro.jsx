@@ -15,7 +15,7 @@ const BriefIntroFrontend = ({ pageType, introState }) => {
         const response = await axiosClientServiceApi.get(
           `/carousel/clientHomeIntro/${pageType}/`,
         );
-        if (response?.status == 200) {
+        if (response?.status === 200) {
           setIntroValues(response.data.intro);
         }
       } catch (error) {
@@ -37,9 +37,17 @@ const BriefIntroFrontend = ({ pageType, introState }) => {
                 ? introValue.intro_title
                 : "Please Update Title"
             }`}
-            cssClass="mb-2 fw-bold fs-2 text-center"
+            cssClass="mb-0 fw-bold fs-2 text-center"
           />
-          <p className="text-center lh-md m-0 fs-5 fw-medium">
+          <Title
+            title={`${
+              introValue.intro_title
+                ? introValue.subTitle
+                : "Please Update Title"
+            }`}
+            cssClass="mb-3 fw-bold text-secondary fs-6 text-center"
+          />
+          <p className="text-center lh-md m-0 fs-6 fw-medium">
             {introValue.intro_desc
               ? introValue.intro_desc
               : "Please Update Description"}

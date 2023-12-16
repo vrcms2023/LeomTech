@@ -5,6 +5,7 @@ import { getCookie } from "../../../util/cookieUtil";
 import Button from "../../../Common/Button";
 
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
+import Title from "../../../Common/Title";
 
 export const BriefIntroAdmin = ({ editHandler, componentType, pageType }) => {
   const closeHandler = () => {
@@ -24,6 +25,7 @@ export const BriefIntroAdmin = ({ editHandler, componentType, pageType }) => {
 
   const [userName, setUserName] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [success, setSuccess] = useState(false)
 
   useEffect(() => {
     setUserName(getCookie("userName"));
@@ -79,6 +81,7 @@ export const BriefIntroAdmin = ({ editHandler, componentType, pageType }) => {
           {
             ...intro,
           },
+          setSuccess(true)
         );
       } else {
         intro.created_by = userName;
@@ -87,6 +90,7 @@ export const BriefIntroAdmin = ({ editHandler, componentType, pageType }) => {
         });
       }
       setIntroFormValues(updateResponseData(response.data.intro));
+      setSuccess(true)
     } catch (error) {
       toast.error("Unable to save the intro");
     }
@@ -100,6 +104,11 @@ export const BriefIntroAdmin = ({ editHandler, componentType, pageType }) => {
     <>
       <EditAdminPopupHeader closeHandler={closeHandler} title={componentType} />
       <div className="container">
+        {success ? 
+        <>
+        <Title title="Saved Successfully" cssClass="text-white text-center bg-success py-2" />
+        </>
+         : ""}
         <div className="row p-4">
           <div className="col-md-8 offset-md-2">
             <div className="mb-3 row">
@@ -160,7 +169,9 @@ export const BriefIntroAdmin = ({ editHandler, componentType, pageType }) => {
                 ></textarea>
               </div>
             </div>
-            <div className="mb-3 row">
+
+            {/* More Link if client required. */}
+            {/* <div className="mb-3 row">
               <label
                 htmlFor=""
                 className="col-sm-3 col-form-label text-start text-md-end"
@@ -180,7 +191,7 @@ export const BriefIntroAdmin = ({ editHandler, componentType, pageType }) => {
                   className="form-control p-2"
                 />
               </div>
-            </div>
+            </div> */}
 
             <div className="text-center mt-5">
               {/* <Button
