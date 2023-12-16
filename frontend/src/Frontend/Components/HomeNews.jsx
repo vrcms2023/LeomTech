@@ -37,6 +37,10 @@ const HomeNews = ({ addNewsState }) => {
   const [news, setNews] = useState([]);
   const [editNews, setEditNews] = useState({});
 
+  const [obj, setObj] = useState({});
+  const [showModel, setShowModel] = useState(false);
+  const [showModelBg, setShowModelBg] = useState(false);
+
   const editHandler = (name, value, item) => {
     setEditNews(item);
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -90,36 +94,52 @@ const HomeNews = ({ addNewsState }) => {
     });
   };
 
+  const handleModel = (obj) => {
+    setObj(obj)
+    setShowModel(true)
+    setShowModelBg(true)
+  }
+
+  const closeModel = () => {
+    setShowModel(false)
+    setShowModelBg(false)
+  }
+
   return (
     <>
       {news.length > 0 ? news.map((item, index) => (
         <div className="col-sm-6 col-md-3 mb-4 mb-md-0" key={item.id}>
-          <div className="card position-relative homeNews">
+          <div className="card homeNews">
             {/* Edit News */}
             {isAdmin ? (
-              <EditIcon editHandler={() => editHandler("news", true, item)} />
+              <div className="d-flex justify-content-end gap-2">
+              {/* <EditIcon editHandler={() => editHandler("news", true, item)} /> */}
+
+              <Link
+                  onClick={() => editHandler("news", true, item)}
+                  className=" p-2"
+                >
+                  <i
+                    className="fa fa-pencil fs-5 text-warning"
+                    aria-hidden="true"
+                  ></i>
+                </Link>
+
+              <Link
+                  onClick={(event) => DeleteNews(item.id, item.news_title)}
+                  className=" p-2"
+                >
+                  <i
+                    className="fa fa-trash-o fs-5 text-danger"
+                    aria-hidden="true"
+                  ></i>
+                </Link>
+                </div>
             ) : (
               ""
             )}
-            <img
-              src={ getImagePath(item.path)}
-              className="img-fluid"
-              alt={item.alternitivetext}
-            />
-            <div className="card-body p-4">
-              <Title
-                title={item.news_title ? item.news_title : "Update news Title"}
-                cssClass="fs-5 fw-bold lh-sm mb-2"
-              />
-              <p className="card-text mb-4">
-                {item.news_description
-                  ? item.news_description
-                  : "update new description"}
-              </p>
-              <Link to={item.link}>Read more</Link>
-            </div>
 
-            {isAdmin ? (
+{/* {isAdmin ? (
               <div className="text-end deleteNews">
                 <Link
                   onClick={(event) => DeleteNews(item.id, item.news_title)}
@@ -133,7 +153,24 @@ const HomeNews = ({ addNewsState }) => {
               </div>
             ) : (
               ""
-            )}
+            )} */}
+            <img
+              src={ getImagePath(item.path)}
+              className="img-fluid"
+              alt={item.alternitivetext}
+            />
+            <div className="card-body p-4">
+              <Title
+                title={item.news_title ? item.news_title : "Update news Title"}
+                cssClass="fs-5 fw-bold lh-sm mb-2"
+              />
+              <p className="card-text mb-4 lineClamp">
+                {item.news_description
+                  ? item.news_description
+                  : "update new description"}
+              </p>
+              <Link className="text-primary moreLink" onClick={() => handleModel(item)}>Read more</Link>
+            </div>
           </div>
         </div>
       )) : <div className="text-center">
@@ -162,6 +199,22 @@ const HomeNews = ({ addNewsState }) => {
       ) : (
         ""
       )}
+
+      {showModel ? 
+        <div className="newsModel">
+          <div className="newsModalWrapper p-5 bg-white shadow-lg">
+            <div className="d-flex justify-content-between align-items-center mb-3 border-bottom">
+              <Title title={obj.news_title} cssClass="fw-bold fs-4" />
+              <Link onClick={closeModel} className="text-danger text-uppercase">Close <i class="fa fa-times fs-5" aria-hidden="true"></i></Link>
+            </div>
+            <div>
+              <img src={obj.path} alt={obj.news_title} />
+            </div>
+            <div className="my-3">{obj.news_description}</div>
+            </div>
+        </div>
+      : ""}
+      {showModelBg && <ModelBg />}
 
       {show && <ModelBg />}
     </>
