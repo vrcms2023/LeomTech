@@ -24,6 +24,10 @@
   "navbarLinkActiveColor": "#27AAE1",
   "navbarLinkHoverColor": "#006690",
 
+  "navbarChildLinkBgColor": "#006690",
+  "navbarChildLinkColor": "#ffffff",
+  "navbarChildLinkHoverColor": "#000000",
+
   "carouselSlideTitleColor": "#ffffff",
   "carouselSlideCaptionColor": "#ffffff",
 
