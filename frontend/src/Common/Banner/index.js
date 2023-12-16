@@ -33,18 +33,18 @@ const Banner = ({ getBannerAPIURL, bannerState }) => {
     <div className="pageBanner">
       <div
         className={
-          bannerdata.imageDescription && bannerdata.imageTitle
+          bannerdata.banner_descripiton && bannerdata.banner_title
             ? "titleCaption d-flex jutify-content-center align-items-center flex-column-reverse"
             : ""
         }
       >
         <p>
-          {bannerdata.imageDescription
-            ? bannerdata.imageDescription
+          {bannerdata.banner_descripiton
+            ? bannerdata.banner_descripiton
             : "upload description"}
         </p>
         <Title
-          title={bannerdata.imageTitle ? bannerdata.imageTitle : "upload title"}
+          title={bannerdata.banner_title ? bannerdata.banner_title : "upload title"}
         />
       </div>
       <img

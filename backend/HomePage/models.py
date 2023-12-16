@@ -3,7 +3,9 @@ import uuid
 from common.BaseModel import ImageModel, BaseModel
 
 class Carousel(ImageModel):
-    carouseTitle =    models.CharField(max_length=500, null=True)
+    carouse_title =          models.CharField(max_length=200, null=True)
+    carouse_sub_title =          models.CharField(max_length=200, null=True)
+    carouse_description =    models.CharField(max_length=5000, null=True)
 
 
 class HomeIntro(BaseModel):

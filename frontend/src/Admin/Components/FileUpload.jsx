@@ -187,17 +187,21 @@ const FileUpload = ({
    */
   const postImages = async (data) => {
     const arrURL = [];
-    if (files.length === 0) {
-      setError("Please Select image");
-      return true;
-    }
-    files.forEach((element, index) => {
+    if (files.length > 0) {
+      files.forEach((element, index) => {
+        let formData = new FormData();
+        formData.append("path", element.file);
+        formData = setFormData(formData, data);
+  
+        arrURL.push(axiosFileUploadServiceApi.post(imagePostURL, formData));
+      });
+    } else {
       let formData = new FormData();
-      formData.append("path", element.file);
+      formData.append("path", '');
       formData = setFormData(formData, data);
-
       arrURL.push(axiosFileUploadServiceApi.post(imagePostURL, formData));
-    });
+    }
+   
 
     try {
       await Promise.all(arrURL).then(function (values) {
@@ -271,7 +275,6 @@ const FileUpload = ({
     <>
       <form className="" onSubmit={handleSubmit(uploadFile)}>
         <div className="mb-3 row">
-          {error ? <Error>{error}</Error> : ""}
           <label className="col-sm-3 col-form-label text-start text-md-end">
             <Title title={title} cssClass="" />
           </label>

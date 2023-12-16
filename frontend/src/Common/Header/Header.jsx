@@ -20,6 +20,7 @@ import "./Styles.css";
 
 // Images
 import Logo from "../../Images/logo.svg";
+import { axiosClientServiceApi } from "../../util/axiosUtil";
 
 const Header = () => {
   const editComponentObj = {
@@ -60,6 +61,8 @@ const Header = () => {
     "password",
   ];
   const isHideBurgetIcon = hideHandBurgerIcon(burgetHide);
+  const [selectedServiceProject, setSelectedServiceProject] = useState({});
+  const [serviceMenuList, setserviceMenuList] = useState([]);
 
   const editHandler = (name, value) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -77,6 +80,34 @@ const Header = () => {
       setUserName("");
     }
   }, [userInfo]);
+
+  const getServiceMenuPage = async () => {
+    try {
+      let response = await axiosClientServiceApi.get(
+        `/services/getSelectedClientService/${selectedServiceProject.id}/`,
+      );
+      // setSelectedServiceList(response.data.servicesFeatures);
+    } catch (error) {
+      console.log("Unable to get the intro");
+    }
+  };
+
+
+  useEffect(() => {
+
+    const getServiceMenuList = async () => {
+      try {
+        const response = await axiosClientServiceApi.get(`/services/clientServiceList/`);
+        if (response?.status === 200) {
+          console.log("response", response.data)
+        }
+      } catch (e) {
+        console.log("unable to access ulr because of server is down");
+      }
+    };
+
+    getServiceMenuList()
+  },[])
 
   const links = document.querySelectorAll("#navbarSupportedContent li");
   const menu = document.getElementById("navbarSupportedContent");

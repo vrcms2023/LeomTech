@@ -25,15 +25,14 @@ def image_upload_path(instance, filename):
 
 class ImageModel(BaseModel):
     path =          models.FileField(blank=True, null=True, upload_to=image_upload_path )
-    category =      models.CharField(max_length=100, null=True, )
+    category =      models.CharField(max_length=100, null=True, blank=True, )
     originalname=   models.CharField(max_length=100, null=True, blank=True)
     contentType=    models.CharField(max_length=100, null=True, blank=True)
-    imageTitle =    models.CharField(max_length=500, null=True)
-    imageDescription = models.CharField(max_length=5000, null=True)
     alternitivetext = models.CharField(max_length=500, null=True, blank=True)
 
     class Meta:
         abstract = True 
+
 
 class ServiceImageModel(BaseModel):
     path =          models.FileField(blank=True, null=True, upload_to=image_upload_path )

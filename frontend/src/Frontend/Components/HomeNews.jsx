@@ -13,6 +13,7 @@ import { getBaseURL } from "../../util/ulrUtil";
 import {
   getFormDynamicFields,
   getCarouselFields,
+  getNewslFields,
 } from "../../util/dynamicFormFields";
 import AddEditAdminNews from "../../Admin/Components/News/index";
 import {
@@ -21,6 +22,7 @@ import {
 } from "../../util/axiosUtil";
 import { confirmAlert } from "react-confirm-alert";
 import DeleteDialog from "../../Common/DeleteDialog";
+import { getImagePath } from "../../util/commonUtil";
 
 const HomeNews = ({ addNewsState }) => {
   const baseURL = getBaseURL();
@@ -100,18 +102,18 @@ const HomeNews = ({ addNewsState }) => {
               ""
             )}
             <img
-              src={`${baseURL}${item.path}`}
+              src={ getImagePath(item.path)}
               className="img-fluid"
               alt={item.alternitivetext}
             />
             <div className="card-body p-4">
               <Title
-                title={item.newstitle ? item.newstitle : "Update news Title"}
+                title={item.news_title ? item.news_title : "Update news Title"}
                 cssClass="fs-5 fw-bold lh-sm mb-2"
               />
               <p className="card-text mb-4">
-                {item.imageDescription
-                  ? item.imageDescription
+                {item.news_description
+                  ? item.news_description
                   : "update new description"}
               </p>
               <Link to={item.link}>Read more</Link>
@@ -120,7 +122,7 @@ const HomeNews = ({ addNewsState }) => {
             {isAdmin ? (
               <div className="text-end deleteNews">
                 <Link
-                  onClick={(event) => DeleteNews(item.id, item.imageTitle)}
+                  onClick={(event) => DeleteNews(item.id, item.news_title)}
                   className="bg-danger p-2 rounded"
                 >
                   <i
@@ -154,16 +156,7 @@ const HomeNews = ({ addNewsState }) => {
             imageDeleteURL="appNews/updateAppNews/"
             imageLabel="Add News Image"
             showDescription={false}
-            showExtraFormFields={getCarouselFields()}
-            // extraFormParamas={[
-            //   {
-            //     bannerTitle: {
-            //       label: "News Title",
-            //       type: "text",
-            //       fieldName: "newstitle",
-            //     },
-            //   },
-            // ]}
+            showExtraFormFields={getNewslFields()}
           />
         </div>
       ) : (
