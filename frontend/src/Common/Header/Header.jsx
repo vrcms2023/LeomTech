@@ -327,6 +327,18 @@ export const ClientMenu = ({
             Contact
           </NavLink>
         </li>
+        {isAdmin ? (
+        <li className="nav-item">
+          <NavLink
+            to="/main"
+            className={({ isActive }) =>
+              isActive ? "nav-Link active" : "nav-Link"
+            }
+          >
+            Admin Pages
+          </NavLink>
+        </li>
+        ) :""}
       </ul>
     </StyledMenu>
   );

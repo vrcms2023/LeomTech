@@ -333,20 +333,6 @@ const FileUpload = ({
                       : ""
                   }
                 />
-                // <div className="mb-3 row" key={index}>
-                //   <label
-                //     htmlFor=""
-                //     className="col-sm-3 col-form-label text-start text-md-end text-capitalize"
-                //   >
-                //     {label}
-                //   </label>
-                //   <div className="col-sm-9">
-                //     <RichTextEditor
-                //       initialText={editImage?.feature_description ? editImage?.feature_description :''  }
-                //       RichEditorState={setEditorState}
-                //     />
-                //   </div>
-                // </div>
               );
             } else {
               return (

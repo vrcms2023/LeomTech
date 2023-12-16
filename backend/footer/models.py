@@ -27,3 +27,7 @@ class Address(BaseModel):
 class TermsandCondition(BaseModel):
         terms_condition =   models.CharField(max_length=5000, null=True, blank=True )
         privacy_policy =    models.CharField(max_length=5000, null=True, blank=True )
+
+class googleMAPURL(BaseModel):
+        google_map_url =   models.CharField(max_length=5000, null=True, blank=True )
+      

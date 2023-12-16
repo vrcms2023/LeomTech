@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
 import Button from "../../../Common/Button";
 import { TextAreaField, RichTextInputEditor } from "../forms/FormFields";
+import RichTextEditor from "../../../Frontend/Components/RichTextEditor";
 import {
   axiosClientServiceApi,
   axiosServiceApi,
@@ -13,13 +14,14 @@ import { getCookie } from "../../../util/cookieUtil";
 const AdminTermsAndPrivacy = ({
   editHandler,
   componentType,
-  pageType,
-  type,
+  termsAndConditionData,
+  type
 }) => {
   const [userName, setUserName] = useState("");
   const { register, reset, handleSubmit } = useForm();
-  const [termEditorState, setTermEditorState] = useState("");
+  const [termEditorState, setTermEditorState] = useState('');
   const [policyEditorState, setPolicyEditorState] = useState("");
+
   const closeHandler = () => {
     editHandler(componentType, false);
     document.body.style.overflow = "";
@@ -31,47 +33,42 @@ const AdminTermsAndPrivacy = ({
   /**
    * Save Footer values
    */
-  const onSubmit = async (data) => {
+  const onSubmitHandler = async () => {
     let response = "";
+    let data = {
+      "terms_condition" : termEditorState,
+      "privacy_policy" : policyEditorState
+    }
     try {
-      if (data.id) {
+      if (termsAndConditionData?.id) {
         data["updated_by"] = userName;
+        data['id'] = termsAndConditionData.id
         response = await axiosServiceApi.put(
           `/footer/updateTermsAndCondition/${data.id}/`,
           data,
         );
       } else {
         data["created_by"] = userName;
+        data["updated_by"] = userName;
         response = await axiosServiceApi.post(
           `/footer/createTermsAndCondition/`,
           data,
         );
       }
 
-      if (response.status == 200) {
-        reset(response.data.terms[0]);
+      if (response.status == 201 || response.status == 200) {
         toast.success(`Footer Values are updated successfully `);
+        closeHandler()
       }
     } catch (error) {
       console.log("unable to save the footer form");
     }
   };
 
-  useEffect(() => {
-    const getFooterValues = async () => {
-      try {
-        const response = await axiosClientServiceApi.get(
-          `/footer/getTermsAndCondition/`,
-        );
-        if (response?.data?.terms?.length > 0) {
-          reset(response.data.terms[0]);
-        }
-      } catch (error) {
-        console.log("unable to save the terms and condition form");
-      }
-    };
-    getFooterValues();
-  }, []);
+
+const resetForm = () => {
+
+}
 
   return (
     <>
@@ -80,42 +77,32 @@ const AdminTermsAndPrivacy = ({
         title={componentType}
         type={type}
       />
-      <form className="" onSubmit={handleSubmit(onSubmit)}>
+     
         <div className="container">
           <div className="row p-4">
             <div className="col-md-8 offset-md-2">
-              {/* <RichTextInputEditor  
+
+              <RichTextInputEditor  
                     label={'Terms And Conditions'}
-                    editorSetState={termEditorState}
-                    initialText={''} />
+                    editorSetState={setTermEditorState}
+                    initialText={termsAndConditionData?.terms_condition ? termsAndConditionData?.terms_condition  :''} />
                 <RichTextInputEditor  
                     label={'Privacy Policy'}
-                    editorSetState={policyEditorState}
-                    initialText={''} /> */}
-
-              <TextAreaField
-                label="Terms And Conditions"
-                fieldName="terms_condition"
-                register={register}
-              />
-              <TextAreaField
-                label="Privacy Policy"
-                fieldName="privacy_policy"
-                register={register}
-              />
+                    editorSetState={setPolicyEditorState}
+                    initialText={termsAndConditionData?.privacy_policy ? termsAndConditionData?.privacy_policy  :''} />
 
               <div className="text-center mt-4">
-                <button type="reset" className="btn btn-secondary mx-3">
+                {/* <button onClick={resetForm} type="reset" className="btn btn-secondary mx-3">
                   Clear
-                </button>
-                <button type="submit" className="btn btn-primary">
+                </button> */}
+                <button onClick={onSubmitHandler} type="submit" className="btn btn-primary">
                   Save
                 </button>
               </div>
             </div>
           </div>
         </div>
-      </form>
+   
     </>
   );
 };

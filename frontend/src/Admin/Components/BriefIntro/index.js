@@ -89,8 +89,11 @@ export const BriefIntroAdmin = ({ editHandler, componentType, pageType }) => {
           ...intro,
         });
       }
-      setIntroFormValues(updateResponseData(response.data.intro));
-      setSuccess(true)
+      if (response.status == 200 || response.status == 201) {
+        setIntroFormValues(updateResponseData(response.data.intro));
+        setSuccess(true)
+        closeHandler()
+      }
     } catch (error) {
       toast.error("Unable to save the intro");
     }

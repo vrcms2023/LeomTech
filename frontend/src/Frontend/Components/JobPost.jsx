@@ -103,7 +103,7 @@ const JobPost = ({ addJobs }) => {
 
   return (
     <>
-      {posts.length > 0
+      {posts?.length > 0
         ? posts.map((item, index) => (
             <div
               className={`col-sm-6 col-md-4 col-lg-3 mt-3 mt-md-4 position-relative`}
