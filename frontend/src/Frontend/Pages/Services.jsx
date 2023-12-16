@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 // Components
 import BriefIntroFrontend from "../../Common/BriefIntro";
@@ -44,10 +45,15 @@ const Services = () => {
   const [selectedServiceProject, setSelectedServiceProject] = useState({});
   const [selectedServiceList, setSelectedServiceList] = useState([]);
   const [editCarousel, setEditCarousel] = useState({});
+  let { uid, } = useParams();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  useEffect(() => {
+    getSelectedServiceObject(uid);
+  }, [uid]);
 
   useEffect(() => {
     removeActiveClass();
@@ -58,14 +64,14 @@ const Services = () => {
       setEditCarousel({
         serviceID: selectedServiceProject ? selectedServiceProject.id : "",
       });
-      getSelectedServiceObject();
+      getSelectedServiceObject(selectedServiceProject.id);
     }
   }, [selectedServiceProject]);
 
-  const getSelectedServiceObject = async () => {
+  const getSelectedServiceObject = async (id) => {
     try {
       let response = await axiosClientServiceApi.get(
-        `/services/getSelectedClientService/${selectedServiceProject.id}/`,
+        `/services/getSelectedClientService/${id}/`,
       );
       setSelectedServiceList(response.data.servicesFeatures);
     } catch (error) {
@@ -78,7 +84,7 @@ const Services = () => {
       (!componentEdit.editSection || !componentEdit.addSection) &&
       selectedServiceProject?.id !== undefined
     ) {
-      getSelectedServiceObject();
+      getSelectedServiceObject(selectedServiceProject.id);
     }
   }, [componentEdit.editSection, componentEdit.addSection]);
 
@@ -161,7 +167,7 @@ const Services = () => {
               onClick={() => editHandler("addSection", true)}
               style={{ position: "absolute", right: "60px" }}
             >
-              Add New Service
+              Add New Service Section
               <i className="fa fa-plus ms-2" aria-hidden="true"></i>
             </button>
             {/* <EditIcon editHandler={() => editHandler("editSection", true)} /> */}

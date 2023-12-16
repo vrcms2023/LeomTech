@@ -187,6 +187,7 @@ const Header = () => {
 };
 
 export const AdminMenu = ({ userName, logOutHandler }) => {
+
   return (
     <>
       <ul className="mt-4 navbar-nav ms-auto mb-2 mb-lg-0">
@@ -218,6 +219,7 @@ export const AdminMenu = ({ userName, logOutHandler }) => {
 export const ClientMenu = ({
   serviceMenuList
 }) => {
+  const isAdmin = useAdminLoginStatus();
   return (
     <StyledMenu>
       <ul className="navbar-nav ms-auto mb-2 mb-lg-0 menu">
@@ -241,27 +243,7 @@ export const ClientMenu = ({
             AboutUs
           </NavLink>
         </li>
-        {/* <li className="nav-item dropdown">
-        <NavLink
-          id="projectLink"
-          to="/projects"
-          className={({ isActive }) =>
-            isActive ? "nav-Link active" : "nav-Link"
-          }
-        >
-          Projects
-        </NavLink>
-      </li> 
-      <li className="nav-item">
-        <NavLink
-          to="/gallery"
-          className={({ isActive }) =>
-            isActive ? "nav-Link active" : "nav-Link"
-          }
-        >
-          Gallery
-        </NavLink>
-      </li> */}
+       
 
         <li className="nav-item dropdown">
           <NavLink
@@ -276,48 +258,25 @@ export const ClientMenu = ({
                 : "nav-Link dropdown-toggle",
             )}
           >
-            Services test
+            Services
           </NavLink>
           <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-          {serviceMenuList && serviceMenuList.map((item) => (
-                <li>
-                <Link to="/services" className="dropdown-item">
-                  {item.services_page_title}
-                </Link>
-                </li>
-          ))}
+          {}
+          {isAdmin ? (
+              <li>
+              <Link to='/services/' className="dropdown-item">
+                Add New Service
+              </Link>
+              </li>
+          ) : (serviceMenuList && serviceMenuList.map((item) => (
+            <li>
+            <Link to={`/services/${item.id}/`} className="dropdown-item">
+              {item.services_page_title}
+            </Link>
+            </li>
+      )))}
          
-            <li>
-              <Link to="/services" className="dropdown-item">
-                IoT Services{" "}
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="dropdown-item">
-                AI Services Two
-              </Link>
-            </li>
-            {/* <li>
-              <Link to="#" className="dropdown-item">
-                Project Planning{" "}
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="dropdown-item">
-                Project development and maintenance{" "}
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="dropdown-item">
-                Project development and maintenance{" "}
-              </Link>
-            </li> */}
-
-            {/* <li><Link to="/services" className="dropdown-item">IoT Services </Link></li>
-            <li><Link to="#" className="dropdown-item">AI Services Two</Link></li>
-            <li><Link to="#" className="dropdown-item">Project Planning </Link></li>
-            <li><Link to="#" className="dropdown-item">Project development and maintenance </Link></li>
-            <li><Link to="#" className="dropdown-item">Project development and maintenance </Link></li> */}
+           
           </ul>
         </li>
         <li className="nav-item">

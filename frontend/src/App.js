@@ -118,6 +118,7 @@ function App() {
             <Route exact path="/" element={<Home />} />
             <Route exact path="/about" element={<About />} />
             <Route exact path="/services" element={<Services />} />
+            <Route exact path="/services/:uid/" element={<Services />} />
             <Route exact path="/projects" element={<Projects />} />
             <Route exact path="/project-details" element={<ProjectTabs />} />
             <Route exact path="/gallery" element={<ProjectGallery />} />

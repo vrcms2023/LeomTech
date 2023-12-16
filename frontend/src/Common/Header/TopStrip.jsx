@@ -22,6 +22,7 @@ const TopStrip = () => {
     dispatch(logout());
     toast.success("Logout successfully");
     navigate("/login");
+    window.location.reload();
   }
   return (
     <div className="d-none d-sm-flex justify-content-between align-items-center topStrip">
