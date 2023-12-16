@@ -168,7 +168,7 @@ const JobPost = ({ addJobs }) => {
               {/* publihser Icon */}
 
               <div className="">
-                <Link to="" editHandler={() => publishCareer(item)}>
+                <Link to="" onClick={() => publishCareer(item)}>
                   {item.publish ? <small className="bg-success p-1 text-white px-3">Published</small> : <small className="bg-secondary p-1 text-white px-3">Un&nbsp;Published</small>}
                 </Link>
                 {/* <EditIcon editHandler={() => publishCareer(item)} /> */}
@@ -230,9 +230,14 @@ const JobPost = ({ addJobs }) => {
           ))
         : 
         <div className="text-center py-5">
-      <p className="text-center fs-4">There are no news items found. Please create news items.</p>
-      {isAdmin ? "" :
-      <Link to="/login" className="btn btn-primary fs-5 w-25">Login to Add Careers <i class="fa fa-plus mx-2" aria-hidden="true"></i> </Link>
+          {!isAdmin &&
+      <p className="text-center fs-4">At present there are not news items are available.</p>
+              }
+      {isAdmin ? <>
+        <p className="text-center fs-4">There are no news items found. Please create news items.</p>
+        <Link to="/login" className="btn btn-primary fs-5 w-25">Login to Add Careers <i class="fa fa-plus mx-2" aria-hidden="true"></i> </Link>
+      </> :
+      ""
         }
       </div>
         }
