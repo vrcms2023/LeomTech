@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
 import { getCookie, removeCookie, setCookie } from "../../util/cookieUtil";
 import { removeActiveClass } from "../../util/ulrUtil";
+import { getFormDynamicFields } from "../../util/dynamicFormFields";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 
 // Styles
@@ -39,6 +40,7 @@ const Contact = () => {
     phoneNumber: "",
     description: "",
   };
+  const pageType = "contactus";
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [formData, setFormData] = useState(formObject);
@@ -126,12 +128,12 @@ const Contact = () => {
         ) : (
           ""
         )}
-        <Banner
+        {/* <Banner
           bannerImg={ContactBanner}
           alt="Contact us"
           title={"Leom Tech"}
           caption={"IT Consulting Services"}
-        />
+        /> */}
       </div>
 
       {/* Introduction */}
@@ -329,7 +331,14 @@ const Contact = () => {
 
       {componentEdit.banner ? (
         <div className="adminEditTestmonial">
-          <ImageInputsForm editHandler={editHandler} componentType="banner" />
+          <ImageInputsForm
+            editHandler={editHandler}
+            componentType="banner"
+            pageType={`${pageType}-banner`}
+            imageLabel="Banner Image"
+            showDescription={false}
+            showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
+          />
         </div>
       ) : (
         ""

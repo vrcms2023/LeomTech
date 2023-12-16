@@ -8,6 +8,7 @@ export const News = ({
   componentType,
   category = "news",
   extraFormParamas,
+  showExtraFormFields,
   imageLabel = "Add Image",
   imagePostURL = "banner/createBannerIntro/",
   imageGetURL = "appNews/createAppNews/",
@@ -17,6 +18,7 @@ export const News = ({
   type,
   editCarousel,
   setEditCarousel,
+  showDescription = true,
 }) => {
   const projectID = "a62d7759-a e6b-4e49-a129-1ee208c6789d";
   const [userName, setUserName] = useState("");
@@ -61,13 +63,14 @@ export const News = ({
                 titleTitle="Title"
                 alternitivetextTitle="Image Alt Text"
                 saveState={setSaveState}
-                showDescription={true}
+                showDescription={showDescription}
                 buttonLable="Save"
                 editImage={editCarousel}
                 setEditCarousel={setEditCarousel}
                 imagePostURL={imagePostURL}
                 imageUpdateURL={imageUpdateURL}
                 extraFormParamas={extraFormParamas}
+                showExtraFormFields={showExtraFormFields}
               />
             </div>
           </div>

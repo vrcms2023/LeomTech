@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from django.http import Http404
+from common.utility import get_image_data_from_request,get_service_data_From_request_Object 
 
 # Create your views here.
 
@@ -105,8 +106,8 @@ class ClientSelectedServiceAPIView(APIView):
 
     def get(self, request, id, format=None):
       try:
-        snippets = self.get_object(id)
-        serviceList = ServiceSerializer(snippets, many=True)
+        # snippets = self.get_object(id)
+        # serviceList = ServiceSerializer(snippets, many=True)
 
         # service_query_set = Services.objects.filter(serviceID=id)
         # service_serializer = self.service_serializer_class(service_query_set, many=True)
@@ -114,10 +115,10 @@ class ClientSelectedServiceAPIView(APIView):
         service_feature_query_set = ServiceFeature.objects.filter(serviceID=id)
         service_feature_serializer = self.service_feature_serializer_class(service_feature_query_set, many=True)
 
-        service_accordion_query_set = ServiceAccordion.objects.filter(serviceID=id)
-        service_accordion_serializer = self.service_accordion_serializer_class(service_accordion_query_set, many=True)
+        # service_accordion_query_set = ServiceAccordion.objects.filter(serviceID=id)
+        # service_accordion_serializer = self.service_accordion_serializer_class(service_accordion_query_set, many=True)
             
-        return Response({"services" : serviceList.data, "servicesFeatures" : service_feature_serializer.data, "servicesAccordion": service_accordion_serializer.data}, status=status.HTTP_200_OK)
+        return Response({"servicesFeatures" : service_feature_serializer.data}, status=status.HTTP_200_OK)
       except Exception as e:
            return Response({'error' : str(e)},status=500)
           
@@ -141,7 +142,9 @@ class CreateFeatureService(generics.CreateAPIView):
         return Response({"servicesFeatures": serializer.data}, status=status.HTTP_200_OK)
     
     def post(self, request, format=None):
-        serializer = ServiceFeatureSerializer(data=request.data)
+        requestObj = get_service_data_From_request_Object(request)
+        requestObj['created_by'] = request.data["created_by"]
+        serializer = ServiceFeatureSerializer(data=requestObj)
         if serializer.is_valid():
             serializer.save()
             return Response({"servicesFeatures": serializer.data}, status=status.HTTP_201_CREATED)
@@ -162,9 +165,10 @@ class FeatureServicesDetail(APIView):
         serializer = ServiceFeatureSerializer(snippet)
         return Response({"servicesFeatures": serializer.data}, status=status.HTTP_200_OK)
 
-    def put(self, request, pk, format=None):
+    def patch(self, request, pk, format=None):
         snippet = self.get_object(pk)
-        serializer = ServiceFeatureSerializer(snippet, data=request.data)
+        requestObj = get_service_data_From_request_Object(request)
+        serializer = ServiceFeatureSerializer(snippet, data=requestObj)
         if serializer.is_valid():
             serializer.save()
             return Response({"servicesFeatures": serializer.data}, status=status.HTTP_200_OK)
