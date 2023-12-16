@@ -159,7 +159,7 @@ const Careers = () => {
           </div>
         </div>
 
-        <div className="row">
+        <div className="row mb-5">
           <JobPost addJobs={componentEdit.addjob} />
         </div>
       </div>

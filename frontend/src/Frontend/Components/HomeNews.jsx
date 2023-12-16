@@ -131,7 +131,9 @@ const HomeNews = ({ addNewsState }) => {
         </div>
       )) : <div className="text-center">
       <p className="text-center fs-4">There are no news items found. Please create news items.</p>
-      <Link to="/login" className="btn btn-primary fs-5" style={{width: "200px"}}>Add News <i class="fa fa-plus mx-2" aria-hidden="true"></i> </Link>
+      {isAdmin ? "" :
+      <Link to="/login" className="btn btn-primary fs-5" style={{width: "200px"}}>Login to Add News <i class="fa fa-plus mx-2" aria-hidden="true"></i> </Link>
+        }
       </div>}
 
       {componentEdit.news ? (
