@@ -81,7 +81,7 @@ const HomeServices = ({ title }) => {
             <img src={serviceImg1} alt="" className="img-fluid w-100 h-100" />
           </div>
           <div className="col-md-6 p-4">
-            <Title title={item.title} />
+            <Title title={item.title} cssClass="fs-3 fw-bold" />
             <p>{item.description}</p>
             <Link to={item.link} className="btn btn-primary mt-4">
               Know More
