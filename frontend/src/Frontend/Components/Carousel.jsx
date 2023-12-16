@@ -5,6 +5,7 @@ import { getBaseURL } from "../../util/ulrUtil";
 // Styles
 
 import "./Carousel.css";
+import { getImagePath } from "../../util/commonUtil";
 
 const Carousel = ({ carouselState }) => {
   const [carousel, setCarousel] = useState([]);
@@ -17,7 +18,8 @@ const Carousel = ({ carouselState }) => {
           `carousel/clientCarousel/`,
         );
         if (response?.status == 200) {
-          setCarousel(response.data.imageModel);
+          let key = Object.keys(response.data);
+          setCarousel(response.data[key]);
         }
       } catch (error) {
         console.log("unable to access ulr because of server is down");
@@ -41,13 +43,13 @@ const Carousel = ({ carouselState }) => {
             key={item.id}
           >
             <img
-              src={`${baseURL}${item.path}`}
+              src={getImagePath(item.path)}
               alt={item.alternitivetext}
               className="d-block w-100"
             />
             <div className="carousel-caption d-none d-md-block">
-              <h1 className="fw-bold">{item.imageTitle} </h1>
-              <p className="fw-normal fs-5">{item.imageDescription} </p>
+              <h1 className="fw-bold">{item.carouseTitle ? item.carouseTitle : ''} </h1>
+              <p className="fw-normal fs-5">{item.carouseDescription ? item.carouseDescription : ''} </p>
             </div>
           </div>
         ))}

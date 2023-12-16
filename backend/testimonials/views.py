@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from django.http import Http404
-from common.utility import get_image_data_from_request 
+from common.utility import get_testimonial_data_From_request_Object 
 
 # Create your views here.
     
@@ -24,9 +24,8 @@ class CreateTestimonials(generics.CreateAPIView):
         return Response({"testimonial": serializer.data}, status=status.HTTP_200_OK)
     
     def post(self, request, format=None):
-        requestObj = get_image_data_from_request(request)
+        requestObj = get_testimonial_data_From_request_Object(request)
         requestObj['created_by'] = request.data["created_by"]
-        requestObj['testimonialTitle'] = request.data["testimonialTitle"]
         serializer = TestimonialsSerializer(data=requestObj)
         if serializer.is_valid():
             serializer.save()
@@ -51,9 +50,8 @@ class TestimonialsDetail(APIView):
 
     def patch(self, request, pk, format=None):
         snippet = self.get_object(pk)
-        requestObj = get_image_data_from_request(request)
+        requestObj = get_testimonial_data_From_request_Object(request)
         requestObj['updated_by'] = request.data["updated_by"]
-        requestObj['testimonialTitle'] = request.data["testimonialTitle"]
         serializer = TestimonialsSerializer(snippet, data=requestObj)
         if serializer.is_valid():
             serializer.save()

@@ -1,19 +1,19 @@
 export const getFormDynamicFields = (pageType) => {
   return {
-    imageTitle: {
+    banner_title: {
       label: "Title",
       type: "text",
-      fieldName: "imageTitle",
+      fieldName: "banner_title",
     },
-    bannerTitle: {
+    banner_subTitle: {
       label: "Sub Title",
       type: "text",
-      fieldName: "bannerTitle",
+      fieldName: "banner_subTitle",
     },
-    imageDescription: {
+    banner_descripiton: {
       label: "Description",
       type: "textarea",
-      fieldName: "imageDescription",
+      fieldName: "banner_descripiton",
     },
     pageType: {
       label: "News Title",
@@ -25,52 +25,73 @@ export const getFormDynamicFields = (pageType) => {
   };
 };
 
-export const getCarouselFields = () => {
+export const getCarouselFields = (category) => {
   return {
-    imageTitle: {
-      label: "Title",
-      type: "text",
-      fieldName: "imageTitle",
-    },
-    bannerTitle: {
-      label: "Sub Title",
-      type: "text",
-      fieldName: "bannerTitle",
-    },
-    imageDescription: {
-      label: "Description",
-      type: "textarea",
-      fieldName: "imageDescription",
-    },
-    carouseTitle: {
+    carouse_title: {
       label: "Carouse Title",
       type: "text",
-      fieldName: "carouseTitle",
+      fieldName: "carouse_title",
+    },
+    carouse_sub_title: {
+      label: "Carouse Sub Title",
+      type: "text",
+      fieldName: "carouse_sub_title",
+    },
+    carouse_description: {
+      label: "Description",
+      type: "textarea",
+      fieldName: "carouse_description",
+    },
+    category: {
+      label: "News Title",
+      readonly: true,
+      type: "hidden",
+      value: category ? category : "",
+      fieldName: "category",
     },
   };
 };
 
-export const getTestimonialsFields = () => {
+
+export const getNewslFields = () => {
   return {
-    imageTitle: {
-      label: "Title",
+    news_title: {
+      label: "News Title",
       type: "text",
-      fieldName: "imageTitle",
+      fieldName: "news_title",
     },
-    bannerTitle: {
-      label: "Sub Title",
-      type: "text",
-      fieldName: "bannerTitle",
-    },
-    imageDescription: {
+   
+    news_description: {
       label: "Description",
       type: "textarea",
-      fieldName: "imageDescription",
+      fieldName: "news_description",
     },
-    testimonialTitle: {
-      label: "Testimonial Title",
+  };
+};
+
+export const getTestimonialsFields = (category) => {
+  return {
+    testimonial_title: {
+      label: "Title",
       type: "text",
-      fieldName: "testimonialTitle",
+      fieldName: "testimonial_title",
+    },
+    testimonial_sub_title: {
+      label: "Sub Title",
+      type: "text",
+      fieldName: "testimonial_sub_title",
+    },
+    testimonial_description: {
+      label: "Description",
+      type: "textarea",
+      fieldName: "testimonial_description",
+    },
+    category: {
+      label: "News Title",
+      readonly: true,
+      type: "hidden",
+      value: category ? category : "",
+      fieldName: "category",
     },
   };
 };

@@ -14,6 +14,7 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
   const [serviceName, setServiceName] = useState("");
   const [error, setError] = useState("");
   const [selectError, setSelectError] = useState("");
+  const [publishedService, setpublishedService] = useState("");
   const [serviceNameList, setServiceNameList] = useState([]);
   const [serviceList, setServiceList] = useState([]);
   //const [selectedServiceObject, setSelectedServiceObject] = useState({});
@@ -30,6 +31,7 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
     const id = event.target.value;
     const selectedObject = serviceList.filter((item) => item.id == id)[0];
     setSelectedServiceProject(selectedObject);
+   
   };
 
   useEffect(() => {
@@ -106,6 +108,28 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
     getServiceList();
   }, []);
 
+
+
+  const publishService = async () => {
+   if (!selectedServiceProject?.id) {
+      setSelectError("Please select service Before delete");
+      return true;
+    }
+    try {
+      let response = await axiosServiceApi.patch(
+        `/services/publishService/${selectedServiceProject.id}/`,
+        { publish: !selectedServiceProject.publish },
+      );
+
+      if (response.status === 200) {
+        toast.success(`Service published successfully`);
+        setSelectedServiceProject(response.data.services);
+      }
+    } catch (error) {
+      console.log("unable to publish the services");
+    }
+  };
+
   const deleteService = () => {
     if (!selectedServiceProject?.id) {
       setSelectError("Please select service Before delete");
@@ -139,9 +163,9 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
 
   return (
     <div className="my-5">
-      <h3 className="text-center">Add New Service</h3>
+      <h3 className={`text-center ${selectedServiceProject && selectedServiceProject.publish ? 'border border-success' : ''} `}>Add New Service </h3>
 
-      <div className="container bg-light p-5 border shadow-lg">
+      <div className={`container bg-light p-5 border shadow-lg ${selectedServiceProject && selectedServiceProject.publish ? 'border border-success' : ''}`}>
         <div className="row">
           {error ? <Error>{error}</Error> : ""}
           <div className="col-md-6 offset-md-3 text-center">
@@ -185,6 +209,12 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
               cssClass="btn btn-lg btn-primary"
               handlerChange={deleteService}
               label="Delete Service"
+            />
+              <Button
+              type="Publish"
+              cssClass="btn btn-lg btn-warning"
+              handlerChange={publishService}
+              label="publish Service"
             />
           </div>
         </div>

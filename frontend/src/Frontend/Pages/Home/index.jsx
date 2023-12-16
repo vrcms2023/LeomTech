@@ -95,16 +95,7 @@ const Home = () => {
               imageUpdateURL="carousel/updateCarousel/"
               imageLabel="Add Carousel Image"
               showDescription={false}
-              showExtraFormFields={getCarouselFields()}
-              // extraFormParamas={[
-              //   {
-              //     carouseTitle: {
-              //       readonly: true,
-              //       defaultValue: "Carouse Title",
-              //       fieldName: "carouseTitle",
-              //     },
-              //   },
-              // ]}
+              showExtraFormFields={getCarouselFields('carousel')}
             />
           </div>
         ) : (
@@ -151,15 +142,7 @@ const Home = () => {
 
         {/* End Of Edit News */}
         <div className="row py-5 homeNews">
-          {/* {isAdmin ? (
-            <div className="text-end mb-4">
-              <Link to="" className="btn btn-primary">
-                Add News <i className="fa fa-plus ms-2" aria-hidden="true"></i>
-              </Link>
-            </div>
-          ) : (
-            ""
-          )} */}
+        
           <div className="col-md-12 d-flex justify-content-center align-items-center">
             <div className="container">
               <h2 className="mb-5">News</h2>
@@ -210,7 +193,7 @@ const Home = () => {
             titleTitle="Testmonial Name"
             descriptionTitle="Testimonial Writeup "
             showDescription={false}
-            showExtraFormFields={getTestimonialsFields()}
+            showExtraFormFields={getTestimonialsFields('testmonial')}
           />
         </div>
       ) : (

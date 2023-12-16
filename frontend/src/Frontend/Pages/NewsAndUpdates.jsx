@@ -12,6 +12,7 @@ import { removeActiveClass } from "../../util/ulrUtil";
 import {
   getFormDynamicFields,
   getCarouselFields,
+  getNewslFields,
 } from "../../util/dynamicFormFields";
 import ModelBg from "../../Common/ModelBg";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
@@ -124,7 +125,7 @@ const NewsAndUpdates = () => {
                 imageDeleteURL="appNews/updateAppNews/"
                 imageLabel="Add News Image"
                 showDescription={false}
-                showExtraFormFields={getCarouselFields()}
+                showExtraFormFields={getNewslFields("addNews")}
                 // extraFormParamas={[
                 //   {
                 //     bannerTitle: {

@@ -66,16 +66,16 @@ const ABriefAbout = ({ title, cssClass, linkClass }) => {
           <div className="col-md-12 p-5 d-flex justify-content-center align-items-start flex-column">
             <Title
               title={
-                bannerData?.imageTitle
-                  ? bannerData?.imageTitle
+                bannerData?.banner_title
+                  ? bannerData?.banner_title
                   : "Update the title"
               }
               cssClass={cssClass}
             />
             <div>
               <p className="lh-md">
-                {bannerData?.imageDescription
-                  ? bannerData.imageDescription
+                {bannerData?.banner_descripiton
+                  ? bannerData.banner_descripiton
                   : "Update description"}
               </p>
             </div>

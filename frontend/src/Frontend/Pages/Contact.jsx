@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Title from "../../Common/Title";
-import BriefIntro from "../../Common/BriefIntro";
+import BriefIntroFrontend from "../../Common/BriefIntro";
 import Alert from "../../Common/Alert";
 
 import AdminBriefIntro from "../../Admin/Components/BriefIntro/index";
@@ -128,12 +128,11 @@ const Contact = () => {
         ) : (
           ""
         )}
-        {/* <Banner
-          bannerImg={ContactBanner}
-          alt="Contact us"
-          title={"Leom Tech"}
-          caption={"IT Consulting Services"}
-        /> */}
+         <Banner
+          getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`}
+          bannerState={componentEdit.banner}
+        />
+       
       </div>
 
       {/* Introduction */}
@@ -142,11 +141,24 @@ const Contact = () => {
       ) : (
         ""
       )}
-      <BriefIntro title="Share your views">
-        We believe that construction is a man made wonder. The thought of
-        bringing imagination to real life structures excites us, each day the
-        passion in us grows as we contribute to this industry.
-      </BriefIntro>
+
+<     BriefIntroFrontend
+        introState={componentEdit.briefIntro}
+        pageType={pageType}
+      />
+
+      {componentEdit.briefIntro ? (
+        <div className="adminEditTestmonial">
+          <AdminBriefIntro
+            editHandler={editHandler}
+            componentType="briefIntro"
+            pageType={pageType}
+          />
+        </div>
+      ) : (
+        ""
+      )}
+
       <div className="container-fluid">
         <div className="row">
           <div className="contactAddress position-relative col-md-4 text-white d-flex justify-content-start align-items-start blueBg-500 p-5 py-3 p-md-5">
@@ -344,16 +356,7 @@ const Contact = () => {
         ""
       )}
 
-      {componentEdit.briefIntro ? (
-        <div className="adminEditTestmonial">
-          <AdminBriefIntro
-            editHandler={editHandler}
-            componentType="briefIntro"
-          />
-        </div>
-      ) : (
-        ""
-      )}
+
 
       {componentEdit.address ? (
         <div className="adminEditTestmonial">

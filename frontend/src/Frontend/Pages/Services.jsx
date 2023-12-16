@@ -45,33 +45,6 @@ const Services = () => {
   const [selectedServiceList, setSelectedServiceList] = useState([]);
   const [editCarousel, setEditCarousel] = useState({});
 
-  const ServiceFormField = {
-    feature_title: {
-      label: "Service Title",
-      type: "text",
-      fieldName: "feature_title",
-      defaultValue: "",
-    },
-    feature_sub_title: {
-      label: "Service Sub Title",
-      type: "text",
-      fieldName: "feature_sub_title",
-      defaultValue: "",
-    },
-    feature_description: {
-      label: "Description",
-      type: "richText",
-      fieldName: "feature_description",
-    },
-    serviceID: {
-      label: "News Title",
-      readonly: true,
-      type: "hidden",
-      defaultValue: selectedServiceProject ? selectedServiceProject.id : "",
-      fieldName: "serviceID",
-    },
-  };
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -90,7 +63,6 @@ const Services = () => {
   }, [selectedServiceProject]);
 
   const getSelectedServiceObject = async () => {
-    console.log("onpage load ", selectedServiceProject);
     try {
       let response = await axiosClientServiceApi.get(
         `/services/getSelectedClientService/${selectedServiceProject.id}/`,
@@ -128,7 +100,7 @@ const Services = () => {
           ""
         )}
         <Banner
-          getBannerAPIURL={`banner/clientBannerIntro/${pageType}/`}
+          getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`}
           bannerState={componentEdit.banner}
         />
       </div>

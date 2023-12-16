@@ -6,7 +6,7 @@ from .serializers import CarouselSerializer, HomeIntroSerializer, ClientLogoSeri
 from .models import Carousel, HomeIntro, ClientLogo
 from rest_framework import status
 from django.http import Http404
-from common.utility import get_image_data_from_request 
+from common.utility import get_carousel_data_From_request_Object 
 
 # Create your views here.
 
@@ -22,17 +22,15 @@ class CarouselAPIView(generics.CreateAPIView):
      def get(self, request, format=None):
         snippets = Carousel.objects.all()
         serializer = CarouselSerializer(snippets, many=True)
-        return Response({"fileData": serializer.data}, status=status.HTTP_200_OK)
-    
+        return Response({"carousel": serializer.data}, status=status.HTTP_200_OK)
+        
      def post(self, request, format=None):
-        requestObj = get_image_data_from_request(request)
+        requestObj = get_carousel_data_From_request_Object(request)
         requestObj['created_by'] = request.data["created_by"]
-        requestObj['carouseTitle'] = request.data["carouseTitle"]
-      
         serializer = CarouselSerializer(data=requestObj)
         if serializer.is_valid():
             serializer.save()
-            return Response({"imageModel": serializer.data}, status=status.HTTP_201_CREATED)
+            return Response({"carousel": serializer.data}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -50,17 +48,16 @@ class CarouselUpdateAndDeleteView(APIView):
     def get(self, request, pk, format=None):
         snippet = self.get_object(pk)
         serializer = CarouselSerializer(snippet)
-        return Response({"imageModel": serializer.data}, status=status.HTTP_200_OK)
+        return Response({"carousel": serializer.data}, status=status.HTTP_200_OK)
 
     def patch(self, request, pk, format=None):
         snippet = self.get_object(pk)
-        requestObj = get_image_data_from_request(request)
+        requestObj = get_carousel_data_From_request_Object(request)
         requestObj['updated_by'] = request.data["updated_by"]
-        requestObj['carouseTitle'] = request.data["carouseTitle"]
         serializer = CarouselSerializer(snippet, data=requestObj)
         if serializer.is_valid():
             serializer.save()
-            return Response({"imageModel": serializer.data}, status=status.HTTP_200_OK)
+            return Response({"carousel": serializer.data}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk, format=None):
@@ -82,7 +79,7 @@ class ClientCarouselView(generics.CreateAPIView):
     def get(self, request, format=None):
         snippets = Carousel.objects.all()
         serializer = CarouselSerializer(snippets, many=True)
-        return Response({"imageModel": serializer.data}, status=status.HTTP_200_OK)
+        return Response({"carousel": serializer.data}, status=status.HTTP_200_OK)
 
 '''
     ------------------------------------------------ Home intro section ------------------------------------------------------

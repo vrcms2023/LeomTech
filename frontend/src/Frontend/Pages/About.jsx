@@ -91,22 +91,6 @@ const About = () => {
             editHandler={editHandler}
             componentType="briefIntro"
             pageType={pageType}
-            extraFormParamas={[
-              {
-                pageType: {
-                  readonly: true,
-                  defaultValue: pageType,
-                  fieldName: "pageType",
-                },
-              },
-              {
-                bannerTitle: {
-                  label: "Banner Title",
-                  type: "text",
-                  fieldName: "bannerTitle",
-                },
-              },
-            ]}
           />
         </div>
       ) : (
