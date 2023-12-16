@@ -110,10 +110,17 @@ const Header = () => {
   },[])
 
   const links = document.querySelectorAll("#navbarSupportedContent li");
+  const nestedLinks = document.querySelectorAll("#navbarSupportedContent li ul li");
   const menu = document.getElementById("navbarSupportedContent");
 
   // on clicking of menu Item Menu will be hided
   links.forEach((item) => {
+    item.addEventListener("click", function () {
+      // menu.classList.remove("show");
+    });
+  });
+
+  nestedLinks.forEach((item) => {
     item.addEventListener("click", function () {
       menu.classList.remove("show");
     });
@@ -290,7 +297,7 @@ export const ClientMenu = ({
                 AI Services Two
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link to="#" className="dropdown-item">
                 Project Planning{" "}
               </Link>
@@ -304,7 +311,7 @@ export const ClientMenu = ({
               <Link to="#" className="dropdown-item">
                 Project development and maintenance{" "}
               </Link>
-            </li>
+            </li> */}
 
             {/* <li><Link to="/services" className="dropdown-item">IoT Services </Link></li>
             <li><Link to="#" className="dropdown-item">AI Services Two</Link></li>
