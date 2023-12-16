@@ -81,13 +81,13 @@ export const getServiceFormFields = (id) => {
       label: "Service Title",
       type: "text",
       fieldName: "feature_title",
-      defaultValue: "",
+     
     },
     feature_sub_title: {
       label: "Service Sub Title",
       type: "text",
       fieldName: "feature_sub_title",
-      defaultValue: "",
+      
     },
     feature_description: {
       label: "Description",
@@ -98,7 +98,7 @@ export const getServiceFormFields = (id) => {
       label: "News Title",
       readonly: true,
       type: "hidden",
-      defaultValue: id ? id : "",
+      value: id ? id : "",
       fieldName: "serviceID",
     },
   };
