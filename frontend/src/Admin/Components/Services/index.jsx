@@ -13,11 +13,7 @@ import DeleteDialog from "../../../Common/DeleteDialog";
 const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
   const [serviceName, setServiceName] = useState("");
   const [error, setError] = useState("");
-  const [selectError, setSelectError] = useState("");
-  const [publishedService, setpublishedService] = useState("");
-  const [serviceNameList, setServiceNameList] = useState([]);
   const [serviceList, setServiceList] = useState([]);
-  //const [selectedServiceObject, setSelectedServiceObject] = useState({});
   const [userName, setUserName] = useState("");
   const onPageLoadAction = useRef(true);
 
@@ -26,13 +22,10 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
     setServiceName(event.target.value);
   };
 
-  const selectOnChangeHandler = (event) => {
-    setSelectError("");
-    const id = event.target.value;
-    const selectedObject = serviceList.filter((item) => item.id == id)[0];
-    setSelectedServiceProject(selectedObject);
-   
-  };
+
+  const onClickSelectedService = (item) =>{
+    setSelectedServiceProject(item)
+  }
 
   useEffect(() => {
     setUserName(getCookie("userName"));
@@ -83,23 +76,23 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
     }
   };
 
-  const generateDropDownlist = (data) => {
-    return data.map((item) => {
-      return {
-        label: item.services_page_title,
-        value: item.id,
-      };
-    });
-  };
+  // const generateDropDownlist = (data) => {
+  //   return data.map((item) => {
+  //     return {
+  //       label: item.services_page_title,
+  //       value: item.id,
+  //     };
+  //   });
+  // };
 
   /**
    *  update Service name list on service list update
    */
-  useEffect(() => {
-    if (serviceList.length > 0) {
-      setServiceNameList(generateDropDownlist(serviceList));
-    }
-  }, [serviceList]);
+  // useEffect(() => {
+  //   if (serviceList.length > 0) {
+  //     setServiceNameList(generateDropDownlist(serviceList));
+  //   }
+  // }, [serviceList]);
 
   /**
    *  get Service list on page load
@@ -111,10 +104,7 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
 
 
   const publishService = async () => {
-   if (!selectedServiceProject?.id) {
-      setSelectError("Please select service Before delete");
-      return true;
-    }
+ 
     try {
       let response = await axiosServiceApi.patch(
         `/services/publishService/${selectedServiceProject.id}/`,
@@ -131,10 +121,7 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
   };
 
   const deleteService = () => {
-    if (!selectedServiceProject?.id) {
-      setSelectError("Please select service Before delete");
-      return true;
-    }
+
     const id = selectedServiceProject.id;
     const name = selectedServiceProject.services_page_title;
     const deleteImageByID = async () => {
@@ -189,7 +176,7 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
             {/* <span className="text-success text-center fw-bold py-2 fs-5 d-block">
               Successfully added the new service
             </span> */}
-            {selectError ? <Error>{selectError}</Error> : ""}
+            {/* {selectError ? <Error>{selectError}</Error> : ""}
             <select
               class="form-select py-3"
               aria-label="Default select example"
@@ -203,7 +190,14 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
                   {option.label}
                 </option>
               ))}
-            </select>
+            </select> */}
+            <ul>
+            {serviceList && serviceList.map((item, index) => (
+              <li key={item.id} onClick={(event) => onClickSelectedService(item)}>
+                {item.services_page_title}
+              </li>
+              ))}
+            </ul>
             <Button
               type="Delete"
               cssClass="btn btn-lg btn-primary"

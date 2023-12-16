@@ -31,8 +31,6 @@ const JobPost = ({ addJobs }) => {
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
 
-  console.log(posts)
-
   const editHandler = (name, value, item) => {
     setEditPosts(item);
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
