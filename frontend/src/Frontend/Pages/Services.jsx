@@ -152,7 +152,7 @@ const Services = () => {
         ""
       )}
 
-      <div className="container my-md-5 py-md-4">
+      <div className="container my-md-5 py-md-4 servicesPage">
         {isAdmin && selectedServiceProject?.id ? (
           <>
             <button
@@ -212,7 +212,7 @@ const Services = () => {
             ) : (
               ""
             )}
-            <div className="col-md-9">
+            <div className="col-md-8">
               <Title
                 title={
                   item.feature_title
@@ -235,7 +235,7 @@ const Services = () => {
                 />
               </div>
             </div>
-            <div className="col-md-3">
+            <div className="col-md-4">
               <img src={getImagePath(item.path)} alt="" />
             </div>
           </div>
