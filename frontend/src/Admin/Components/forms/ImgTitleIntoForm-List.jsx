@@ -19,8 +19,10 @@ const AdminBanner = ({
   imageUpdateURL,
   imageLabel = "Add Images",
   extraFormParamas,
-  titleTitle='Title',
-  descriptionTitle="Description"
+  titleTitle = "Title",
+  descriptionTitle = "Description",
+  showDescription = { showDescription },
+  showExtraFormFields = { showExtraFormFields },
 }) => {
   const projectID = "a62d7759-a e6b-4e49-a129-1ee208c6789d";
   const [userName, setUserName] = useState("");
@@ -108,13 +110,14 @@ const AdminBanner = ({
               titleTitle={titleTitle}
               alternitivetextTitle="Image Alt Text"
               saveState={setSaveState}
-              showDescription={true}
+              showDescription={showDescription}
               buttonLable="Save"
               editImage={editCarousel}
               setEditCarousel={setEditCarousel}
               imagePostURL={imagePostURL}
               imageUpdateURL={imageUpdateURL}
               extraFormParamas={extraFormParamas}
+              showExtraFormFields={showExtraFormFields}
             />
           </div>
           <div className="col-md-6 mt-3 mt-md-0 ">

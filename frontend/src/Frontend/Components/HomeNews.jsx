@@ -10,6 +10,10 @@ import EditIcon from "../../Common/AdminEditIcon";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 import ModelBg from "../../Common/ModelBg";
 import { getBaseURL } from "../../util/ulrUtil";
+import {
+  getFormDynamicFields,
+  getCarouselFields,
+} from "../../util/dynamicFormFields";
 import AddEditAdminNews from "../../Admin/Components/News/index";
 import {
   axiosClientServiceApi,
@@ -24,6 +28,7 @@ const HomeNews = ({ addNewsState }) => {
     news: false,
   };
 
+  const pageType = "homeNew";
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
@@ -148,15 +153,17 @@ const HomeNews = ({ addNewsState }) => {
             imageUpdateURL="appNews/updateAppNews/"
             imageDeleteURL="appNews/updateAppNews/"
             imageLabel="Add News Image"
-            extraFormParamas={[
-              {
-                bannerTitle: {
-                  label: "News Title",
-                  type: "text",
-                  fieldName: "newstitle",
-                },
-              },
-            ]}
+            showDescription={false}
+            showExtraFormFields={getCarouselFields()}
+            // extraFormParamas={[
+            //   {
+            //     bannerTitle: {
+            //       label: "News Title",
+            //       type: "text",
+            //       fieldName: "newstitle",
+            //     },
+            //   },
+            // ]}
           />
         </div>
       ) : (

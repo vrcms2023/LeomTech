@@ -7,6 +7,7 @@ import EditIcon from "../../Common/AdminEditIcon";
 import ModelBg from "../../Common/ModelBg";
 
 import { removeActiveClass } from "../../util/ulrUtil";
+import { getFormDynamicFields } from "../../util/dynamicFormFields";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 
 import Img1 from "../../Images/project1.png";
@@ -53,7 +54,7 @@ const About = () => {
           ""
         )}
         <Banner
-          getBannerAPIURL={`banner/clientBannerIntro/${pageType}/`}
+          getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`}
           bannerState={componentEdit.banner}
         />
       </div>
@@ -62,24 +63,10 @@ const About = () => {
           <ImageInputsForm
             editHandler={editHandler}
             componentType="banner"
+            pageType={`${pageType}-banner`}
             imageLabel="Banner Image"
-            pageType={pageType}
-            extraFormParamas={[
-              {
-                pageType: {
-                  readonly: true,
-                  defaultValue: pageType,
-                  fieldName: "pageType",
-                },
-              },
-              {
-                bannerTitle: {
-                  label: "Banner Title",
-                  type: "text",
-                  fieldName: "bannerTitle",
-                },
-              },
-            ]}
+            showDescription={false}
+            showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
           />
         </div>
       ) : (
@@ -282,7 +269,16 @@ const About = () => {
 
       {componentEdit.about ? (
         <div className="adminEditTestmonial">
-          <ImageInputsForm editHandler={editHandler} componentType="about" />
+          <ImageInputsForm
+            editHandler={editHandler}
+            componentType="about"
+            pageType={`${pageType}-aboutDetails`}
+            imageLabel="Banner Image"
+            showDescription={false}
+            showExtraFormFields={getFormDynamicFields(
+              `${pageType}-aboutDetails`,
+            )}
+          />
         </div>
       ) : (
         ""
@@ -290,7 +286,14 @@ const About = () => {
 
       {componentEdit.vision ? (
         <div className="adminEditTestmonial">
-          <ImageInputsForm editHandler={editHandler} componentType="vision" />
+          <ImageInputsForm
+            editHandler={editHandler}
+            componentType="vision"
+            pageType={`${pageType}-vision`}
+            imageLabel="Banner Image"
+            showDescription={false}
+            showExtraFormFields={getFormDynamicFields(`${pageType}-vision`)}
+          />
         </div>
       ) : (
         ""
@@ -298,7 +301,14 @@ const About = () => {
 
       {componentEdit.mission ? (
         <div className="adminEditTestmonial">
-          <ImageInputsForm editHandler={editHandler} componentType="mission" />
+          <ImageInputsForm
+            editHandler={editHandler}
+            componentType="mission"
+            pageType={`${pageType}-mission`}
+            imageLabel="Banner Image"
+            showDescription={false}
+            showExtraFormFields={getFormDynamicFields(`${pageType}-mission`)}
+          />
         </div>
       ) : (
         ""

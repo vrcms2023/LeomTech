@@ -16,6 +16,11 @@ import HomeNews from "../../Components/HomeNews";
 import HomeServices from "../../Components/HomeServices";
 import { axiosClientServiceApi } from "../../../util/axiosUtil";
 import { removeActiveClass } from "../../../util/ulrUtil";
+import {
+  getCarouselFields,
+  getTestimonialsFields,
+} from "../../../util/dynamicFormFields";
+
 import { useAdminLoginStatus } from "../../../Common/customhook/useAdminLoginStatus";
 // Styles
 
@@ -89,15 +94,17 @@ const Home = () => {
               imagePostURL="carousel/createCarousel/"
               imageUpdateURL="carousel/updateCarousel/"
               imageLabel="Add Carousel Image"
-              extraFormParamas={[
-                {
-                  carouseTitle: {
-                    readonly: true,
-                    defaultValue: "Carouse Title",
-                    fieldName: "carouseTitle",
-                  },
-                },
-              ]}
+              showDescription={false}
+              showExtraFormFields={getCarouselFields()}
+              // extraFormParamas={[
+              //   {
+              //     carouseTitle: {
+              //       readonly: true,
+              //       defaultValue: "Carouse Title",
+              //       fieldName: "carouseTitle",
+              //     },
+              //   },
+              // ]}
             />
           </div>
         ) : (
@@ -200,17 +207,10 @@ const Home = () => {
             imagePostURL="testimonials/createTestimonials/"
             imageUpdateURL="testimonials/updateTestimonials/"
             imageLabel="Add your Image"
-            titleTitle='Testmonial Name'
+            titleTitle="Testmonial Name"
             descriptionTitle="Testimonial Writeup "
-            extraFormParamas={[
-              {
-                testimonialTitle: {
-                  readonly: true,
-                  defaultValue: "Testimonal Title",
-                  fieldName: "testimonialTitle",
-                },
-              },
-            ]}
+            showDescription={false}
+            showExtraFormFields={getTestimonialsFields()}
           />
         </div>
       ) : (

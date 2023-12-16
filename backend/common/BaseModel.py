@@ -34,3 +34,12 @@ class ImageModel(BaseModel):
 
     class Meta:
         abstract = True 
+
+class ServiceImageModel(BaseModel):
+    path =          models.FileField(blank=True, null=True, upload_to=image_upload_path )
+    originalname=   models.CharField(max_length=100, null=True, blank=True)
+    contentType=    models.CharField(max_length=100, null=True, blank=True)
+    alternitivetext = models.CharField(max_length=500, null=True, blank=True)
+
+    class Meta:
+        abstract = True 

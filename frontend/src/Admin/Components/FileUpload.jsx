@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { FilePond, registerPlugin } from "react-filepond";
 import "filepond/dist/filepond.min.css";
+import RichTextEditor from "../../Frontend/Components/RichTextEditor";
 
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
@@ -14,8 +15,14 @@ import { getBaseURL } from "../../util/ulrUtil";
 import { getCookie } from "../../util/cookieUtil";
 import { axiosFileUploadServiceApi } from "../../util/axiosUtil";
 import Button from "../../Common/Button";
-import { InputField, TextAreaField } from "./forms/FormFields";
+import {
+  InputField,
+  InputFields,
+  TextAreaField,
+  RichTextInputEditor,
+} from "./forms/FormFields";
 import { getImagePath } from "../../util/commonUtil";
+import Error from "./Error";
 
 registerPlugin(
   FilePondPluginFileValidateType,
@@ -35,21 +42,27 @@ const FileUpload = ({
   disabledFile = false,
   descriptionTitle = "Image desccription",
   titleTitle = "Title",
+  alternitivetextTitle = "Alt Text",
+  imageDescriptionFieldName = "imageDescription",
+  imageTitleFieldName = "imageTitle",
+  altTitleFieldName = "alternitivetext",
   showDescription = false,
+  showExtraFormFields = [],
   maxFiles,
   buttonLable,
   editImage,
   setEditCarousel,
   imagePostURL = "/gallery/createGallery/",
   imageUpdateURL = "/gallery/updateGalleryDetails/",
-  alternitivetextTitle = "Alt Text",
-  extraFormParamas,
+  extraFormParamas = [],
 }) => {
   const [files, setFiles] = useState([]);
   const [extTypes, setExtTypes] = useState([]);
+  const [editorState, setEditorState] = useState("");
 
   const baseURL = getBaseURL();
   const [editImg, setEditimg] = useState({});
+  const [error, setError] = useState("");
 
   const { register, reset, handleSubmit } = useForm({
     defaultValues: useMemo(() => {
@@ -87,24 +100,37 @@ const FileUpload = ({
   };
 
   useEffect(() => {
-    if (files.length > 0 && !showDescription) {
+    if (
+      files.length > 0 &&
+      !showDescription &&
+      showExtraFormFields.length > 0
+    ) {
       uploadFile();
     }
-  }, [files, showDescription]);
+  }, [files, showDescription, showExtraFormFields]);
 
   const setFormData = (formData, data) => {
     formData.append("projectID", project?.id);
     formData.append("category", category);
     formData.append("created_by", getCookie("userName"));
     formData.append("updated_by", getCookie("userName"));
+    formData.append("imageTitle", "");
+    formData.append("imageDescription", "");
+    formData.append("alternitivetext", data.alternitivetext);
 
-    for (const key in data) {
-      if (data.hasOwnProperty(key)) {
-        formData.append(key, data[key]);
+    if (showExtraFormFields) {
+      for (const key in showExtraFormFields) {
+        if (showExtraFormFields.hasOwnProperty(key)) {
+          if (key === "feature_description") {
+            formData.append("feature_description", editorState);
+          } else {
+            formData.append(key, data[key]);
+          }
+        }
       }
     }
 
-    if (extraFormParamas) {
+    if (extraFormParamas.length > 0) {
       extraFormParamas.forEach((item) => {
         let key = Object.keys(item);
         let field = item[key];
@@ -143,6 +169,7 @@ const FileUpload = ({
 
       formData.append("id", editImage.id);
       formData = setFormData(formData, data);
+
       const response = await axiosFileUploadServiceApi.patch(
         `${imageUpdateURL}${editImage.id}/`,
         formData,
@@ -160,6 +187,10 @@ const FileUpload = ({
    */
   const postImages = async (data) => {
     const arrURL = [];
+    if (files.length === 0) {
+      setError("Please Select image");
+      return true;
+    }
     files.forEach((element, index) => {
       let formData = new FormData();
       formData.append("path", element.file);
@@ -240,6 +271,7 @@ const FileUpload = ({
     <>
       <form className="" onSubmit={handleSubmit(uploadFile)}>
         <div className="mb-3 row">
+          {error ? <Error>{error}</Error> : ""}
           <label className="col-sm-3 col-form-label text-start text-md-end">
             <Title title={title} cssClass="" />
           </label>
@@ -265,7 +297,7 @@ const FileUpload = ({
               <div>
                 <img
                   src={getImagePath(editImage.path, editImage.contentType)}
-                  alt=""
+                  alt={editImage?.alternitivetext}
                   className=""
                   style={{ width: "100%", height: "100px", objectFit: "cover" }}
                 />
@@ -275,24 +307,85 @@ const FileUpload = ({
             )}
           </div>
         </div>
+        <InputFields
+          label={alternitivetextTitle}
+          type="text"
+          fieldName={altTitleFieldName}
+          register={register}
+        />
+
+        <>
+          {Object.keys(showExtraFormFields).map((e, index) => {
+            const { label, type, fieldName, value } = showExtraFormFields[e];
+
+            if (type == "richText") {
+              return (
+                <RichTextInputEditor
+                  key={index}
+                  label={label}
+                  editorSetState={setEditorState}
+                  initialText={
+                    editImage?.feature_description
+                      ? editImage?.feature_description
+                      : ""
+                  }
+                />
+                // <div className="mb-3 row" key={index}>
+                //   <label
+                //     htmlFor=""
+                //     className="col-sm-3 col-form-label text-start text-md-end text-capitalize"
+                //   >
+                //     {label}
+                //   </label>
+                //   <div className="col-sm-9">
+                //     <RichTextEditor
+                //       initialText={editImage?.feature_description ? editImage?.feature_description :''  }
+                //       RichEditorState={setEditorState}
+                //     />
+                //   </div>
+                // </div>
+              );
+            } else {
+              return (
+                <InputFields
+                  key={index}
+                  label={label}
+                  type={type}
+                  value={value}
+                  fieldName={fieldName}
+                  register={register}
+                />
+              );
+            }
+          })}
+
+          <div className="row">
+            <div className="text-center ">
+              <button
+                type="button"
+                className="btn btn-secondary mx-3"
+                onClick={clearField}
+              >
+                Clear
+              </button>
+              <button type="submit" className="btn btn-primary">
+                Save
+              </button>
+            </div>
+          </div>
+        </>
 
         {showDescription ? (
           <>
             <InputField
-              label={alternitivetextTitle}
-              fieldName="alternitivetext"
-              register={register}
-            />
-
-            <InputField
               label={titleTitle}
-              fieldName="imageTitle"
+              fieldName={imageTitleFieldName}
               register={register}
             />
 
             <TextAreaField
               label={descriptionTitle}
-              fieldName="imageDescription"
+              fieldName={imageDescriptionFieldName}
               register={register}
             />
             <>
