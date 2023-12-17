@@ -17,7 +17,14 @@ const RichTextEditor = ({ RichEditorState, initialText }) => {
   }, [editorState]);
 
   return (
-    <Editor editorState={editorState} onEditorStateChange={setEditorState} />
+    <Editor
+    wrapperClassName="wrapper-class"
+    editorClassName="editor-class"
+    toolbarClassName="toolbar-class"
+    toolbar={{
+      options: ['inline', 'blockType', 'fontSize', 'fontFamily', 'list', 'textAlign', 'colorPicker', 'link', 'remove', 'history']
+  }}
+    editorState={editorState} onEditorStateChange={setEditorState} />
   );
 };
 
