@@ -33,12 +33,18 @@ const Footer = () => {
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [termsAndPolicyData, setTermsAndPolicyData] = useState({});
   const [termsAndConditionData, setTermsAndConditionData] = useState({});
- 
+
   const showModel = (type) => {
-    if(type === "PP") {
-      setTermsAndConditionData({title: "Privacy Polacy", data:termsAndPolicyData.privacy_policy});
+    if (type === "PP") {
+      setTermsAndConditionData({
+        title: "Privacy Polacy",
+        data: termsAndPolicyData.privacy_policy,
+      });
     } else {
-      setTermsAndConditionData({title: "Terms And Conditions", data:termsAndPolicyData.terms_condition});
+      setTermsAndConditionData({
+        title: "Terms And Conditions",
+        data: termsAndPolicyData.terms_condition,
+      });
     }
     setModelShow(!modelShow);
   };
@@ -77,7 +83,7 @@ const Footer = () => {
           `/footer/getTermsAndCondition/`,
         );
         if (response?.data?.terms?.length > 0) {
-          setTermsAndConditionData(response?.data?.terms[0])
+          setTermsAndConditionData(response?.data?.terms[0]);
         }
       } catch (error) {
         console.log("unable to save the terms and condition form");
@@ -229,11 +235,14 @@ const Footer = () => {
             ""
           )}
           Copyrights 2023 - All rights reserved
-
           <span className="d-inline-block mx-2">|</span>
-          <Link to="" onClick={() => showModel("TC")}>Terms & Conditions</Link>{" "}
+          <Link to="" onClick={() => showModel("TC")}>
+            Terms & Conditions
+          </Link>{" "}
           <span className="d-inline-block mx-2">|</span>
-          <Link to="" onClick={() => showModel("PP")}>Privacy Policy</Link>
+          <Link to="" onClick={() => showModel("PP")}>
+            Privacy Policy
+          </Link>
           <span className="d-block mt-2 dby">
             designed by{" "}
             <a href="http://www.varadesigns.com">

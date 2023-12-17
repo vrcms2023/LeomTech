@@ -1,7 +1,7 @@
 import React from "react";
 import { getBaseURL } from "../util/ulrUtil";
 
-const Model = ({ obj, closeModel,  flag }) => {
+const Model = ({ obj, closeModel, flag }) => {
   // console.log(obj)
   const baseURL = getBaseURL();
   // const { dec, title, cr, crm } = privacy;
@@ -21,9 +21,7 @@ const Model = ({ obj, closeModel,  flag }) => {
       <div className="modal-dialog modal-dialog-centered">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title text-dark fw-bold">
-              {obj.title}
-            </h5>
+            <h5 className="modal-title text-dark fw-bold">{obj.title}</h5>
             <button
               type="button"
               className="btn-close"
@@ -32,11 +30,13 @@ const Model = ({ obj, closeModel,  flag }) => {
               onClick={closeModel}
             ></button>
           </div>
-          <div className="p-3" dangerouslySetInnerHTML={{
-                __html: (obj && obj.data),
-              }}
-            ></div>
-          
+          <div
+            className="p-3"
+            dangerouslySetInnerHTML={{
+              __html: obj && obj.data,
+            }}
+          ></div>
+
           {/* {obj && (
                 <div className="p-4">
                    dangerouslySetInnerHTML={{
@@ -44,7 +44,6 @@ const Model = ({ obj, closeModel,  flag }) => {
                       }}
                   </div>
               )} */}
-
 
           {/* <div className="modal-footer text-center">
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModel}>Close</button>
