@@ -48,16 +48,19 @@ const TopStrip = () => {
           <i className="fa fa-paper-plane me-1" aria-hidden="true"></i>
           <a href="mailto:info@leomtech.com">info@leomtech.com</a>
         </span>
+        {isAdmin ? (
+          <>
         <span>
         <i className="fa fa-user-o" aria-hidden="true"></i> &nbsp;
           {userName}
         </span>
-        {isAdmin ? (
+      
           <span>
             <a href="#nolink" onClick={logOutHandler}>
               Logout
             </a>
           </span>
+          </>
         ) : (
           ""
         )}
