@@ -201,14 +201,14 @@ const HomeNews = ({ addNewsState }) => {
       )}
 
       {showModel ? 
-        <div className="newsModel">
-          <div className="newsModalWrapper p-5 py-4 bg-white shadow-lg">
+        <div className="newsModel bg-dark">
+          <div className="newsModalWrapper p-3 p-md-5 py-md-4 bg-white shadow-lg">
             <div className="d-flex justify-content-between align-items-center mb-3 border-bottom">
               <Title title={obj.news_title} cssClass="fw-bold fs-4" />
               <Link onClick={closeModel} className="text-danger text-uppercase">Close <i class="fa fa-times fs-5" aria-hidden="true"></i></Link>
             </div>
             <div>
-              <img src={getImagePath(obj.path)} alt={obj.news_title} />
+              <img className="w-100" src={getImagePath(obj.path)} alt={obj.news_title} />
             </div>
             <div className="my-3 newsDetails">{obj.news_description}</div>
             </div>
