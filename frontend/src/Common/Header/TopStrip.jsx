@@ -1,8 +1,8 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { removeAllCookies } from "../../util/cookieUtil";
+import { getCookie, removeAllCookies } from "../../util/cookieUtil";
 import { logout } from "../../features/auth/authSlice";
 import { useAdminLoginStatus } from "../customhook/useAdminLoginStatus";
 
@@ -16,6 +16,19 @@ const TopStrip = () => {
   const isAdmin = useAdminLoginStatus();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [userName, setUserName] = useState("");
+  const [loginState, setLoginState] = useState(false);
+  const { userInfo } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (userInfo || getCookie("access")) {
+      const uName = userInfo ? userInfo.userName : getCookie("userName");
+      setUserName(uName);
+    } else {
+      setLoginState(false);
+      setUserName("");
+    }
+  }, [userInfo]);
 
   function logOutHandler() {
     removeAllCookies();
@@ -34,6 +47,10 @@ const TopStrip = () => {
         <span>
           <i className="fa fa-paper-plane me-1" aria-hidden="true"></i>
           <a href="mailto:info@leomtech.com">info@leomtech.com</a>
+        </span>
+        <span>
+        <i class="fa fa-user-o" aria-hidden="true"></i> &nbsp;
+          {userName}
         </span>
         {isAdmin ? (
           <span>
