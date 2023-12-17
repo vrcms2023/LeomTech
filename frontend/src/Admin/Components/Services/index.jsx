@@ -184,16 +184,16 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
               <Title title="Pages" cssClass="fs-6 fw-bold text-center border-bottom pb-2 mb-2 " />
             <ul>
             {serviceList && serviceList.map((item) => (
-              <li className={`d-flex justify-content-between p-1
-              ${item.id === selectedServiceProject?.id ? 'border border-success' : ''}`
+              <li className={`d-flex justify-content-between p-2
+              ${item.id === selectedServiceProject?.id ? 'border border-2 border-success rounded shadow-lg' : ''}`
               } key={item.id} >
 
-                <Link onClick={(event) => onClickSelectedService(item)} className="fw-bold ">{item.services_page_title} </Link>
+                <Link onClick={(event) => onClickSelectedService(item)} className="fw-bold text-dark">{item.services_page_title} </Link>
                 <div>
-                <Link onClick={()=>publishService(item)} className={`p-1 px-3 mx-2 rounded ${item.publish ? "bg-success text-white" : "bg-secondary text-light"}`}>
+                <Link onClick={()=>publishService(item)} className={`p-1 px-3 rounded ${item.publish ? "bg-success text-white" : "bg-secondary text-light"}`}>
                     <small>{item.publish ? "Published" : "Un Publish"}</small>
                   </Link>
-                  <Link onClick={() =>EditService(item)}> <i class="fa fa-pencil text-danger fs-4" aria-hidden="true"></i></Link>
+                  <Link onClick={() =>EditService(item)}> <i class="fa fa-pencil text-danger fs-4 mx-3" aria-hidden="true"></i></Link>
                   <Link onClick={() =>deleteService(item)}> <i class="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i></Link>
                 </div>
               </li>
