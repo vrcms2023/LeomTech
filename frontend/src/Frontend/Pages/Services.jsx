@@ -234,11 +234,11 @@ const Services = () => {
                 }
                 cssClass="fs-5 fw-bold"
               />
-              <div>
+    
                 <div
                   dangerouslySetInnerHTML={{ __html: item.feature_description }}
                 />
-              </div>
+            
             </div>
             <div className="col-md-4">
               <img src={getImagePath(item.path)} alt="" />

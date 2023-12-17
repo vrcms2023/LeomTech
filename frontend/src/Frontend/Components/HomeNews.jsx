@@ -165,9 +165,12 @@ const HomeNews = ({ addNewsState }) => {
                 cssClass="fs-5 fw-bold lh-sm mb-2"
               />
               <p className="card-text mb-4 lineClamp">
-                {item.news_description
-                  ? item.news_description
-                  : "update new description"}
+              {item.news_description? (
+              <div
+                  dangerouslySetInnerHTML={{ __html: item.news_description }}
+                />
+              ) : ('update new description')}
+        
               </p>
               <Link className="text-primary moreLink" onClick={() => handleModel(item)}>Read more</Link>
             </div>
@@ -210,7 +213,13 @@ const HomeNews = ({ addNewsState }) => {
             <div>
               <img className="w-100" src={getImagePath(obj.path)} alt={obj.news_title} />
             </div>
-            <div className="my-3 newsDetails">{obj.news_description}</div>
+            <div className="my-3 newsDetails">
+            {obj.news_description? (
+              <div
+                  dangerouslySetInnerHTML={{ __html: obj.news_description }}
+                />
+              ) : ('update new description')}
+             </div>
             </div>
         </div>
       : ""}

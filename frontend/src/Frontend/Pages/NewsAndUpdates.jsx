@@ -127,15 +127,6 @@ const NewsAndUpdates = () => {
                 imageLabel="Add News Image"
                 showDescription={false}
                 showExtraFormFields={getNewslFields("addNews")}
-                // extraFormParamas={[
-                //   {
-                //     bannerTitle: {
-                //       label: "News Title",
-                //       type: "text",
-                //       fieldName: "newstitle",
-                //     },
-                //   },
-                // ]}
               />
             </div>
           ) : (

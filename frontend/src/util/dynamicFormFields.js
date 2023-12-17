@@ -63,7 +63,7 @@ export const getNewslFields = () => {
    
     news_description: {
       label: "Description",
-      type: "textarea",
+      type: "richText",
       fieldName: "news_description",
     },
   };
