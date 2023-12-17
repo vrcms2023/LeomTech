@@ -98,8 +98,8 @@ const NewsAndUpdates = () => {
 
       <div className="container my-4 newsAndUpdates">
         <div className="row">
+        <div className="d-flex justify-content-between">
           <Title title="News And Updates" cssClass="blue-900 fs-4 mb-4" />
-
           {isAdmin ? (
             <div className="text-end mb-4">
               <Link
@@ -113,6 +113,7 @@ const NewsAndUpdates = () => {
           ) : (
             ""
           )}
+          </div>
 
           {componentEdit.addNews ? (
             <div className="adminEditTestmonial">

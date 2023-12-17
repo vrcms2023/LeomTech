@@ -38,7 +38,7 @@
   position: fixed;
   z-index: 999999;
   /* background-color: #fff; */
-  top: 50px;
+  top: 15px;
   left: 0px;
   width: 500px;
   min-height: 500px;
@@ -52,4 +52,9 @@
   width: 70%;
   margin: auto;
   border-radius: 10px;
+}
+
+.newsModalWrapper .newsDetails {
+  max-height: 500px;
+  overflow-y: auto;
 }

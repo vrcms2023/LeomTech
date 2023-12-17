@@ -163,14 +163,13 @@ const Services = () => {
           <>
             <button
               type="submit"
-              class="btn btn-primary mt-2"
+              class="btn btn-primary"
               onClick={() => editHandler("addSection", true)}
               style={{ position: "absolute", right: "60px" }}
             >
-              Add New Service Section
+              Add data
               <i className="fa fa-plus ms-2" aria-hidden="true"></i>
             </button>
-            {/* <EditIcon editHandler={() => editHandler("editSection", true)} /> */}
           </>
         ) : (
           ""
@@ -208,7 +207,7 @@ const Services = () => {
         </div>
         {selectedServiceList.map((item, index) => (
           <div
-            className={`row ${index % 2 == 0 ? "normalCSS" : "flipCSS"}`}
+            className={`row ${isAdmin ? "border border-warning mb-3" : "" } ${index % 2 === 0 ? "normalCSS" : "flipCSS"}`}
             key={item.id}
           >
             {isAdmin ? (

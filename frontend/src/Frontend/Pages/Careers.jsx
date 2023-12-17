@@ -54,7 +54,7 @@ const Careers = () => {
   return (
     <>
       {/* Page Banner Component */}
-      <div className="position-relative">
+      <div className="position-relative careersPage">
         {isAdmin ? (
           <EditIcon editHandler={() => editHandler("banner", true)} />
         ) : (
@@ -110,7 +110,7 @@ const Careers = () => {
         passion in us grows as we contribute to this industry.
       </BriefIntro> */}
 
-      <div className="container my-md-5 py-md-4">
+      <div className="container my-md-5 py-md-4 careerItems">
         {isAdmin ? (
           <div className="text-end mb-4">
             <Link
