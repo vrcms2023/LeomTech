@@ -45,7 +45,7 @@ const Services = () => {
   const [selectedServiceProject, setSelectedServiceProject] = useState({});
   const [selectedServiceList, setSelectedServiceList] = useState([]);
   const [editCarousel, setEditCarousel] = useState({});
-  let { uid, } = useParams();
+  let { uid } = useParams();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -207,7 +207,9 @@ const Services = () => {
         </div>
         {selectedServiceList.map((item, index) => (
           <div
-            className={`row ${isAdmin ? "border border-warning mb-3" : "" } ${index % 2 === 0 ? "normalCSS" : "flipCSS"}`}
+            className={`row ${isAdmin ? "border border-warning mb-3" : ""} ${
+              index % 2 === 0 ? "normalCSS" : "flipCSS"
+            }`}
             key={item.id}
           >
             {isAdmin ? (
@@ -234,10 +236,9 @@ const Services = () => {
                 }
                 cssClass="fs-5 fw-bold"
               />
-                <div
-                  dangerouslySetInnerHTML={{ __html: item.feature_description }}
-                />
-            
+              <div
+                dangerouslySetInnerHTML={{ __html: item.feature_description }}
+              />
             </div>
             <div className="col-md-4">
               <img src={getImagePath(item.path)} alt="" />

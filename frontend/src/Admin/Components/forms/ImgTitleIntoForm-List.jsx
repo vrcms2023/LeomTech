@@ -6,7 +6,12 @@ import FileUpload from "../../Components/FileUpload";
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
 
 import { getCookie } from "../../../util/cookieUtil";
-import {getObjectTitle,getObjectDescription, getObjectSubtitle, getImagePath} from "../../../util/commonUtil";
+import {
+  getObjectTitle,
+  getObjectDescription,
+  getObjectSubtitle,
+  getImagePath,
+} from "../../../util/commonUtil";
 import { axiosFileUploadServiceApi } from "../../../util/axiosUtil";
 import { confirmAlert } from "react-confirm-alert";
 import DeleteDialog from "../../../Common/DeleteDialog";
@@ -127,16 +132,18 @@ const AdminBanner = ({
                 <div className="row mb-4 slideItem" key={index}>
                   <div className="col-4 col-md-2">
                     <img
-                      src={ getImagePath(item.path)}
+                      src={getImagePath(item.path)}
                       alt={item.alternitivetext}
                       className="w-100"
                     />
                   </div>
                   <div className="col-6 col-md-8 ">
-                    <h6 className="fw-bold m-0 fs-6">{getObjectTitle(componentType,item)}</h6>
+                    <h6 className="fw-bold m-0 fs-6">
+                      {getObjectTitle(componentType, item)}
+                    </h6>
                     <small className="description text-muted d-none d-md-block">
-                      {getObjectDescription(componentType,item)}
-                      {item.carouseDescription ? item.carouseDescription : ''}
+                      {getObjectDescription(componentType, item)}
+                      {item.carouseDescription ? item.carouseDescription : ""}
                     </small>
                   </div>
                   <div className="col-2 col-md-2 d-flex justify-content-between align-items-center flex-column flex-md-row">
@@ -147,7 +154,12 @@ const AdminBanner = ({
                       ></i>
                     </Link>
                     <Link
-                      onClick={(event) => thumbDelete(item.id, getObjectTitle(componentType,item))}
+                      onClick={(event) =>
+                        thumbDelete(
+                          item.id,
+                          getObjectTitle(componentType, item),
+                        )
+                      }
                     >
                       <i
                         className="fa fa-trash fs-4 text-danger"

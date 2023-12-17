@@ -44,7 +44,9 @@ const Banner = ({ getBannerAPIURL, bannerState }) => {
             : "upload description"}
         </p>
         <Title
-          title={bannerdata.banner_title ? bannerdata.banner_title : "upload title"}
+          title={
+            bannerdata.banner_title ? bannerdata.banner_title : "upload title"
+          }
         />
       </div>
       <img

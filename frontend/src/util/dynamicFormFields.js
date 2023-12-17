@@ -79,7 +79,6 @@ export const getCarouselFields = (category) => {
   };
 };
 
-
 export const getNewslFields = () => {
   return {
     news_title: {
@@ -87,7 +86,7 @@ export const getNewslFields = () => {
       type: "text",
       fieldName: "news_title",
     },
-   
+
     news_description: {
       label: "Description",
       type: "richText",
@@ -129,13 +128,11 @@ export const getServiceFormFields = (id) => {
       label: "Service Title",
       type: "text",
       fieldName: "feature_title",
-     
     },
     feature_sub_title: {
       label: "Service Sub Title",
       type: "text",
       fieldName: "feature_sub_title",
-      
     },
     feature_description: {
       label: "Description",
@@ -152,10 +149,9 @@ export const getServiceFormFields = (id) => {
   };
 };
 
-
 export const imageDimensionsJson = {
-  whoweare : {
-    width:'800px',
-    height:'800px'
-  }
-}
+  whoweare: {
+    width: "800px",
+    height: "800px",
+  },
+};

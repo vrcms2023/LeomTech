@@ -48,8 +48,12 @@ const Carousel = ({ carouselState }) => {
               className="d-block w-100"
             />
             <div className="carousel-caption d-none d-md-block">
-              <h1 className="fw-bold">{item.carouseTitle ? item.carouseTitle : ''} </h1>
-              <p className="fw-normal fs-5">{item.carouseDescription ? item.carouseDescription : ''} </p>
+              <h1 className="fw-bold">
+                {item.carouseTitle ? item.carouseTitle : ""}{" "}
+              </h1>
+              <p className="fw-normal fs-5">
+                {item.carouseDescription ? item.carouseDescription : ""}{" "}
+              </p>
             </div>
           </div>
         ))}

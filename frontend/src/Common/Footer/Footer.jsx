@@ -77,16 +77,15 @@ const Footer = () => {
           `/footer/getTermsAndCondition/`,
         );
         if (response?.data?.terms?.length > 0) {
-          setTermsAndConditionData(response?.data?.terms[0])
+          setTermsAndConditionData(response?.data?.terms[0]);
         }
       } catch (error) {
         console.log("unable to save the terms and condition form");
       }
     };
-    if(!componentEdit.termsPolacy){
+    if (!componentEdit.termsPolacy) {
       getFooterValues();
     }
-   
   }, [componentEdit.termsPolacy]);
 
   return (
@@ -150,7 +149,9 @@ const Footer = () => {
               <div className="mb-md-0 mt-3">
                 Email
                 <br />
-                <a href={`mailto:${footerValues.emailid}`}>{footerValues.emailid} </a>
+                <a href={`mailto:${footerValues.emailid}`}>
+                  {footerValues.emailid}{" "}
+                </a>
               </div>
             </div>
 

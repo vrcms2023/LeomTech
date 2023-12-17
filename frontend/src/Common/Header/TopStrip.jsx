@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { getCookie, removeAllCookies } from "../../util/cookieUtil";
 import { logout } from "../../features/auth/authSlice";
@@ -50,16 +50,16 @@ const TopStrip = () => {
         </span>
         {isAdmin ? (
           <>
-        <span>
-        <i class="fa fa-user-o" aria-hidden="true"></i> &nbsp;
-          {userName}
-        </span>
-      
-          <span>
-            <a href="#nolink" onClick={logOutHandler}>
-              Logout
-            </a>
-          </span>
+            <span>
+              <i class="fa fa-user-o" aria-hidden="true"></i> &nbsp;
+              {userName}
+            </span>
+
+            <span>
+              <a href="#nolink" onClick={logOutHandler}>
+                Logout
+              </a>
+            </span>
           </>
         ) : (
           ""

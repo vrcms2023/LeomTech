@@ -160,7 +160,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
-   
             <Route
               exact
               path="/userAdmin"
@@ -170,7 +169,6 @@ function App() {
                 </ProtectedRoute>
               }
             />
- 
             <Route
               exact
               path="/contactUSList"

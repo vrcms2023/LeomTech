@@ -15,11 +15,11 @@ const AdminTermsAndPrivacy = ({
   editHandler,
   componentType,
   termsAndConditionData,
-  type
+  type,
 }) => {
   const [userName, setUserName] = useState("");
   const { register, reset, handleSubmit } = useForm();
-  const [termEditorState, setTermEditorState] = useState('');
+  const [termEditorState, setTermEditorState] = useState("");
   const [policyEditorState, setPolicyEditorState] = useState("");
 
   const closeHandler = () => {
@@ -36,13 +36,13 @@ const AdminTermsAndPrivacy = ({
   const onSubmitHandler = async () => {
     let response = "";
     let data = {
-      "terms_condition" : termEditorState,
-      "privacy_policy" : policyEditorState
-    }
+      terms_condition: termEditorState,
+      privacy_policy: policyEditorState,
+    };
     try {
       if (termsAndConditionData?.id) {
         data["updated_by"] = userName;
-        data['id'] = termsAndConditionData.id
+        data["id"] = termsAndConditionData.id;
         response = await axiosServiceApi.put(
           `/footer/updateTermsAndCondition/${data.id}/`,
           data,
@@ -58,17 +58,14 @@ const AdminTermsAndPrivacy = ({
 
       if (response.status == 201 || response.status == 200) {
         toast.success(`Footer Values are updated successfully `);
-        closeHandler()
+        closeHandler();
       }
     } catch (error) {
       console.log("unable to save the footer form");
     }
   };
 
-
-const resetForm = () => {
-
-}
+  const resetForm = () => {};
 
   return (
     <>
@@ -77,32 +74,44 @@ const resetForm = () => {
         title={componentType}
         type={type}
       />
-     
-        <div className="container">
-          <div className="row p-4">
-            <div className="col-md-8 offset-md-2">
 
-              <RichTextInputEditor  
-                    label={'Terms And Conditions'}
-                    editorSetState={setTermEditorState}
-                    initialText={termsAndConditionData?.terms_condition ? termsAndConditionData?.terms_condition  :''} />
-                <RichTextInputEditor  
-                    label={'Privacy Policy'}
-                    editorSetState={setPolicyEditorState}
-                    initialText={termsAndConditionData?.privacy_policy ? termsAndConditionData?.privacy_policy  :''} />
+      <div className="container">
+        <div className="row p-4">
+          <div className="col-md-8 offset-md-2">
+            <RichTextInputEditor
+              label={"Terms And Conditions"}
+              editorSetState={setTermEditorState}
+              initialText={
+                termsAndConditionData?.terms_condition
+                  ? termsAndConditionData?.terms_condition
+                  : ""
+              }
+            />
+            <RichTextInputEditor
+              label={"Privacy Policy"}
+              editorSetState={setPolicyEditorState}
+              initialText={
+                termsAndConditionData?.privacy_policy
+                  ? termsAndConditionData?.privacy_policy
+                  : ""
+              }
+            />
 
-              <div className="text-center mt-4">
-                {/* <button onClick={resetForm} type="reset" className="btn btn-secondary mx-3">
+            <div className="text-center mt-4">
+              {/* <button onClick={resetForm} type="reset" className="btn btn-secondary mx-3">
                   Clear
                 </button> */}
-                <button onClick={onSubmitHandler} type="submit" className="btn btn-primary">
-                  Save
-                </button>
-              </div>
+              <button
+                onClick={onSubmitHandler}
+                type="submit"
+                className="btn btn-primary"
+              >
+                Save
+              </button>
             </div>
           </div>
         </div>
-   
+      </div>
     </>
   );
 };

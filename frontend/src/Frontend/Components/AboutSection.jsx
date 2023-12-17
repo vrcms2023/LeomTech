@@ -7,51 +7,57 @@ import { getBaseURL } from "../../util/ulrUtil";
 import { getImagePath } from "../../util/commonUtil";
 import Title from "../../Common/Title";
 
-const AboutSection = ({ getBannerAPIURL, bannerState}) => {
-    const [bannerdata, setBannerData] = useState([]);
-  
-    useEffect(() => {
-      const getBannerData = async () => {
-        try {
-          const response = await axiosClientServiceApi.get(getBannerAPIURL);
-          if (response?.status == 200) {
-            setBannerData(response.data.imageModel);
-          }
-        } catch (error) {
-          console.log("unable to access ulr because of server is down");
+const AboutSection = ({ getBannerAPIURL, bannerState }) => {
+  const [bannerdata, setBannerData] = useState([]);
+
+  useEffect(() => {
+    const getBannerData = async () => {
+      try {
+        const response = await axiosClientServiceApi.get(getBannerAPIURL);
+        if (response?.status == 200) {
+          setBannerData(response.data.imageModel);
         }
-      };
-      if (!bannerState) {
-        getBannerData();
+      } catch (error) {
+        console.log("unable to access ulr because of server is down");
       }
-    }, [bannerState]);
+    };
+    if (!bannerState) {
+      getBannerData();
+    }
+  }, [bannerState]);
 
   return (
     <div className="row shadow-lg my-5">
-    <div className="col-12 col-md-8  py-4 p-md-5">
-      <img
-        src={getImagePath(bannerdata?.path)}
-        alt={bannerdata?.alternitivetext}
-        className="d-md-none w-100 mb-3 shadow-md rounded-2"
-      />
-     
-      <Title title={bannerdata?.banner_title ? bannerdata?.banner_title :"Update Title"} cssClass="text-dark fs-4" />
-      <div dangerouslySetInnerHTML={{
-                        __html: bannerdata?.banner_descripiton ? bannerdata.banner_descripiton :"<p>Please update Section</p>",
-                      }}
-                    />
+      <div className="col-12 col-md-8  py-4 p-md-5">
+        <img
+          src={getImagePath(bannerdata?.path)}
+          alt={bannerdata?.alternitivetext}
+          className="d-md-none w-100 mb-3 shadow-md rounded-2"
+        />
+
+        <Title
+          title={
+            bannerdata?.banner_title ? bannerdata?.banner_title : "Update Title"
+          }
+          cssClass="text-dark fs-4"
+        />
+        <div
+          dangerouslySetInnerHTML={{
+            __html: bannerdata?.banner_descripiton
+              ? bannerdata.banner_descripiton
+              : "<p>Please update Section</p>",
+          }}
+        />
+      </div>
+      <div className="col-12 col-md-4 d-none d-md-block p-0 ">
+        <img
+          src={getImagePath(bannerdata?.path)}
+          alt={bannerdata?.alternitivetext}
+          className="w-100 h-100"
+          style={{ objectFit: "cover", backgroundPosition: "center" }}
+        />
+      </div>
     </div>
-    <div className="col-12 col-md-4 d-none d-md-block p-0 ">
-    <img
-              src={getImagePath(bannerdata?.path)}
-              alt={bannerdata?.alternitivetext}
-              className="w-100 h-100"
-              style={{ objectFit: "cover", backgroundPosition: "center" }}
-            />
-      
-   
-    </div>
-  </div> 
   );
 };
 

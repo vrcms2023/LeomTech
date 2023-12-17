@@ -19,7 +19,7 @@ import { axiosClientServiceApi } from "../../util/axiosUtil";
 import { getImagePath } from "../../util/commonUtil";
 import { getFormDynamicFields } from "../../util/dynamicFormFields";
 
-const ABriefAbout = ({ title, cssClass, linkClass,dimensions }) => {
+const ABriefAbout = ({ title, cssClass, linkClass, dimensions }) => {
   const editComponentObj = {
     whoweare: false,
   };
@@ -99,7 +99,7 @@ const ABriefAbout = ({ title, cssClass, linkClass,dimensions }) => {
             pageType={pageType}
             imageLabel="Banner Image"
             showDescription={false}
-            dimensions= {dimensions}
+            dimensions={dimensions}
             showExtraFormFields={getFormDynamicFields(pageType)}
           />
         </div>

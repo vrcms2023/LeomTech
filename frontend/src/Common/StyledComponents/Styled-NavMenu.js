@@ -14,15 +14,12 @@ export const StyledMenu = styled.menu`
     background-color: ${({ theme }) => theme.navbarChildLinkBgColor};
   }
 
-  .nav-item.dropdown ul li a{
+  .nav-item.dropdown ul li a {
     color: ${({ theme }) => theme.navbarChildLinkColor};
-    
 
     &:hover {
       color: ${({ theme }) => theme.navbarChildLinkHoverColor};
       background-color: ${({ theme }) => theme.navbarChildLinkBgColor};
     }
   }
-
-  
 `;

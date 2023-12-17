@@ -2,18 +2,18 @@ import React, { useEffect, useState } from "react";
 import Title from "../../Common/Title";
 import BriefIntroFrontend from "../../Common/BriefIntro";
 import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
+import AboutImageInputsForm from "../../Admin/Components/forms/aboutusImgTitleIntoForm";
 import AdminBriefIntro from "../../Admin/Components/BriefIntro/index";
 import EditIcon from "../../Common/AdminEditIcon";
 import ModelBg from "../../Common/ModelBg";
 
 import { removeActiveClass } from "../../util/ulrUtil";
-import { getFormDynamicFields, getAboutUSSectionFields } from "../../util/dynamicFormFields";
+import {
+  getFormDynamicFields,
+  getAboutUSSectionFields,
+} from "../../util/dynamicFormFields";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 
-import Img1 from "../../Images/project1.png";
-import Img2 from "../../Images/future.png";
-import Img3 from "../../Images/quality.png";
-import AboutBanner from "../../Images/Banner_12.jpg";
 import Banner from "../../Common/Banner";
 import AboutSection from "../Components/AboutSection";
 
@@ -105,26 +105,27 @@ const About = () => {
           ""
         )}
 
-      
-      <AboutSection getBannerAPIURL={`banner/clientBannerIntro/${pageType}-aboutDetails/`}
-          bannerState={componentEdit.about} />
+        <AboutSection
+          getBannerAPIURL={`banner/clientBannerIntro/${pageType}-aboutDetails/`}
+          bannerState={componentEdit.about}
+        />
 
-      {componentEdit.about ? (
-        <div className="adminEditTestmonial">
-          <ImageInputsForm
-            editHandler={editHandler}
-            componentType="about"
-            pageType={`${pageType}-aboutDetails`}
-            imageLabel="Banner Image"
-            showDescription={false}
-            showExtraFormFields={getAboutUSSectionFields(
-              `${pageType}-aboutDetails`,
-            )}
-          />
-        </div>
-      ) : (
-        ""
-      )}     
+        {componentEdit.about ? (
+          <div className="adminEditTestmonial">
+            <AboutImageInputsForm
+              editHandler={editHandler}
+              componentType="about"
+              pageType={`${pageType}-aboutDetails`}
+              imageLabel="Banner Image"
+              showDescription={false}
+              showExtraFormFields={getAboutUSSectionFields(
+                `${pageType}-aboutDetails`,
+              )}
+            />
+          </div>
+        ) : (
+          ""
+        )}
 
         {isAdmin ? (
           <EditIcon editHandler={() => editHandler("vision", true)} />
@@ -132,51 +133,56 @@ const About = () => {
           ""
         )}
 
-      <AboutSection getBannerAPIURL={`banner/clientBannerIntro/${pageType}-aboutVision/`}
-          bannerState={componentEdit.vision} />
+        <AboutSection
+          getBannerAPIURL={`banner/clientBannerIntro/${pageType}-aboutVision/`}
+          bannerState={componentEdit.vision}
+        />
 
-{componentEdit.vision ? (
-        <div className="adminEditTestmonial">
-          <ImageInputsForm
-            editHandler={editHandler}
-            componentType="vision"
-            pageType={`${pageType}-aboutVision`}
-            imageLabel="Banner Image"
-            showDescription={false}
-            showExtraFormFields={getAboutUSSectionFields(`${pageType}-aboutVision`)}
-          />
-        </div>
-      ) : (
-        ""
-      )}
+        {componentEdit.vision ? (
+          <div className="adminEditTestmonial">
+            <AboutImageInputsForm
+              editHandler={editHandler}
+              componentType="vision"
+              pageType={`${pageType}-aboutVision`}
+              imageLabel="Banner Image"
+              showDescription={false}
+              showExtraFormFields={getAboutUSSectionFields(
+                `${pageType}-aboutVision`,
+              )}
+            />
+          </div>
+        ) : (
+          ""
+        )}
 
-
-{isAdmin ? (
+        {isAdmin ? (
           <EditIcon editHandler={() => editHandler("mission", true)} />
         ) : (
           ""
         )}
-<AboutSection getBannerAPIURL={`banner/clientBannerIntro/${pageType}-aboutMission/`}
-          bannerState={componentEdit.mission} />
+        <AboutSection
+          getBannerAPIURL={`banner/clientBannerIntro/${pageType}-aboutMission/`}
+          bannerState={componentEdit.mission}
+        />
 
-{componentEdit.mission ? (
-        <div className="adminEditTestmonial">
-          <ImageInputsForm
-            editHandler={editHandler}
-            componentType="mission"
-            pageType={`${pageType}-aboutMission`}
-            imageLabel="Banner Image"
-            showDescription={false}
-            showExtraFormFields={getAboutUSSectionFields(`${pageType}-aboutMission`)}
-          />
-        </div>
-      ) : (
-        ""
-      )}
-        
+        {componentEdit.mission ? (
+          <div className="adminEditTestmonial">
+            <AboutImageInputsForm
+              editHandler={editHandler}
+              componentType="mission"
+              pageType={`${pageType}-aboutMission`}
+              imageLabel="Banner Image"
+              showDescription={false}
+              showExtraFormFields={getAboutUSSectionFields(
+                `${pageType}-aboutMission`,
+              )}
+            />
+          </div>
+        ) : (
+          ""
+        )}
       </div>
 
-      
       {show && <ModelBg />}
     </>
   );

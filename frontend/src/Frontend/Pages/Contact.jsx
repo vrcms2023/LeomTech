@@ -40,7 +40,8 @@ const Contact = () => {
     phoneNumber: "",
     description: "",
   };
-  const defautURL =  "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15226.413145928846!2d78.441906!3d17.430816!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x80e4d67809745a48!2sHPR+INFRA+PROJECTS!5e0!3m2!1sen!2sin!4v1442574301202"
+  const defautURL =
+    "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15226.413145928846!2d78.441906!3d17.430816!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x80e4d67809745a48!2sHPR+INFRA+PROJECTS!5e0!3m2!1sen!2sin!4v1442574301202";
   const pageType = "contactus";
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
@@ -51,7 +52,7 @@ const Contact = () => {
   const [success, setsuccess] = useState(false);
   const [footerValues, setFooterValues] = useState(false);
   const navigate = useNavigate();
-  const [mapValues, setMapValues] = useState("")
+  const [mapValues, setMapValues] = useState("");
 
   useEffect(() => {
     removeActiveClass();
@@ -135,11 +136,10 @@ const Contact = () => {
   }, [componentEdit.address]);
 
   useEffect(() => {
-    if(!componentEdit.map){
-      getGoogleMapUrl()
+    if (!componentEdit.map) {
+      getGoogleMapUrl();
     }
-   
-  }, [componentEdit.map])
+  }, [componentEdit.map]);
 
   const editHandler = (name, value) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -147,19 +147,19 @@ const Contact = () => {
     document.body.style.overflow = "hidden";
   };
 
-  const getGoogleMapUrl = async() => {
+  const getGoogleMapUrl = async () => {
     try {
-      const response = await  axiosClientServiceApi.get(
+      const response = await axiosClientServiceApi.get(
         `footer/getGoogleMapURL/`,
       );
       if (response?.data?.mapURL) {
-        const data = response.data.mapURL[0]
+        const data = response.data.mapURL[0];
         setMapValues(data);
       }
     } catch (e) {
       console.log("unable to access ulr because of server is down");
     }
-  }
+  };
 
   return (
     <>
@@ -170,11 +170,10 @@ const Contact = () => {
         ) : (
           ""
         )}
-         <Banner
+        <Banner
           getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`}
           bannerState={componentEdit.banner}
         />
-       
       </div>
 
       {componentEdit.banner ? (
@@ -192,7 +191,6 @@ const Contact = () => {
         ""
       )}
 
-
       {/* Introduction */}
       {isAdmin ? (
         <EditIcon editHandler={() => editHandler("briefIntro", true)} />
@@ -200,7 +198,7 @@ const Contact = () => {
         ""
       )}
 
-<     BriefIntroFrontend
+      <BriefIntroFrontend
         introState={componentEdit.briefIntro}
         pageType={pageType}
       />
@@ -240,14 +238,18 @@ const Contact = () => {
 
               <div>
                 <Title title="Phone Number" cssClass="" />
-            
                 {footerValues.phonen_number} <br />
                 {footerValues.phonen_number_2}
                 <br />
                 <br />
                 <Title title="Email Id" cssClass="" />
                 <p>
-                <a className="fs-6 text-white" href={`mailto:${footerValues.emailid}`}>{footerValues.emailid} </a>
+                  <a
+                    className="fs-6 text-white"
+                    href={`mailto:${footerValues.emailid}`}
+                  >
+                    {footerValues.emailid}{" "}
+                  </a>
                   {/* <a
                     href="mailto:contact@hprinfraprojects.com"
                     className="fs-6 text-white"
@@ -393,14 +395,16 @@ const Contact = () => {
             ) : (
               ""
             )}
-       
-               <iframe
-                className="googlemap"
-                src={mapValues?.google_map_url ?mapValues.google_map_url : defautURL}
-                height="450"
-                width="100%"
-              ></iframe>
-   
+
+            <iframe
+              className="googlemap"
+              src={
+                mapValues?.google_map_url ? mapValues.google_map_url : defautURL
+              }
+              height="450"
+              width="100%"
+            ></iframe>
+
             {/* <iframe
               className="googlemap"
               src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15226.413145928846!2d78.441906!3d17.430816!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x80e4d67809745a48!2sHPR+INFRA+PROJECTS!5e0!3m2!1sen!2sin!4v1442574301202"
@@ -410,9 +414,6 @@ const Contact = () => {
           </div>
         </div>
       </div>
-
-      
-
 
       {componentEdit.address ? (
         <div className="adminEditTestmonial">
@@ -424,7 +425,11 @@ const Contact = () => {
 
       {componentEdit.map ? (
         <div className="adminEditTestmonial">
-          <GoogleMap mapValues={mapValues} editHandler={editHandler} componentType="map" />
+          <GoogleMap
+            mapValues={mapValues}
+            editHandler={editHandler}
+            componentType="map"
+          />
         </div>
       ) : (
         ""
