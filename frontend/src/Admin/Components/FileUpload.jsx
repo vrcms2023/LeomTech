@@ -55,12 +55,12 @@ const FileUpload = ({
   imagePostURL = "/gallery/createGallery/",
   imageUpdateURL = "/gallery/updateGalleryDetails/",
   extraFormParamas = [],
-  dimensions= {width:'1500px', height:"400px"}
+  dimensions = { width: "1500px", height: "400px" },
 }) => {
   const [files, setFiles] = useState([]);
   const [extTypes, setExtTypes] = useState([]);
-  const [pageType, setPageType]= useState('');
-  const listofAboutSection = ['aboutDetails','aboutVision','aboutMission']
+  const [pageType, setPageType] = useState("");
+  const listofAboutSection = ["aboutDetails", "aboutVision", "aboutMission"];
   const [editorState, setEditorState] = useState("");
 
   const baseURL = getBaseURL();
@@ -74,8 +74,20 @@ const FileUpload = ({
     mode: "onChange",
   });
 
-
-  const content = {"entityMap":{},"blocks":[{"key":"637gr","text":"Initialized from content state.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]};
+  const content = {
+    entityMap: {},
+    blocks: [
+      {
+        key: "637gr",
+        text: "Initialized from content state.",
+        type: "unstyled",
+        depth: 0,
+        inlineStyleRanges: [],
+        entityRanges: [],
+        data: {},
+      },
+    ],
+  };
 
   // useEffect(() => {
   //   setEditimg(editImage?.id ? editImage : {});
@@ -83,8 +95,8 @@ const FileUpload = ({
 
   useEffect(() => {
     reset(editImage?.id ? editImage : {});
-    if(editImage?.pageType){
-      setPageType(editImage.pageType.split('-')[1])
+    if (editImage?.pageType) {
+      setPageType(editImage.pageType.split("-")[1]);
     }
   }, [editImage]);
 
@@ -134,7 +146,10 @@ const FileUpload = ({
             formData.append("feature_description", editorState);
           } else if (key === "news_description") {
             formData.append("news_description", editorState);
-          } else if (key === "banner_descripiton" && listofAboutSection.indexOf(pageType) > -1) {
+          } else if (
+            key === "banner_descripiton" &&
+            listofAboutSection.indexOf(pageType) > -1
+          ) {
             formData.append("banner_descripiton", editorState);
           } else {
             formData.append(key, data[key]);
@@ -142,8 +157,7 @@ const FileUpload = ({
         }
       }
     }
-    
-    
+
     if (extraFormParamas.length > 0) {
       extraFormParamas.forEach((item) => {
         let key = Object.keys(item);
@@ -206,16 +220,15 @@ const FileUpload = ({
         let formData = new FormData();
         formData.append("path", element.file);
         formData = setFormData(formData, data);
-  
+
         arrURL.push(axiosFileUploadServiceApi.post(imagePostURL, formData));
       });
     } else {
       let formData = new FormData();
-      formData.append("path", '');
+      formData.append("path", "");
       formData = setFormData(formData, data);
       arrURL.push(axiosFileUploadServiceApi.post(imagePostURL, formData));
     }
-   
 
     try {
       await Promise.all(arrURL).then(function (values) {
@@ -287,11 +300,10 @@ const FileUpload = ({
 
   return (
     <>
-
       <form className="" onSubmit={handleSubmit(uploadFile)}>
         <div className="mb-3 row">
           <label className="col-sm-3 col-form-label text-start text-md-end">
-            <Title title={title} cssClass="" /> 
+            <Title title={title} cssClass="" />
           </label>
           <div className="col-sm-9">
             <div className="border border-3 mb-0 shadow-lg">
@@ -312,12 +324,15 @@ const FileUpload = ({
               />
             </div>
             {dimensions ? (
-               <div className="text-dark p-2">
-               imageWidth : {dimensions.width}<br/>
-               height :  {dimensions.height}
-               </div>
-            ) :""}
-           
+              <div className="text-dark p-2">
+                imageWidth : {dimensions.width}
+                <br />
+                height : {dimensions.height}
+              </div>
+            ) : (
+              ""
+            )}
+
             {editImage?.id ? (
               <div>
                 <img
@@ -352,7 +367,11 @@ const FileUpload = ({
                   initialText={
                     editImage?.feature_description
                       ? editImage?.feature_description
-                      : editImage?.news_description ? editImage?.news_description : editImage.banner_descripiton ? editImage.banner_descripiton : ''
+                      : editImage?.news_description
+                      ? editImage?.news_description
+                      : editImage.banner_descripiton
+                      ? editImage.banner_descripiton
+                      : ""
                   }
                 />
               );
@@ -373,16 +392,18 @@ const FileUpload = ({
           <div className="row">
             <div className="text-center ">
               {!editImage?.id ? (
-              <button
-                type="button"
-                className="btn btn-secondary mx-3"
-                onClick={clearField}
-              >
-                Clear
-              </button>
-              ) : ''}
+                <button
+                  type="button"
+                  className="btn btn-secondary mx-3"
+                  onClick={clearField}
+                >
+                  Clear
+                </button>
+              ) : (
+                ""
+              )}
               <button type="submit" className="btn btn-primary">
-              {editImage?.id ? 'Update': 'Save'}
+                {editImage?.id ? "Update" : "Save"}
               </button>
             </div>
           </div>

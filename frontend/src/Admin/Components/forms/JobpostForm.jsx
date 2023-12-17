@@ -85,18 +85,18 @@ const JobPost = ({ editHandler, componentType, type, editPost }) => {
                 register={register}
               />
 
-                <SelectField
-                  label="From Experience"
-                  fieldName="experience_from"
-                  register={register}
-                  options={generateOptionLength(20)}
-                />
-                <SelectField
-                  label="To Experience"
-                  fieldName="experience_to"
-                  register={register}
-                  options={generateOptionLength(20)}
-                />
+              <SelectField
+                label="From Experience"
+                fieldName="experience_from"
+                register={register}
+                options={generateOptionLength(20)}
+              />
+              <SelectField
+                label="To Experience"
+                fieldName="experience_to"
+                register={register}
+                options={generateOptionLength(20)}
+              />
 
               <InputField
                 label="Education"

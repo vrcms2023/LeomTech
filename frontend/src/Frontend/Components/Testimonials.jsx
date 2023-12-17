@@ -56,7 +56,6 @@ const Testimonials = ({ testimonis }) => {
   }, [index]);
 
   const ListOfTestimonials = testimonis?.map((item, indexPeople) => {
-
     const { imageUrl, title, description } = item;
     let position = "nextSlide";
     if (indexPeople === index) {
@@ -69,9 +68,11 @@ const Testimonials = ({ testimonis }) => {
       position = "lastSlide";
     }
     return (
-
       <div className={`${position} article position-absolute `} key={item.id}>
-        <Title title={item.testimonialTitle} cssClass="mb-2 fw-normal fs-2 text-uppercase text-white" />
+        <Title
+          title={item.testimonialTitle}
+          cssClass="mb-2 fw-normal fs-2 text-uppercase text-white"
+        />
 
         {!item.path ? (
           <i className="fa fa-user text-white" aria-hidden="true"></i>
@@ -97,7 +98,15 @@ const Testimonials = ({ testimonis }) => {
     );
   });
 
-  return <>{ListOfTestimonials.length > 1 ? ListOfTestimonials : <h4>Please add 2 or more testimonials to show.</h4> }</>;
+  return (
+    <>
+      {ListOfTestimonials.length > 1 ? (
+        ListOfTestimonials
+      ) : (
+        <h4>Please add 2 or more testimonials to show.</h4>
+      )}
+    </>
+  );
 };
 
 export default Testimonials;

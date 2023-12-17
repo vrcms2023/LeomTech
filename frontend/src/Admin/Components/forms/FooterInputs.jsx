@@ -42,7 +42,7 @@ const FooterAdminFeilds = ({ editHandler, componentType }) => {
       if (response.status == 200 || response.status == 201) {
         reset(response.data.address[0]);
         toast.success(`Footer Values are updated successfully `);
-        closeHandler()
+        closeHandler();
       }
     } catch (error) {
       console.log("unable to save the footer form");

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
 import Button from "../../../Common/Button";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import {
   axiosClientServiceApi,
   axiosServiceApi,
@@ -12,12 +12,13 @@ import { confirmAlert } from "react-confirm-alert";
 import DeleteDialog from "../../../Common/DeleteDialog";
 import Title from "../../../Common/Title";
 
-import './services.css'
+import "./services.css";
 
 const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
   const [serviceName, setServiceName] = useState("");
   const [error, setError] = useState("");
   const [serviceList, setServiceList] = useState([]);
+  const [editServiceObject, setEditServiceObject] = useState("");
   const [userName, setUserName] = useState("");
   const onPageLoadAction = useRef(true);
 
@@ -26,10 +27,9 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
     setServiceName(event.target.value);
   };
 
-
-  const onClickSelectedService = (item) =>{
-    setSelectedServiceProject(item)
-  }
+  const onClickSelectedService = (item) => {
+    setSelectedServiceProject(item);
+  };
 
   useEffect(() => {
     setUserName(getCookie("userName"));
@@ -43,15 +43,24 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
       setError("Please Enter Service  name");
       return;
     }
+    let response = "";
+    let data = {
+      services_page_title: serviceName,
+      created_by: userName,
+      publish: editServiceObject.publish ? true : false,
+    };
     try {
-      const response = await axiosServiceApi.post(`/services/createService/`, {
-        services_page_title: serviceName,
-        created_by: userName,
-        updated_by: userName,
-        publish: false,
-      });
-
-      if (response?.status == 201) {
+      if (editServiceObject?.id) {
+        data["id"] = editServiceObject.id;
+        data["updated_by"] = userName;
+        response = await axiosServiceApi.put(
+          `/services/updateService/${editServiceObject.id}/`,
+          data,
+        );
+      } else {
+        response = await axiosServiceApi.post(`/services/createService/`, data);
+      }
+      if (response?.status == 201 || response?.status == 200) {
         toast.success(`${serviceName} service is created `);
         setServiceName("");
         getServiceList();
@@ -68,7 +77,7 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
   const getServiceList = async () => {
     try {
       const response = await axiosServiceApi.get(`/services/createService/`);
-      console.log(response, "Services")
+      console.log(response, "Services");
       if (response?.status === 200) {
         setServiceList(response.data.services);
         if (onPageLoadAction.current) {
@@ -81,24 +90,6 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
     }
   };
 
-  // const generateDropDownlist = (data) => {
-  //   return data.map((item) => {
-  //     return {
-  //       label: item.services_page_title,
-  //       value: item.id,
-  //     };
-  //   });
-  // };
-
-  /**
-   *  update Service name list on service list update
-   */
-  // useEffect(() => {
-  //   if (serviceList.length > 0) {
-  //     setServiceNameList(generateDropDownlist(serviceList));
-  //   }
-  // }, [serviceList]);
-
   /**
    *  get Service list on page load
    */
@@ -106,35 +97,32 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
     getServiceList();
   }, []);
 
-
-
-  const publishService = async () => {
- 
+  const publishService = async (item) => {
     try {
       let response = await axiosServiceApi.patch(
-        `/services/publishService/${selectedServiceProject.id}/`,
-        { publish: !selectedServiceProject.publish },
+        `/services/publishService/${item.id}/`,
+        { publish: !item.publish },
       );
 
       if (response.status === 200) {
         toast.success(`Service published successfully`);
         setSelectedServiceProject(response.data.services);
+        getServiceList();
       }
     } catch (error) {
       console.log("unable to publish the services");
     }
   };
 
-  const deleteService = () => {
-
-    const id = selectedServiceProject.id;
-    const name = selectedServiceProject.services_page_title;
+  const deleteService = (item) => {
+    const id = item.id;
+    const name = item.services_page_title;
     const deleteImageByID = async () => {
       const response = await axiosServiceApi.delete(
-        `services/updateService/${id}/`,
+        `services/updateService/${item.id}/`,
       );
       if (response.status == 204) {
-        const list = serviceList.filter((item) => item.id !== id);
+        const list = serviceList.filter((list) => list.id !== id);
         setServiceList(list);
         toast.success(`${name} is deleted`);
       }
@@ -153,19 +141,22 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
     });
   };
 
+  const EditService = (item) => {
+    setServiceName(item.services_page_title);
+    setEditServiceObject(item);
+  };
+
   return (
     <div className="my-5">
-
-<h3 className={`text-center `}>Add New Service </h3>
+      <h3 className={`text-center `}>Add New Service </h3>
 
       {/* <h3 className={`text-center ${selectedServiceProject && selectedServiceProject.publish ? 'border border-success' : ''} `}>Add New Service </h3> */}
 
       <div className={`container bg-light p-5 border shadow-lg`}>
-      {/* <div className={`container bg-light p-5 border shadow-lg ${selectedServiceProject && selectedServiceProject.publish ? 'border border-success' : ''}`}> */}
+        {/* <div className={`container bg-light p-5 border shadow-lg ${selectedServiceProject && selectedServiceProject.publish ? 'border border-success' : ''}`}> */}
         <div className="row">
           {error ? <Error>{error}</Error> : ""}
           <div className="col-md-7 text-center">
-          
             <input
               type="text"
               cssClass="form-control py-2"
@@ -180,12 +171,15 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
               type="submit"
               cssClass="btn btn-lg btn-primary mt-3"
               handlerChange={submitHandler}
-              label="Save"
+              label={editServiceObject?.id ? "Update Service Name" : "Save"}
             />
-            </div>
+          </div>
 
-            <div className="col-md-5 mt-5 mt-md-0 servicePageLinks">
-              <Title title="Pages" cssClass="fs-6 fw-bold text-center border-bottom pb-2 mb-2 " />
+          <div className="col-md-5 mt-5 mt-md-0 servicePageLinks">
+            <Title
+              title="Pages"
+              cssClass="fs-6 fw-bold text-center border-bottom pb-2 mb-2 "
+            />
             <ul>
             {serviceList && serviceList.map((item, index) => (
               <li className={`d-flex justify-content-between p-1
@@ -197,7 +191,7 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
                 <Link onClick={publishService} className={`p-1 px-3 mx-2 rounded ${item.publish ? "bg-success text-white" : "bg-secondary text-light"}`}>
                     <small>{item.publish ? "Published" : "Un Publish"}</small>
                   </Link>
-                  <Link onClick={deleteService}> <i className="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i></Link>
+                  <Link onClick={deleteService}> <i class="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i></Link>
                   
                 </div>
               </li>

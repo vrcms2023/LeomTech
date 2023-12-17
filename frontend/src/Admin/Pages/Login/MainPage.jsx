@@ -17,8 +17,6 @@ const MainPage = () => {
         cssClass="text-dark fs-3 mb-4 fw-bold text-center"
       />
       <ul className="list-group mainLinks">
-       
-
         {isSuperAdmin ? (
           <li className="list-group-item list-group-item-action text-center border-secondary py-3">
             <Link

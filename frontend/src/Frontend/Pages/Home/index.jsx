@@ -20,7 +20,7 @@ import {
   getCarouselFields,
   getTestimonialsFields,
   getImageDimensions,
-  imageDimensionsJson
+  imageDimensionsJson,
 } from "../../../util/dynamicFormFields";
 
 import { useAdminLoginStatus } from "../../../Common/customhook/useAdminLoginStatus";
@@ -97,7 +97,7 @@ const Home = () => {
               imageUpdateURL="carousel/updateCarousel/"
               imageLabel="Add Carousel Image"
               showDescription={false}
-              showExtraFormFields={getCarouselFields('carousel')}
+              showExtraFormFields={getCarouselFields("carousel")}
             />
           </div>
         ) : (
@@ -139,13 +139,12 @@ const Home = () => {
             title="Who We Are"
             cssClass="mb-2 fw-bold title mb-4"
             linkClass="btn btn-primary mt-5"
-            dimensions= {imageDimensionsJson.whoweare}
+            dimensions={imageDimensionsJson.whoweare}
           />
         </div>
 
         {/* End Of Edit News */}
         <div className="row py-5 homeNews">
-        
           <div className="col-md-12 d-flex justify-content-center align-items-center">
             <div className="container">
               <h2 className="mb-5">News</h2>
@@ -196,7 +195,7 @@ const Home = () => {
             titleTitle="Testmonial Name"
             descriptionTitle="Testimonial Writeup "
             showDescription={false}
-            showExtraFormFields={getTestimonialsFields('testmonial')}
+            showExtraFormFields={getTestimonialsFields("testmonial")}
           />
         </div>
       ) : (
