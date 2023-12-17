@@ -54,7 +54,7 @@ const HomeNews = ({ addNewsState }) => {
         const response = await axiosClientServiceApi.get(
           `/appNews/clientAppNews/`,
         );
-        if (response?.status == 200) {
+        if (response?.status === 200) {
           setNews(response.data.appNews);
         }
       } catch (error) {
@@ -164,14 +164,14 @@ const HomeNews = ({ addNewsState }) => {
                 title={item.news_title ? item.news_title : "Update news Title"}
                 cssClass="fs-5 fw-bold lh-sm mb-2"
               />
-              <p className="card-text mb-4 lineClamp">
+              <div className="card-text mb-4 lineClamp">
               {item.news_description? (
               <div
                   dangerouslySetInnerHTML={{ __html: item.news_description }}
-                />
+                ></div>
               ) : ('update new description')}
         
-              </p>
+              </div>
               <Link className="text-primary moreLink" onClick={() => handleModel(item)}>Read more</Link>
             </div>
           </div>
@@ -217,7 +217,7 @@ const HomeNews = ({ addNewsState }) => {
             {obj.news_description? (
               <div
                   dangerouslySetInnerHTML={{ __html: obj.news_description }}
-                />
+                ></div>
               ) : ('update new description')}
              </div>
             </div>

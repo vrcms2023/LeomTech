@@ -35,7 +35,7 @@ const Model = ({ obj, closeModel,  flag }) => {
           <div className="p-3" dangerouslySetInnerHTML={{
                 __html: (obj && obj.data),
               }}
-            />
+            ></div>
           
           {/* {obj && (
                 <div className="p-4">
@@ -44,6 +44,7 @@ const Model = ({ obj, closeModel,  flag }) => {
                       }}
                   </div>
               )} */}
+
 
           {/* <div className="modal-footer text-center">
                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal" onClick={closeModel}>Close</button>
