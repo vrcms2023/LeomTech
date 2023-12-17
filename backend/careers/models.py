@@ -8,6 +8,7 @@ from common.BaseModel import BaseModel
 class Careers(BaseModel):
         job_title =         models.CharField(max_length=100, null=False )
         job_location =      models.CharField(max_length=100, null=True, blank=True )
+        company_name =      models.CharField(max_length=100, null=True, blank=True )
         experience_from =   models.CharField(max_length=100, null=True, blank=True )
         experience_to =     models.CharField(max_length=100, null=True, blank=True )
         education =         models.CharField(max_length=100, null=True, blank=True )

@@ -177,6 +177,11 @@ const JobPost = ({ addJobs }) => {
               <div className="p-3 jobPost">
                 <small className="d-block location mb-1"><i class="fa fa-map-marker fs-5" aria-hidden="true"></i> {item.job_location}</small>
                 <Title title={item.job_title} cssClass="fs-5 fw-bold" />
+
+                <div className="mt-2">
+                  <Title title="Company" cssClass="text-secondary fw-bolder" />
+                  <p className="m-0">{item.company_name}   </p>
+                </div>
                 <div className="mt-2">
                   <Title title="Job Description" cssClass="text-secondary fw-bolder" />
                   <p className="m-0">

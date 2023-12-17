@@ -55,6 +55,7 @@ const FileUpload = ({
   imagePostURL = "/gallery/createGallery/",
   imageUpdateURL = "/gallery/updateGalleryDetails/",
   extraFormParamas = [],
+  dimensions= {width:'1500px', height:"400px"}
 }) => {
   const [files, setFiles] = useState([]);
   const [extTypes, setExtTypes] = useState([]);
@@ -276,7 +277,7 @@ const FileUpload = ({
       <form className="" onSubmit={handleSubmit(uploadFile)}>
         <div className="mb-3 row">
           <label className="col-sm-3 col-form-label text-start text-md-end">
-            <Title title={title} cssClass="" />
+            <Title title={title} cssClass="" /> 
           </label>
           <div className="col-sm-9">
             <div className="border border-3 mb-0 shadow-lg">
@@ -296,6 +297,13 @@ const FileUpload = ({
                 instantUpload={false}
               />
             </div>
+            {dimensions ? (
+               <div className="text-dark p-2">
+               imageWidth : {dimensions.width}<br/>
+               height :  {dimensions.height}
+               </div>
+            ) :""}
+           
             {editImage?.id ? (
               <div>
                 <img

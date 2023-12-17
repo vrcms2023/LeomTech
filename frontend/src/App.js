@@ -16,8 +16,6 @@ import About from "./Frontend/Pages/About";
 import Services from "./Frontend/Pages/Services";
 import Careers from "./Frontend/Pages/Careers";
 import CareerDetails from "./Frontend/Pages/career-details";
-import Projects from "./Frontend/Pages/Projects";
-import ProjectGallery from "./Frontend/Pages/ProjectGallery";
 import Contact from "./Frontend/Pages/Contact";
 import MainPage from "./Admin/Pages/Login/MainPage";
 import NewsAndUpdates from "./Frontend/Pages/NewsAndUpdates";
@@ -36,11 +34,6 @@ import UnauthorizedPage from "./Admin/Pages/Login/UnauthorizedPage";
 import ContactUSAdmin from "./Admin/Pages/Auth/ContactUSAdmin";
 import LoadingSpinner from "./Common/LoadingSpinner";
 import TopStrip from "./Common/Header/TopStrip";
-
-import Dashboard from "./Admin/Pages/Login/Dashboard";
-import AddProject from "./Admin/Pages/Login/AddProject";
-import AdminNews from "./Admin/Pages/Login/AdminNews";
-import AdminTestimonial from "./Admin/Pages/Login/AdminTestimonial";
 
 import ProtectedRoute from "./Frontend/Components/ProtectedRoute";
 import ProjectTabs from "./Frontend/Components/ProjectsTabs/ProjecTabs";
@@ -75,8 +68,6 @@ function App() {
     "/adminNews",
     "/main",
     "/dashboard",
-    "/editproject",
-    "/addproject",
     "/testimonial",
     "/contactUSList",
     "/userAdmin",
@@ -119,9 +110,6 @@ function App() {
             <Route exact path="/about" element={<About />} />
             <Route exact path="/services" element={<Services />} />
             <Route exact path="/services/:uid/" element={<Services />} />
-            <Route exact path="/projects" element={<Projects />} />
-            <Route exact path="/project-details" element={<ProjectTabs />} />
-            <Route exact path="/gallery" element={<ProjectGallery />} />
             <Route exact path="/careers" element={<Careers />} />
             <Route
               exact

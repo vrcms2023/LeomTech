@@ -19,6 +19,8 @@ import { removeActiveClass } from "../../../util/ulrUtil";
 import {
   getCarouselFields,
   getTestimonialsFields,
+  getImageDimensions,
+  imageDimensionsJson
 } from "../../../util/dynamicFormFields";
 
 import { useAdminLoginStatus } from "../../../Common/customhook/useAdminLoginStatus";
@@ -137,6 +139,7 @@ const Home = () => {
             title="Who We Are"
             cssClass="mb-2 fw-bold title mb-4"
             linkClass="btn btn-primary mt-5"
+            dimensions= {imageDimensionsJson.whoweare}
           />
         </div>
 

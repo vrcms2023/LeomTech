@@ -75,8 +75,8 @@ const JobPost = ({ editHandler, componentType, type, editPost }) => {
                 register={register}
               />
               <InputField
-                label="Company"
-                fieldName="job_location"
+                label="Company name"
+                fieldName="company_name"
                 register={register}
               />
               <InputField
