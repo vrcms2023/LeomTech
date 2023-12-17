@@ -396,7 +396,7 @@ const Contact = () => {
        
                <iframe
                 className="googlemap"
-                src={mapValues.google_map_url ?mapValues.google_map_url : defautURL}
+                src={mapValues?.google_map_url ?mapValues.google_map_url : defautURL}
                 height="450"
                 width="100%"
               ></iframe>

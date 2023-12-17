@@ -208,7 +208,7 @@ const HomeNews = ({ addNewsState }) => {
               <Link onClick={closeModel} className="text-danger text-uppercase">Close <i class="fa fa-times fs-5" aria-hidden="true"></i></Link>
             </div>
             <div>
-              <img src={obj.path} alt={obj.news_title} />
+              <img src={getImagePath(obj.path)} alt={obj.news_title} />
             </div>
             <div className="my-3 newsDetails">{obj.news_description}</div>
             </div>
