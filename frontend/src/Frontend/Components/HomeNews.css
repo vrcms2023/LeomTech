@@ -37,9 +37,8 @@
 .newsModel {
   position: fixed;
   z-index: 999999;
-  /* background-color: #fff; */
-  top: 5px;
-  bottom:5px;
+  top: 0px;
+  bottom:0px;
   left: 0px;
   width: 500px;
   height: 100%;
@@ -67,7 +66,7 @@
   max-height: 400px;
   overflow-y: auto;
 }
-
+ 
 @media (max-width: 768px) {
   .newsModalWrapper {
     width: 100%;

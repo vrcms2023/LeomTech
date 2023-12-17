@@ -201,7 +201,7 @@ const HomeNews = ({ addNewsState }) => {
       )}
 
       {showModel ? 
-        <div className="newsModel bg-dark">
+        <div className="newsModel">
           <div className="newsModalWrapper p-3 p-md-5 py-md-4 bg-white shadow-lg">
             <div className="d-flex justify-content-between align-items-center mb-3 border-bottom">
               <Title title={obj.news_title} cssClass="fw-bold fs-4" />
