@@ -71,11 +71,11 @@ const HomeServices = ({ title }) => {
       {services.map((item, index) => (
         <div className="row service mb-4" key={`${index}+homeService`}>
           <div className="position-relative">
-            {isAdmin ? (
+            {/* {isAdmin ? (
               <EditIcon editHandler={() => editHandler("service", true)} />
             ) : (
               ""
-            )}
+            )} */}
           </div>
           <div className="col-md-6 p-2">
             <img src={serviceImg1} alt="" className="img-fluid w-100 h-100" />
