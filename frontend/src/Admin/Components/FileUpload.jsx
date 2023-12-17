@@ -124,6 +124,8 @@ const FileUpload = ({
         if (showExtraFormFields.hasOwnProperty(key)) {
           if (key === "feature_description") {
             formData.append("feature_description", editorState);
+          } else if (key === "news_description") {
+            formData.append("news_description", editorState);
           } else {
             formData.append(key, data[key]);
           }
@@ -338,7 +340,7 @@ const FileUpload = ({
                   initialText={
                     editImage?.feature_description
                       ? editImage?.feature_description
-                      : ""
+                      : editImage?.news_description ? editImage?.news_description : ''
                   }
                 />
               );
