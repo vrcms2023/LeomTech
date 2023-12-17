@@ -159,7 +159,7 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
           <div className="col-md-7 text-center">
             <input
               type="text"
-              class="form-control py-2"
+              cssClass="form-control py-2"
               name="services_page_title"
               id=""
               value={serviceName}
@@ -181,53 +181,21 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
               cssClass="fs-6 fw-bold text-center border-bottom pb-2 mb-2 "
             />
             <ul>
-              {serviceList &&
-                serviceList.map((item) => (
-                  <li
-                    className={`d-flex justify-content-between p-1
-              ${
-                item.id === selectedServiceProject?.id
-                  ? "border border-success"
-                  : ""
-              }`}
-                    key={item.id}
-                  >
-                    <Link
-                      onClick={(event) => onClickSelectedService(item)}
-                      className="fw-bold "
-                    >
-                      {item.services_page_title}{" "}
-                    </Link>
-                    <div>
-                      <Link
-                        onClick={() => publishService(item)}
-                        className={`p-1 px-3 mx-2 rounded ${
-                          item.publish
-                            ? "bg-success text-white"
-                            : "bg-secondary text-light"
-                        }`}
-                      >
-                        <small>
-                          {item.publish ? "Published" : "Un Publish"}
-                        </small>
-                      </Link>
-                      <Link onClick={() => EditService(item)}>
-                        {" "}
-                        <i
-                          class="fa fa-pencil text-danger fs-4"
-                          aria-hidden="true"
-                        ></i>
-                      </Link>
-                      <Link onClick={() => deleteService(item)}>
-                        {" "}
-                        <i
-                          class="fa fa-trash-o text-danger fs-4"
-                          aria-hidden="true"
-                        ></i>
-                      </Link>
-                    </div>
-                  </li>
-                ))}
+            {serviceList && serviceList.map((item, index) => (
+              <li className={`d-flex justify-content-between p-1
+              ${selectedServiceProject ? 'border border-success' : ''}`
+              } key={item.id} onClick={(event) => onClickSelectedService(item)}>
+
+                <div className="fw-bold ">{item.services_page_title} </div>
+                <div>
+                <Link onClick={publishService} className={`p-1 px-3 mx-2 rounded ${item.publish ? "bg-success text-white" : "bg-secondary text-light"}`}>
+                    <small>{item.publish ? "Published" : "Un Publish"}</small>
+                  </Link>
+                  <Link onClick={deleteService}> <i class="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i></Link>
+                  
+                </div>
+              </li>
+              ))}
             </ul>
           </div>
         </div>
@@ -236,4 +204,4 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
   );
 };
 
-export default AddService;
+export default AddService; 

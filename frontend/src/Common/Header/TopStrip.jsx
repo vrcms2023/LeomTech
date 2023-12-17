@@ -50,16 +50,16 @@ const TopStrip = () => {
         </span>
         {isAdmin ? (
           <>
-            <span>
-              <i class="fa fa-user-o" aria-hidden="true"></i> &nbsp;
-              {userName}
-            </span>
-
-            <span>
-              <a href="#nolink" onClick={logOutHandler}>
-                Logout
-              </a>
-            </span>
+        <span>
+        <i class="fa fa-user-o" aria-hidden="true"></i> &nbsp;
+          {userName}
+        </span>
+      
+          <span>
+            <a href="#nolink" onClick={logOutHandler}>
+              Logout
+            </a>
+          </span>
           </>
         ) : (
           ""
