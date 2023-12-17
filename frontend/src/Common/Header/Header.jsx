@@ -332,7 +332,7 @@ export const ClientMenu = ({
           <NavLink
             to="/main"
             className={({ isActive }) =>
-              isActive ? "nav-Link active" : "nav-Link"
+              isActive ? "bg-secondary p-2 text-white nav-Link active" : "bg-secondary p-2 text-white nav-Link"
             }
           >
             Admin Pages
