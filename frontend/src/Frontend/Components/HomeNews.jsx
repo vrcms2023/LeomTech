@@ -176,7 +176,7 @@ const HomeNews = ({ addNewsState }) => {
       )) : <div className="text-center">
       <p className="text-center fs-4">There are no news items found. Please create news items.</p>
       {isAdmin ? "" :
-      <Link to="/login" className="btn btn-primary fs-5" style={{width: "200px"}}>Login to Add News <i class="fa fa-plus mx-2" aria-hidden="true"></i> </Link>
+      <Link to="/login" className="btn btn-primary fs-5" style={{width: "200px"}}>Login to Add News <i className="fa fa-plus mx-2" aria-hidden="true"></i> </Link>
         }
       </div>}
 
@@ -205,7 +205,7 @@ const HomeNews = ({ addNewsState }) => {
           <div className="newsModalWrapper p-3 p-md-5 py-md-4 bg-white shadow-lg">
             <div className="d-flex justify-content-between align-items-center mb-3 border-bottom">
               <Title title={obj.news_title} cssClass="fw-bold fs-4" />
-              <Link onClick={closeModel} className="text-danger text-uppercase">Close <i class="fa fa-times fs-5" aria-hidden="true"></i></Link>
+              <Link onClick={closeModel} className="text-danger text-uppercase">Close <i className="fa fa-times fs-5" aria-hidden="true"></i></Link>
             </div>
             <div>
               <img className="w-100" src={getImagePath(obj.path)} alt={obj.news_title} />

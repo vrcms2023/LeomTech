@@ -31,7 +31,11 @@ const Footer = () => {
   const [modelShow, setModelShow] = useState(false);
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
-  const [termsAndConditionData, setTermsAndConditionData] = useState(false);
+  const [termsAndPolicyData, setTermsAndPolicyData] = useState({});
+  const [termsAndConditionData, setTermsAndConditionData] = useState({});
+  // console.log(termsAndConditionData, "termsAndConditionData")
+  // terms : termsAndConditionData.terms_condition,
+  //           privacyPolacyObj : termsAndConditionData.privacy_policy
   const privacyPolacyObj = {
     title: "Privacy Policy",
     dec: "Personal Information: Some personal information including name, contact numbers, e-mail addresses, and other demographic information is collected through enquiry forms. HPR Infra Group takes precautions to protect your individual / personal information from unauthorized use and makes internal use of your contact information only to inform you of projects and services that may interest you. When you voluntarily send us electronic mail, we will keep a record of this information so that we can respond to you. However, we do not disclose your information to other public bodies or individuals except as authorized by law. \n\n As you travel through the HPR Infra Projects website, our servers log information about your session. Information logged includes items such as your IP address, what browser you are using, the time and date you visited, how long your session lasted, and what pages you visited. We use this information from our server logs primarily to learn about our visitors as a group, to track visitors and readership on our website.\n\n HPR INFRA Group reserves the right to change this policy in any manner at any time without prior notice. If we make material changes to our privacy policy, the same will be updated on the website.",
@@ -39,7 +43,18 @@ const Footer = () => {
     crm: "The content on this website is the exclusive property of The HPR INFRA GROUP",
   };
 
-  const showModel = () => {
+  const showModel = (type) => {
+    if(type === "PP") {
+      setTermsAndConditionData({title: "Privacy Polacy", data:termsAndPolicyData.privacy_policy});
+      console.log(type, termsAndConditionData)
+    } else {
+      setTermsAndConditionData({title: "Terms And Conditions", data:termsAndPolicyData.terms_condition});
+      console.log(type, termsAndConditionData)
+    }
+
+    // if(type === "TC") {
+    //   setTermsAndConditionData(termsAndConditionData.terms_condition);
+    // }
     setModelShow(!modelShow);
   };
   const closeModel = () => {
@@ -77,7 +92,7 @@ const Footer = () => {
           `/footer/getTermsAndCondition/`,
         );
         if (response?.data?.terms?.length > 0) {
-          setTermsAndConditionData(response?.data?.terms[0])
+          setTermsAndPolicyData(response?.data?.terms[0])
         }
       } catch (error) {
         console.log("unable to save the terms and condition form");
@@ -106,7 +121,10 @@ const Footer = () => {
                   <Link to="/about">About Us</Link>
                 </li>
                 <li>
-                  <Link to="/gallery">Gallery</Link>
+                  <Link to="/services">Services</Link>
+                </li>
+                <li>
+                  <Link to="/careers">Careers</Link>
                 </li>
                 <li>
                   <Link to="/news">News & Updates</Link>
@@ -114,11 +132,11 @@ const Footer = () => {
                 <li>
                   <Link to="/contact">Contact Us</Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link to="" onClick={showModel}>
                     Privacy Policy
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
             <hr className="d-block d-md-none" />
@@ -227,14 +245,14 @@ const Footer = () => {
           Copyrights 2023 - All rights reserved
           {/* Terms & Conditions popup data = {termsAndConditionData.terms_condition}
           Privacy Policy  popup data = {termsAndConditionData.privacy_policy} */}
-          {console.log({
+          {/* {console.log({
             terms : termsAndConditionData.terms_condition,
             privacyPolacyObj : termsAndConditionData.privacy_policy
-          })}
+          })} */}
           <span className="d-inline-block mx-2">|</span>
-          <Link to="">Terms & Conditions</Link>{" "}
+          <Link to="" onClick={() => showModel("TC")}>Terms & Conditions</Link>{" "}
           <span className="d-inline-block mx-2">|</span>
-          <Link to="">News Updates</Link>
+          <Link to="" onClick={() => showModel("PP")}>Privacy Policy</Link>
           <span className="d-block mt-2 dby">
             designed by{" "}
             <a href="http://www.varadesigns.com">
@@ -248,8 +266,8 @@ const Footer = () => {
 
       {modelShow && (
         <Model
-          obj={""}
-          privacy={privacyPolacyObj}
+          obj={termsAndConditionData}
+          privacy={""}
           closeModel={closeModel}
           flag="footer"
         />
