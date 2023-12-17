@@ -168,7 +168,7 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
           
             <input
               type="text"
-              class="form-control py-2"
+              cssClass="form-control py-2"
               name="services_page_title"
               id=""
               value={serviceName}
@@ -197,44 +197,12 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
                 <Link onClick={publishService} className={`p-1 px-3 mx-2 rounded ${item.publish ? "bg-success text-white" : "bg-secondary text-light"}`}>
                     <small>{item.publish ? "Published" : "Un Publish"}</small>
                   </Link>
-                  <Link onClick={deleteService}> <i class="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i></Link>
+                  <Link onClick={deleteService}> <i className="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i></Link>
                   
                 </div>
               </li>
               ))}
             </ul>
-            {/* <Button
-              type="Delete"
-              cssClass="btn btn-lg btn-primary"
-              handlerChange={deleteService}
-              label="Delete Service"
-            /> */}
-              {/* <Button
-              type="Publish"
-              cssClass="btn btn-lg btn-warning"
-              handlerChange={publishService}
-              label="publish Service"
-            /> */}
-
-            {/* <hr className="my-5" /> */}
-            {/* <span className="text-success text-center fw-bold py-2 fs-5 d-block">
-              Successfully added the new service
-            </span> */}
-            {/* {selectError ? <Error>{selectError}</Error> : ""}
-            <select
-              class="form-select py-3"
-              aria-label="Default select example"
-              defaultValue={"standard"}
-              value={selectedServiceProject?.id}
-              onChange={selectOnChangeHandler}
-            >
-              <option selected>Open this select menu</option>
-              {serviceNameList.map((option, index) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select> */}
           </div>
         </div>
       </div>
@@ -242,4 +210,4 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
   );
 };
 
-export default AddService;
+export default AddService; 

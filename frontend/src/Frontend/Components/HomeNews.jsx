@@ -54,7 +54,7 @@ const HomeNews = ({ addNewsState }) => {
         const response = await axiosClientServiceApi.get(
           `/appNews/clientAppNews/`,
         );
-        if (response?.status == 200) {
+        if (response?.status === 200) {
           setNews(response.data.appNews);
         }
       } catch (error) {
@@ -164,14 +164,14 @@ const HomeNews = ({ addNewsState }) => {
                 title={item.news_title ? item.news_title : "Update news Title"}
                 cssClass="fs-5 fw-bold lh-sm mb-2"
               />
-              <p className="card-text mb-4 lineClamp">
+              <div className="card-text mb-4 lineClamp">
               {item.news_description? (
               <div
                   dangerouslySetInnerHTML={{ __html: item.news_description }}
-                />
+                ></div>
               ) : ('update new description')}
         
-              </p>
+              </div>
               <Link className="text-primary moreLink" onClick={() => handleModel(item)}>Read more</Link>
             </div>
           </div>
@@ -179,7 +179,7 @@ const HomeNews = ({ addNewsState }) => {
       )) : <div className="text-center">
       <p className="text-center fs-4">There are no news items found. Please create news items.</p>
       {isAdmin ? "" :
-      <Link to="/login" className="btn btn-primary fs-5" style={{width: "200px"}}>Login to Add News <i class="fa fa-plus mx-2" aria-hidden="true"></i> </Link>
+      <Link to="/login" className="btn btn-primary fs-5" style={{width: "200px"}}>Login to Add News <i className="fa fa-plus mx-2" aria-hidden="true"></i> </Link>
         }
       </div>}
 
@@ -208,7 +208,7 @@ const HomeNews = ({ addNewsState }) => {
           <div className="newsModalWrapper p-3 p-md-5 py-md-4 bg-white shadow-lg">
             <div className="d-flex justify-content-between align-items-center mb-3 border-bottom">
               <Title title={obj.news_title} cssClass="fw-bold fs-4" />
-              <Link onClick={closeModel} className="text-danger text-uppercase">Close <i class="fa fa-times fs-5" aria-hidden="true"></i></Link>
+              <Link onClick={closeModel} className="text-danger text-uppercase">Close <i className="fa fa-times fs-5" aria-hidden="true"></i></Link>
             </div>
             <div>
               <img className="w-100" src={getImagePath(obj.path)} alt={obj.news_title} />
@@ -217,7 +217,7 @@ const HomeNews = ({ addNewsState }) => {
             {obj.news_description? (
               <div
                   dangerouslySetInnerHTML={{ __html: obj.news_description }}
-                />
+                ></div>
               ) : ('update new description')}
              </div>
             </div>

@@ -51,7 +51,7 @@ const TopStrip = () => {
         {isAdmin ? (
           <>
         <span>
-        <i class="fa fa-user-o" aria-hidden="true"></i> &nbsp;
+        <i className="fa fa-user-o" aria-hidden="true"></i> &nbsp;
           {userName}
         </span>
       
