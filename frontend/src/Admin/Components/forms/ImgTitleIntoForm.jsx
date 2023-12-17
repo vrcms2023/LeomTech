@@ -17,6 +17,7 @@ const ImageInputsForm = ({
   extraFormParamas,
   showDescription = true,
   showExtraFormFields,
+  dimensions,
   imageLabel = "Add Image",
   imagePostURL = "banner/createBannerIntro/",
   imageGetURL = "banner/clientBannerIntro/",
@@ -115,6 +116,7 @@ const ImageInputsForm = ({
                 imageUpdateURL={imageUpdateURL}
                 extraFormParamas={extraFormParamas}
                 showExtraFormFields={showExtraFormFields}
+                dimensions={dimensions}
               />
             </div>
           </div>

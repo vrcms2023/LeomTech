@@ -124,3 +124,11 @@ export const getServiceFormFields = (id) => {
     },
   };
 };
+
+
+export const imageDimensionsJson = {
+  whoweare : {
+    width:'800px',
+    height:'800px'
+  }
+}
