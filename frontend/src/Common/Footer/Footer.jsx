@@ -227,10 +227,6 @@ const Footer = () => {
           Copyrights 2023 - All rights reserved
           {/* Terms & Conditions popup data = {termsAndConditionData.terms_condition}
           Privacy Policy  popup data = {termsAndConditionData.privacy_policy} */}
-          {console.log({
-            terms : termsAndConditionData.terms_condition,
-            privacyPolacyObj : termsAndConditionData.privacy_policy
-          })}
           <span className="d-inline-block mx-2">|</span>
           <Link to="">Terms & Conditions</Link>{" "}
           <span className="d-inline-block mx-2">|</span>

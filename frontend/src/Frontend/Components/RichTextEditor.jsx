@@ -15,6 +15,7 @@ const RichTextEditor = ({ RichEditorState, initialText }) => {
     let html = convertToHTML(editorState.getCurrentContent());
     RichEditorState(html);
   }, [editorState]);
+  
 
   return (
     <Editor

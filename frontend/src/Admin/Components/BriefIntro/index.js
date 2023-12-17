@@ -206,7 +206,7 @@ export const BriefIntroAdmin = ({ editHandler, componentType, pageType }) => {
               <Button
                 type="submit"
                 cssClass="btn btn-primary"
-                label={"Save"}
+                label={`${introFormValue?.id ? 'Update' : 'Save'}`}
                 handlerChange={saveandUpdateIntro}
               />
             </div>

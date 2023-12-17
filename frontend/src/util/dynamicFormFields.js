@@ -25,6 +25,33 @@ export const getFormDynamicFields = (pageType) => {
   };
 };
 
+export const getAboutUSSectionFields = (pageType) => {
+  return {
+    banner_title: {
+      label: "Title",
+      type: "text",
+      fieldName: "banner_title",
+    },
+    banner_subTitle: {
+      label: "Sub Title",
+      type: "text",
+      fieldName: "banner_subTitle",
+    },
+    banner_descripiton: {
+      label: "Description",
+      type: "richText",
+      fieldName: "banner_descripiton",
+    },
+    pageType: {
+      label: "News Title",
+      readonly: true,
+      type: "hidden",
+      value: pageType ? pageType : "",
+      fieldName: "pageType",
+    },
+  };
+};
+
 export const getCarouselFields = (category) => {
   return {
     carouse_title: {

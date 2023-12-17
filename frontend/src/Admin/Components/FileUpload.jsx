@@ -59,6 +59,8 @@ const FileUpload = ({
 }) => {
   const [files, setFiles] = useState([]);
   const [extTypes, setExtTypes] = useState([]);
+  const [pageType, setPageType]= useState('');
+  const listofAboutSection = ['aboutDetails','aboutVision','aboutMission']
   const [editorState, setEditorState] = useState("");
 
   const baseURL = getBaseURL();
@@ -72,12 +74,18 @@ const FileUpload = ({
     mode: "onChange",
   });
 
+
+  const content = {"entityMap":{},"blocks":[{"key":"637gr","text":"Initialized from content state.","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}]};
+
   // useEffect(() => {
   //   setEditimg(editImage?.id ? editImage : {});
   // }, [editImage]);
 
   useEffect(() => {
     reset(editImage?.id ? editImage : {});
+    if(editImage?.pageType){
+      setPageType(editImage.pageType.split('-')[1])
+    }
   }, [editImage]);
 
   useEffect(() => {
@@ -126,13 +134,16 @@ const FileUpload = ({
             formData.append("feature_description", editorState);
           } else if (key === "news_description") {
             formData.append("news_description", editorState);
+          } else if (key === "banner_descripiton" && listofAboutSection.indexOf(pageType) > -1) {
+            formData.append("banner_descripiton", editorState);
           } else {
             formData.append(key, data[key]);
           }
         }
       }
     }
-
+    
+    
     if (extraFormParamas.length > 0) {
       extraFormParamas.forEach((item) => {
         let key = Object.keys(item);
@@ -276,6 +287,7 @@ const FileUpload = ({
 
   return (
     <>
+
       <form className="" onSubmit={handleSubmit(uploadFile)}>
         <div className="mb-3 row">
           <label className="col-sm-3 col-form-label text-start text-md-end">
@@ -340,7 +352,7 @@ const FileUpload = ({
                   initialText={
                     editImage?.feature_description
                       ? editImage?.feature_description
-                      : editImage?.news_description ? editImage?.news_description : ''
+                      : editImage?.news_description ? editImage?.news_description : editImage.banner_descripiton ? editImage.banner_descripiton : ''
                   }
                 />
               );
@@ -360,6 +372,7 @@ const FileUpload = ({
 
           <div className="row">
             <div className="text-center ">
+              {!editImage?.id ? (
               <button
                 type="button"
                 className="btn btn-secondary mx-3"
@@ -367,8 +380,9 @@ const FileUpload = ({
               >
                 Clear
               </button>
+              ) : ''}
               <button type="submit" className="btn btn-primary">
-                Save
+              {editImage?.id ? 'Update': 'Save'}
               </button>
             </div>
           </div>

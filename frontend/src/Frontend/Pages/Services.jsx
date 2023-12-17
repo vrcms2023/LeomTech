@@ -234,7 +234,6 @@ const Services = () => {
                 }
                 cssClass="fs-5 fw-bold"
               />
-    
                 <div
                   dangerouslySetInnerHTML={{ __html: item.feature_description }}
                 />
