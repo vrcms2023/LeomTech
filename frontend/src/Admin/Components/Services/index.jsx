@@ -163,7 +163,7 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
           <div className="col-md-5 px-4 py-5 bg-secondary d-flex flex-column justify-content-center align-items-center addPageForm">
             <input
               type="text"
-              class="form-control py-2"
+              className="form-control py-2"
               name="services_page_title"
               id=""
               value={serviceName}
@@ -191,10 +191,10 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
                 </div>
                 <div className="w-50 text-end">
                   <Link onClick={()=>publishService(item)} className={`p-1 px-2 rounded ${item.publish ? "bg-success text-white" : "bg-secondary text-light"}`}>
-                    <small>{item.publish ? <i class="fa fa-thumbs-up fs-5" aria-hidden="true"></i> :  <i class="fa fa-thumbs-down" aria-hidden="true"></i>}</small>
+                    <small>{item.publish ? <i className="fa fa-thumbs-up fs-5" aria-hidden="true"></i> :  <i className="fa fa-thumbs-down" aria-hidden="true"></i>}</small>
                   </Link>
-                  <Link onClick={() =>EditService(item)}> <i class="fa fa-pencil text-danger fs-4 mx-3" aria-hidden="true"></i></Link>
-                  <Link onClick={() =>deleteService(item)}> <i class="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i></Link>
+                  <Link onClick={() =>EditService(item)}> <i className="fa fa-pencil text-danger fs-4 mx-3" aria-hidden="true"></i></Link>
+                  <Link onClick={() =>deleteService(item)}> <i className="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i></Link>
                 </div>
               </li>
               ))}
