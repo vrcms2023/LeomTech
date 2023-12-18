@@ -75,7 +75,6 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
   const getServiceList = async () => {
     try {
       const response = await axiosServiceApi.get(`/services/createService/`);
-      console.log(response, "Services")
       if (response?.status === 200) {
         setServiceList(response.data.services);
         if (onPageLoadAction.current) {

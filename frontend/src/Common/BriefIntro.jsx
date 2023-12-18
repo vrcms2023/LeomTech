@@ -15,7 +15,6 @@ const BriefIntroFrontend = ({ pageType, introState }) => {
         const response = await axiosClientServiceApi.get(
           `/carousel/clientHomeIntro/${pageType}/`,
         );
-        console.log(response, "BriefIntro")
         if (response?.status === 200) {
           setIntroValues(response.data.intro);
         }
