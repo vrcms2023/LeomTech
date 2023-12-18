@@ -77,11 +77,18 @@ body {
 .ABrief h3, .ABrief .title {border-color: ${({ theme }) =>
   theme.ABriefTitleBorderColor}; }
 
+  .ABrief h3::before, .ABrief .title::before {border-color: ${({ theme }) =>
+  theme.ABriefTitleBorderColor}; }
+
 .ABriefAbout {
     background-color:${({ theme }) => theme.ABriefAboutBg}; 
     color:${({ theme }) => theme.ABriefAboutTextColor};
 }
+
 .ABriefAbout h3, .ABriefAbout .title { border-color: ${({ theme }) =>
+  theme.ABriefAboutTitleBorderColor}; }
+
+.ABriefAbout h3::before, .ABriefAbout .title::before { border-color: ${({ theme }) =>
   theme.ABriefAboutTitleBorderColor}; }
 
 .testimonials {

@@ -88,7 +88,7 @@ const ABrief = ({ title, cssClass, linkClass, moreLink }) => {
           className="w-100 h-100 img-fluid"
         />
       </div>
-      <div className="col-md-7 p-5 d-flex justify-content-center align-items-start flex-column position-relative">
+      <div className="col-md-7 p-5 pt-0 d-flex justify-content-start align-items-start flex-column position-relative">
         {isAdmin ? (
           <EditIcon editHandler={() => editHandler("homecareers", true)} />
         ) : (
@@ -96,14 +96,14 @@ const ABrief = ({ title, cssClass, linkClass, moreLink }) => {
         )}
         <Title
           title={
-            bannerdata?.imageTitle ? bannerdata.imageTitle : "upload Title"
+            bannerdata?.banner_title ? bannerdata.banner_title : "upload Title"
           }
           cssClass={cssClass}
         />
         <div>
           <p className="lh-md">
-            {bannerdata?.imageDescription
-              ? bannerdata.imageDescription
+            {bannerdata?.banner_descripiton
+              ? bannerdata.banner_descripiton
               : "upload Description"}
           </p>
         </div>
