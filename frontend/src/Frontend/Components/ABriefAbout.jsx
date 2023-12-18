@@ -63,7 +63,7 @@ const ABriefAbout = ({ title, cssClass, linkClass, dimensions }) => {
           ""
         )}
         <div className="row h-100">
-          <div className="col-md-12 p-5 d-flex justify-content-center align-items-start flex-column">
+          <div className="col-md-12 p-5 pt-0 d-flex justify-content-center align-items-start flex-column">
             <Title
               title={
                 bannerData?.banner_title

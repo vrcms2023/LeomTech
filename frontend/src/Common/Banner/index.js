@@ -34,20 +34,19 @@ const Banner = ({ getBannerAPIURL, bannerState }) => {
       <div
         className={
           bannerdata.banner_descripiton && bannerdata.banner_title
-            ? "titleCaption d-flex jutify-content-center align-items-center flex-column-reverse"
+            ? "titleCaption d-flex align-items-end justify-content-end flex-column"
             : ""
         }
       >
-        <p>
-          {bannerdata.banner_descripiton
-            ? bannerdata.banner_descripiton
-            : "upload description"}
-        </p>
-        <Title
-          title={
-            bannerdata.banner_title ? bannerdata.banner_title : "upload title"
-          }
-        />
+        {bannerdata.banner_title === "" ?  "" :
+          <Title title={bannerdata.banner_title} cssClass="text-end text-white h3 shadow-lg" />
+        }
+        {bannerdata.banner_subTitle === "" ?  "" :
+        <Title title={bannerdata.banner_subTitle} cssClass="text-end text-muted h5 fw-normal shadow-lg" />
+        }
+        {bannerdata.banner_descripiton === "" ?  "" :
+          <small className="text-end text-muted d-block w-50">{bannerdata.banner_descripiton}</small>
+         }
       </div>
       <img
         src={bannerdata.path ? getImagePath(bannerdata.path) : ""}

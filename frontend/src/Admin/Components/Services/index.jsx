@@ -75,7 +75,6 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
   const getServiceList = async () => {
     try {
       const response = await axiosServiceApi.get(`/services/createService/`);
-      console.log(response, "Services")
       if (response?.status === 200) {
         setServiceList(response.data.services);
         if (onPageLoadAction.current) {
@@ -150,21 +149,20 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
   }
 
   return (
-    <div className="my-5">
+    <div className="my-5 addNewServicePage">
+    <Title title="Add New Service" cssClass="h5 text-center"/>
 
-<h3 className={`text-center `}>Add New Service </h3>
 
       {/* <h3 className={`text-center ${selectedServiceProject && selectedServiceProject.publish ? 'border border-success' : ''} `}>Add New Service </h3> */}
 
-      <div className={`container bg-light p-5 border shadow-lg`}>
+      <div className="container bg-light border shadow-lg">
       {/* <div className={`container bg-light p-5 border shadow-lg ${selectedServiceProject && selectedServiceProject.publish ? 'border border-success' : ''}`}> */}
         <div className="row">
           {error ? <Error>{error}</Error> : ""}
-          <div className="col-md-7 text-center">
-          
+          <div className="col-md-5 px-4 py-5 bg-secondary d-flex flex-column justify-content-center align-items-center addPageForm">
             <input
               type="text"
-              class="form-control py-2"
+              className="form-control py-2"
               name="services_page_title"
               id=""
               value={serviceName}
@@ -180,21 +178,22 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
             />
             </div>
 
-            <div className="col-md-5 mt-5 mt-md-0 servicePageLinks">
-              <Title title="Pages" cssClass="fs-6 fw-bold text-center border-bottom pb-2 mb-2 " />
+            <div className="col-md-7 px-4 py-3 mt-md-0 servicePageLinks">
+              {/* <Title title="Pages" cssClass="fs-6 fw-bold text-center border-bottom pb-2 mb-2 " /> */}
             <ul>
             {serviceList && serviceList.map((item) => (
               <li className={`d-flex justify-content-between p-2
               ${item.id === selectedServiceProject?.id ? 'border border-2 border-success rounded shadow-lg' : ''}`
               } key={item.id} >
-
-                <Link onClick={(event) => onClickSelectedService(item)} className="fw-bold text-dark">{item.services_page_title} </Link>
-                <div>
-                <Link onClick={()=>publishService(item)} className={`p-1 px-3 rounded ${item.publish ? "bg-success text-white" : "bg-secondary text-light"}`}>
-                    <small>{item.publish ? "Published" : "Un Publish"}</small>
+                <div className="w-50">
+                  <Link onClick={(event) => onClickSelectedService(item)} className="fw-bold text-dark pageTitle">{item.services_page_title} </Link>
+                </div>
+                <div className="w-50 text-end">
+                  <Link onClick={()=>publishService(item)} className={`p-1 px-2 rounded ${item.publish ? "bg-success text-white" : "bg-secondary text-light"}`}>
+                    <small>{item.publish ? <i className="fa fa-thumbs-up fs-5" aria-hidden="true"></i> :  <i className="fa fa-thumbs-down" aria-hidden="true"></i>}</small>
                   </Link>
-                  <Link onClick={() =>EditService(item)}> <i class="fa fa-pencil text-danger fs-4 mx-3" aria-hidden="true"></i></Link>
-                  <Link onClick={() =>deleteService(item)}> <i class="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i></Link>
+                  <Link onClick={() =>EditService(item)}> <i className="fa fa-pencil text-danger fs-4 mx-3" aria-hidden="true"></i></Link>
+                  <Link onClick={() =>deleteService(item)}> <i className="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i></Link>
                 </div>
               </li>
               ))}

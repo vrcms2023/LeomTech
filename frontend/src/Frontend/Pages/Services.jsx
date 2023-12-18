@@ -163,7 +163,7 @@ const Services = () => {
           <>
             <button
               type="submit"
-              class="btn btn-primary"
+              className="btn btn-primary"
               onClick={() => editHandler("addSection", true)}
               style={{ position: "absolute", right: "60px" }}
             >
