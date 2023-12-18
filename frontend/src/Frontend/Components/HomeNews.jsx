@@ -1,33 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { confirmAlert } from "react-confirm-alert";
+
+// Components
 import Title from "../../Common/Title";
-
-
-
-// Styles
-import "./HomeNews.css";
-
+import AddEditAdminNews from "../../Admin/Components/News/index";
 import EditIcon from "../../Common/AdminEditIcon";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
+import DeleteDialog from "../../Common/DeleteDialog";
 import ModelBg from "../../Common/ModelBg";
 import { getBaseURL } from "../../util/ulrUtil";
+import { getImagePath } from "../../util/commonUtil";
+import { axiosClientServiceApi,  axiosFileUploadServiceApi } from "../../util/axiosUtil";
 import {
   getFormDynamicFields,
   getCarouselFields,
   getNewslFields,
 } from "../../util/dynamicFormFields";
-import AddEditAdminNews from "../../Admin/Components/News/index";
-import {
-  axiosClientServiceApi,
-  axiosFileUploadServiceApi,
-} from "../../util/axiosUtil";
-import { confirmAlert } from "react-confirm-alert";
-import DeleteDialog from "../../Common/DeleteDialog";
-import { getImagePath } from "../../util/commonUtil";
+
+// Styles
+import "./HomeNews.css";
 
 const HomeNews = ({ addNewsState }) => {
   const location = useLocation()
-  
   const baseURL = getBaseURL();
   const editComponentObj = {
     news: false,
