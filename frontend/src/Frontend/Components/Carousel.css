@@ -18,8 +18,9 @@
 }
 
 .carousel-caption {
-  position: absolute;
   z-index: 999;
+  text-align: left !important;
+  top: 40%;
 }
 
 .carousel-caption h1 {

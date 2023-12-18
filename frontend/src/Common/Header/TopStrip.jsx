@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { getCookie, removeAllCookies } from "../../util/cookieUtil";
-import { logout } from "../../features/auth/authSlice";
-import { useAdminLoginStatus } from "../customhook/useAdminLoginStatus";
 
 // Components
 import Title from "../Title";
+import { getCookie, removeAllCookies } from "../../util/cookieUtil";
+import { logout } from "../../features/auth/authSlice";
+import { useAdminLoginStatus } from "../customhook/useAdminLoginStatus";
 
 // Stylesheet
 import "./TopStrip.css";
@@ -51,7 +51,7 @@ const TopStrip = () => {
         {isAdmin ? (
           <>
             <span>
-              <i class="fa fa-user-o" aria-hidden="true"></i> &nbsp;
+              <i className="fa fa-user-o" aria-hidden="true"></i> &nbsp;
               {userName}
             </span>
 

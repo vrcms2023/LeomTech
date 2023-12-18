@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
+
+// Components
 import { axiosClientServiceApi } from "../../util/axiosUtil";
 import { getBaseURL } from "../../util/ulrUtil";
+import { getImagePath } from "../../util/commonUtil";
 
 // Styles
-
 import "./Carousel.css";
-import { getImagePath } from "../../util/commonUtil";
 
 const Carousel = ({ carouselState }) => {
   const [carousel, setCarousel] = useState([]);
@@ -49,10 +50,10 @@ const Carousel = ({ carouselState }) => {
             />
             <div className="carousel-caption d-none d-md-block">
               <h1 className="fw-bold">
-                {item.carouseTitle ? item.carouseTitle : ""}{" "}
+                {item.carouse_title ? item.carouse_title : ""}{" "}
               </h1>
               <p className="fw-normal fs-5">
-                {item.carouseDescription ? item.carouseDescription : ""}{" "}
+                {item.carouse_description ? item.carouse_description : ""}{" "}
               </p>
             </div>
           </div>
