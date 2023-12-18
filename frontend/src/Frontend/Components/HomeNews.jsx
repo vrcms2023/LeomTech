@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useLocation } from "react-router-dom";
 import Title from "../../Common/Title";
+
+
 
 // Styles
 import "./HomeNews.css";
@@ -25,6 +26,8 @@ import DeleteDialog from "../../Common/DeleteDialog";
 import { getImagePath } from "../../util/commonUtil";
 
 const HomeNews = ({ addNewsState }) => {
+  const location = useLocation()
+  
   const baseURL = getBaseURL();
   const editComponentObj = {
     news: false,
@@ -115,7 +118,6 @@ const HomeNews = ({ addNewsState }) => {
               {isAdmin ? (
                 <div className="d-flex justify-content-end gap-2">
                   {/* <EditIcon editHandler={() => editHandler("news", true, item)} /> */}
-
                   <Link
                     onClick={() => editHandler("news", true, item)}
                     className=" p-2"
@@ -140,21 +142,6 @@ const HomeNews = ({ addNewsState }) => {
                 ""
               )}
 
-              {/* {isAdmin ? (
-              <div className="text-end deleteNews">
-                <Link
-                  onClick={(event) => DeleteNews(item.id, item.news_title)}
-                  className="bg-danger p-2 rounded"
-                >
-                  <i
-                    className="fa fa-trash-o fs-5 text-white"
-                    aria-hidden="true"
-                  ></i>
-                </Link>
-              </div>
-            ) : (
-              ""
-            )} */}
               <img
                 src={getImagePath(item.path)}
                 className="img-fluid"
@@ -190,20 +177,20 @@ const HomeNews = ({ addNewsState }) => {
         ))
       ) : (
         <div className="text-center">
-          <p className="text-center fs-4">
-            There are no news items found. Please create news items.
-          </p>
+          
           {isAdmin ? (
-            ""
-          ) : (
-            <Link
-              to="/login"
-              className="btn btn-primary fs-5"
-              style={{ width: "200px" }}
+            <>
+            <p>Pleaes add news items</p>
+            {location.pathname === "/news" ? "" : <Link
+              to="/news"
+              className="btn btn-primary fs-6"
             >
-              Login to Add News{" "}
-              <i className="fa fa-plus mx-2" aria-hidden="true"></i>{" "}
-            </Link>
+              Go To News
+            </Link> }
+            
+            </>
+          ) : (
+            <p className="text-center fs-6">Currently there are no news items found.</p>
           )}
         </div>
       )}
