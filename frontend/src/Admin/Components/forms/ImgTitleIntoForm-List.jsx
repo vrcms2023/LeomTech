@@ -29,6 +29,7 @@ const AdminBanner = ({
   descriptionTitle = "Description",
   showDescription = { showDescription },
   showExtraFormFields = { showExtraFormFields },
+  dimensions
 }) => {
   const projectID = "a62d7759-a e6b-4e49-a129-1ee208c6789d";
   const [userName, setUserName] = useState("");
@@ -124,6 +125,7 @@ const AdminBanner = ({
               imageUpdateURL={imageUpdateURL}
               extraFormParamas={extraFormParamas}
               showExtraFormFields={showExtraFormFields}
+              dimensions={dimensions}
             />
           </div>
           <div className="col-md-6 mt-3 mt-md-0 ">

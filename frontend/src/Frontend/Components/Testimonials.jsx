@@ -14,7 +14,7 @@ import "./Testimonials.css";
 import { getBaseURL } from "../../util/ulrUtil";
 import { getImagePath } from "../../util/commonUtil";
 
-const Testimonials = ({ testimonis }) => {
+const Testimonials = ({ testimonis, dimensions }) => {
   const editComponentObj = {
     logo: false,
     menu: false,

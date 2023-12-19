@@ -2,30 +2,27 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 // Components
-import BriefIntroFrontend from "../../Common/BriefIntro";
 import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
 import AdminBriefIntro from "../../Admin/Components/BriefIntro/index";
 import EditIcon from "../../Common/AdminEditIcon";
 import ModelBg from "../../Common/ModelBg";
 import Banner from "../../Common/Banner";
+import Title from "../../Common/Title";
+import BriefIntroFrontend from "../../Common/BriefIntro";
+import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
+import AddService from "../../Admin/Components/Services";
+import AddEditAdminNews from "../../Admin/Components/News";
 import { removeActiveClass } from "../../util/ulrUtil";
 import {
   getFormDynamicFields,
   getServiceFormFields,
+  imageDimensionsJson
 } from "../../util/dynamicFormFields";
-import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
-import Title from "../../Common/Title";
-
-// Images Imports
-import ServicesBanner from "../../Images/Banner_8.jpg";
-import insured from "../../Images/insrued.png";
-
-import "./services.css";
-import { Link, useRouteError } from "react-router-dom";
-import AddService from "../../Admin/Components/Services";
-import AddEditAdminNews from "../../Admin/Components/News";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
 import { getImagePath } from "../../util/commonUtil";
+
+// CSS Imports
+import "./services.css";
 
 const Services = () => {
   const editComponentObj = {
@@ -120,6 +117,7 @@ const Services = () => {
             imageLabel="Banner Image"
             showDescription={false}
             showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
+            dimensions={imageDimensionsJson("banner")}
           />
         </div>
       ) : (
@@ -194,6 +192,7 @@ const Services = () => {
               showExtraFormFields={getServiceFormFields(
                 selectedServiceProject ? selectedServiceProject.id : "",
               )}
+              dimensions={imageDimensionsJson("addService")}
             />
           </div>
         ) : (

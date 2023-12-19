@@ -13,6 +13,7 @@ import {
   getFormDynamicFields,
   getCarouselFields,
   getNewslFields,
+  imageDimensionsJson
 } from "../../util/dynamicFormFields";
 import ModelBg from "../../Common/ModelBg";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
@@ -90,6 +91,7 @@ const NewsAndUpdates = () => {
             imageLabel="Banner Image"
             showDescription={false}
             showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
+            dimensions={imageDimensionsJson("banner")}
           />
         </div>
       ) : (
@@ -128,6 +130,7 @@ const NewsAndUpdates = () => {
                 imageLabel="Add News Image"
                 showDescription={false}
                 showExtraFormFields={getNewslFields("addNews")}
+                dimensions={imageDimensionsJson("addBews")}
               />
             </div>
           ) : (

@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+// Components
 import Title from "../../Common/Title";
 import BriefIntroFrontend from "../../Common/BriefIntro";
 import Alert from "../../Common/Alert";
-
-import AdminBriefIntro from "../../Admin/Components/BriefIntro/index";
-import AddressTextArea from "../../Admin/Components/forms/FooterInputs";
+import Banner from "../../Common/Banner";
 import EditIcon from "../../Common/AdminEditIcon";
 import ModelBg from "../../Common/ModelBg";
+import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
+import AdminBriefIntro from "../../Admin/Components/BriefIntro/index";
+import AddressTextArea from "../../Admin/Components/forms/FooterInputs";
 import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
 import GoogleMap from "../../Admin/Components/forms/GoogleMap";
-import Banner from "../../Common/Banner";
 
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
 import { getCookie, removeCookie, setCookie } from "../../util/cookieUtil";
 import { removeActiveClass } from "../../util/ulrUtil";
-import { getFormDynamicFields } from "../../util/dynamicFormFields";
-import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
+import { getFormDynamicFields, imageDimensionsJson } from "../../util/dynamicFormFields";
+
 
 // Styles
 import "./Contact.css";
@@ -185,6 +187,7 @@ const Contact = () => {
             imageLabel="Banner Image"
             showDescription={false}
             showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
+            dimensions={imageDimensionsJson("banner")}
           />
         </div>
       ) : (

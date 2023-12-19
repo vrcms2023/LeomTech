@@ -19,7 +19,7 @@ import { axiosClientServiceApi } from "../../util/axiosUtil";
 import { getImagePath } from "../../util/commonUtil";
 import { getFormDynamicFields } from "../../util/dynamicFormFields";
 
-const ABrief = ({ title, cssClass, linkClass, moreLink }) => {
+const ABrief = ({ title, cssClass, linkClass, moreLink, dimensions }) => {
   const editComponentObj = {
     homecareers: false,
   };
@@ -122,6 +122,7 @@ const ABrief = ({ title, cssClass, linkClass, moreLink }) => {
             imageLabel="Banner Image"
             showDescription={false}
             showExtraFormFields={getFormDynamicFields(pageType)}
+            dimensions={dimensions}
           />
 
           {/* <NewsForm editHandler={editHandler} componentType="careers" /> */}

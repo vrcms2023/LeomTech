@@ -98,6 +98,7 @@ const Home = () => {
               imageLabel="Add Carousel Image"
               showDescription={false}
               showExtraFormFields={getCarouselFields("carousel")}
+              dimensions={imageDimensionsJson("carousel")}
             />
           </div>
         ) : (
@@ -139,7 +140,7 @@ const Home = () => {
             title="Who We Are"
             cssClass="mb-2 fw-bold title mb-4"
             linkClass="btn btn-primary mt-5"
-            dimensions={imageDimensionsJson.whoweare}
+            dimensions={imageDimensionsJson("whoweare")}
           />
         </div>
 
@@ -163,6 +164,7 @@ const Home = () => {
               cssClass="mb-2 fw-bold title mb-4"
               linkClass="btn btn-primary mt-5"
               moreLink="/careers"
+              dimensions={imageDimensionsJson("homeCareers")}
             />
           </div>
 
@@ -196,6 +198,7 @@ const Home = () => {
             descriptionTitle="Testimonial Writeup "
             showDescription={false}
             showExtraFormFields={getTestimonialsFields("testmonial")}
+            dimensions={imageDimensionsJson("testimonial")}
           />
         </div>
       ) : (

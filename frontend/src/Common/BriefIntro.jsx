@@ -28,8 +28,7 @@ const BriefIntroFrontend = ({ pageType, introState }) => {
   }, [introState]);
 
   return (
-    <div className="container-fluid">
-      <div className="row">
+    <div className="row">
         <div className=" py-4 mx-0 briefIntro">
           <div className="col-md-10 offset-md-1 px-4 py-2 py-md-4 ">
             {introValue.intro_title === "" ? "" : 
@@ -60,7 +59,6 @@ const BriefIntroFrontend = ({ pageType, introState }) => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
