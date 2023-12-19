@@ -27,7 +27,7 @@
 .carousel-caption h1 {
   letter-spacing: 0.1rem;
   font-size: 3rem;
-}
+} 
 
 @media (max-width: 768px) {
   .banner {
