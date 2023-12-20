@@ -111,10 +111,12 @@ const Home = () => {
         ) : (
           ""
         )}
-        <BriefIntroFrontend
-          introState={componentEdit.briefIntro}
-          pageType="Home"
-        />
+        <div className="row">
+          <BriefIntroFrontend
+            introState={componentEdit.briefIntro}
+            pageType="Home"
+          />
+        </div>
 
         {componentEdit.briefIntro ? (
           <div className="adminEditTestmonial">
@@ -175,11 +177,15 @@ const Home = () => {
               ""
             )}
             {/* End Of Edit Testimonials */}
-            {testimonis.length > 0 ? (
+            {testimonis.length < 1 ? (testimonis.length, "Current No Testimonials Found") :
+            testimonis.length == 1 ? <h4>Please add 2 or more testimonials.</h4> :
+             testimonis.length > 1 ? <Testimonials testimonis={testimonis} /> :  "" }
+
+            {/* {testimonis.length > 0 ? (
               <Testimonials testimonis={testimonis} />
             ) : (
               ""
-            )}
+            )} */}
           </div>
         </div>
       </div>

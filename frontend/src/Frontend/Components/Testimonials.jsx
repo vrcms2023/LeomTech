@@ -14,7 +14,7 @@ import "./Testimonials.css";
 import { getBaseURL } from "../../util/ulrUtil";
 import { getImagePath } from "../../util/commonUtil";
 
-const Testimonials = ({ testimonis, dimensions }) => {
+const Testimonials = ({ testimonis }) => {
   const editComponentObj = {
     logo: false,
     menu: false,
@@ -56,7 +56,8 @@ const Testimonials = ({ testimonis, dimensions }) => {
   }, [index]);
 
   const ListOfTestimonials = testimonis?.map((item, indexPeople) => {
-    const { imageUrl, title, description } = item;
+    const { testimonial_description, testimonial_sub_title, testimonial_title, path
+    } = item;
     let position = "nextSlide";
     if (indexPeople === index) {
       position = "activeSlide";
@@ -70,8 +71,8 @@ const Testimonials = ({ testimonis, dimensions }) => {
     return (
       <div className={`${position} article position-absolute `} key={item.id}>
         <Title
-          title={item.testimonialTitle}
-          cssClass="mb-2 fw-normal fs-2 text-uppercase text-white"
+          title={item.testimonial_title}
+          cssClass="mb-2 fw-normal px-3 fs-2 text-uppercase text-white"
         />
 
         {!item.path ? (
@@ -79,19 +80,21 @@ const Testimonials = ({ testimonis, dimensions }) => {
         ) : (
           <img
             src={getImagePath(item.path)}
-            className="rounded-circle my-4 testimonialImg"
+            className="rounded-circle my-4 testimonialImg shadow-lg border border-3"
             alt="User"
           />
         )}
-        <p className="mt-3 px-0 px-md-5 text-white">{item.imageDescription}</p>
-        <div className="text-center">
+        <p className="mt-3 mb-5 px-3 px-md-5 text-white fs-6">{item.testimonial_description}</p>
+        <div className="d-flex justify-content-center gap-5">
           <Link to="" onClick={() => setIndex(index + 1)}>
             {" "}
-            <img src={leftArrow} alt="Previous" width="42" height="42" />
+            {/* <img src={leftArrow} alt="Previous" width="42" height="42" /> */}
+            <i class="fa fa-chevron-left fs-1" aria-hidden="true"></i>
           </Link>
           <Link to="" onClick={() => setIndex(index - 1)}>
             {" "}
-            <img src={rightArrow} alt="Next" width="42" height="42" />
+            {/* <img src={rightArrow} alt="Next" width="42" height="42" /> */}
+            <i class="fa fa-chevron-right fs-1" aria-hidden="true"></i>
           </Link>
         </div>
       </div>
@@ -100,11 +103,7 @@ const Testimonials = ({ testimonis, dimensions }) => {
 
   return (
     <>
-      {ListOfTestimonials.length > 1 ? (
-        ListOfTestimonials
-      ) : (
-        <h4>Please add 2 or more testimonials to show.</h4>
-      )}
+      {ListOfTestimonials}
     </>
   );
 };

@@ -123,6 +123,7 @@ const About = () => {
               showExtraFormFields={getAboutUSSectionFields(
                 `${pageType}-aboutDetails`,
               )}
+              dimensions={imageDimensionsJson("whoweare")}
             />
           </div>
         ) : (
@@ -151,6 +152,7 @@ const About = () => {
               showExtraFormFields={getAboutUSSectionFields(
                 `${pageType}-aboutVision`,
               )}
+              dimensions={imageDimensionsJson("whoweare")}
             />
           </div>
         ) : (
@@ -178,6 +180,7 @@ const About = () => {
               showExtraFormFields={getAboutUSSectionFields(
                 `${pageType}-aboutMission`,
               )}
+              dimensions={imageDimensionsJson("whoweare")}
             />
           </div>
         ) : (
