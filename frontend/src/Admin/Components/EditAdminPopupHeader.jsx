@@ -15,10 +15,11 @@ const EditAdminPopupHeader = ({ closeHandler, title, type }) => {
       </h6>
       <Link
         to="#"
-        className="p-3 text-decoration-none text-black close"
+        className="p-3 text-decoration-none text-black close d-flex gap-2"
         onClick={closeHandler}
       >
-        Close <span className="text-danger fw-bold">X</span>
+        <sapn className="d-none d-md-block">Close</sapn>
+        <span className="text-danger fw-bold">X</span>
       </Link>
     </div>
   );

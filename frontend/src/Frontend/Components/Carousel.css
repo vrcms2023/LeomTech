@@ -12,6 +12,11 @@
   top: 0;
 } */
 
+.noImg {
+  min-height: 300px;
+  
+}
+
 .carousel-item img {
   height: 85vh;
   object-fit: cover;
