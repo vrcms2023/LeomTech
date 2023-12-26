@@ -76,8 +76,8 @@ const AdminTermsAndPrivacy = ({
       />
 
       <div className="container">
-        <div className="row p-4">
-          <div className="col-md-8 offset-md-2">
+        <div className="row">
+          <div className="col-md-6 bg-light">
             <RichTextInputEditor
               label={"Terms And Conditions"}
               editorSetState={setTermEditorState}
@@ -87,6 +87,9 @@ const AdminTermsAndPrivacy = ({
                   : ""
               }
             />
+            </div>
+
+            <div className="col-md-6 bg-light  border-start border-3">
             <RichTextInputEditor
               label={"Privacy Policy"}
               editorSetState={setPolicyEditorState}
@@ -96,8 +99,9 @@ const AdminTermsAndPrivacy = ({
                   : ""
               }
             />
+            </div>
 
-            <div className="text-center mt-4">
+            <div className="text-center my-3">
               {/* <button onClick={resetForm} type="reset" className="btn btn-secondary mx-3">
                   Clear
                 </button> */}
@@ -111,7 +115,6 @@ const AdminTermsAndPrivacy = ({
             </div>
           </div>
         </div>
-      </div>
     </>
   );
 };
