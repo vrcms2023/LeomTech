@@ -21,6 +21,11 @@
   color: #333 !important;
 }
 
+.ABriefImg img {
+  object-fit: cover;
+  -o-object-position: center;
+}
+
 @media (max-width: 756px) {
   .ABriefImg img {
     display: none;
