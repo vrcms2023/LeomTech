@@ -35,6 +35,7 @@ const Footer = () => {
   const [termsAndConditionData, setTermsAndConditionData] = useState({});
 
   const showModel = (type) => {
+    console.log(termsAndConditionData)
     if (type === "PP") {
       setTermsAndConditionData({
         title: "Privacy Polacy",
@@ -58,6 +59,7 @@ const Footer = () => {
         const response = await axiosClientServiceApi.get(
           `footer/getClientAddress/`,
         );
+        
         if (response?.data?.address?.length > 0) {
           setFooterValues(response.data.address[0]);
         }
@@ -82,8 +84,9 @@ const Footer = () => {
         const response = await axiosClientServiceApi.get(
           `/footer/getTermsAndCondition/`,
         );
+        console.log(response, "response")
         if (response?.data?.terms?.length > 0) {
-          setTermsAndConditionData(response?.data?.terms[0]);
+          setTermsAndPolicyData(response?.data?.terms[0]);
         }
       } catch (error) {
         console.log("unable to save the terms and condition form");
@@ -277,7 +280,7 @@ const Footer = () => {
       {componentEdit.termsPolacy ? (
         <div className="adminEditTestmonial">
           <AdminTermsPolicy
-            termsAndConditionData={termsAndConditionData}
+            termsAndConditionData={termsAndPolicyData}
             editHandler={editHandler}
             componentType="termsPolacy"
           />

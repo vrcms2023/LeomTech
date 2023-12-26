@@ -4,18 +4,15 @@ export const GlobalStyles = createGlobalStyle`
 
 @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;500&family=Poppins:wght@100;200;300;400;600&family=Roboto:wght@300;500&display=swap');
 
-
-
 * {
     margin:0;
     padding: 0;
 }
 
-
 ul, li {
     margin: 0;
     padding:0;
-    list-style: none;
+    // list-style: none;
 }
 
 a {text-decoration: none}

@@ -125,6 +125,7 @@ const Contact = () => {
         const response = await axiosClientServiceApi.get(
           `footer/getClientAddress/`,
         );
+        
         if (response?.data?.address?.length > 0) {
           setFooterValues(response.data.address[0]);
         }
@@ -227,11 +228,11 @@ const Contact = () => {
               ""
             )}
             <div className="address`">
-              <Title title="Address" cssClass="" />
-              <Title
+              <Title title="Address" cssClass="fs-3" />
+              {/* <Title
                 title="We’d Love to Hear From You, Get In Touch With Us!"
                 cssClass="fs-6 mb-4"
-              />
+              /> */}
               <p className="mb-5">
                 {footerValues.address_dr_no}, {footerValues.location} <br />
                 {footerValues.street} <br />
