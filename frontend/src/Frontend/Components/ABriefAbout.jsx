@@ -63,17 +63,24 @@ const ABriefAbout = ({ title, cssClass, linkClass, dimensions }) => {
           ""
         )}
         <div className="row h-100">
-          <div className="col-md-12 p-5 pt-0 d-flex justify-content-center align-items-start flex-column">
-            <Title
+          <div className="col-md-12 p-5 pt-0 p-lg-5 pt-lg-0 d-flex justify-content-start align-items-start flex-column">
+            
+          {bannerData ? 
+          <Title title={bannerData.banner_title} cssClass={cssClass} />
+          : 
+          ""
+            }
+
+            {/* <Title
               title={
                 bannerData?.banner_title
                   ? bannerData?.banner_title
                   : "Update the title"
               }
               cssClass={cssClass}
-            />
+            /> */}
             <div>
-              <p className="lh-md">
+              <p className="lh-md mt-4">
                 {bannerData?.banner_descripiton
                   ? bannerData.banner_descripiton
                   : "Update description"}
@@ -88,7 +95,7 @@ const ABriefAbout = ({ title, cssClass, linkClass, dimensions }) => {
         </div>
       </div>
       <div className="col-md-5 p-0 text-center">
-        <img src={getImagePath(bannerData?.path)} alt="" className="w-100" />
+        <img src={getImagePath(bannerData?.path)} alt="" className="" />
       </div>
 
       {componentEdit.whoweare ? (

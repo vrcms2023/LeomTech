@@ -98,6 +98,7 @@ const Home = () => {
               imageLabel="Add Carousel Image"
               showDescription={false}
               showExtraFormFields={getCarouselFields("carousel")}
+              dimensions={imageDimensionsJson("carousel")}
             />
           </div>
         ) : (
@@ -110,10 +111,12 @@ const Home = () => {
         ) : (
           ""
         )}
-        <BriefIntroFrontend
-          introState={componentEdit.briefIntro}
-          pageType="Home"
-        />
+        <div className="row">
+          <BriefIntroFrontend
+            introState={componentEdit.briefIntro}
+            pageType="Home"
+          />
+        </div>
 
         {componentEdit.briefIntro ? (
           <div className="adminEditTestmonial">
@@ -139,7 +142,7 @@ const Home = () => {
             title="Who We Are"
             cssClass="mb-2 fw-bold title mb-4"
             linkClass="btn btn-primary mt-5"
-            dimensions={imageDimensionsJson.whoweare}
+            dimensions={imageDimensionsJson("whoweare")}
           />
         </div>
 
@@ -163,6 +166,7 @@ const Home = () => {
               cssClass="mb-2 fw-bold title mb-4"
               linkClass="btn btn-primary mt-5"
               moreLink="/careers"
+              dimensions={imageDimensionsJson("homeCareers")}
             />
           </div>
 
@@ -173,11 +177,15 @@ const Home = () => {
               ""
             )}
             {/* End Of Edit Testimonials */}
-            {testimonis.length > 0 ? (
+            {testimonis.length < 1 ? (testimonis.length, "Current No Testimonials Found") :
+            testimonis.length == 1 ? <h4>Please add 2 or more testimonials.</h4> :
+             testimonis.length > 1 ? <Testimonials testimonis={testimonis} /> :  "" }
+
+            {/* {testimonis.length > 0 ? (
               <Testimonials testimonis={testimonis} />
             ) : (
               ""
-            )}
+            )} */}
           </div>
         </div>
       </div>
@@ -196,6 +204,7 @@ const Home = () => {
             descriptionTitle="Testimonial Writeup "
             showDescription={false}
             showExtraFormFields={getTestimonialsFields("testmonial")}
+            dimensions={imageDimensionsJson("testimonial")}
           />
         </div>
       ) : (

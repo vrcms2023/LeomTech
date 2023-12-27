@@ -29,7 +29,10 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
 
 
   const onClickSelectedService = (item) =>{
+    console.log(item)
     setSelectedServiceProject(item)
+    window.scroll(0, 700)
+    // document.getElementById('servicesPage').scrollTo(0,100);
   }
 
   useEffect(() => {
@@ -55,6 +58,8 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
         data['id'] = editServiceObject.id;
         data['updated_by'] = userName
         response = await axiosServiceApi.put(`/services/updateService/${editServiceObject.id}/`, data);
+        setServiceName("")
+        setEditServiceObject({})
       }else {
         response = await axiosServiceApi.post(`/services/createService/`, data);
       }
@@ -148,6 +153,11 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
     setEditServiceObject(item)
   }
 
+  const CancelServiceNameChange = () => {
+    setServiceName("")
+    setEditServiceObject({})
+  }
+
   return (
     <div className="my-5 addNewServicePage">
     <Title title="Add New Service" cssClass="h5 text-center"/>
@@ -170,12 +180,21 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
               onChange={onChangeHandler}
             />
 
-            <Button
-              type="submit"
-              cssClass="btn btn-lg btn-primary mt-3"
-              handlerChange={submitHandler}
-              label={editServiceObject?.id ? "Update Service Name" :"Save"}
-            />
+              <div>
+                <Button
+                  type="submit"
+                  cssClass="btn btn-primary mt-3"
+                  handlerChange={submitHandler}
+                  label={editServiceObject?.id ? "Change Name" :"Save"}
+                />
+                {editServiceObject?.id ? 
+                <Button
+                  cssClass="btn btn-secondary mt-3 ms-2"
+                  handlerChange={CancelServiceNameChange}
+                  label="Cancel"
+                />
+                : "" }
+              </div>
             </div>
 
             <div className="col-md-7 px-4 py-3 mt-md-0 servicePageLinks">
@@ -189,10 +208,10 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
                   <Link onClick={(event) => onClickSelectedService(item)} className="fw-bold text-dark pageTitle">{item.services_page_title} </Link>
                 </div>
                 <div className="w-50 text-end">
-                  <Link onClick={()=>publishService(item)} className={`p-1 px-2 rounded ${item.publish ? "bg-success text-white" : "bg-secondary text-light"}`}>
+                  <Link onClick={()=>publishService(item)} className={`p-1 px-2 rounded ${item.publish ? "bg-success text-white" : "bg-secondary text-light"}`} title={item.publish ? "Page Published" : "Page Not Published" }>
                     <small>{item.publish ? <i className="fa fa-thumbs-up fs-5" aria-hidden="true"></i> :  <i className="fa fa-thumbs-down" aria-hidden="true"></i>}</small>
                   </Link>
-                  <Link onClick={() =>EditService(item)}> <i className="fa fa-pencil text-danger fs-4 mx-3" aria-hidden="true"></i></Link>
+                  <Link onClick={() =>EditService(item)}> <i className="fa fa-pencil text-warning fs-4 mx-3" aria-hidden="true"></i></Link>
                   <Link onClick={() =>deleteService(item)}> <i className="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i></Link>
                 </div>
               </li>

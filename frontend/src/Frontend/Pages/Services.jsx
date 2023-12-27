@@ -1,31 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 // Components
-import BriefIntroFrontend from "../../Common/BriefIntro";
 import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
 import AdminBriefIntro from "../../Admin/Components/BriefIntro/index";
 import EditIcon from "../../Common/AdminEditIcon";
 import ModelBg from "../../Common/ModelBg";
 import Banner from "../../Common/Banner";
+import Title from "../../Common/Title";
+import BriefIntroFrontend from "../../Common/BriefIntro";
+import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
+import AddService from "../../Admin/Components/Services";
+import AddEditAdminNews from "../../Admin/Components/News";
 import { removeActiveClass } from "../../util/ulrUtil";
 import {
   getFormDynamicFields,
   getServiceFormFields,
+  imageDimensionsJson
 } from "../../util/dynamicFormFields";
-import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
-import Title from "../../Common/Title";
-
-// Images Imports
-import ServicesBanner from "../../Images/Banner_8.jpg";
-import insured from "../../Images/insrued.png";
-
-import "./services.css";
-import { Link, useRouteError } from "react-router-dom";
-import AddService from "../../Admin/Components/Services";
-import AddEditAdminNews from "../../Admin/Components/News";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
 import { getImagePath } from "../../util/commonUtil";
+
+// CSS Imports
+import "./services.css";
+import { toast } from "react-toastify";
+import { confirmAlert } from "react-confirm-alert";
+import DeleteDialog from "../../Common/DeleteDialog";
 
 const Services = () => {
   const editComponentObj = {
@@ -47,8 +47,10 @@ const Services = () => {
   const [editCarousel, setEditCarousel] = useState({});
   let { uid } = useParams();
 
+  
+
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
@@ -79,6 +81,36 @@ const Services = () => {
     }
   };
 
+  const deleteSelectedSectionInPage = (item) => {
+    const id = item.id;
+    const name = item.feature_title;
+    
+    const deleteSelectedSection = async (id) => {
+      console.log(id)  
+      // const response = await axiosClientServiceApi.delete(
+      //   `/services/getSelectedClientService/${id}/`,
+      // );
+      // if (response.status === 204) {
+      //         const list = selectedServiceList.filter((list) => list.id !== id);
+      //         setSelectedServiceList(list);
+      //         toast.success(`${name} is deleted`);
+      // }
+    };
+
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <DeleteDialog
+              onClose={onClose}
+              callback={deleteSelectedSection(id)}
+              message={`deleting the ${name} Service?`}
+            />
+          );
+        },
+      });
+    
+  }
+
   useEffect(() => {
     if (
       (!componentEdit.editSection || !componentEdit.addSection) &&
@@ -96,6 +128,7 @@ const Services = () => {
     }
     document.body.style.overflow = "hidden";
   };
+  // console.log(selectedServiceProject)
   return (
     <>
       {/* Page Banner Component */}
@@ -120,11 +153,14 @@ const Services = () => {
             imageLabel="Banner Image"
             showDescription={false}
             showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
+            dimensions={imageDimensionsJson("banner")}
           />
         </div>
       ) : (
         ""
       )}
+
+      {/* End Of Page Banner Component */}
 
       {/* Introduction */}
       {isAdmin ? (
@@ -149,28 +185,34 @@ const Services = () => {
         ""
       )}
 
-      {isAdmin ? (
-        <AddService
-          setSelectedServiceProject={setSelectedServiceProject}
-          selectedServiceProject={selectedServiceProject}
-        />
-      ) : (
-        ""
-      )}
+      {/* End Of Introduction */}
 
-      <div className="container my-md-5 py-md-4 servicesPage">
+      {/* Add News Service Page */}
+        {isAdmin ? (
+          <AddService
+            setSelectedServiceProject={setSelectedServiceProject}
+            selectedServiceProject={selectedServiceProject}
+          />
+        ) : (
+          ""
+        )}
+      {/* End of Add News Service Page */}
+
+      <div className="container my-md-5 py-md-4 servicesPage" id="servicesPage">
         {isAdmin && selectedServiceProject?.id ? (
-          <>
+          <div className="d-flex justify-content-end align-items-center mb-3">
+            <span className="mx-2 text-dark"> Add data in 
+            <span className="badge bg-warning text-dark fs-6 mx-1">{selectedServiceProject.services_page_title}</span>page</span>
             <button
               type="submit"
-              className="btn btn-primary"
+              className="btn btn-primary px-3"
               onClick={() => editHandler("addSection", true)}
-              style={{ position: "absolute", right: "60px" }}
+              // style={{ position: "absolute", right: "60px" }}
             >
-              Add data
-              <i className="fa fa-plus ms-2" aria-hidden="true"></i>
+              {/* Add data */}
+              <i className="fa fa-plus" aria-hidden="true"></i>
             </button>
-          </>
+          </div>
         ) : (
           ""
         )}
@@ -194,28 +236,34 @@ const Services = () => {
               showExtraFormFields={getServiceFormFields(
                 selectedServiceProject ? selectedServiceProject.id : "",
               )}
+              dimensions={imageDimensionsJson("addService")}
             />
           </div>
         ) : (
           ""
         )}
 
-        <div className="row">
-          <div className="col-12 col-md-8">
+        <div className="row ">
+          {/* <div className="col-12 col-md-8">
             <Title title="Services" cssClass="fs-3 mb-2" />
-          </div>
+          </div> */}
         </div>
         {selectedServiceList.map((item, index) => (
           <div
-            className={`row ${isAdmin ? "border border-warning mb-3" : ""} ${
+            className={`row ${isAdmin ? "border border-warning mb-3 position-relative" : ""} ${
               index % 2 === 0 ? "normalCSS" : "flipCSS"
             }`}
             key={item.id}
           >
             {isAdmin ? (
+              <>
               <EditIcon
                 editHandler={() => editHandler("editSection", true, item)}
               />
+              <Link className="deleteSection" onClick={() => deleteSelectedSectionInPage(item)}> 
+                <i className="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i>
+              </Link>
+              </>
             ) : (
               ""
             )}

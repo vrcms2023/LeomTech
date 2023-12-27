@@ -10,7 +10,7 @@ import ModelBg from "../../Common/ModelBg";
 import Banner from "../../Common/Banner";
 
 import { removeActiveClass } from "../../util/ulrUtil";
-import { getFormDynamicFields } from "../../util/dynamicFormFields";
+import { getFormDynamicFields, imageDimensionsJson } from "../../util/dynamicFormFields";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 
 // Images Imports
@@ -75,6 +75,7 @@ const Careers = () => {
             imageLabel="Banner Image"
             showDescription={false}
             showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
+            dimensions={imageDimensionsJson("banner")}
           />
         </div>
       ) : (

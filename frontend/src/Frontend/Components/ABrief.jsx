@@ -19,7 +19,7 @@ import { axiosClientServiceApi } from "../../util/axiosUtil";
 import { getImagePath } from "../../util/commonUtil";
 import { getFormDynamicFields } from "../../util/dynamicFormFields";
 
-const ABrief = ({ title, cssClass, linkClass, moreLink }) => {
+const ABrief = ({ title, cssClass, linkClass, moreLink, dimensions }) => {
   const editComponentObj = {
     homecareers: false,
   };
@@ -94,19 +94,24 @@ const ABrief = ({ title, cssClass, linkClass, moreLink }) => {
         ) : (
           ""
         )}
-        <Title
+        {bannerdata ? 
+        <Title title={bannerdata.banner_title} cssClass={cssClass} />
+        : 
+        ""
+        }
+        {/* <Title
           title={
             bannerdata?.banner_title ? bannerdata.banner_title : "upload Title"
           }
           cssClass={cssClass}
-        />
-        <div>
-          <p className="lh-md">
+        /> */}
+        
+          <p className="lh-md mt-4">
             {bannerdata?.banner_descripiton
               ? bannerdata.banner_descripiton
               : "upload Description"}
           </p>
-        </div>
+        
         <div>
           <Link to={moreLink} className={linkClass}>
             Join Us Now
@@ -122,6 +127,7 @@ const ABrief = ({ title, cssClass, linkClass, moreLink }) => {
             imageLabel="Banner Image"
             showDescription={false}
             showExtraFormFields={getFormDynamicFields(pageType)}
+            dimensions={dimensions}
           />
 
           {/* <NewsForm editHandler={editHandler} componentType="careers" /> */}

@@ -18,6 +18,7 @@ const Carousel = ({ carouselState }) => {
         const response = await axiosClientServiceApi.get(
           `carousel/clientCarousel/`,
         );
+        console.log(response, "response")
         if (response?.status == 200) {
           let key = Object.keys(response.data);
           setCarousel(response.data[key]);
@@ -38,7 +39,30 @@ const Carousel = ({ carouselState }) => {
       data-bs-ride="carousel"
     >
       <div className="carousel-inner">
-        {carousel?.map((item, index) => (
+        {carousel.length > 0 ? 
+          carousel?.map((item, index) => (
+            <div
+              className={`carousel-item ${index == 0 ? "active" : ""}`}
+              key={item.id}
+            >
+              <img
+                src={getImagePath(item.path)}
+                alt={item.alternitivetext}
+                className="d-block w-100"
+              />
+              <div className="carousel-caption d-none d-md-block">
+                <h1 className="fw-bold">
+                  {item.carouse_title ? item.carouse_title : ""}{" "}
+                </h1>
+                <p className="fw-normal fs-5">
+                  {item.carouse_description ? item.carouse_description : ""}{" "}
+                </p>
+              </div>
+            </div>
+          ))
+        : 
+        <div className="d-flex justify-content-center align-items-center fs-5 text-muted text-center noImg">Please add images for Carousel...</div>}
+        {/* {carousel?.map((item, index) => (
           <div
             className={`carousel-item ${index == 0 ? "active" : ""}`}
             key={item.id}
@@ -57,7 +81,7 @@ const Carousel = ({ carouselState }) => {
               </p>
             </div>
           </div>
-        ))}
+        ))} */}
       </div>
       <button
         className="carousel-control-prev"

@@ -11,6 +11,7 @@ import { removeActiveClass } from "../../util/ulrUtil";
 import {
   getFormDynamicFields,
   getAboutUSSectionFields,
+  imageDimensionsJson
 } from "../../util/dynamicFormFields";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 
@@ -68,6 +69,7 @@ const About = () => {
             imageLabel="Banner Image"
             showDescription={false}
             showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
+            dimensions={imageDimensionsJson("banner")}
           />
         </div>
       ) : (
@@ -121,6 +123,7 @@ const About = () => {
               showExtraFormFields={getAboutUSSectionFields(
                 `${pageType}-aboutDetails`,
               )}
+              dimensions={imageDimensionsJson("whoweare")}
             />
           </div>
         ) : (
@@ -149,6 +152,7 @@ const About = () => {
               showExtraFormFields={getAboutUSSectionFields(
                 `${pageType}-aboutVision`,
               )}
+              dimensions={imageDimensionsJson("whoweare")}
             />
           </div>
         ) : (
@@ -176,6 +180,7 @@ const About = () => {
               showExtraFormFields={getAboutUSSectionFields(
                 `${pageType}-aboutMission`,
               )}
+              dimensions={imageDimensionsJson("whoweare")}
             />
           </div>
         ) : (

@@ -29,6 +29,7 @@ const AdminBanner = ({
   descriptionTitle = "Description",
   showDescription = { showDescription },
   showExtraFormFields = { showExtraFormFields },
+  dimensions
 }) => {
   const projectID = "a62d7759-a e6b-4e49-a129-1ee208c6789d";
   const [userName, setUserName] = useState("");
@@ -66,6 +67,7 @@ const AdminBanner = ({
 
   const handleCarouselEdit = (event, carousel) => {
     event.preventDefault();
+    window.scrollTo(0,0);
     setEditCarousel(carousel);
   };
 
@@ -95,6 +97,7 @@ const AdminBanner = ({
         );
       },
     });
+    
   };
 
   return (
@@ -102,7 +105,7 @@ const AdminBanner = ({
       <EditAdminPopupHeader closeHandler={closeHandler} title={componentType} />
       <div className="container">
         <div className="row">
-          <div className="col-md-6 mb-5 mb-md-0">
+          <div className={`mb-5 mb-md-0 ${carousel.length > 0 ? "col-md-6" : "col-md-12"}`}>
             <FileUpload
               title={imageLabel}
               project={project}
@@ -124,20 +127,23 @@ const AdminBanner = ({
               imageUpdateURL={imageUpdateURL}
               extraFormParamas={extraFormParamas}
               showExtraFormFields={showExtraFormFields}
+              dimensions={dimensions}
             />
           </div>
+          {carousel.length > 0 ?
           <div className="col-md-6 mt-3 mt-md-0 ">
             <div className="container">
               {carousel?.map((item, index) => (
                 <div className="row mb-4 slideItem" key={index}>
-                  <div className="col-4 col-md-2">
+                  <div className="col-2 col-md-2">
+                  <i class="fa fa-picture-o fs-2 d-md-none" aria-hidden="true"></i>
                     <img
                       src={getImagePath(item.path)}
                       alt={item.alternitivetext}
-                      className="w-100"
+                      className="w-100 d-none d-md-block"
                     />
                   </div>
-                  <div className="col-6 col-md-8 ">
+                  <div className="col col-md-8 ">
                     <h6 className="fw-bold m-0 fs-6">
                       {getObjectTitle(componentType, item)}
                     </h6>
@@ -146,7 +152,7 @@ const AdminBanner = ({
                       {item.carouseDescription ? item.carouseDescription : ""}
                     </small>
                   </div>
-                  <div className="col-2 col-md-2 d-flex justify-content-between align-items-center flex-column flex-md-row">
+                  <div className="col-4 col-md-2 d-flex justify-content-around align-items-center flex-md-row">
                     <Link onClick={(event) => handleCarouselEdit(event, item)}>
                       <i
                         className="fa fa-pencil fs-4 text-warning"
@@ -171,6 +177,7 @@ const AdminBanner = ({
               ))}
             </div>
           </div>
+          : ""}
         </div>
       </div>
     </>

@@ -55,14 +55,14 @@ const FileUpload = ({
   imagePostURL = "/gallery/createGallery/",
   imageUpdateURL = "/gallery/updateGalleryDetails/",
   extraFormParamas = [],
-  dimensions = { width: "1500px", height: "400px" },
+  dimensions,
 }) => {
   const [files, setFiles] = useState([]);
   const [extTypes, setExtTypes] = useState([]);
   const [pageType, setPageType] = useState("");
   const listofAboutSection = ["aboutDetails", "aboutVision", "aboutMission"];
   const [editorState, setEditorState] = useState("");
-
+  console.log(dimensions)
   const baseURL = getBaseURL();
   const [editImg, setEditimg] = useState({});
   const [error, setError] = useState("");
@@ -324,10 +324,8 @@ const FileUpload = ({
               />
             </div>
             {dimensions ? (
-              <div className="text-dark p-2">
-                imageWidth : {dimensions.width}
-                <br />
-                height : {dimensions.height}
+              <div>
+                <small className="text-danger">W - {dimensions.w} | H - {dimensions.h} will be the good resolution </small>
               </div>
             ) : (
               ""

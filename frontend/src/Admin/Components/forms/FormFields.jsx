@@ -91,13 +91,14 @@ export const InputFields = ({
 export const RichTextInputEditor = ({ label, editorSetState, initialText }) => {
   return (
     <div className="mb-3 row">
-      <label
+      {/* <label
         htmlFor=""
         className="col-sm-3 col-form-label text-start text-md-end text-capitalize"
       >
         {label}
-      </label>
-      <div className="col-sm-9">
+      </label> */}
+      <div className="col-sm-12">
+        <p className="text-center fw-bold fs-5 pt-3 py-md-0">{label}</p>
         <RichTextEditor
           initialText={initialText ? initialText : ""}
           RichEditorState={editorSetState}

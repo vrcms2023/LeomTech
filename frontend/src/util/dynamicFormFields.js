@@ -98,7 +98,7 @@ export const getNewslFields = () => {
 export const getTestimonialsFields = (category) => {
   return {
     testimonial_title: {
-      label: "Title",
+      label: "Testimonial Name",
       type: "text",
       fieldName: "testimonial_title",
     },
@@ -108,7 +108,7 @@ export const getTestimonialsFields = (category) => {
       fieldName: "testimonial_sub_title",
     },
     testimonial_description: {
-      label: "Description",
+      label: "Testimonial Writeup",
       type: "textarea",
       fieldName: "testimonial_description",
     },
@@ -149,9 +149,23 @@ export const getServiceFormFields = (id) => {
   };
 };
 
-export const imageDimensionsJson = {
-  whoweare: {
-    width: "800px",
-    height: "800px",
-  },
-};
+// export const imageDimensionsJson = {
+//   whoweare: {
+//     width: "800px",
+//     height: "800px",
+//   },
+// };
+
+export const imageDimensionsJson = (type) => {
+  if(type === "carousel") {
+    return ( {"w": "1500px", "h": "760px"})
+  }else if(type === "whoweare" || type === "homeCareers" || type === "addService") {
+    return ( {"w": "800px", "h": "800px"})
+  }else if(type === "testimonial" || type === "addBews") {
+    return ( {"w": "500px", "h": "500px"})
+  }
+  else if(type === "banner") {
+    return ( {"w": "1500px", "h": "400px"})
+  }
+  
+}
