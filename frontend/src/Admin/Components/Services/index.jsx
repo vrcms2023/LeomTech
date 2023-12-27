@@ -29,6 +29,7 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
 
 
   const onClickSelectedService = (item) =>{
+    console.log(item)
     setSelectedServiceProject(item)
     window.scroll(0, 700)
     // document.getElementById('servicesPage').scrollTo(0,100);
@@ -57,6 +58,8 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
         data['id'] = editServiceObject.id;
         data['updated_by'] = userName
         response = await axiosServiceApi.put(`/services/updateService/${editServiceObject.id}/`, data);
+        setServiceName("")
+        setEditServiceObject({})
       }else {
         response = await axiosServiceApi.post(`/services/createService/`, data);
       }
@@ -150,6 +153,11 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
     setEditServiceObject(item)
   }
 
+  const CancelServiceNameChange = () => {
+    setServiceName("")
+    setEditServiceObject({})
+  }
+
   return (
     <div className="my-5 addNewServicePage">
     <Title title="Add New Service" cssClass="h5 text-center"/>
@@ -172,12 +180,21 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
               onChange={onChangeHandler}
             />
 
-            <Button
-              type="submit"
-              cssClass="btn btn-lg btn-primary mt-3"
-              handlerChange={submitHandler}
-              label={editServiceObject?.id ? "Update Service Name" :"Save"}
-            />
+              <div>
+                <Button
+                  type="submit"
+                  cssClass="btn btn-primary mt-3"
+                  handlerChange={submitHandler}
+                  label={editServiceObject?.id ? "Change Name" :"Save"}
+                />
+                {editServiceObject?.id ? 
+                <Button
+                  cssClass="btn btn-secondary mt-3 ms-2"
+                  handlerChange={CancelServiceNameChange}
+                  label="Cancel"
+                />
+                : "" }
+              </div>
             </div>
 
             <div className="col-md-7 px-4 py-3 mt-md-0 servicePageLinks">

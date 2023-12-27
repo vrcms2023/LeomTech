@@ -23,6 +23,9 @@ import { getImagePath } from "../../util/commonUtil";
 
 // CSS Imports
 import "./services.css";
+import { toast } from "react-toastify";
+import { confirmAlert } from "react-confirm-alert";
+import DeleteDialog from "../../Common/DeleteDialog";
 
 const Services = () => {
   const editComponentObj = {
@@ -78,6 +81,36 @@ const Services = () => {
     }
   };
 
+  const deleteSelectedSectionInPage = (item) => {
+    const id = item.id;
+    const name = item.feature_title;
+    
+    const deleteSelectedSection = async (id) => {
+      console.log(id)  
+      // const response = await axiosClientServiceApi.delete(
+      //   `/services/getSelectedClientService/${id}/`,
+      // );
+      // if (response.status === 204) {
+      //         const list = selectedServiceList.filter((list) => list.id !== id);
+      //         setSelectedServiceList(list);
+      //         toast.success(`${name} is deleted`);
+      // }
+    };
+
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <DeleteDialog
+              onClose={onClose}
+              callback={deleteSelectedSection(id)}
+              message={`deleting the ${name} Service?`}
+            />
+          );
+        },
+      });
+    
+  }
+
   useEffect(() => {
     if (
       (!componentEdit.editSection || !componentEdit.addSection) &&
@@ -95,7 +128,7 @@ const Services = () => {
     }
     document.body.style.overflow = "hidden";
   };
-  console.log(selectedServiceProject)
+  // console.log(selectedServiceProject)
   return (
     <>
       {/* Page Banner Component */}
@@ -127,6 +160,8 @@ const Services = () => {
         ""
       )}
 
+      {/* End Of Page Banner Component */}
+
       {/* Introduction */}
       {isAdmin ? (
         <EditIcon editHandler={() => editHandler("briefIntro", true)} />
@@ -150,27 +185,32 @@ const Services = () => {
         ""
       )}
 
-      {isAdmin ? (
-        <AddService
-          setSelectedServiceProject={setSelectedServiceProject}
-          selectedServiceProject={selectedServiceProject}
-        />
-      ) : (
-        ""
-      )}
+      {/* End Of Introduction */}
+
+      {/* Add News Service Page */}
+        {isAdmin ? (
+          <AddService
+            setSelectedServiceProject={setSelectedServiceProject}
+            selectedServiceProject={selectedServiceProject}
+          />
+        ) : (
+          ""
+        )}
+      {/* End of Add News Service Page */}
 
       <div className="container my-md-5 py-md-4 servicesPage" id="servicesPage">
         {isAdmin && selectedServiceProject?.id ? (
           <div className="d-flex justify-content-end align-items-center mb-3">
-            <span className="mx-2 fs-6 text-dark"><strong>You are in the page : </strong>{selectedServiceProject.services_page_title}</span>
+            <span className="mx-2 text-dark"> Add data in 
+            <span className="badge bg-warning text-dark fs-6 mx-1">{selectedServiceProject.services_page_title}</span>page</span>
             <button
               type="submit"
-              className="btn btn-primary"
+              className="btn btn-primary px-3"
               onClick={() => editHandler("addSection", true)}
               // style={{ position: "absolute", right: "60px" }}
             >
-              Add data
-              <i className="fa fa-plus ms-2" aria-hidden="true"></i>
+              {/* Add data */}
+              <i className="fa fa-plus" aria-hidden="true"></i>
             </button>
           </div>
         ) : (
@@ -204,7 +244,6 @@ const Services = () => {
         )}
 
         <div className="row ">
-        
           {/* <div className="col-12 col-md-8">
             <Title title="Services" cssClass="fs-3 mb-2" />
           </div> */}
@@ -221,13 +260,14 @@ const Services = () => {
               <EditIcon
                 editHandler={() => editHandler("editSection", true, item)}
               />
-              <Link className="deleteSection"> <i className="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i></Link>
+              <Link className="deleteSection" onClick={() => deleteSelectedSectionInPage(item)}> 
+                <i className="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i>
+              </Link>
               </>
             ) : (
               ""
             )}
             <div className="col-md-8">
-            
               <Title
                 title={
                   item.feature_title

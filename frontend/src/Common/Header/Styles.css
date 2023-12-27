@@ -1,5 +1,15 @@
-.logo img {
+.navbar-brand img {
   width: 85%;
+}
+
+@media screen and (max-width: 480px) {
+  .navbar-brand {
+    width: 70%;
+  }
+  
+  .navbar-brand img{
+    width: 70%;
+  }
 }
 
 .navbar-nav .nav-item .nav-Link {
