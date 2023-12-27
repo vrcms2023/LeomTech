@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 // Components
 import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
@@ -44,8 +44,10 @@ const Services = () => {
   const [editCarousel, setEditCarousel] = useState({});
   let { uid } = useParams();
 
+  
+
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
@@ -93,6 +95,7 @@ const Services = () => {
     }
     document.body.style.overflow = "hidden";
   };
+  console.log(selectedServiceProject)
   return (
     <>
       {/* Page Banner Component */}
@@ -156,19 +159,20 @@ const Services = () => {
         ""
       )}
 
-      <div className="container my-md-5 py-md-4 servicesPage">
+      <div className="container my-md-5 py-md-4 servicesPage" id="servicesPage">
         {isAdmin && selectedServiceProject?.id ? (
-          <>
+          <div className="d-flex justify-content-end align-items-center mb-3">
+            <span className="mx-2 fs-6 text-dark"><strong>You are in the page : </strong>{selectedServiceProject.services_page_title}</span>
             <button
               type="submit"
               className="btn btn-primary"
               onClick={() => editHandler("addSection", true)}
-              style={{ position: "absolute", right: "60px" }}
+              // style={{ position: "absolute", right: "60px" }}
             >
               Add data
               <i className="fa fa-plus ms-2" aria-hidden="true"></i>
             </button>
-          </>
+          </div>
         ) : (
           ""
         )}
@@ -199,26 +203,31 @@ const Services = () => {
           ""
         )}
 
-        <div className="row">
-          <div className="col-12 col-md-8">
+        <div className="row ">
+        
+          {/* <div className="col-12 col-md-8">
             <Title title="Services" cssClass="fs-3 mb-2" />
-          </div>
+          </div> */}
         </div>
         {selectedServiceList.map((item, index) => (
           <div
-            className={`row ${isAdmin ? "border border-warning mb-3" : ""} ${
+            className={`row ${isAdmin ? "border border-warning mb-3 position-relative" : ""} ${
               index % 2 === 0 ? "normalCSS" : "flipCSS"
             }`}
             key={item.id}
           >
             {isAdmin ? (
+              <>
               <EditIcon
                 editHandler={() => editHandler("editSection", true, item)}
               />
+              <Link className="deleteSection"> <i className="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i></Link>
+              </>
             ) : (
               ""
             )}
             <div className="col-md-8">
+            
               <Title
                 title={
                   item.feature_title

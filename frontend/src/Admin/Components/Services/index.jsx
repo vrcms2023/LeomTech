@@ -30,6 +30,8 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
 
   const onClickSelectedService = (item) =>{
     setSelectedServiceProject(item)
+    window.scroll(0, 700)
+    // document.getElementById('servicesPage').scrollTo(0,100);
   }
 
   useEffect(() => {
@@ -189,10 +191,10 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
                   <Link onClick={(event) => onClickSelectedService(item)} className="fw-bold text-dark pageTitle">{item.services_page_title} </Link>
                 </div>
                 <div className="w-50 text-end">
-                  <Link onClick={()=>publishService(item)} className={`p-1 px-2 rounded ${item.publish ? "bg-success text-white" : "bg-secondary text-light"}`}>
+                  <Link onClick={()=>publishService(item)} className={`p-1 px-2 rounded ${item.publish ? "bg-success text-white" : "bg-secondary text-light"}`} title={item.publish ? "Page Published" : "Page Not Published" }>
                     <small>{item.publish ? <i className="fa fa-thumbs-up fs-5" aria-hidden="true"></i> :  <i className="fa fa-thumbs-down" aria-hidden="true"></i>}</small>
                   </Link>
-                  <Link onClick={() =>EditService(item)}> <i className="fa fa-pencil text-danger fs-4 mx-3" aria-hidden="true"></i></Link>
+                  <Link onClick={() =>EditService(item)}> <i className="fa fa-pencil text-warning fs-4 mx-3" aria-hidden="true"></i></Link>
                   <Link onClick={() =>deleteService(item)}> <i className="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i></Link>
                 </div>
               </li>
