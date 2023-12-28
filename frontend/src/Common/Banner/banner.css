@@ -10,9 +10,19 @@
   left: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.3);
-  padding: 10px 100px 50px;
+  padding: 10px 100px 40px;
 }
 
-.titleCaption p {
-  font-size: 1.2rem;
+.titleCaption .description {
+  width: 50%;
+}
+
+@media (max-width: 576px) {
+  .titleCaption {
+    padding: 10px 50px 40px;
+  }
+
+  .titleCaption .description {
+    width: 100%;
+  }
 }
