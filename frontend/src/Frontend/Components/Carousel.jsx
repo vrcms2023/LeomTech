@@ -18,7 +18,7 @@ const Carousel = ({ carouselState }) => {
         const response = await axiosClientServiceApi.get(
           `carousel/clientCarousel/`,
         );
-        console.log(response, "response")
+     
         if (response?.status == 200) {
           let key = Object.keys(response.data);
           setCarousel(response.data[key]);

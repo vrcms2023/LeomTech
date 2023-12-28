@@ -90,7 +90,7 @@ const AboutImageInputsForm = ({
 
   return (
     <>
-      {editCarousel.id ? (
+      {/* {editCarousel.id ? ( */}
         <div className="bg-white">
           <EditAdminPopupHeader
             closeHandler={closeHandler}
@@ -128,9 +128,9 @@ const AboutImageInputsForm = ({
             </div>
           </div>
         </div>
-      ) : (
+      {/* ) : (
         ""
-      )}
+      )} */}
     </>
   );
 };

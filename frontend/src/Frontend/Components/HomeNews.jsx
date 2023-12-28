@@ -175,13 +175,13 @@ const HomeNews = ({ addNewsState }) => {
           
           {isAdmin ? (
             <>
-            <p>Pleaes add news items</p>
-            {/* {location.pathname === "/news" ? "" : <Link
+           {location.pathname}
+            {location.pathname === "/news" ? "" : <Link
               to="/news"
               className="btn btn-primary fs-6"
             >
               Go To News
-            </Link> } */}
+            </Link> }
             
             </>
           ) : (

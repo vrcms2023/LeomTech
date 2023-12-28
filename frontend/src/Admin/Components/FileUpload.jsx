@@ -56,13 +56,13 @@ const FileUpload = ({
   imageUpdateURL = "/gallery/updateGalleryDetails/",
   extraFormParamas = [],
   dimensions,
+  closeHandler
 }) => {
   const [files, setFiles] = useState([]);
   const [extTypes, setExtTypes] = useState([]);
   const [pageType, setPageType] = useState("");
   const listofAboutSection = ["aboutDetails", "aboutVision", "aboutMission"];
   const [editorState, setEditorState] = useState("");
-  console.log(dimensions)
   const baseURL = getBaseURL();
   const [editImg, setEditimg] = useState({});
   const [error, setError] = useState("");
@@ -89,11 +89,14 @@ const FileUpload = ({
     ],
   };
 
-  // useEffect(() => {
-  //   setEditimg(editImage?.id ? editImage : {});
-  // }, [editImage]);
+  useEffect(()=>{
+    if(!editImage?.id){
+      reset({})
+    }
+  },[editImage])
 
   useEffect(() => {
+    setError("")
     reset(editImage?.id ? editImage : {});
     if (editImage?.pageType) {
       setPageType(editImage.pageType.split("-")[1]);
@@ -146,6 +149,8 @@ const FileUpload = ({
             formData.append("feature_description", editorState);
           } else if (key === "news_description") {
             formData.append("news_description", editorState);
+          } else if(key === "aboutus_description") {
+            formData.append("aboutus_description", editorState);
           } else if (
             key === "banner_descripiton" &&
             listofAboutSection.indexOf(pageType) > -1
@@ -204,6 +209,7 @@ const FileUpload = ({
       );
       if (response?.status === 200) {
         updatedFileChnages([response]);
+        closePopupWindow()
       }
     } catch (error) {
       console.log(error);
@@ -215,6 +221,9 @@ const FileUpload = ({
    */
   const postImages = async (data) => {
     const arrURL = [];
+    if(files.length === 0){
+      setError("Please upload File")
+    }
     if (files.length > 0) {
       files.forEach((element, index) => {
         let formData = new FormData();
@@ -233,6 +242,7 @@ const FileUpload = ({
     try {
       await Promise.all(arrURL).then(function (values) {
         updatedFileChnages(values);
+        closePopupWindow()
       });
     } catch (error) {
       console.log(error);
@@ -274,9 +284,9 @@ const FileUpload = ({
     resetFileUploadForm();
   };
 
-  useEffect(() => {
-    //resetFileUploadForm();
-  }, [galleryState]);
+  // useEffect(() => {
+  //   //resetFileUploadForm();
+  // }, [galleryState]);
 
   /**
    * Reset form
@@ -298,22 +308,38 @@ const FileUpload = ({
     resetFileUploadForm();
   };
 
+  const onUpdateFiles = (files) => {
+    setError('')
+    setFiles(files)
+  }
+
+  const closePopupWindow = () => {
+    if(closeHandler && typeof closeHandler === 'function'){
+      // setTimeout(() =>{
+      //   closeHandler()
+      // },1000)
+      closeHandler()
+    }
+  }
+
   return (
     <>
       <form className="" onSubmit={handleSubmit(uploadFile)}>
         <div className="mb-3 row">
           <label className="col-sm-3 col-form-label text-start text-md-end">
-            <Title title={title} cssClass="" />
+           <> <Title title={title} cssClass="" /> <span className="text-danger">*</span></>
           </label>
           <div className="col-sm-9">
+          {error ? (<Error>{error}</Error>) : ''}
             <div className="border border-3 mb-0 shadow-lg">
+             
               <FilePond
                 labelIdle='Drag & Drop your files or <span className="filepond--label-action">Browse</span>'
                 labelInvalidField="invalid files"
                 name="path"
                 files={files}
                 onerror={onerror}
-                onupdatefiles={setFiles}
+                onupdatefiles={onUpdateFiles}
                 allowMultiple={true}
                 maxFiles={maxFiles ? maxFiles : 4}
                 maxParallelUploads={4}
@@ -367,8 +393,10 @@ const FileUpload = ({
                       ? editImage?.feature_description
                       : editImage?.news_description
                       ? editImage?.news_description
-                      : editImage.banner_descripiton
-                      ? editImage.banner_descripiton
+                      : editImage?.banner_descripiton
+                      ? editImage?.banner_descripiton
+                      : editImage?.aboutus_description
+                      ? editImage?.aboutus_description
                       : ""
                   }
                 />

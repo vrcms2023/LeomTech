@@ -11,13 +11,15 @@ class Services(BaseModel):
 
 class ServiceFeature(ServiceImageModel):
         serviceID  =            models.CharField(max_length=100, null=False)
-        feature_title =         models.CharField(max_length=100 )
+        services_page_title =   models.CharField(max_length=100, unique=False )
+        feature_title =         models.CharField(max_length=100, null=True, blank=True )
         feature_sub_title=      models.CharField(max_length=200, null=True, blank=True)
         feature_description =   models.CharField(max_length=10000, null=True, blank=True)
        
 
 class ServiceAccordion(ServiceImageModel):
         serviceID  =            models.CharField(max_length=100, null=False)
-        accordion_title =       models.CharField(max_length=100 )
+        services_page_title =   models.CharField(max_length=100, unique=False )
+        accordion_title =       models.CharField(max_length=100, null=True, blank=True )
         accordion_sub_title=    models.CharField(max_length=200, null=True, blank=True)
         accordion_description = models.CharField(max_length=10000, null=True, blank=True)

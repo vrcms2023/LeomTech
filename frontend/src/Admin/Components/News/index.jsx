@@ -73,6 +73,7 @@ export const News = ({
                 extraFormParamas={extraFormParamas}
                 showExtraFormFields={showExtraFormFields}
                 dimensions={dimensions}
+                closeHandler={closeHandler}
               />
             </div>
           </div>

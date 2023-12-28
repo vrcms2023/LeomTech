@@ -3,9 +3,9 @@ import uuid
 from common.BaseModel import ImageModel, BaseModel
 
 class Carousel(ImageModel):
-    carouse_title =          models.CharField(max_length=200, null=True)
-    carouse_sub_title =          models.CharField(max_length=200, null=True)
-    carouse_description =    models.CharField(max_length=5000, null=True)
+    carouse_title =          models.CharField(max_length=200, null=True, blank=True)
+    carouse_sub_title =          models.CharField(max_length=200, null=True, blank=True)
+    carouse_description =    models.CharField(max_length=5000, null=True, blank=True)
 
 
 class HomeIntro(BaseModel):
@@ -17,6 +17,6 @@ class HomeIntro(BaseModel):
    
 
 class ClientLogo(BaseModel):
-    clientTitle =    models.CharField(max_length=500, null=True)
-    imageDescription = models.CharField(max_length=5000, null=True)
+    clientTitle =    models.CharField(max_length=500, null=True, blank=True)
+    imageDescription = models.CharField(max_length=5000, null=True, blank=True)
     alt_text =      models.CharField(max_length=500, null=True, blank=True)

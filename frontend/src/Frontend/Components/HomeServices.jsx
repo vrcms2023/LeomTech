@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 // Components
@@ -12,6 +12,7 @@ import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus
 import ServiceForm from "../../Admin/Components/forms/ImgTitleIntoForm-List";
 import ModelBg from "../../Common/ModelBg";
 import EditIcon from "../../Common/AdminEditIcon";
+import { axiosClientServiceApi } from "../../util/axiosUtil";
 
 const HomeServices = ({ title }) => {
   const editComponentObj = {
@@ -21,6 +22,7 @@ const HomeServices = ({ title }) => {
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
+  const [clientServiceList, setClientServiceList] = useState([]);
 
   const editHandler = (name, value) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -28,6 +30,22 @@ const HomeServices = ({ title }) => {
     document.body.style.overflow = "hidden";
   };
 
+  useEffect(() => {
+    getClinetServiceList()
+  },[])
+
+  const getClinetServiceList = async () => {
+    try {
+      
+      let response = await axiosClientServiceApi.get(
+        `/services/clientServiceList/`,
+      );
+      console.log(response.data.servicesList)
+      setClientServiceList(response.data.servicesList.reverse());
+    } catch (error) {
+      console.log("Unable to get the intro");
+    }
+  };
   const [services, setServices] = useState([
     {
       img: "",
@@ -68,7 +86,7 @@ const HomeServices = ({ title }) => {
 
   return (
     <>
-      {services.map((item, index) => (
+      {clientServiceList.map((item, index) => (
         <div className="row service mb-4" key={`${index}+homeService`}>
           <div className="position-relative">
             {/* {isAdmin ? (

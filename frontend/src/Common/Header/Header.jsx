@@ -305,7 +305,7 @@ export const ClientMenu = ({ serviceMenuList }) => {
           </NavLink>
           <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
             <li>
-              <Link to="/News" className="dropdown-item">
+              <Link to="/news" className="dropdown-item">
                 News
               </Link>
             </li>

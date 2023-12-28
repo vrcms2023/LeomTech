@@ -83,6 +83,7 @@ const AdminBanner = ({
       if (response.status == 204) {
         const list = imgGallery.filter((item) => item.id !== id);
         setImgGallery(list);
+        setEditCarousel({})
       }
     };
 

@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Title from "../../Common/Title";
+import { toast } from "react-toastify";
 import BriefIntroFrontend from "../../Common/BriefIntro";
 import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
 import AboutImageInputsForm from "../../Admin/Components/forms/aboutusImgTitleIntoForm";
 import AdminBriefIntro from "../../Admin/Components/BriefIntro/index";
 import EditIcon from "../../Common/AdminEditIcon";
 import ModelBg from "../../Common/ModelBg";
-
+import AddEditAdminNews from "../../Admin/Components/News";
 import { removeActiveClass } from "../../util/ulrUtil";
 import {
   getFormDynamicFields,
@@ -17,20 +19,26 @@ import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus
 
 import Banner from "../../Common/Banner";
 import AboutSection from "../Components/AboutSection";
+import { axiosClientServiceApi, axiosServiceApi } from "../../util/axiosUtil";
+import { getImagePath } from "../../util/commonUtil";
+import { confirmAlert } from "react-confirm-alert";
+import DeleteDialog from "../../Common/DeleteDialog";
+
 
 const About = () => {
   const editComponentObj = {
     banner: false,
     briefIntro: false,
-    about: false,
-    vision: false,
-    mission: false,
+    addSection: false,
+    editSection: false,
   };
 
   const pageType = "aboutus";
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
+  const [aboutList, setAboutList] = useState([]);
   const [show, setShow] = useState(false);
+  const [editCarousel, setEditCarousel] = useState({});
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -40,11 +48,67 @@ const About = () => {
     removeActiveClass();
   }, []);
 
-  const editHandler = (name, value) => {
+  useEffect(() => {
+    getAboutUsList();
+  }, []);
+
+  const editHandler = (name, value, item) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
     setShow(!show);
+    if (item?.id) {
+      setEditCarousel(item);
+    }
     document.body.style.overflow = "hidden";
   };
+
+
+  const getAboutUsList = async (id) => {
+    try {
+      let response = await axiosClientServiceApi.get(
+        `aboutus/clientAboutus/`,
+      );
+      setAboutList(response.data.aboutus.reverse());
+    } catch (error) {
+      console.log("Unable to get the intro");
+    }
+  };
+
+  useEffect(() => {
+    if (!componentEdit.editSection && !componentEdit.addSection) {
+      getAboutUsList();
+      setEditCarousel({})
+    }
+  }, [componentEdit.editSection, componentEdit.addSection]);
+
+  const deleteAboutSection = (item) => {
+    const id = item.id;
+    const name = item.aboutus_title;
+    
+    const deleteSection = async () => {
+      const response = await axiosServiceApi.delete(
+        `/aboutus/updateAboutus/${id}/`,
+      );
+      if (response.status === 204) {
+              const list = aboutList.filter((list) => list.id !== id);
+              setAboutList(list);
+              toast.success(`${name} is deleted`);
+      }
+    };
+
+
+      confirmAlert({
+        customUI: ({ onClose }) => {
+          return (
+            <DeleteDialog
+              onClose={onClose}
+              callback={deleteSection}
+              message={`deleting the ${name} Service?`}
+            />
+          );
+        },
+      });
+    
+  }
 
   return (
     <>
@@ -101,91 +165,86 @@ const About = () => {
       )}
 
       <div className="container my-md-5 ">
-        {isAdmin ? (
-          <EditIcon editHandler={() => editHandler("about", true)} />
-        ) : (
-          ""
-        )}
 
-        <AboutSection
-          getBannerAPIURL={`banner/clientBannerIntro/${pageType}-aboutDetails/`}
-          bannerState={componentEdit.about}
-        />
+    <div className="d-flex justify-content-end align-items-center mb-3">
+         <button
+              type="submit"
+              className="btn btn-primary px-3"
+              onClick={() => editHandler("addSection", true)}
+            > <i className="fa fa-plus" aria-hidden="true"></i>
+            </button>
+          </div>
 
-        {componentEdit.about ? (
+          {componentEdit.editSection || componentEdit.addSection ? (
           <div className="adminEditTestmonial">
-            <AboutImageInputsForm
+            <AddEditAdminNews
               editHandler={editHandler}
-              componentType="about"
-              pageType={`${pageType}-aboutDetails`}
-              imageLabel="Banner Image"
+              category="about"
+              editCarousel={editCarousel}
+              setEditCarousel={setEditCarousel}
+              componentType={`${
+                componentEdit.editSection ? "editSection" : "addSection"
+              }`}
+              imageGetURL="aboutus/clientAboutus/"
+              imagePostURL="aboutus/createAboutus/"
+              imageUpdateURL="aboutus/updateAboutus/"
+              imageDeleteURL="aboutus/updateAboutus/"
+              imageLabel="Add About us Banner"
               showDescription={false}
-              showExtraFormFields={getAboutUSSectionFields(
-                `${pageType}-aboutDetails`,
-              )}
+              showExtraFormFields={getAboutUSSectionFields()}
               dimensions={imageDimensionsJson("whoweare")}
             />
           </div>
         ) : (
           ""
         )}
-
-        {isAdmin ? (
-          <EditIcon editHandler={() => editHandler("vision", true)} />
-        ) : (
-          ""
-        )}
-
-        <AboutSection
-          getBannerAPIURL={`banner/clientBannerIntro/${pageType}-aboutVision/`}
-          bannerState={componentEdit.vision}
-        />
-
-        {componentEdit.vision ? (
-          <div className="adminEditTestmonial">
-            <AboutImageInputsForm
-              editHandler={editHandler}
-              componentType="vision"
-              pageType={`${pageType}-aboutVision`}
-              imageLabel="Banner Image"
-              showDescription={false}
-              showExtraFormFields={getAboutUSSectionFields(
-                `${pageType}-aboutVision`,
-              )}
-              dimensions={imageDimensionsJson("whoweare")}
-            />
+        {aboutList.map((item, index) => (
+          <div
+            className={`row mb-5${isAdmin ? "border border-warning mb-3 position-relative" : ""} ${
+              index % 2 === 0 ? "normalCSS" : "flipCSS"
+            }`}
+            key={item.id}
+          >
+            {isAdmin ? (
+              <>
+              <EditIcon
+                editHandler={() => editHandler("editSection", true, item)}
+              />
+              <Link className="deleteSection" onClick={() => deleteAboutSection(item)}> 
+                <i className="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i>
+              </Link>
+              </>
+            ) : (
+              ""
+            )}
+            <div className="col-md-6">
+              <Title
+                title={
+                  item.aboutus_title
+                    ? item.aboutus_title
+                    : "Update About title"
+                }
+                cssClass="fs-1 fw-bold mt-3 mb-1"
+              />
+              <Title
+                title={
+                  item.aboutus_sub_title
+                    ? item.aboutus_sub_title
+                    : "Update  sub title"
+                }
+                cssClass="fs-5 text-secondary mb-2"
+              />
+              <div
+                dangerouslySetInnerHTML={{ __html: item.aboutus_description }}
+              />
+            </div>
+            <div className="col-md-6">
+              <img src={getImagePath(item.path)} alt="" />
+            </div>
           </div>
-        ) : (
-          ""
-        )}
+        ))}
 
-        {isAdmin ? (
-          <EditIcon editHandler={() => editHandler("mission", true)} />
-        ) : (
-          ""
-        )}
-        <AboutSection
-          getBannerAPIURL={`banner/clientBannerIntro/${pageType}-aboutMission/`}
-          bannerState={componentEdit.mission}
-        />
 
-        {componentEdit.mission ? (
-          <div className="adminEditTestmonial">
-            <AboutImageInputsForm
-              editHandler={editHandler}
-              componentType="mission"
-              pageType={`${pageType}-aboutMission`}
-              imageLabel="Banner Image"
-              showDescription={false}
-              showExtraFormFields={getAboutUSSectionFields(
-                `${pageType}-aboutMission`,
-              )}
-              dimensions={imageDimensionsJson("whoweare")}
-            />
-          </div>
-        ) : (
-          ""
-        )}
       </div>
 
       {show && <ModelBg />}

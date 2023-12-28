@@ -13,9 +13,10 @@ const GoogleMap = ({ editHandler, componentType, mapValues }) => {
     document.body.style.overflow = "";
   };
   const [userName, setUserName] = useState("");
+  const defalutMap = "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15226.413145928846!2d78.441906!3d17.430816!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x80e4d67809745a48!2sHPR+INFRA+PROJECTS!5e0!3m2!1sen!2sin!4v1442574301202"
 
   const [google_map_url, setGoogle_map_url] = useState(
-    mapValues.google_map_url,
+    mapValues?.google_map_url ? mapValues?.google_map_url : defalutMap
   );
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const GoogleMap = ({ editHandler, componentType, mapValues }) => {
         google_map_url: google_map_url,
       };
 
-      if (mapValues.id) {
+      if (mapValues?.id) {
         data["updated_by"] = userName;
         data["id"] = mapValues.id;
         response = await axiosServiceApi.put(
@@ -76,7 +77,7 @@ const GoogleMap = ({ editHandler, componentType, mapValues }) => {
                 id="exampleFormControlTextarea1"
                 rows="8"
                 name="google_map_url"
-                value={google_map_url}
+                value={google_map_url ? google_map_url: defalutMap}
                 onChange={onChangeHandler}
               ></textarea>
               <small className="mt-3 mb-2 fw-bold d-inline-block">

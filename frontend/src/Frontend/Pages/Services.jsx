@@ -18,7 +18,7 @@ import {
   getServiceFormFields,
   imageDimensionsJson
 } from "../../util/dynamicFormFields";
-import { axiosClientServiceApi } from "../../util/axiosUtil";
+import { axiosClientServiceApi, axiosServiceApi } from "../../util/axiosUtil";
 import { getImagePath } from "../../util/commonUtil";
 
 // CSS Imports
@@ -32,10 +32,7 @@ const Services = () => {
     addSection: false,
     editSection: false,
     banner: false,
-    briefIntro: false,
-    about: false,
-    vision: false,
-    mission: false,
+    briefIntro: false
   };
 
   const pageType = "services";
@@ -47,7 +44,7 @@ const Services = () => {
   const [editCarousel, setEditCarousel] = useState({});
   let { uid } = useParams();
 
-  console.log(selectedServiceProject)
+
 
   useEffect(() => {
     // window.scrollTo(0, 0);
@@ -64,7 +61,8 @@ const Services = () => {
   useEffect(() => {
     if (selectedServiceProject?.id) {
       setEditCarousel({
-        serviceID: selectedServiceProject ? selectedServiceProject.id : "",
+        serviceID: selectedServiceProject ? selectedServiceProject?.id : "",
+        services_page_title : selectedServiceProject ? selectedServiceProject?.services_page_title : "",
       });
       getSelectedServiceObject(selectedServiceProject.id);
     }
@@ -75,7 +73,7 @@ const Services = () => {
       let response = await axiosClientServiceApi.get(
         `/services/getSelectedClientService/${id}/`,
       );
-      setSelectedServiceList(response.data.servicesFeatures);
+      setSelectedServiceList(response.data.servicesFeatures.reverse());
     } catch (error) {
       console.log("Unable to get the intro");
     }
@@ -85,16 +83,15 @@ const Services = () => {
     const id = item.id;
     const name = item.feature_title;
     
-    const deleteSelectedSection = async (id) => {
-      console.log(id)  
-      // const response = await axiosClientServiceApi.delete(
-      //   `/services/getSelectedClientService/${id}/`,
-      // );
-      // if (response.status === 204) {
-      //         const list = selectedServiceList.filter((list) => list.id !== id);
-      //         setSelectedServiceList(list);
-      //         toast.success(`${name} is deleted`);
-      // }
+    const deleteSelectedSection = async () => {
+      const response = await axiosServiceApi.delete(
+        `/services/updateFeatureService/${id}/`,
+      );
+      if (response.status === 204) {
+              const list = selectedServiceList.filter((list) => list.id !== id);
+              setSelectedServiceList(list);
+              toast.success(`${name} is deleted`);
+      }
     };
 
       confirmAlert({
@@ -102,7 +99,7 @@ const Services = () => {
           return (
             <DeleteDialog
               onClose={onClose}
-              callback={deleteSelectedSection(id)}
+              callback={deleteSelectedSection}
               message={`deleting the ${name} Service?`}
             />
           );
@@ -113,7 +110,7 @@ const Services = () => {
 
   useEffect(() => {
     if (
-      (!componentEdit.editSection || !componentEdit.addSection) &&
+      (!componentEdit.editSection && !componentEdit.addSection) &&
       selectedServiceProject?.id !== undefined
     ) {
       getSelectedServiceObject(selectedServiceProject.id);
@@ -124,7 +121,9 @@ const Services = () => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
     setShow(!show);
     if (item?.id) {
-      setEditCarousel(item);
+      let data = item;
+      data.services_page_title = selectedServiceProject?.services_page_title
+      setEditCarousel(data);
     }
     document.body.style.overflow = "hidden";
   };
@@ -234,7 +233,8 @@ const Services = () => {
               imageLabel="Add Service Banner"
               showDescription={false}
               showExtraFormFields={getServiceFormFields(
-                selectedServiceProject ? selectedServiceProject.id : "",
+                selectedServiceProject ? selectedServiceProject?.id : "",
+                selectedServiceProject ? selectedServiceProject?.services_page_title : "",
               )}
               dimensions={imageDimensionsJson("addService")}
             />
@@ -245,9 +245,9 @@ const Services = () => {
 
         <div className="row ">
         {/* {selectedServiceProject.services_page_title} */}
-          {/* <div className="col-12 col-md-8">
-            <Title title="Services" cssClass="fs-3 mb-2" />
-          </div> */}
+          <div className="col-12 col-md-8">
+            <Title title={selectedServiceProject?.services_page_title} cssClass="fs-3 mb-2" />
+          </div>
         </div>
         {selectedServiceList.map((item, index) => (
           <div
@@ -296,50 +296,7 @@ const Services = () => {
         ))}
       </div>
 
-      {componentEdit.about ? (
-        <div className="adminEditTestmonial">
-          <ImageInputsForm
-            editHandler={editHandler}
-            componentType="banner"
-            pageType={`${pageType}-about`}
-            imageLabel="Banner Image"
-            showDescription={false}
-            showExtraFormFields={getFormDynamicFields(`${pageType}-about`)}
-          />
-        </div>
-      ) : (
-        ""
-      )}
 
-      {componentEdit.vision ? (
-        <div className="adminEditTestmonial">
-          <ImageInputsForm
-            editHandler={editHandler}
-            componentType="banner"
-            pageType={`${pageType}-vision`}
-            imageLabel="Banner Image"
-            showDescription={false}
-            showExtraFormFields={getFormDynamicFields(`${pageType}-vision`)}
-          />
-        </div>
-      ) : (
-        ""
-      )}
-
-      {componentEdit.mission ? (
-        <div className="adminEditTestmonial">
-          <ImageInputsForm
-            editHandler={editHandler}
-            componentType="banner"
-            pageType={`${pageType}-mission`}
-            imageLabel="Banner Image"
-            showDescription={false}
-            showExtraFormFields={getFormDynamicFields(`${pageType}-mission`)}
-          />
-        </div>
-      ) : (
-        ""
-      )}
       {show && <ModelBg />}
     </>
   );
