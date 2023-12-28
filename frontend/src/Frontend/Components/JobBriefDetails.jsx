@@ -9,8 +9,9 @@ const JobBriefDetails = ({ jobDetails }) => {
     <div className="jobBriefDetails p-5 py-4 ">
       <Title
         title={jobDetails.job_title ? jobDetails.job_title : "Default Career"}
+        cssClass="fw-bold"
       />
-      <small className="d-block mb-3">
+      <small className="d-block mb-3 text-muted">
         {jobDetails.job_location ? jobDetails.job_location : "Default Career"}
       </small>
       <span className="d-block mb-1">
@@ -41,7 +42,7 @@ const JobBriefDetails = ({ jobDetails }) => {
           to={
             jobDetails.contactEmail
               ? jobDetails.contactEmail
-              : "hr@leomtech.com"
+              : "contact@leomtech.com"
           }
         >
           Contact US

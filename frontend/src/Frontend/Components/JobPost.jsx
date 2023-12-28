@@ -153,6 +153,21 @@ const JobPost = ({ addJobs }) => {
                       <i className="fa fa-expand" aria-hidden="true"></i>
                     </Link>
                   </div>
+
+                  <div className="">
+              <Link to="" onClick={() => publishCareer(item)}>
+                {item.publish ? (
+                  <small className="bg-success p-1 text-white px-3 rounded">
+                    Published
+                  </small>
+                ) : (
+                  <small className="bg-secondary p-1 text-white px-3">
+                    Un&nbsp;Published
+                  </small>
+                )}
+              </Link>
+              {/* <EditIcon editHandler={() => publishCareer(item)} /> */}
+            </div>
                 </>
               ) : (
                 ""
@@ -172,33 +187,18 @@ const JobPost = ({ addJobs }) => {
 
             {/* publihser Icon */}
 
-            <div className="">
-              <Link to="" onClick={() => publishCareer(item)}>
-                {item.publish ? (
-                  <small className="bg-success p-1 text-white px-3">
-                    Published
-                  </small>
-                ) : (
-                  <small className="bg-secondary p-1 text-white px-3">
-                    Un&nbsp;Published
-                  </small>
-                )}
-              </Link>
-              {/* <EditIcon editHandler={() => publishCareer(item)} /> */}
-            </div>
-
             <div className="p-3 jobPost">
-              <small className="d-block location mb-1">
-                <i class="fa fa-map-marker fs-5" aria-hidden="true"></i>{" "}
+              <small className="d-block location mb-3">
+                <i class="fa fa-map-marker fs-5 text-muted" aria-hidden="true"></i>{" "}
                 {item.job_location}
               </small>
               <Title title={item.job_title} cssClass="fs-5 fw-bold" />
 
-              <div className="mt-2">
-                <Title title="Company" cssClass="text-secondary fw-bolder" />
+              <div className="mt-0 mb-3">
+                <Title title="Company" cssClass="text-muted fw-bolder fs-6" />
                 <p className="m-0">{item.company_name} </p>
               </div>
-              <div className="mt-2">
+              <div className="">
                 <Title
                   title="Job Description"
                   cssClass="text-secondary fw-bolder"
@@ -212,13 +212,13 @@ const JobPost = ({ addJobs }) => {
                 </p>
               </div>
               <span className="d-block mb-2">
-                <strong>Experience</strong>{" "}
+                <strong className="d-block">Experience</strong>
                 {item.experience_from ? item.experience_from : 0} to{" "}
                 {item.experience_to ? item.experience_to : 0} Years
               </span>
               <small className="d-block">
-                <strong>Posted on</strong> {showPosteddate(item.posted_date)}{" "}
-                days ago{" "}
+                <strong className="d-block">Posted on</strong> 
+                [<strong className="">{showPosteddate(item.posted_date)}</strong>] days ago 
               </small>
 
               {/* {isAdmin ? (
