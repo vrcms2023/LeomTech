@@ -6,6 +6,10 @@
   padding: 15px;
 }
 
+.normalCSS, .flipCSS {
+  
+}
+
 .flipCSS {
   flex-direction: row-reverse;
 }

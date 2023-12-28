@@ -47,7 +47,7 @@ const Services = () => {
   const [editCarousel, setEditCarousel] = useState({});
   let { uid } = useParams();
 
-  
+  console.log(selectedServiceProject)
 
   useEffect(() => {
     // window.scrollTo(0, 0);
@@ -244,13 +244,14 @@ const Services = () => {
         )}
 
         <div className="row ">
+        {/* {selectedServiceProject.services_page_title} */}
           {/* <div className="col-12 col-md-8">
             <Title title="Services" cssClass="fs-3 mb-2" />
           </div> */}
         </div>
         {selectedServiceList.map((item, index) => (
           <div
-            className={`row ${isAdmin ? "border border-warning mb-3 position-relative" : ""} ${
+            className={`row mb-5${isAdmin ? "border border-warning mb-3 position-relative" : ""} ${
               index % 2 === 0 ? "normalCSS" : "flipCSS"
             }`}
             key={item.id}
@@ -267,14 +268,14 @@ const Services = () => {
             ) : (
               ""
             )}
-            <div className="col-md-8">
+            <div className="col-md-6">
               <Title
                 title={
                   item.feature_title
                     ? item.feature_title
                     : "Update Feature title"
                 }
-                cssClass="fs-3 mt-3 mb-2"
+                cssClass="fs-1 fw-bold mt-3 mb-1"
               />
               <Title
                 title={
@@ -282,13 +283,13 @@ const Services = () => {
                     ? item.feature_sub_title
                     : "Update Feature sub title"
                 }
-                cssClass="fs-5 fw-bold"
+                cssClass="fs-5 text-secondary mb-2"
               />
               <div
                 dangerouslySetInnerHTML={{ __html: item.feature_description }}
               />
             </div>
-            <div className="col-md-4">
+            <div className="col-md-6">
               <img src={getImagePath(item.path)} alt="" />
             </div>
           </div>
