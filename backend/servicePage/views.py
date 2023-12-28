@@ -5,7 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from django.http import Http404
-from common.utility import get_image_data_from_request,get_service_data_From_request_Object 
+from common.utility import get_service_data_From_request_Object 
 
 # Create your views here.
 
@@ -168,6 +168,7 @@ class FeatureServicesDetail(APIView):
     def patch(self, request, pk, format=None):
         snippet = self.get_object(pk)
         requestObj = get_service_data_From_request_Object(request)
+        requestObj['updated_by'] = request.data["updated_by"]
         serializer = ServiceFeatureSerializer(snippet, data=requestObj)
         if serializer.is_valid():
             serializer.save()

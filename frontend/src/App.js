@@ -101,7 +101,7 @@ function App() {
       <ThemeProvider theme={ThemeOne}>
         <GlobalStyles />
         <BrowserRouter>
-          {isLoading ? <LoadingSpinner /> : ""}
+          {isLoading ? <LoadingSpinner isLoading={isLoading} /> : ""}
           {/* <LoadingSpinner />  */}
           <TopStrip />
           <Header />

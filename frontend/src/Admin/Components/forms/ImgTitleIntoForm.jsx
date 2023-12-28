@@ -119,6 +119,7 @@ const ImageInputsForm = ({
                 extraFormParamas={extraFormParamas}
                 showExtraFormFields={showExtraFormFields}
                 dimensions={dimensions}
+                closeHandler={closeHandler}
               />
             </div>
           </div>

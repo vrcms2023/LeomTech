@@ -6,6 +6,7 @@ from .serializers import AboutUSSerializer
 from .models import Aboutus
 from rest_framework import status
 from django.http import Http404
+from common.utility import get_about_us_data_From_request_Object
 
 # Create your views here.
 
@@ -24,7 +25,9 @@ class AboutusAPIView(generics.CreateAPIView):
         return Response({"aboutus": serializer.data}, status=status.HTTP_200_OK)
     
      def post(self, request, format=None):
-        serializer = AboutUSSerializer(data=request.data)
+        requestObj = get_about_us_data_From_request_Object(request)
+        requestObj['created_by'] = request.data["created_by"]
+        serializer = AboutUSSerializer(data=requestObj)
         if serializer.is_valid():
             serializer.save()
             return Response({"aboutus": serializer.data}, status=status.HTTP_201_CREATED)
@@ -44,10 +47,12 @@ class AboutusUpdateAndDeleteView(APIView):
 
     def get(self, request, pk, format=None):
         snippet = self.get_object(pk)
-        serializer = AboutUSSerializer(snippet)
+        requestObj = get_about_us_data_From_request_Object(request)
+        requestObj['updated_by'] = request.data["updated_by"]
+        serializer = AboutUSSerializer(snippet, data=requestObj)
         return Response({"aboutus": serializer.data}, status=status.HTTP_200_OK)
 
-    def put(self, request, pk, format=None):
+    def patch(self, request, pk, format=None):
         snippet = self.get_object(pk)
         serializer = AboutUSSerializer(snippet, data=request.data)
         if serializer.is_valid():

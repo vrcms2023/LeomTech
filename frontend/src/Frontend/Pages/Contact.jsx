@@ -264,6 +264,13 @@ const Contact = () => {
                 </p>
               </div>
             </div>
+            {componentEdit.address ? (
+              <div className="adminEditTestmonial">
+                <AddressTextArea editHandler={editHandler} componentType="address" />
+              </div>
+            ) : (
+              ""
+            )}
           </div>
 
           <div className="col-md-8 d-flex justify-content-center align-items-center flex-column">
@@ -419,13 +426,7 @@ const Contact = () => {
         </div>
       </div>
 
-      {componentEdit.address ? (
-        <div className="adminEditTestmonial">
-          <AddressTextArea editHandler={editHandler} componentType="address" />
-        </div>
-      ) : (
-        ""
-      )}
+
 
       {componentEdit.map ? (
         <div className="adminEditTestmonial">

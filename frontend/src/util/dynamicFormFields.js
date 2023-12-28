@@ -25,30 +25,23 @@ export const getFormDynamicFields = (pageType) => {
   };
 };
 
-export const getAboutUSSectionFields = (pageType) => {
+export const getAboutUSSectionFields = () => {
   return {
-    banner_title: {
+    aboutus_title: {
       label: "Title",
       type: "text",
-      fieldName: "banner_title",
+      fieldName: "aboutus_title",
     },
-    banner_subTitle: {
+    aboutus_sub_title: {
       label: "Sub Title",
       type: "text",
-      fieldName: "banner_subTitle",
+      fieldName: "aboutus_sub_title",
     },
-    banner_descripiton: {
+    aboutus_description: {
       label: "Description",
       type: "richText",
-      fieldName: "banner_descripiton",
-    },
-    pageType: {
-      label: "News Title",
-      readonly: true,
-      type: "hidden",
-      value: pageType ? pageType : "",
-      fieldName: "pageType",
-    },
+      fieldName: "aboutus_description",
+    }
   };
 };
 
@@ -122,7 +115,8 @@ export const getTestimonialsFields = (category) => {
   };
 };
 
-export const getServiceFormFields = (id) => {
+export const getServiceFormFields = (id, title) => {
+  console.log("title", title)
   return {
     feature_title: {
       label: "Service Title",
@@ -140,32 +134,47 @@ export const getServiceFormFields = (id) => {
       fieldName: "feature_description",
     },
     serviceID: {
-      label: "News Title",
+      label: "hidden",
       readonly: true,
       type: "hidden",
       value: id ? id : "",
       fieldName: "serviceID",
     },
+    services_page_title: {
+      label: "hidden",
+      readonly: true,
+      type: "hidden",
+      value: title ? title : "",
+      fieldName: "services_page_title",
+    },
   };
 };
-
-// export const imageDimensionsJson = {
-//   whoweare: {
-//     width: "800px",
-//     height: "800px",
-//   },
-// };
-
-export const imageDimensionsJson = (type) => {
-  if(type === "carousel") {
-    return ( {"w": "1500px", "h": "760px"})
-  }else if(type === "whoweare" || type === "homeCareers" || type === "addService") {
-    return ( {"w": "800px", "h": "800px"})
-  }else if(type === "testimonial" || type === "addBews") {
-    return ( {"w": "500px", "h": "500px"})
+export const imageDimensionsJson = (component) => {
+  const imgDimension = {
+    carousel: {
+      w: "1500px",
+      h: "760px",
+    },
+    whoweare: {
+      w: "800px",
+      h: "800px",
+    },
+    homeCareers: {
+      w: "800px",
+      h: "800px",
+    },
+    addService: {
+      w: "800px",
+      h: "800px",
+    },
+    addBews: {
+      w: "500px",
+      h: "500px",
+    },
+    banner: {
+      w: "1500px",
+      h: "400px",
+    },
   }
-  else if(type === "banner") {
-    return ( {"w": "1500px", "h": "400px"})
-  }
-  
-}
+ return imgDimension[component];
+};

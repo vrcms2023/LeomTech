@@ -44,6 +44,7 @@ def get_service_data_From_request_Object(request):
         requestObj['feature_title'] = request.data["feature_title"]
         requestObj['feature_sub_title'] = request.data["feature_sub_title"]
         requestObj['feature_description'] = request.data["feature_description"]
+        requestObj['services_page_title'] = request.data["services_page_title"]
         requestObj['serviceID'] = request.data["serviceID"]
         return requestObj
 
@@ -65,4 +66,12 @@ def get_news_data_From_request_Object(request):
         requestObj = get_image_data_from_request(request)
         requestObj['news_title'] = request.data["news_title"]
         requestObj['news_description'] = request.data["news_description"]
+        return requestObj
+
+
+def get_about_us_data_From_request_Object(request):
+        requestObj = get_image_data_from_request(request)
+        requestObj['aboutus_title'] = request.data["aboutus_title"]
+        requestObj['aboutus_sub_title'] = request.data["aboutus_sub_title"]
+        requestObj['aboutus_description'] = request.data["aboutus_description"]
         return requestObj
