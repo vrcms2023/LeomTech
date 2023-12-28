@@ -28,7 +28,7 @@ const AboutSection = ({ getBannerAPIURL, bannerState }) => {
 
   return (
     <div className="row shadow-lg my-5">
-      <div className="col-12 col-md-8  py-4 p-md-5">
+      <div className="col-12 col-md-6 py-4 p-md-5">
         <img
           src={getImagePath(bannerdata?.path)}
           alt={bannerdata?.alternitivetext}
@@ -49,11 +49,11 @@ const AboutSection = ({ getBannerAPIURL, bannerState }) => {
           }}
         />
       </div>
-      <div className="col-12 col-md-4 d-none d-md-block p-0 ">
+      <div className="col-12 col-md-6 d-none d-md-block p-5 text-center">
         <img
           src={getImagePath(bannerdata?.path)}
           alt={bannerdata?.alternitivetext}
-          className="w-100 h-100"
+          className="img-fluid"
           style={{ objectFit: "cover", backgroundPosition: "center" }}
         />
       </div>
