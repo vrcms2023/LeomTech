@@ -113,7 +113,7 @@ const Careers = () => {
       <div className="container my-md-5 py-md-4">
         <div className="row">
           <div className="col-md-6">
-            <Title title="Careers Details" />
+            <Title title="Careers Details" cssClass="fw-bold fs-4" />
           </div>
           <div className="col-md-6 text-end">
             <Link to="/careers" className="btn btn-secondary">

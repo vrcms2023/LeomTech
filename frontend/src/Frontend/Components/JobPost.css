@@ -23,10 +23,16 @@
   border: 1px solid #cccc;
 }
 
+.currentOpenings ul {
+  list-style: none;
+}
+
 .currentOpenings li a {
   color: #444;
-  font-size: 1.2rem;
+  font-size: 1rem;
   text-decoration: underline;
+  display: inline-block;
+  padding: 5px 0;
 }
 
 .currentOpenings li a:hover {
