@@ -13,6 +13,8 @@ import ServiceForm from "../../Admin/Components/forms/ImgTitleIntoForm-List";
 import ModelBg from "../../Common/ModelBg";
 import EditIcon from "../../Common/AdminEditIcon";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
+import { mapServicePagetoComponent } from "../../util/dataFormatUtil";
+import { getImagePath } from "../../util/commonUtil";
 
 const HomeServices = ({ title }) => {
   const editComponentObj = {
@@ -38,10 +40,12 @@ const HomeServices = ({ title }) => {
     try {
       
       let response = await axiosClientServiceApi.get(
-        `/services/clientServiceList/`,
+        `/services/getClientHomePageService/`,
       );
-      console.log(response.data.servicesList)
-      setClientServiceList(response.data.servicesList.reverse());
+      
+      const data = mapServicePagetoComponent(response.data)
+    
+      setClientServiceList(data);
     } catch (error) {
       console.log("Unable to get the intro");
     }
@@ -86,7 +90,8 @@ const HomeServices = ({ title }) => {
 
   return (
     <>
-      {clientServiceList.map((item, index) => (
+      {clientServiceList.map((servicelist, index) => 
+        servicelist?.service.map((item) => (
         <div className="row service mb-4" key={`${index}+homeService`}>
           <div className="position-relative">
             {/* {isAdmin ? (
@@ -96,17 +101,21 @@ const HomeServices = ({ title }) => {
             )} */}
           </div>
           <div className="col-md-6 p-2">
-            <img src={serviceImg1} alt="" className="img-fluid w-100 h-100" />
+            <img src={item.path ? getImagePath(item.path) : serviceImg1} alt={item.alternitivetext} className="img-fluid w-100 h-100" />
           </div>
           <div className="col-md-6 p-4">
-            <Title title={item.title} cssClass="fs-3 fw-bold" />
-            <p>{item.description}</p>
-            <Link to={item.link} className="btn btn-primary mt-4">
+            <Title title={item.feature_title} cssClass="fs-3 fw-bold" />
+            {item.feature_description ? (
+                <div dangerouslySetInnerHTML={{ __html: item.feature_description }} />
+              ) : (
+                ""
+              )}
+            <Link to={`/services/${item.serviceID}/`} className="btn btn-primary mt-4">
               Know More
             </Link>
           </div>
         </div>
-      ))}
+      )))}
 
       {componentEdit.service ? (
         <div className="adminEditTestmonial">

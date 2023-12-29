@@ -49,3 +49,21 @@ export const sortByDate = (array) => {
 export const getFirstShortDescription = (data) => {
   return data.substring(0, 50);
 };
+
+export const mapServicePagetoComponent = (data) => {
+  const services = data.services;
+  const serviceSection = data.serviceSection;
+  const displayCount = 5
+
+  return services.reduce((acc, val, ind) => {
+    const service = [];
+    if(ind >= displayCount) return acc.concat({ ...val, service });
+    serviceSection.forEach((el, i) => {
+      if (el.serviceID === val.id && service.length === 0) {
+        service.push(el);
+      }
+    });
+    return acc.concat({ ...val, service });
+  }, []);
+
+};
