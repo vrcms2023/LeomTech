@@ -81,14 +81,14 @@ const ABrief = ({ title, cssClass, linkClass, moreLink, dimensions }) => {
     <div className="row h-100">
       {/* Edit News */}
 
-      <div className="col-md-5 ABriefImg ">
+      <div className="col-md-5 ps-0 ABriefImg ">
         <img
           src={bannerdata?.path ? getImagePath(bannerdata.path) : CareerImg}
           alt=""
           className="w-100 h-100 img-fluid"
         />
       </div>
-      <div className="col-md-7 p-5 pt-0 d-flex justify-content-start align-items-start flex-column position-relative">
+      <div className="col-md-7 p-4 pt-0 d-flex justify-content-start align-items-start flex-column position-relative">
         {isAdmin ? (
           <EditIcon editHandler={() => editHandler("homecareers", true)} />
         ) : (

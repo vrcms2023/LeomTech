@@ -4,3 +4,16 @@
 .adminEditTestmonial select.form-control {
   width: 150px !important;
 }
+
+.jobBriefDetails {
+  background-color: #e5e5e5;
+}
+
+.jobDescription {
+  background-color: #fff;
+}
+
+.jobDescription ul{
+  margin-left: 25px;
+
+}

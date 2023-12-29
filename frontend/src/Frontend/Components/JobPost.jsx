@@ -114,14 +114,14 @@ const JobPost = ({ addJobs }) => {
       {posts?.length > 0 ? (
         posts.map((item, index) => (
           <div
-            className={`col-sm-6 col-md-4 col-lg-3 mt-3 mt-md-4 position-relative`}
+            className={`col-md-6 col-lg-3 mt-3 mt-md-4 position-relative`}
             // <div
             // className={`col-sm-6 col-md-4 col-lg-3 mt-3 mt-md-5 position-relative ${
             //   item.publish ? "border border-success" : ""
             // }`}
             key={item.id}
           >
-            <div className="d-flex gap-4 justify-content-end mb-2 p-1">
+            <div className="d-flex gap-4 gap-md-3 gap-lg-3 justify-content-end mb-2 p-1">
               {isAdmin ? (
                 <>
                   <div
@@ -165,12 +165,12 @@ const JobPost = ({ addJobs }) => {
                   <div className="">
               <Link to="" onClick={() => publishCareer(item)}>
                 {item.publish ? (
-                  <small className="bg-success p-1 text-white px-3 rounded">
+                  <small className="bg-success p-1 text-white px-2 rounded">
                     Published
                   </small>
                 ) : (
-                  <small className="bg-secondary p-1 text-white px-3">
-                    Un&nbsp;Published
+                  <small className="bg-secondary p-1 text-white px-2 rounded">
+                    Un Pub'd
                   </small>
                 )}
               </Link>
@@ -219,13 +219,13 @@ const JobPost = ({ addJobs }) => {
                   title="Job Description"
                   cssClass="text-secondary fw-bolder"
                 />
-                <p className="m-0">
+                {/* <p className="m-0">
                   <div
                     dangerouslySetInnerHTML={{
                       __html: getFirstShortDescription(item.description),
                     }}
                   />
-                </p>
+                </p> */}
               </div>
               <span className="d-block mb-2">
                 <strong className="d-block">Experience</strong>
