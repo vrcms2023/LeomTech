@@ -41,7 +41,7 @@ const About = () => {
   const [editCarousel, setEditCarousel] = useState({});
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    // window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
@@ -164,16 +164,29 @@ const About = () => {
         ""
       )}
 
-      <div className="container my-md-5 ">
+    
+    
 
-    <div className="d-flex justify-content-end align-items-center mb-3">
-         <button
-              type="submit"
-              className="btn btn-primary px-3"
-              onClick={() => editHandler("addSection", true)}
-            > <i className="fa fa-plus" aria-hidden="true"></i>
-            </button>
+    <div className="container my-md-5 ">
+        
+      
+        <div className="row">
+          <div className="col-md-6 fs-3">About Us</div>
+          {isAdmin ? 
+            <div className="col-md-6">
+              <div className="d-flex justify-content-end align-items-center mb-3">
+                <sapn className="fw-bold me-2">Add content </sapn>
+                <button
+                type="submit"
+                className="btn btn-primary px-3"
+                onClick={() => editHandler("addSection", true)}
+                > <i className="fa fa-plus" aria-hidden="true"></i>
+                </button>
+              </div>
+            </div>
+            : "" }
           </div>
+      
 
           {componentEdit.editSection || componentEdit.addSection ? (
           <div className="adminEditTestmonial">
@@ -192,13 +205,19 @@ const About = () => {
               imageLabel="Add About us Banner"
               showDescription={false}
               showExtraFormFields={getAboutUSSectionFields()}
-              dimensions={imageDimensionsJson("whoweare")}
+              dimensions={imageDimensionsJson("aboutus")}
             />
           </div>
         ) : (
           ""
-        )}
-        {aboutList.map((item, index) => (
+      )}
+
+      
+
+
+
+        <div className="row mt-4">
+        {aboutList.length > 0 ? aboutList.map((item, index) => (
           <div
             className={`row mb-5${isAdmin ? "border border-warning mb-3 position-relative" : ""} ${
               index % 2 === 0 ? "normalCSS" : "flipCSS"
@@ -226,25 +245,32 @@ const About = () => {
                 }
                 cssClass="fs-1 fw-bold mt-3 mb-1"
               />
+              {item.aboutus_sub_title ? 
               <Title
+              title={ item.aboutus_sub_title }
+              cssClass="fs-5 text-secondary mb-2"
+              />
+              : ""}
+              {/* <Title
                 title={
                   item.aboutus_sub_title
                     ? item.aboutus_sub_title
                     : "Update  sub title"
                 }
                 cssClass="fs-5 text-secondary mb-2"
-              />
+              /> */}
               <div
                 dangerouslySetInnerHTML={{ __html: item.aboutus_description }}
               />
             </div>
-            <div className="col-md-6">
-              <img src={getImagePath(item.path)} alt="" />
+            <div className="col-md-6 text-center">
+              <img src={getImagePath(item.path)} alt="" className="img-fluid" />
             </div>
+            
           </div>
-        ))}
+        )) : <p className="text-center text-muted py-5">Please add page contents...</p>}
 
-
+      </div>
       </div>
 
       {show && <ModelBg />}

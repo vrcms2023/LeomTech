@@ -155,6 +155,10 @@ export const imageDimensionsJson = (component) => {
       w: "1500px",
       h: "760px",
     },
+    aboutus: {
+      w: "400px",
+      h: "400px",
+    },
     whoweare: {
       w: "800px",
       h: "800px",

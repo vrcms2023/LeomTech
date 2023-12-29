@@ -24,6 +24,8 @@ import {
 import { getImagePath } from "../../util/commonUtil";
 import Error from "./Error";
 
+import './componentsCommonStyes.css'
+
 registerPlugin(
   FilePondPluginFileValidateType,
   FilePondPluginImagePreview,
@@ -327,7 +329,7 @@ const FileUpload = ({
       <form className="" onSubmit={handleSubmit(uploadFile)}>
         <div className="mb-3 row">
           <label className="col-sm-3 col-form-label text-start text-md-end">
-           <> <Title title={title} cssClass="" /> <span className="text-danger">*</span></>
+           <Title title={title} cssClass="requiredField" /> 
           </label>
           <div className="col-sm-9">
           {error ? (<Error>{error}</Error>) : ''}
@@ -351,7 +353,7 @@ const FileUpload = ({
             </div>
             {dimensions ? (
               <div>
-                <small className="text-danger">W - {dimensions.w} | H - {dimensions.h} will be the good resolution </small>
+                <small className="text-muted">Min. Width - {dimensions.w} & Height - {dimensions.h} will be the good for resolution. </small>
               </div>
             ) : (
               ""
