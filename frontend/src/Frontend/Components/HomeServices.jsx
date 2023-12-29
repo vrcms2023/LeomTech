@@ -13,7 +13,7 @@ import ServiceForm from "../../Admin/Components/forms/ImgTitleIntoForm-List";
 import ModelBg from "../../Common/ModelBg";
 import EditIcon from "../../Common/AdminEditIcon";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
-import { mapServicePagetoComponent } from "../../util/dataFormatUtil";
+import { mapServicePagetoComponent, sortByDate, sortByDateFIFO } from "../../util/dataFormatUtil";
 import { getImagePath } from "../../util/commonUtil";
 
 const HomeServices = ({ title }) => {
@@ -43,50 +43,13 @@ const HomeServices = ({ title }) => {
         `/services/getClientHomePageService/`,
       );
       
-      const data = mapServicePagetoComponent(response.data)
-    
-      setClientServiceList(data);
+      let data = mapServicePagetoComponent(response.data)
+          setClientServiceList(data);
     } catch (error) {
       console.log("Unable to get the intro");
     }
   };
-  const [services, setServices] = useState([
-    {
-      img: "",
-      title: "IOT Services",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-      link: "#",
-    },
-    {
-      img: "",
-      title: "AI Services",
-      description:
-        "Adipiscing elit ut aliquam purus sit amet luctus. Risus feugiat in ante metus. Vitae semper quis lectus nulla at volutpat diam ut venenatis. Quis lectus nulla at volutpat diam. Interdum posuere lorem ipsum dolor sit. Phasellus egestas tellus rutrum tellus pellentesque eu tincidunt.",
-      link: "#",
-    },
-    {
-      img: "newsImg3",
-      title: "Project Planning",
-      description:
-        "Ac tortor vitae purus faucibus. Varius morbi enim nunc faucibus a pellentesque. Aliquam etiam erat velit scelerisque in dictum non consectetur. In arcu cursus euismod quis viverra nibh. Justo laoreet sit amet cursus. Tincidunt vitae semper",
-      link: "#",
-    },
-    {
-      img: "newsImg4",
-      title: "Project Development",
-      description:
-        "Adipiscing enim eu turpis egestas pretium aenean pharetra. Adipiscing vitae proin sagittis nisl rhoncus. Ultrices dui sapien eget mi proin. Iaculis at erat pellentesque adipiscing commodo. Congue nisi vitae suscipit tellus mauris. Libero id faucibus nisl tincidunt eget",
-      link: "#",
-    },
-    {
-      img: "newsImg4",
-      title: "Project Support",
-      description:
-        "Iaculis eu non diam phasellus vestibulum lorem sed risus. Nunc aliquet bibendum enim facilisis gravida neque convallis a. In nibh mauris cursus mattis molestie a. Senectus et netus et malesuada fames ac turpis egestas. Quis vel eros donec ac.",
-      link: "#",
-    },
-  ]);
+  
 
   return (
     <>

@@ -20,7 +20,8 @@ class Migration(migrations.Migration):
                 ('email', models.EmailField(max_length=254)),
                 ('phoneNumber', models.CharField(max_length=50)),
                 ('description', models.CharField(max_length=5000)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
+                ('updated_at', models.DateTimeField(auto_now_add=True)),
+                ('created_at', models.DateTimeField(auto_now=True)),
             ],
         ),
     ]

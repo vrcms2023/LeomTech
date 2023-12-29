@@ -23,6 +23,8 @@ import { axiosClientServiceApi, axiosServiceApi } from "../../util/axiosUtil";
 import { getImagePath } from "../../util/commonUtil";
 import { confirmAlert } from "react-confirm-alert";
 import DeleteDialog from "../../Common/DeleteDialog";
+import { sortByAboutDateFIFO } from "../../util/dataFormatUtil";
+import moment from "moment";
 
 
 const About = () => {
@@ -67,7 +69,8 @@ const About = () => {
       let response = await axiosClientServiceApi.get(
         `aboutus/clientAboutus/`,
       );
-      setAboutList(response.data.aboutus.reverse());
+      let data = sortByAboutDateFIFO(response.data.aboutus)
+      setAboutList(data);
     } catch (error) {
       console.log("Unable to get the intro");
     }
@@ -251,6 +254,7 @@ const About = () => {
               cssClass="fs-5 text-secondary mb-2"
               />
               : ""}
+              <p>{moment(item.created_at).format('DD-MM-YYYY hh:mm:ss')}</p>
               {/* <Title
                 title={
                   item.aboutus_sub_title

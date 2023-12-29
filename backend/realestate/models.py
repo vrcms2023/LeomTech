@@ -24,8 +24,9 @@ class Projects(models.Model):
         userID = models.CharField(max_length=50)
         created_by =  models.CharField(max_length=50)
         updated_by = models.CharField(max_length=50)
-        created_at = models.DateTimeField(auto_now_add=True)
-        updated_at = models.DateTimeField(auto_now=True)
+        created_at = models.DateTimeField(auto_now=True)
+        updated_at = models.DateTimeField(auto_now_add=True)
+
         
 
 class FeatureAndAmenities(models.Model):
@@ -34,8 +35,8 @@ class FeatureAndAmenities(models.Model):
         amenitie = models.CharField(max_length=5000, null=True, blank=True)
         feature = models.CharField(max_length=5000, null=True, blank=True)
         googleMap = models.CharField(max_length=5000, null=True, blank=True)
-        created_at = models.DateTimeField(auto_now_add=True)
-        updated_at = models.DateTimeField(auto_now=True)
+        created_at = models.DateTimeField(auto_now=True)
+        updated_at = models.DateTimeField(auto_now_add=True)
 
 
 class Specifications(models.Model):
@@ -43,8 +44,8 @@ class Specifications(models.Model):
         projectID = models.CharField(max_length=100, null=False)
         title = models.CharField(max_length=500, null=True, blank=True)
         feature = models.CharField(max_length=5000, null=True, blank=True)
-        created_at = models.DateTimeField(auto_now_add=True)
-        updated_at = models.DateTimeField(auto_now=True)
+        created_at = models.DateTimeField(auto_now=True)
+        updated_at = models.DateTimeField(auto_now_add=True)
         created_by =  models.CharField(max_length=50)
         updated_by = models.CharField(max_length=50)
         

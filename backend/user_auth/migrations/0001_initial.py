@@ -21,8 +21,8 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=255)),
                 ('is_active', models.BooleanField(default=True)),
                 ('is_admin', models.BooleanField(default=False)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
+                ('created_at', models.DateTimeField(auto_now=True)),
+                ('updated_at', models.DateTimeField(auto_now_add=True)),
             ],
             options={
                 'abstract': False,

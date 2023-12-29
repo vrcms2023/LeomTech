@@ -19,8 +19,8 @@ class Migration(migrations.Migration):
                 ('amenitie', models.CharField(max_length=5000, null=True)),
                 ('feature', models.CharField(max_length=5000, null=True)),
                 ('googleMap', models.CharField(max_length=5000, null=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
+                ('created_at', models.DateTimeField(auto_now=True)),
+                ('updated_at', models.DateTimeField(auto_now_add=True)),
             ],
         ),
         migrations.DeleteModel(

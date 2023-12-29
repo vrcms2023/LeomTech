@@ -22,8 +22,8 @@ class Migration(migrations.Migration):
                 ('accordion_description', models.JSONField(null=True)),
                 ('created_by', models.CharField(max_length=50)),
                 ('updated_by', models.CharField(max_length=50)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
+                ('created_at', models.DateTimeField(auto_now=True)),
+                ('updated_at', models.DateTimeField(auto_now_add=True)),
             ],
         ),
         migrations.CreateModel(
@@ -51,8 +51,8 @@ class Migration(migrations.Migration):
                 ('publish', models.BooleanField(default=False)),
                 ('created_by', models.CharField(max_length=50)),
                 ('updated_by', models.CharField(max_length=50)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
+                ('created_at', models.DateTimeField(auto_now=True)),
+                ('updated_at', models.DateTimeField(auto_now_add=True)),
             ],
         ),
     ]

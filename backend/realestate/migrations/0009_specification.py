@@ -18,8 +18,8 @@ class Migration(migrations.Migration):
                 ('projectID', models.CharField(max_length=100, unique=True)),
                 ('title', models.CharField(max_length=500, null=True)),
                 ('feature', models.CharField(max_length=5000, null=True)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
+                ('created_at', models.DateTimeField(auto_now=True)),
+                ('updated_at', models.DateTimeField(auto_now_add=True)),
             ],
         ),
     ]

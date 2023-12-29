@@ -11,8 +11,9 @@ import { getCookie } from "../../../util/cookieUtil";
 import { confirmAlert } from "react-confirm-alert";
 import DeleteDialog from "../../../Common/DeleteDialog";
 import Title from "../../../Common/Title";
-
+import moment from "moment";
 import './services.css'
+import { sortByDateFIFO } from "../../../util/dataFormatUtil";
 
 const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
   const [serviceName, setServiceName] = useState("");
@@ -67,6 +68,7 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
         toast.success(`${serviceName} service is created `);
         setServiceName("");
         getServiceList();
+        
         setSelectedServiceProject(response.data.services);
       } else {
         setError(response.data.message);
@@ -81,9 +83,10 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
     try {
       const response = await axiosServiceApi.get(`/services/createService/`);
       if (response?.status === 200) {
-        setServiceList(response.data.services);
+        const data = sortByDateFIFO(response.data.services)
+        setServiceList(data);
         if (onPageLoadAction.current) {
-          setSelectedServiceProject(response.data.services[0]);
+          setSelectedServiceProject(data[0]);
           onPageLoadAction.current = false;
         }
       }
@@ -207,6 +210,8 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
                 <div className="w-50">
                   <Link onClick={(event) => onClickSelectedService(item)} className="fw-bold text-dark pageTitle">{item.services_page_title} </Link>
                 </div>
+                
+                <p>{moment(item.created_at).format('DD-MM-YYYY hh:mm:ss')}</p>
                 <div className="w-50 text-end">
                   <Link onClick={()=>publishService(item)} className={`p-1 px-2 rounded ${item.publish ? "bg-success text-white" : "bg-secondary text-light"}`} title={item.publish ? "Page Published" : "Page Not Published" }>
                     <small>{item.publish ? <i className="fa fa-thumbs-up fs-5" aria-hidden="true"></i> :  <i className="fa fa-thumbs-down" aria-hidden="true"></i>}</small>
