@@ -172,7 +172,7 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
       {/* <div className={`container bg-light p-5 border shadow-lg ${selectedServiceProject && selectedServiceProject.publish ? 'border border-success' : ''}`}> */}
         <div className="row">
           {error ? <Error>{error}</Error> : ""}
-          <div className="col-md-5 px-4 py-5 bg-secondary d-flex flex-column justify-content-center align-items-center addPageForm">
+          <div className="col-md-5 px-4 py-5 bg-secondary d-flex flex-column justify-content-center align-items-center text-center addPageForm">
             <input
               type="text"
               className="form-control py-2"

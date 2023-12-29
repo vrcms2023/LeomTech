@@ -224,7 +224,7 @@ const FileUpload = ({
   const postImages = async (data) => {
     const arrURL = [];
     if(files.length === 0){
-      setError("Please upload File")
+      setError("Please add an image ")
     }
     if (files.length > 0) {
       files.forEach((element, index) => {
