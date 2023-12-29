@@ -6,7 +6,7 @@
   right: 25px;
   bottom: 25px;
   left: 25px;
-  z-index: 99999;
+  z-index: 9990;
   width: calc(100% - 50px) !important;
   /* height: 100%; */
   overflow-x: hidden;
