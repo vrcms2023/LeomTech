@@ -84,7 +84,6 @@ const Footer = () => {
         const response = await axiosClientServiceApi.get(
           `/footer/getTermsAndCondition/`,
         );
-        console.log(response, "response")
         if (response?.data?.terms?.length > 0) {
           setTermsAndPolicyData(response?.data?.terms[0]);
         }
