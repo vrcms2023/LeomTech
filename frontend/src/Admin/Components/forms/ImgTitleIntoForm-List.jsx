@@ -137,11 +137,11 @@ const AdminBanner = ({
               {carousel?.map((item, index) => (
                 <div className="row mb-4 slideItem" key={index}>
                   <div className="col-2 col-md-2">
-                  <i class="fa fa-picture-o fs-2 d-md-none" aria-hidden="true"></i>
+                  <i class="fa fa-picture-o fs-2 d-lg-none" aria-hidden="true"></i>
                     <img
                       src={getImagePath(item.path)}
                       alt={item.alternitivetext}
-                      className="w-100 d-none d-md-block"
+                      className="w-100 d-none d-lg-block"
                     />
                   </div>
                   <div className="col col-md-8 ">
@@ -153,7 +153,7 @@ const AdminBanner = ({
                       {item.carouseDescription ? item.carouseDescription : ""}
                     </small>
                   </div>
-                  <div className="col-4 col-md-2 d-flex justify-content-around align-items-center flex-md-row">
+                  <div className="col-4 col-md-2 d-flex justify-content-around align-items-center flex-md-row gap-3">
                     <Link onClick={(event) => handleCarouselEdit(event, item)}>
                       <i
                         className="fa fa-pencil fs-4 text-warning"
