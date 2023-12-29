@@ -254,7 +254,7 @@ const About = () => {
               cssClass="fs-5 text-secondary mb-2"
               />
               : ""}
-              <p>{moment(item.created_at).format('DD-MM-YYYY hh:mm:ss')}</p>
+              {/* <p>{moment(item.created_at).format('DD-MM-YYYY hh:mm:ss')}</p> */}
               {/* <Title
                 title={
                   item.aboutus_sub_title

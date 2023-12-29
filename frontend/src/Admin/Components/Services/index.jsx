@@ -211,7 +211,7 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
                   <Link onClick={(event) => onClickSelectedService(item)} className="fw-bold text-dark pageTitle">{item.services_page_title} </Link>
                 </div>
                 
-                <p>{moment(item.created_at).format('DD-MM-YYYY hh:mm:ss')}</p>
+                {/* <p>{moment(item.created_at).format('DD-MM-YYYY hh:mm:ss')}</p> */}
                 <div className="w-50 text-end">
                   <Link onClick={()=>publishService(item)} className={`p-1 px-2 rounded ${item.publish ? "bg-success text-white" : "bg-secondary text-light"}`} title={item.publish ? "Page Published" : "Page Not Published" }>
                     <small>{item.publish ? <i className="fa fa-thumbs-up fs-5" aria-hidden="true"></i> :  <i className="fa fa-thumbs-down" aria-hidden="true"></i>}</small>
