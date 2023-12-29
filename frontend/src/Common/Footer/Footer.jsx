@@ -99,7 +99,7 @@ const Footer = () => {
   return (
     <>
       <footer className="text-center">
-        <div className="container py-5">
+        <div className="container py-5 footerDetails">
           <div className="row">
             <div className="col-md-3 text-center text-md-start">
               <h5>Company</h5>
