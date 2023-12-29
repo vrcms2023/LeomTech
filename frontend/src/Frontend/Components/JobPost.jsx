@@ -14,6 +14,7 @@ import { axiosServiceApi } from "../../util/axiosUtil";
 import { confirmAlert } from "react-confirm-alert";
 import DeleteDialog from "../../Common/DeleteDialog";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
+import { getCookie } from "../../util/cookieUtil";
 
 // Styles
 import "./JobPost.css";
@@ -30,6 +31,7 @@ const JobPost = ({ addJobs }) => {
   const [show, setShow] = useState(false);
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
+  const userCookie = getCookie("access")
 
   const editHandler = (name, value, item) => {
     setEditPosts(item);
@@ -44,24 +46,15 @@ const JobPost = ({ addJobs }) => {
     }
   }, [componentEdit.job, addJobs]);
 
-  useEffect(() =>{
-    getClientJodData()
-  },[!isAdmin])
-  
-  const getClientJodData = async () =>{
-   
-    try {
-      let response =  await axiosClientServiceApi.get(`/careers/clientCareersList/`);
-      setPosts(response.data.careers);
-    } catch (error) {
-      console.log("Unable to get the Career data");
-    }
-  }
-
-  const getCareerData = async () => {
+   const getCareerData = async () => {
     let response = null;
     try {
-      response = await axiosServiceApi.get(`/careers/createCareer/`);
+      if(userCookie){
+        response = await axiosServiceApi.get(`/careers/createCareer/`);
+      } else {
+        response = await axiosClientServiceApi.get(`/careers/clientCareersList/`);
+      }
+      
       setPosts(response.data.careers);
     } catch (error) {
       console.log("Unable to get the Career data");
@@ -121,7 +114,7 @@ const JobPost = ({ addJobs }) => {
             // }`}
             key={item.id}
           >
-            <div className="d-flex gap-4 gap-md-3 gap-lg-3 justify-content-end mb-2 p-1">
+            <div className="d-flex gap-5 gap-sm-4 gap-md-3 gap-lg-3 justify-content-end mb-2 p-1">
               {isAdmin ? (
                 <>
                   <div
