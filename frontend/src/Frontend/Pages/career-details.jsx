@@ -9,7 +9,7 @@ import EditIcon from "../../Common/AdminEditIcon";
 import ModelBg from "../../Common/ModelBg";
 import Banner from "../../Common/Banner";
 import JobCurrentOpenings from "../Components/JobCurrentOpenings";
-import { axiosServiceApi } from "../../util/axiosUtil";
+import { axiosClientServiceApi } from "../../util/axiosUtil";
 
 import { removeActiveClass } from "../../util/ulrUtil";
 import { getFormDynamicFields } from "../../util/dynamicFormFields";
@@ -50,8 +50,8 @@ const Careers = () => {
   useEffect(() => {
     const getCareerData = async () => {
       try {
-        let response = await axiosServiceApi.get(
-          `/careers/updateCareer/${id}/`,
+        let response = await axiosClientServiceApi.get(
+          `/careers/clientSelectedCareers/${id}/`,
         );
         setPosts(response.data.careers);
       } catch (error) {

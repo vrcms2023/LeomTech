@@ -90,3 +90,18 @@ class ClientCareerAPIView(generics.ListAPIView):
         serviceList = CareerSerializer(snippets, many=True)
         return Response({"careers" : serviceList.data}, status=status.HTTP_200_OK)
     
+
+class ClientSelectedCareerAPIView(generics.ListAPIView):
+    permission_classes = [permissions.AllowAny]
+    serializer_class = CareerSerializer
+  
+    def get_object(self, pk):
+        try:
+            return Careers.objects.get(pk=pk)
+        except Careers.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        snippet = self.get_object(pk)
+        serializer = CareerSerializer(snippet)
+        return Response({"careers": serializer.data}, status=status.HTTP_200_OK)

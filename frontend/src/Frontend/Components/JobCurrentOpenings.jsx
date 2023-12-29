@@ -30,7 +30,7 @@ const JobCurrentOpenings = () => {
       <ul>
         {posts.map((item) => (
           <li className="" key={item.id}>
-            <Link to="/career-details">{item.job_title}</Link>
+            <Link to={`/career-details/${item.id}/`}>{item.job_title}</Link>
           </li>
         ))}
       </ul>
