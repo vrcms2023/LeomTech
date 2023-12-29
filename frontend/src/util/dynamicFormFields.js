@@ -171,9 +171,9 @@ export const imageDimensionsJson = (component) => {
       w: "800px",
       h: "800px",
     },
-    addBews: {
-      w: "500px",
-      h: "500px",
+    addNews: {
+      w: "300px",
+      h: "200px",
     },
     banner: {
       w: "1500px",

@@ -107,7 +107,7 @@ const HomeNews = ({ addNewsState }) => {
     <>
       {news.length > 0 ? (
         news.map((item, index) => (
-          <div className="col-sm-6 col-md-3 mb-4 mb-md-0" key={item.id}>
+          <div className="col-md-6 col-lg-3 mb-4 mb-lg-0" key={item.id}>
             <div className="card homeNews">
               {/* Edit News */}
               {isAdmin ? (
@@ -142,12 +142,12 @@ const HomeNews = ({ addNewsState }) => {
                 className="img-fluid"
                 alt={item.alternitivetext}
               />
-              <div className="card-body p-4">
+              <div className="card-body p-3">
                 <Title
                   title={
                     item.news_title ? item.news_title : "Update news Title"
                   }
-                  cssClass="fs-5 fw-bold lh-sm mb-2"
+                  cssClass="fs-6 fw-bold lh-sm mb-2"
                 />
                 <div className="card-text mb-4 lineClamp">
                   {item.news_description ? (
@@ -175,13 +175,20 @@ const HomeNews = ({ addNewsState }) => {
           
           {isAdmin ? (
             <>
-           {location.pathname}
-            {location.pathname === "/news" ? "" : <Link
-              to="/news"
-              className="btn btn-primary fs-6"
-            >
-              Go To News
-            </Link> }
+           {/* {location.pathname} */}
+            {location.pathname === "/news" ? 
+              <p className="text-center fs-6">Please add news items</p>
+            : 
+            <>
+              <p className="text-center fs-6">Currently there are no news items found.</p>
+              <Link
+                to="/news"
+                className="btn btn-primary fs-6"
+              >
+                Go To News
+              </Link>
+            </>
+             }
             
             </>
           ) : (
@@ -212,11 +219,12 @@ const HomeNews = ({ addNewsState }) => {
 
       {showModel ? (
         <div className="newsModel">
-          <div className="newsModalWrapper p-3 p-md-5 py-md-4 bg-white shadow-lg">
-            <div className="d-flex justify-content-between align-items-center mb-3 border-bottom">
-              <Title title={obj.news_title} cssClass="fw-bold fs-4" />
+          <div className="newsModalWrapper p-4 bg-white shadow-lg">
+            <div className="d-flex justify-content-between align-items-center gap-4 mb-1 pb-2 border-bottom">
+              <Title title={obj.news_title} cssClass="fw-bold fs-6" />
               <Link onClick={closeModel} className="text-danger text-uppercase">
-                Close <i className="fa fa-times fs-5" aria-hidden="true"></i>
+                <span className="d-none d-lg-block">Close</span> 
+                <i className="fa fa-times fs-3" aria-hidden="true"></i>
               </Link>
             </div>
             <div>

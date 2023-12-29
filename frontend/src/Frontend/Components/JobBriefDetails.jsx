@@ -6,7 +6,7 @@ import { showPosteddate } from "../../util/commonUtil";
 
 const JobBriefDetails = ({ jobDetails }) => {
   return (
-    <div className="jobBriefDetails p-5 py-4 ">
+    <div className="jobBriefDetails p-4 p-md-5">
       <Title
         title={jobDetails.job_title ? jobDetails.job_title : "Default Career"}
         cssClass="fw-bold"
@@ -26,19 +26,19 @@ const JobBriefDetails = ({ jobDetails }) => {
 
       <hr className="my-4" />
 
-      <div className="d-flex justify-content-between align-items-center">
-        <div className="d-flex justify-content-between align-items-center gap-3">
-          <span>
-            <strong>Posted</strong> &nbsp;{" "}
-            {showPosteddate(jobDetails.posted_date)} days ago{" "}
-          </span>
-          <span>
-            <strong>Openings</strong>{" "}
+      <div className="d-flex justify-content-between align-items-start align-items-lg-center flex-column flex-lg-row">
+        <div className="d-flex flex-column flex-md-row justify-content-between align-items-start gap-3">
+          <div className="d-flex gap-2 justify-content-center align-items-start">
+            <strong >Posted </strong> 
+            <span>{showPosteddate(jobDetails.posted_date)} days ago</span>
+          </div>
+          <div className="d-flex gap-2 justify-content-center align-items-start">
+            <strong>Openings</strong>
             {jobDetails.openings ? jobDetails.openings : 0}
-          </span>
+          </div>
         </div>
         <Link
-          className="btn btn-primary"
+          className="btn btn-primary mt-3 mt-lg-0"
           to={
             jobDetails.contactEmail
               ? jobDetails.contactEmail

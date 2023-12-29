@@ -108,12 +108,12 @@ export const RichTextInputEditor = ({ label, editorSetState, initialText }) => {
   );
 };
 
-export const InputField = ({ label, type = "text", fieldName, register }) => {
+export const InputField = ({ label, type = "text", fieldName, register, cssClass }) => {
   return (
     <div className="mb-3 row">
       <label
         htmlFor=""
-        className="col-sm-3 col-form-label text-start text-md-end text-capitalize"
+        className={`col-sm-3 col-form-label text-start text-md-end text-capitalize ${cssClass ? cssClass : "" }`}
       >
         {label}
       </label>
@@ -142,7 +142,7 @@ export const SelectField = ({ label, fieldName, register, options }) => {
           className="custom-select custom-select-lg form-control p-2"
           {...register(fieldName)}
         >
-          <option selected>Choose...</option>
+          <option selected value="0">Choose...</option>
           {options.map((option, index) => (
             <option key={index} value={option}>
               {option}

@@ -106,11 +106,11 @@ const NewsAndUpdates = () => {
               <div className="text-end mb-4">
                 <Link
                   to="#"
-                  className="btn btn-primary"
+                  className="btn btn-primary d-flex justify-content-center align-items-center gap-3"
                   onClick={() => editHandler("addNews", true)}
                 >
-                  Add News{" "}
-                  <i className="fa fa-plus ms-2" aria-hidden="true"></i>
+                  <span className="d-none d-md-block">Add News</span>
+                  <i className="fa fa-plus fs-5" aria-hidden="true"></i>
                 </Link>
               </div>
             ) : (
@@ -130,7 +130,7 @@ const NewsAndUpdates = () => {
                 imageLabel="Add News Image"
                 showDescription={false}
                 showExtraFormFields={getNewslFields("addNews")}
-                dimensions={imageDimensionsJson("addBews")}
+                dimensions={imageDimensionsJson("addNews")}
               />
             </div>
           ) : (

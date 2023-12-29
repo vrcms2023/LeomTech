@@ -73,7 +73,8 @@ const JobPost = ({ editHandler, componentType, type, editPost }) => {
                 label="Title"
                 fieldName="job_title"
                 register={register}
-              />
+                cssClass="requiredField"
+                />
               <InputField
                 label="Company name"
                 fieldName="company_name"

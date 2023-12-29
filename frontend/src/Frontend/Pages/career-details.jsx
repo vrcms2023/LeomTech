@@ -110,23 +110,22 @@ const Careers = () => {
         pageType={pageType}
       />
 
-      <div className="container my-md-5 py-md-4">
+      <div className="container py-4 my-md-5 py-md-4">
         <div className="row">
-          <div className="col-md-6">
+          <div className="col-12 d-flex justify-content-between align-items-center gap-3">
             <Title title="Careers Details" cssClass="fw-bold fs-4" />
-          </div>
-          <div className="col-md-6 text-end">
-            <Link to="/careers" className="btn btn-secondary">
-              <i className="fa fa-chevron-left me-2" aria-hidden="true"></i>{" "}
-              Back{" "}
+            <Link to="/careers" className="btn btn-secondary d-flex justify-content-center align-items-center gap-3">
+              <i className="fa fa-chevron-left me-2" aria-hidden="true"></i>
+              <span className="d-none d-md-block">Back</span>
             </Link>
           </div>
+         
         </div>
 
-        <div className="row mt-4">
-          <div className="col-md-9 px-4">
+        <div className="row mt-4 d-flex flex-rowreverse">
+          <div className="col-md-9 px-3">
             <JobBriefDetails jobDetails={posts} />
-            <div className="mt-4">
+            <div className="jobDescription p-4">
               {posts.description ? (
                 <div dangerouslySetInnerHTML={{ __html: posts.description }} />
               ) : (
@@ -143,7 +142,7 @@ const Careers = () => {
               </div> */}
             </div>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-3 mt-4 mt-md-0">
             <JobCurrentOpenings />
           </div>
         </div>

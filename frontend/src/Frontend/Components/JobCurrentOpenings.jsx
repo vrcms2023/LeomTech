@@ -25,7 +25,7 @@ const JobCurrentOpenings = () => {
   }, []);
 
   return (
-    <div className="py-4 px-3 currentOpenings">
+    <div className="py-4 px-3 bg-white currentOpenings">
       <Title title="CURRENT OPENINGS" cssClass="mb-3 fw-bold fs-5" />
       <ul>
         {posts.map((item) => (

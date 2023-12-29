@@ -105,13 +105,7 @@ const Careers = () => {
         ""
       )}
 
-      {/* <BriefIntro title="Welcome To LeomTech">
-        We believe that construction is a man made wonder. The thought of
-        bringing imagination to real life structures excites us, each day the
-        passion in us grows as we contribute to this industry.
-      </BriefIntro> */}
-
-      <div className="container my-md-5 py-md-4 careerItems">
+      <div className="container mt-4 my-md-5 careerItems">
         {isAdmin ? (
           <div className="text-end mb-4">
             <Link
