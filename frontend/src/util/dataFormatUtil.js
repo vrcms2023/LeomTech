@@ -1,4 +1,5 @@
 import moment from "moment";
+import _ from "lodash";
 
 export const dataFormatedByCatergoryName = (data) => {
   const project = data.projectList;
@@ -46,24 +47,41 @@ export const sortByDate = (array) => {
   });
 };
 
+export const sortByDateFIFO = (array) => {
+  return _.sortBy(array, function(o) { return new moment(o.created_at); });
+};
+export const sortByAboutDateFIFO = (array) => {
+  return _.sortBy(array, function(o) { return new moment(o.updated_at); });
+};
+
 export const getFirstShortDescription = (data) => {
   return data.substring(0, 50);
 };
 
 export const mapServicePagetoComponent = (data) => {
-  const services = data.services;
+  const services = sortByDateFIFO(data.services);
   const serviceSection = data.serviceSection;
   const displayCount = 5
 
   return services.reduce((acc, val, ind) => {
-    const service = [];
-    if(ind >= displayCount) return acc.concat({ ...val, service });
+    let service = [];
+    if(ind >= displayCount) {
+      service = getservicelist(service)
+      return acc.concat({ ...val, service });
+    }
     serviceSection.forEach((el, i) => {
-      if (el.serviceID === val.id && service.length === 0) {
+      if (el.serviceID === val.id) {
         service.push(el);
       }
     });
+   
+    service = getservicelist(service)
     return acc.concat({ ...val, service });
   }, []);
 
 };
+
+const getservicelist = (service) => {
+    let data = sortByDateFIFO(service)
+    return service = data.splice(0,1)
+}

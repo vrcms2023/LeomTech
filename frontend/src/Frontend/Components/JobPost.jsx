@@ -44,16 +44,24 @@ const JobPost = ({ addJobs }) => {
     }
   }, [componentEdit.job, addJobs]);
 
+  useEffect(() =>{
+    getClientJodData()
+  },[!isAdmin])
+  
+  const getClientJodData = async () =>{
+   
+    try {
+      let response =  await axiosClientServiceApi.get(`/careers/clientCareersList/`);
+      setPosts(response.data.careers);
+    } catch (error) {
+      console.log("Unable to get the Career data");
+    }
+  }
+
   const getCareerData = async () => {
     let response = null;
     try {
       response = await axiosServiceApi.get(`/careers/createCareer/`);
-      // if(isAdmin) {
-      //   response =  await axiosServiceApi.get(`/careers/updateCareer/`);
-      // }else {
-      //   response =  await axiosClientServiceApi.get(`/careers/clientCareersList/`);
-      // }
-
       setPosts(response.data.careers);
     } catch (error) {
       console.log("Unable to get the Career data");
@@ -170,7 +178,15 @@ const JobPost = ({ addJobs }) => {
             </div>
                 </>
               ) : (
-                ""
+                
+                <div>
+                <Link
+                  to={`/career-details/${item.id}/`}
+                  className="text-secondary"
+                >
+                  <i className="fa fa-expand" aria-hidden="true"></i>
+                </Link>
+              </div>
               )}
             </div>
 

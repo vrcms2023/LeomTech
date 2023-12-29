@@ -25,8 +25,8 @@ class Migration(migrations.Migration):
                 ('publish', models.BooleanField(default=False)),
                 ('userID', models.CharField(max_length=50)),
                 ('created_by', models.CharField(max_length=50)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
+                ('created_at', models.DateTimeField(auto_now=True)),
+                ('updated_at', models.DateTimeField(auto_now_add=True)),
             ],
         ),
     ]

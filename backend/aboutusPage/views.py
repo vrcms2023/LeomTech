@@ -47,14 +47,14 @@ class AboutusUpdateAndDeleteView(APIView):
 
     def get(self, request, pk, format=None):
         snippet = self.get_object(pk)
-        requestObj = get_about_us_data_From_request_Object(request)
-        requestObj['updated_by'] = request.data["updated_by"]
-        serializer = AboutUSSerializer(snippet, data=requestObj)
+        serializer = AboutUSSerializer(snippet)
         return Response({"aboutus": serializer.data}, status=status.HTTP_200_OK)
 
     def patch(self, request, pk, format=None):
         snippet = self.get_object(pk)
-        serializer = AboutUSSerializer(snippet, data=request.data)
+        requestObj = get_about_us_data_From_request_Object(request)
+        requestObj['updated_by'] = request.data["updated_by"]
+        serializer = AboutUSSerializer(snippet, data=requestObj)
         if serializer.is_valid():
             serializer.save()
             return Response({"aboutus": serializer.data}, status=status.HTTP_200_OK)
