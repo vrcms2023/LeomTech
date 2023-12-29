@@ -142,7 +142,7 @@ export const SelectField = ({ label, fieldName, register, options }) => {
           className="custom-select custom-select-lg form-control p-2"
           {...register(fieldName)}
         >
-          <option selected value="-1">Choose...</option>
+          <option selected value="0">Choose...</option>
           {options.map((option, index) => (
             <option key={index} value={option}>
               {option}
