@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/auth/authSlice";
 import { toast } from "react-toastify";
 import AdminHeader from "../../Admin/Components/Header";
+import _ from "lodash";
 
 import ModalBg from "../../Common/ModelBg";
 import EditIcon from "../AdminEditIcon";
@@ -62,7 +63,7 @@ const Header = () => {
   ];
   const isHideBurgetIcon = hideHandBurgerIcon(burgetHide);
   const [selectedServiceProject, setSelectedServiceProject] = useState({});
-  const [serviceMenuList, setserviceMenuList] = useState([]);
+  const [serviceMenuList, setServiceMenuList] = useState([]);
 
   const editHandler = (name, value) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -86,7 +87,7 @@ const Header = () => {
       let response = await axiosClientServiceApi.get(
         `/services/getSelectedClientService/${selectedServiceProject.id}/`,
       );
-      // setSelectedServiceList(response.data.servicesFeatures);
+      setSelectedServiceProject(response.data.servicesFeatures);
     } catch (error) {
       console.log("Unable to get the intro");
     }
@@ -99,7 +100,8 @@ const Header = () => {
           `/services/clientServiceList/`,
         );
         if (response?.status === 200) {
-          setserviceMenuList(response.data.servicesList);
+          const data = _.sortBy(response.data.servicesList, [function(o) { return o.services_page_title; }]);
+          setServiceMenuList(data);
         }
       } catch (e) {
         console.log("unable to access ulr because of server is down");

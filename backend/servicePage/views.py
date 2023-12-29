@@ -122,6 +122,27 @@ class ClientSelectedServiceAPIView(APIView):
       except Exception as e:
            return Response({'error' : str(e)},status=500)
           
+class ClientHomePageServiceListAPIView(APIView):
+    permission_classes = [permissions.AllowAny]
+    service_serializer_class = ServiceSerializer
+    service_feature_serializer_class = ServiceFeatureSerializer
+    service_accordion_serializer_class = ServiceAccordionSerializer
+
+    def get_object(self):
+        try:
+            return Services.objects.filter(publish= True)
+        except Services.DoesNotExist:
+            return Response( status=status.HTTP_404_NOT_FOUND)
+
+    def get(self, request, format=None):
+        snippets = self.get_object()
+        serializer = ServiceSerializer(snippets, many=True)
+
+        featureSnippets = ServiceFeature.objects.all()
+        featureSerializer = ServiceFeatureSerializer(featureSnippets, many=True)
+
+        return Response({"services": serializer.data , "serviceSection" : featureSerializer.data}, status=status.HTTP_200_OK)
+  
 
 """
     Service Features view
