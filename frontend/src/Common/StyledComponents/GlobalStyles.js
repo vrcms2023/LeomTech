@@ -1,21 +1,18 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
 
 @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;500&family=Poppins:wght@100;200;300;400;600&family=Roboto:wght@300;500&display=swap');
-
-
 
 * {
     margin:0;
     padding: 0;
 }
 
-
 ul, li {
     margin: 0;
     padding:0;
-    list-style: none;
+    // list-style: none;
 }
 
 a {text-decoration: none}
@@ -74,14 +71,22 @@ body {
     background-color:${({ theme }) => theme.ABriefBg}; 
     color:${({ theme }) => theme.ABriefTextColor};
 }
-.ABrief h3 {border-color: ${({ theme }) => theme.ABriefTitleBorderColor}; }
+.ABrief h3, .ABrief .title {border-color: ${({ theme }) =>
+  theme.ABriefTitleBorderColor}; }
+
+  .ABrief h3::before, .ABrief .title::before {border-color: ${({ theme }) =>
+  theme.ABriefTitleBorderColor}; }
 
 .ABriefAbout {
     background-color:${({ theme }) => theme.ABriefAboutBg}; 
     color:${({ theme }) => theme.ABriefAboutTextColor};
 }
-.ABriefAbout h3 { border-color: ${({ theme }) => theme.ABriefAboutTitleBorderColor}; }
 
+.ABriefAbout h3, .ABriefAbout .title { border-color: ${({ theme }) =>
+  theme.ABriefAboutTitleBorderColor}; }
+
+.ABriefAbout h3::before, .ABriefAbout .title::before { border-color: ${({ theme }) =>
+  theme.ABriefAboutTitleBorderColor}; }
 
 .testimonials {
     background-color:${({ theme }) => theme.testimonialsBg}; 
@@ -102,11 +107,11 @@ body {
         color:${({ theme }) => theme.secondaryColor}; 
     }
 
-    a {
+    a.btn {
         background-color:${({ theme }) => theme.primaryHoverColor};
     }
 
-    a:hover {
+    a.btn:hover {
         background-color:${({ theme }) => theme.primaryColor};
     }
 }
@@ -130,10 +135,10 @@ body {
         }
 
         a {
-            color:${({ theme }) => theme.primaryColor}; 
+            color:${({ theme }) => theme.primaryColor} !important; 
 
             &:hover {
-                color:${({ theme }) => theme.secondaryColor}; 
+                color:${({ theme }) => theme.secondaryColor} !important; 
             }
         }
     }
@@ -209,4 +214,4 @@ footer {
         }
     }
 }
-`
+`;

@@ -1,38 +1,58 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
 
-const AdminFooter = ({editHandler}) => {
+const AdminFooter = ({ editHandler }) => {
   return (
-      <div className='bg-white'>
-        <div className="d-flex align-items-center justify-content-between">
-          <h5 className='p-3 fw-normal text-warning '><small className='text-dark'>Logo</small> - Edit Mode</h5>
-          <Link to="#"  className='p-3 text-decoration-none text-black' onClick={() => {editHandler("menu", false)}}>Close <span className="text-danger fw-bold">X</span></Link>
-        </div>
-        <div className='container'>
-          <div className='row py-0 py-md-5'>
-            <div className='col-md-12 mb-5 mb-md-0'>
+    <div className="bg-white">
+      <div className="d-flex align-items-center justify-content-between">
+        <h5 className="p-3 fw-normal text-warning ">
+          <small className="text-dark">Logo</small> - Edit Mode
+        </h5>
+        <Link
+          to="#"
+          className="p-3 text-decoration-none text-black"
+          onClick={() => {
+            editHandler("menu", false);
+          }}
+        >
+          Close <span className="text-danger fw-bold">X</span>
+        </Link>
+      </div>
+      <div className="container">
+        <div className="row py-0 py-md-5">
+          <div className="col-md-12 mb-5 mb-md-0">
             <form className="g-3  mb-md-0">
               <div className="mb-3 row">
-                <label for="" className="col-sm-2 col-form-label text-start text-md-end">Logo</label>
+                <label
+                  for=""
+                  className="col-sm-2 col-form-label text-start text-md-end"
+                >
+                  Logo
+                </label>
                 <div className="col-sm-10">
                   <input className="form-control" type="file" id="" />
                 </div>
               </div>
               <div className="mb-3 row">
-                <label for="" className="col-sm-2 col-form-label text-start text-md-end">Alt</label>
+                <label
+                  for=""
+                  className="col-sm-2 col-form-label text-start text-md-end"
+                >
+                  Alt
+                </label>
                 <div className="col-sm-10">
                   <input type="text" className="form-control" />
                 </div>
               </div>
               <div className="text-center">
-              <button className='btn btn-secondary mx-3'>Clear</button>  
-              <button className='btn btn-primary'>Save</button>
+                <button className="btn btn-secondary mx-3">Clear</button>
+                <button className="btn btn-primary">Save</button>
               </div>
             </form>
-            </div>
           </div>
         </div>
       </div>
-  )
-}
-export default AdminFooter
+    </div>
+  );
+};
+export default AdminFooter;

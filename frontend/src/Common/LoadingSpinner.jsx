@@ -1,9 +1,8 @@
 import React from "react";
 import "./spinner.css";
 
-export default function LoadingSpinner() {
+export default function LoadingSpinner(isLoading) {
   const iconStyle = { width: "100px", height: "100px" };
-
   return (
     <>
       <div className="overlay show"></div>

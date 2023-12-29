@@ -1,14 +1,33 @@
-
-.ABrief h3 {
-    font-size: 2.5rem;
-    padding-left: 15px;
-    border: 0px;
-    border-left-width: 10px;
-    border-style: Solid;
+.ABrief h3,
+.ABrief .title {
+  font-size: 2.5rem;
+  border: 0px;
+   /* border-left-width: 15px;
+  border-style: Solid; */
+  height: 100px;
+    line-height: 170px;
+    display: flex;
+    justify-content: end;
 }
 
-@media (max-width: 991px) {
-    .ABriefImg img {
-        display: none;
-    }
-} 
+.ABrief .title::before, .ABrief h3::before {
+  content: "";
+  border-left-width: 12px;
+  border-style: Solid;
+  margin-right: 15px;
+}
+
+.ABrief label {
+  color: #333 !important;
+}
+
+.ABriefImg img {
+  object-fit: cover;
+  -o-object-position: center;
+}
+
+@media (max-width: 756px) {
+  .ABriefImg img {
+    display: none;
+  }
+}

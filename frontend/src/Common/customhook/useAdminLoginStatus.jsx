@@ -1,18 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getCookie } from "../../util/cookieUtil";
 
-export function useAdminLoginStatus() {
-    const [loginState, setLoginState] = useState(false);
-    const { userInfo } = useSelector((state) => state.auth);
+export const useAdminLoginStatus = () => {
+  const [loginState, setLoginState] = useState(false);
+  const { userInfo } = useSelector((state) => state.auth);
 
-    useEffect(() => {
-        if (userInfo || getCookie("access")) {
-          setLoginState(true);
-        } else {
-          setLoginState(false);
-        }
-      }, [userInfo]);
+  useEffect(() => {
+    if (userInfo || getCookie("access")) {
+      setLoginState(true);
+    }
+  }, [userInfo]);
 
-      return loginState;
-}
+  return loginState;
+};
+
+export default useAdminLoginStatus;

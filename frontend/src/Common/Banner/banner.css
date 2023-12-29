@@ -1,22 +1,28 @@
 .pageBanner img {
-    object-fit: cover;
-    object-position: top;
-    height: 350px;
+  object-fit: cover;
+  object-position: top;
+  height: 350px;
 }
 .titleCaption {
-    position: absolute;
-    top: 0;
-    bottom: 0px;
-    left: 0;
-    right: 0;
-    background-color: rgba(0, 0, 0, .4);
-    padding: 10px 25px;
+  position: absolute;
+  top: 0;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 10px 100px 40px;
 }
 
-.titleCaption p {
-    font-size: 1.2rem;
+.titleCaption .description {
+  width: 50%;
 }
 
-.titleCaption h3 {
-    font-size: 2.5rem;
+@media (max-width: 576px) {
+  .titleCaption {
+    padding: 10px 50px 40px;
+  }
+
+  .titleCaption .description {
+    width: 100%;
+  }
 }
