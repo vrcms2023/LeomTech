@@ -26,6 +26,8 @@ import DeleteDialog from "../../Common/DeleteDialog";
 import { sortByAboutDateFIFO } from "../../util/dataFormatUtil";
 import moment from "moment";
 
+import './About.css'
+
 
 const About = () => {
   const editComponentObj = {
@@ -174,7 +176,9 @@ const About = () => {
         
       
         <div className="row">
-          <div className="col-md-6 fs-3">About Us</div>
+          <div className="col-md-6 fs-3 mt-4 mt-md-0">
+            <Title title="About Us" />
+          </div>
           {isAdmin ? 
             <div className="col-md-6">
               <div className="d-flex justify-content-end align-items-center mb-3">
@@ -215,12 +219,9 @@ const About = () => {
           ""
       )}
 
-      
-
-
-
-        <div className="row mt-4">
+              <div className="row mt-4 bg-white aboutPage">
         {aboutList.length > 0 ? aboutList.map((item, index) => (
+          <>
           <div
             className={`row mb-5${isAdmin ? "border border-warning mb-3 position-relative" : ""} ${
               index % 2 === 0 ? "normalCSS" : "flipCSS"
@@ -239,7 +240,7 @@ const About = () => {
             ) : (
               ""
             )}
-            <div className="col-md-6">
+            <div className="col-12 col-lg-7 p-3 p-md-5 py-md-0 d-flex justify-content-center align-items-start flex-column">
               <Title
                 title={
                   item.aboutus_title
@@ -255,26 +256,32 @@ const About = () => {
               />
               : ""}
               {/* <p>{moment(item.created_at).format('DD-MM-YYYY hh:mm:ss')}</p> */}
-              {/* <Title
-                title={
-                  item.aboutus_sub_title
-                    ? item.aboutus_sub_title
-                    : "Update  sub title"
-                }
+              {item.aboutus_sub_title ? 
+              <Title
+                title={ item.aboutus_sub_title }
                 cssClass="fs-5 text-secondary mb-2"
-              /> */}
+              />
+             : ""}
+              
               <div
                 dangerouslySetInnerHTML={{ __html: item.aboutus_description }}
               />
+              
             </div>
-            <div className="col-md-6 text-center">
+
+            <div className="col-lg-5 d-none d-lg-block h-100">
+            <div className="h-100 p-3 p-md-5 py-md-0 d-flex flex-column justify-content-center align-items-center reset ">
               <img src={getImagePath(item.path)} alt="" className="img-fluid" />
             </div>
+           </div>
             
           </div>
+          <hr />
+          </>
         )) : <p className="text-center text-muted py-5">Please add page contents...</p>}
 
       </div>
+     
       </div>
 
       {show && <ModelBg />}
