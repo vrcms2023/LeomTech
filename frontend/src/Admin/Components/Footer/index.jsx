@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Button from "../../../Common/Button";
 
 const AdminFooter = ({ editHandler }) => {
   return (
@@ -44,9 +45,15 @@ const AdminFooter = ({ editHandler }) => {
                   <input type="text" className="form-control" />
                 </div>
               </div>
-              <div className="text-center">
+              <div className="d-flex justify-content-center align-items-center gap-1 gap-md-3">
                 <button className="btn btn-secondary mx-3">Clear</button>
                 <button className="btn btn-primary">Save</button>
+                <Button
+                type="submit"
+                cssClass="btn border"
+                label={"Close"}
+                handlerChange={closeHandler}
+              />
               </div>
             </form>
           </div>

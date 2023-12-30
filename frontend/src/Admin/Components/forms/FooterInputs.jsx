@@ -8,6 +8,7 @@ import {
 } from "../../../util/axiosUtil";
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
 import { InputField } from "./FormFields";
+import Button from "../../../Common/Button";
 
 const FooterAdminFeilds = ({ editHandler, componentType, footerValues }) => {
   const [userName, setUserName] = useState("");
@@ -139,13 +140,19 @@ const FooterAdminFeilds = ({ editHandler, componentType, footerValues }) => {
             </div>
           </div>
           <div className="row">
-            <div className="text-center mb-4">
-              <button type="reset" className="btn btn-secondary mx-3">
+            <div className="d-flex justify-content-center align-items-center gap-1 gap-md-3 mb-4">
+              <button type="reset" className="btn btn-secondary">
                 Clear
               </button>
               <button type="submit" className="btn btn-primary">
                 Save
               </button>
+              <Button
+                type="submit"
+                cssClass="btn border"
+                label={"Close"}
+                handlerChange={closeHandler}
+              />
             </div>
           </div>
         </div>

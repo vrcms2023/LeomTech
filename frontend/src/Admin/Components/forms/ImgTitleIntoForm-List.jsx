@@ -15,6 +15,7 @@ import {
 import { axiosFileUploadServiceApi } from "../../../util/axiosUtil";
 import { confirmAlert } from "react-confirm-alert";
 import DeleteDialog from "../../../Common/DeleteDialog";
+import Button from "../../../Common/Button";
 
 const AdminBanner = ({
   editHandler,
@@ -105,34 +106,9 @@ const AdminBanner = ({
     <>
       <EditAdminPopupHeader closeHandler={closeHandler} title={componentType} />
       <div className="container">
-        <div className="row">
-          <div className={`mb-5 mb-md-0 ${carousel.length > 0 ? "col-md-6" : "col-md-12"}`}>
-            <FileUpload
-              title={imageLabel}
-              project={project}
-              updated_by={userName}
-              category={componentType}
-              gallerysetState={setImgGallery}
-              maxFiles={1}
-              galleryState={imgGallery}
-              validTypes="image/png,image/jpeg"
-              descriptionTitle={descriptionTitle}
-              titleTitle={titleTitle}
-              alternitivetextTitle="Image Alt Text"
-              saveState={setSaveState}
-              showDescription={showDescription}
-              buttonLable="Save"
-              editImage={editCarousel}
-              setEditCarousel={setEditCarousel}
-              imagePostURL={imagePostURL}
-              imageUpdateURL={imageUpdateURL}
-              extraFormParamas={extraFormParamas}
-              showExtraFormFields={showExtraFormFields}
-              dimensions={dimensions}
-            />
-          </div>
-          {carousel.length > 0 ?
-          <div className="col-md-6 mt-3 mt-md-0 ">
+        <div className="row d-flex flex-row-reverse">
+        {carousel.length > 0 ?
+          <div className="col-md-6 my-3">
             <div className="container">
               {carousel?.map((item, index) => (
                 <div className="row mb-4 slideItem" key={index}>
@@ -179,6 +155,34 @@ const AdminBanner = ({
             </div>
           </div>
           : ""}
+          <hr className="d-md-none" />
+          <div className={`mb-5 mb-md-0 ${carousel.length > 0 ? "col-md-6" : "col-md-12"}`}>
+            <FileUpload
+              title={imageLabel}
+              project={project}
+              updated_by={userName}
+              category={componentType}
+              gallerysetState={setImgGallery}
+              maxFiles={1}
+              galleryState={imgGallery}
+              validTypes="image/png,image/jpeg"
+              descriptionTitle={descriptionTitle}
+              titleTitle={titleTitle}
+              alternitivetextTitle="Image Alt Text"
+              saveState={setSaveState}
+              showDescription={showDescription}
+              buttonLable="Save"
+              editImage={editCarousel}
+              setEditCarousel={setEditCarousel}
+              imagePostURL={imagePostURL}
+              imageUpdateURL={imageUpdateURL}
+              extraFormParamas={extraFormParamas}
+              showExtraFormFields={showExtraFormFields}
+              dimensions={dimensions}
+              closeHandler={closeHandler}
+            />
+          </div>
+          
         </div>
       </div>
     </>

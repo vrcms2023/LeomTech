@@ -10,7 +10,7 @@ const Button = ({ type, cssClass, label, handlerChange, disabled = false, icon }
       onClick={() => handlerChange(label)}
     >
       {icon ? <i className={`fa ${icon}`} aria-hidden="true"></i> : ""}
-      <span className="d-none d-md-block">{label}</span>
+      <span className="">{label}</span>
     </button>
   );
 };

@@ -67,7 +67,7 @@ export const InputFields = ({
               className="form-control"
               {...register(fieldName)}
               value={value}
-              rows="3"
+              rows="7"
             ></textarea>
           </div>
         </div>
@@ -167,7 +167,7 @@ export const TextAreaField = ({ label, fieldName, register }) => {
         <textarea
           className="form-control"
           {...register(fieldName)}
-          rows="3"
+          rows="7"
         ></textarea>
       </div>
     </div>

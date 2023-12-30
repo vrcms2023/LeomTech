@@ -101,7 +101,7 @@ const AdminTermsAndPrivacy = ({
             />
             </div>
 
-            <div className="text-center my-3">
+            <div className="d-flex justify-content-center align-items-center gap-1 gap-md-3 my-5">
               {/* <button onClick={resetForm} type="reset" className="btn btn-secondary mx-3">
                   Clear
                 </button> */}
@@ -112,6 +112,12 @@ const AdminTermsAndPrivacy = ({
               >
                 Save
               </button>
+              <Button
+                type="submit"
+                cssClass="btn border"
+                label={"Close"}
+                handlerChange={closeHandler}
+              />
             </div>
           </div>
         </div>
