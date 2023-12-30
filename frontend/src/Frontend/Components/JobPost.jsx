@@ -122,7 +122,7 @@ const JobPost = ({ addJobs }) => {
                     className="cursorPointer"
                   >
                     <i
-                      class="fa fa-pencil text-warning cursor-pointer fs-5"
+                      className="fa fa-pencil text-warning cursor-pointer fs-5"
                       aria-hidden="true"
                     ></i>
                   </div>
@@ -198,7 +198,7 @@ const JobPost = ({ addJobs }) => {
 
             <div className="p-3 jobPost">
               <small className="d-block location mb-3">
-                <i class="fa fa-map-marker fs-5 text-muted" aria-hidden="true"></i>{" "}
+                <i className="fa fa-map-marker fs-5 text-muted" aria-hidden="true"></i>{" "}
                 {item.job_location}
               </small>
               <Title title={item.job_title} cssClass="fs-5 fw-bold" />
@@ -277,7 +277,7 @@ const JobPost = ({ addJobs }) => {
               </p>
               <Link to="/login" className="btn btn-primary fs-5 w-25">
                 Login to Add Careers{" "}
-                <i class="fa fa-plus mx-2" aria-hidden="true"></i>{" "}
+                <i className="fa fa-plus mx-2" aria-hidden="true"></i>{" "}
               </Link>
             </>
           ) : (

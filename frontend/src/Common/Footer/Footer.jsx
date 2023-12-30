@@ -161,7 +161,7 @@ const Footer = () => {
                 <br />
                 <p className="mb-0">{footerValues.phonen_number}</p>
                 <p>
-                  {footerValues.phonen_number_2 ? <>{footerValues.phonen_number_2} <i class="fa fa-whatsapp text-white fs-3 ms-2" aria-hidden="true"></i></> : "" }
+                  {footerValues.phonen_number_2 ? <>{footerValues.phonen_number_2} <i className="fa fa-whatsapp text-white fs-3 ms-2" aria-hidden="true"></i></> : "" }
                 </p>
               </div>
               {footerValues.emailid ? (     

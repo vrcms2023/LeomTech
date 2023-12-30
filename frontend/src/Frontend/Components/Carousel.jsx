@@ -12,7 +12,6 @@ const Carousel = ({ carouselState }) => {
   const [carousel, setCarousel] = useState([]);
   const baseURL = getBaseURL();
 
-  console.log("carousel", carousel)
 
   useEffect(() => {
     const getCarousels = async () => {

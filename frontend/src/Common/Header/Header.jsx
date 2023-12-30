@@ -112,23 +112,18 @@ const Header = () => {
   }, []);
 
   const links = document.querySelectorAll("#navbarSupportedContent li");
-  const nestedLinks = document.querySelectorAll(
-    "#navbarSupportedContent li ul li",
-  );
+
   const menu = document.getElementById("navbarSupportedContent");
 
   // on clicking of menu Item Menu will be hided
   links.forEach((item) => {
-    item.addEventListener("click", function () {
-      // menu.classList.remove("show");
+    item.addEventListener("click", function (event) {
+      if(!event.target.classList.contains('isChildAvailable')){
+        menu.classList.remove("show");
+      }
     });
   });
 
-  nestedLinks.forEach((item) => {
-    item.addEventListener("click", function () {
-      menu.classList.remove("show");
-    });
-  });
 
   function logOutHandler() {
     removeAllCookies();
@@ -254,8 +249,8 @@ export const ClientMenu = ({ serviceMenuList }) => {
             to="/leomservices"
             className={useCallback(({ isActive }) =>
               isActive
-                ? "nav-Link dropdown-toggle active"
-                : "nav-Link dropdown-toggle",
+                ? "nav-Link dropdown-toggle isChildAvailable active"
+                : "nav-Link dropdown-toggle isChildAvailable",
             )}
           >
             Services
@@ -271,7 +266,7 @@ export const ClientMenu = ({ serviceMenuList }) => {
             ) : (
               serviceMenuList &&
               serviceMenuList.map((item) => (
-                <li>
+                <li key={item.id}>
                   <Link to={`/services/${item.id}/`} className="dropdown-item">
                     {item.services_page_title}
                   </Link>
@@ -299,8 +294,8 @@ export const ClientMenu = ({ serviceMenuList }) => {
             to="khub"
             className={useCallback(({ isActive }) =>
               isActive
-                ? "nav-Link dropdown-toggle active"
-                : "nav-Link dropdown-toggle",
+                ? "nav-Link dropdown-toggle isChildAvailable active"
+                : "nav-Link dropdown-toggle isChildAvailable",
             )}
           >
             KnowledgeHub
