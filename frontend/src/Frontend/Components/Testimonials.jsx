@@ -89,7 +89,7 @@ const Testimonials = ({ testimonis }) => {
           <Link to="" onClick={() => setIndex(index + 1)}>
             {" "}
             {/* <img src={leftArrow} alt="Previous" width="42" height="42" /> */}
-            <i class="fa fa-chevron-left fs-1" aria-hidden="true"></i>
+            <i className="fa fa-chevron-left fs-1" aria-hidden="true"></i>
           </Link>
           <Link to="" onClick={() => setIndex(index - 1)}>
             {" "}

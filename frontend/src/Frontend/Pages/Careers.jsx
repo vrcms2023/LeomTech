@@ -137,9 +137,9 @@ const Careers = () => {
           <div className="col-md-6">
             <Title title="Careers" cssClass="fs-3" />
           </div>
-          <div className="col-md-6">
+          {/* <div className="col-md-6">
             <Search />
-          </div>
+          </div> */}
         </div>
 
         <div className="row mb-5">

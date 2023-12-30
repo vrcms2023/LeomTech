@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.b5887065.css",
-    "main.js": "/static/js/main.8f535414.js",
+    "main.css": "/static/css/main.307715aa.css",
+    "main.js": "/static/js/main.2b339dc4.js",
     "static/js/787.4038979a.chunk.js": "/static/js/787.4038979a.chunk.js",
     "static/media/contact.png": "/static/media/contact.83bf8b1e7c83e5b1f778.png",
     "static/media/quality.png": "/static/media/quality.f74fbe0a84e5874699ac.png",
@@ -18,14 +18,14 @@
     "static/media/Banner_13.jpg": "/static/media/Banner_13.c3b7f7f9980d0ac464be.jpg",
     "static/media/service1.png": "/static/media/service1.108663cf31c90326f69c.png",
     "static/media/insrued.png": "/static/media/insrued.a732fafdfaf4e22cc94f.png",
-    "static/media/logo.svg": "/static/media/logo.9b97f06b3e539b8898624a58eb62ee61.svg",
+    "static/media/logo.svg": "/static/media/logo.765306903a83c8b00acf7c3c072ba8f6.svg",
     "index.html": "/index.html",
-    "main.b5887065.css.map": "/static/css/main.b5887065.css.map",
-    "main.8f535414.js.map": "/static/js/main.8f535414.js.map",
+    "main.307715aa.css.map": "/static/css/main.307715aa.css.map",
+    "main.2b339dc4.js.map": "/static/js/main.2b339dc4.js.map",
     "787.4038979a.chunk.js.map": "/static/js/787.4038979a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b5887065.css",
-    "static/js/main.8f535414.js"
+    "static/css/main.307715aa.css",
+    "static/js/main.2b339dc4.js"
   ]
 }

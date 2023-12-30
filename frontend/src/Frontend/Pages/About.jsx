@@ -182,7 +182,7 @@ const About = () => {
           {isAdmin ? 
             <div className="col-md-6">
               <div className="d-flex justify-content-end align-items-center mb-3">
-                <sapn className="fw-bold me-2">Add content </sapn>
+                <span className="fw-bold me-2">Add content </span>
                 <button
                 type="submit"
                 className="btn btn-primary px-3"
@@ -222,11 +222,10 @@ const About = () => {
               <div className="row mt-4 aboutPage">
         {aboutList.length > 0 ? aboutList.map((item, index) => (
           <>
-          <div
+          <div key={item.id}
             className={`row mb-5${isAdmin ? "border border-warning mb-3 position-relative" : ""} ${
               index % 2 === 0 ? "normalCSS" : "flipCSS"
             }`}
-            key={item.id}
           >
             {isAdmin ? (
               <>
