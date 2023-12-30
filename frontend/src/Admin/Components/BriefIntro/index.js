@@ -169,7 +169,7 @@ export const BriefIntroAdmin = ({ editHandler, componentType, pageType }) => {
                   name="intro_desc"
                   className="form-control"
                   id="exampleFormControlTextarea1"
-                  rows="8"
+                  rows="10"
                   value={
                     introFormValue.intro_desc ? introFormValue.intro_desc : ""
                   }
@@ -201,7 +201,7 @@ export const BriefIntroAdmin = ({ editHandler, componentType, pageType }) => {
               </div>
             </div> */}
 
-            <div className="text-center mt-5">
+            <div className="d-flex justify-content-center align-items-center gap-3 mt-4">
               {/* <Button
                 type="submit"
                 cssClass="btn btn-secondary mx-3"
@@ -213,6 +213,12 @@ export const BriefIntroAdmin = ({ editHandler, componentType, pageType }) => {
                 cssClass="btn btn-primary"
                 label={`${introFormValue?.id ? "Update" : "Save"}`}
                 handlerChange={saveandUpdateIntro}
+              />
+              <Button
+                type="submit"
+                cssClass="btn border"
+                label={"Close"}
+                handlerChange={closeHandler}
               />
             </div>
           </div>

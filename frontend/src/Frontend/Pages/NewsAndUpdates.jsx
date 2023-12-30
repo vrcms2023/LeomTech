@@ -99,7 +99,23 @@ const NewsAndUpdates = () => {
 
       <div className="container my-4 newsAndUpdates">
         <div className="row">
-          <div className="d-flex justify-content-between my-4">
+          <div className="col-12 d-flex justify-content-end align-items-center">
+        {isAdmin ? (
+                <Link
+                  to="#"
+                  className="btn btn-primary d-flex justify-content-center align-items-center gap-3"
+                  onClick={() => editHandler("addNews", true)}
+                >
+                  <span className="d-none d-md-block">Add News</span>
+                  <i className="fa fa-plus fs-5" aria-hidden="true"></i>
+                </Link>
+            ) : (
+              ""
+            )}
+            </div>
+        </div>
+        <div className="row">
+          <div className="d-flex justify-content-between flex-column flex-md-row my-4">
             <div className="col-md-4">
               <Title title="News And Updates" cssClass="blue-900 fs-4 mb-4" />
             </div>
@@ -111,21 +127,6 @@ const NewsAndUpdates = () => {
                 searchfiledDeatails={'News title / News description'}
               />
             </div>
-            {isAdmin ? (
-              <div className="text-end  col-md-3">
-                <Link
-                  to="#"
-                  className="btn btn-primary d-flex justify-content-center align-items-center gap-3"
-                  onClick={() => editHandler("addNews", true)}
-                >
-                  <span className="d-none d-md-block">Add News</span>
-                  <i className="fa fa-plus fs-5" aria-hidden="true"></i>
-                </Link>
-              </div>
-            ) : (
-              ""
-            )}
-            
           </div>
 
           {componentEdit.addNews ? (

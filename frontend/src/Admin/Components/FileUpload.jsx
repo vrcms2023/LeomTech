@@ -418,11 +418,11 @@ const FileUpload = ({
           })}
 
           <div className="row">
-            <div className="text-center ">
+            <div className="d-flex justify-content-center align-items-center gap-1 gap-md-3 ">
               {!editImage?.id ? (
                 <button
                   type="button"
-                  className="btn btn-secondary mx-3"
+                  className="btn btn-secondary"
                   onClick={clearField}
                 >
                   Clear
@@ -433,6 +433,13 @@ const FileUpload = ({
               <button type="submit" className="btn btn-primary">
                 {editImage?.id ? "Update" : "Save"}
               </button>
+              
+              <Button
+                type="submit"
+                cssClass="btn border"
+                label={"Close"}
+                handlerChange={closeHandler}
+              />
             </div>
           </div>
         </>
