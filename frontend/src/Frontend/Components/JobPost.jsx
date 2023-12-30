@@ -93,7 +93,8 @@ const JobPost = ({ addJobs, posts, setPosts,  }) => {
       );
 
       if (response.status === 200) {
-        toast.success(`Career published successfully`);
+        let careers = response.data.careers
+        toast.success(`Career ${careers.publish ? 'published' : 'un published'} successfully`);
         getCareerData();
       }
     } catch (error) {
