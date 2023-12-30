@@ -13,7 +13,7 @@ import ServiceForm from "../../Admin/Components/forms/ImgTitleIntoForm-List";
 import ModelBg from "../../Common/ModelBg";
 import EditIcon from "../../Common/AdminEditIcon";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
-import { mapServicePagetoComponent, sortByDate, sortByDateFIFO } from "../../util/dataFormatUtil";
+import { mapServicePagetoComponent, sortByDate, sortByCreatedDate } from "../../util/dataFormatUtil";
 import { getImagePath } from "../../util/commonUtil";
 
 const HomeServices = ({ title }) => {

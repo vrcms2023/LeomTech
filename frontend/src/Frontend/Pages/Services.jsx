@@ -26,7 +26,7 @@ import "./services.css";
 import { toast } from "react-toastify";
 import { confirmAlert } from "react-confirm-alert";
 import DeleteDialog from "../../Common/DeleteDialog";
-import { sortByDateFIFO } from "../../util/dataFormatUtil";
+import { sortByCreatedDate } from "../../util/dataFormatUtil";
 
 const Services = () => {
   const editComponentObj = {
@@ -74,7 +74,7 @@ const Services = () => {
       let response = await axiosClientServiceApi.get(
         `/services/getSelectedClientService/${id}/`,
       );
-      setSelectedServiceList(sortByDateFIFO(response.data.servicesFeatures));
+      setSelectedServiceList(sortByCreatedDate(response.data.servicesFeatures));
     } catch (error) {
       console.log("Unable to get the intro");
     }
