@@ -219,7 +219,7 @@ const About = () => {
           ""
       )}
 
-              <div className="row mt-4 bg-white aboutPage">
+              <div className="row mt-4 aboutPage">
         {aboutList.length > 0 ? aboutList.map((item, index) => (
           <>
           <div
@@ -240,15 +240,12 @@ const About = () => {
             ) : (
               ""
             )}
-            <div className="col-12 col-lg-7 p-3 p-md-5 py-md-0 d-flex justify-content-center align-items-start flex-column">
-              <Title
-                title={
-                  item.aboutus_title
-                    ? item.aboutus_title
-                    : "Update About title"
-                }
+            <div className="col-12 col-lg-6 p-3 p-md-5 py-md-4 d-flex justify-content-center align-items-start flex-column">
+              {item.aboutus_title ? 
+              <Title title={item.aboutus_title}
                 cssClass="fs-1 fw-bold mt-3 mb-1"
-              />
+              /> : ""}
+              
               {item.aboutus_sub_title ? 
               <Title
               title={ item.aboutus_sub_title }
@@ -269,8 +266,8 @@ const About = () => {
               
             </div>
 
-            <div className="col-lg-5 d-none d-lg-block h-100">
-            <div className="h-100 p-3 p-md-5 py-md-0 d-flex flex-column justify-content-center align-items-center reset ">
+            <div className="col-lg-6 d-none d-lg-block h-100">
+            <div className="h-100 p-3 p-md-5 py-md-4 d-flex flex-column justify-content-center align-items-center reset ">
               <img src={getImagePath(item.path)} alt="" className="img-fluid" />
             </div>
            </div>
