@@ -18,7 +18,7 @@ import { getCookie } from "../../util/cookieUtil";
 
 // Styles
 import "./JobPost.css";
-import { sortUpdatedDateByDesc } from "../../util/dataFormatUtil";
+import { sortCreatedDateByDesc } from "../../util/dataFormatUtil";
 import { showPosteddate } from "../../util/commonUtil";
 
 const JobPost = ({ addJobs }) => {
@@ -54,7 +54,7 @@ const JobPost = ({ addJobs }) => {
       } else {
         response = await axiosClientServiceApi.get(`/careers/clientCareersList/`);
       }
-      const data = sortUpdatedDateByDesc(response.data.careers)
+      const data = sortCreatedDateByDesc(response.data.careers)
       setPosts(data);
     } catch (error) {
       console.log("Unable to get the Career data");
