@@ -104,6 +104,7 @@ const NewsAndUpdates = () => {
               <Title title="News And Updates" cssClass="blue-900 fs-4 mb-4" />
             </div>
             <div className="col-md-6">
+
               <Search setObject={setNews}
                 clientSearchURL={'/appNews/searchAppNews/'}
                 adminSearchURL={'/appNews/createAppNews/'}
