@@ -17,9 +17,7 @@ import {
 } from "../../util/dynamicFormFields";
 import ModelBg from "../../Common/ModelBg";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
-
 import AddEditAdminNews from "../../Admin/Components/News/index";
-
 import Banner from "../../Common/Banner";
 
 // Styles
@@ -27,6 +25,7 @@ import "./NewsAndUpdates.css";
 import { Link } from "react-router-dom";
 import AdminBanner from "../../Admin/Components/forms/ImgTitleIntoForm-List";
 import HomeNews from "../Components/HomeNews";
+import Search from "../../Common/Search";
 
 const NewsAndUpdates = () => {
   const editComponentObj = {
@@ -101,9 +100,18 @@ const NewsAndUpdates = () => {
       <div className="container my-4 newsAndUpdates">
         <div className="row">
           <div className="d-flex justify-content-between">
+          <div className="col-md-4">
             <Title title="News And Updates" cssClass="blue-900 fs-4 mb-4" />
+            </div>
+            <div className="col-md-5 mb-4">
+              <Search setObject={setNews}
+                clientSearchURL={'/appNews/searchAppNews/'}
+                adminSearchURL={'/appNews/createAppNews/'}
+                clientDefaultURL={'/appNews/clientAppNews/'}
+              />
+            </div>
             {isAdmin ? (
-              <div className="text-end mb-4">
+              <div className="text-end  col-md-3">
                 <Link
                   to="#"
                   className="btn btn-primary d-flex justify-content-center align-items-center gap-3"
@@ -116,6 +124,7 @@ const NewsAndUpdates = () => {
             ) : (
               ""
             )}
+            
           </div>
 
           {componentEdit.addNews ? (
@@ -136,8 +145,9 @@ const NewsAndUpdates = () => {
           ) : (
             ""
           )}
+          
 
-          <HomeNews addNewsState={componentEdit.addNews} />
+          <HomeNews addNewsState={componentEdit.addNews} news={news} setNews={setNews}/>
         </div>
       </div>
       {showModal && <Model obj={obj} closeModel={closeModel} flag="news" />}

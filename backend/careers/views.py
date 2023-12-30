@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from django.http import Http404
+from django.db.models import Q
 
 # Create your views here.
 
@@ -104,4 +105,22 @@ class ClientSelectedCareerAPIView(generics.ListAPIView):
     def get(self, request, pk, format=None):
         snippet = self.get_object(pk)
         serializer = CareerSerializer(snippet)
+        return Response({"careers": serializer.data}, status=status.HTTP_200_OK)
+    
+
+class CareerSearchAPIView(generics.ListAPIView):
+    permission_classes = [permissions.AllowAny]
+    serializer_class = CareerSerializer
+  
+    def get_object(self, query):
+        try:
+            return Careers.objects.filter(
+                Q(job_title__icontains=query) | Q(job_location__icontains=query) | Q(company_name__icontains=query)
+            )
+        except Careers.DoesNotExist:
+            raise Http404
+
+    def get(self, request, query, format=None):
+        snippet = self.get_object(query)
+        serializer = CareerSerializer(snippet, many=True)
         return Response({"careers": serializer.data}, status=status.HTTP_200_OK)

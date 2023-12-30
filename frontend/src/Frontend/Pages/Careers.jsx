@@ -36,6 +36,7 @@ const Careers = () => {
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -137,13 +138,17 @@ const Careers = () => {
           <div className="col-md-6">
             <Title title="Careers" cssClass="fs-3" />
           </div>
-          {/* <div className="col-md-6">
-            <Search />
-          </div> */}
+          <div className="col-md-6">
+            <Search setObject={setPosts}
+            clientSearchURL={'/careers/searchCareers/'}
+            adminSearchURL={'/careers/createCareer/'}
+            clientDefaultURL={'/careers/clientCareersList/'}
+            />
+          </div>
         </div>
 
         <div className="row mb-5">
-          <JobPost addJobs={componentEdit.addjob} />
+          <JobPost addJobs={componentEdit.addjob} posts={posts} setPosts={setPosts}/>
         </div>
       </div>
 

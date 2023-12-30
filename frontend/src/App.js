@@ -108,7 +108,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/about" element={<About />} />
-            {loginState ? (<Route exact path="/services" element={<Services />} /> ) :''}
+            <Route exact path="/services" element={<Services />} /> 
             <Route exact path="/services/:uid/" element={<Services />} />
             <Route exact path="/careers" element={<Careers />} />
             <Route

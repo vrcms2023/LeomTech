@@ -22,7 +22,7 @@ import moment from "moment";
 import "./HomeNews.css";
 import { sortCreatedDateByDesc } from "../../util/dataFormatUtil";
 
-const HomeNews = ({ addNewsState }) => {
+const HomeNews = ({ addNewsState, news, setNews }) => {
   const location = useLocation()
   const baseURL = getBaseURL();
   const editComponentObj = {
@@ -33,7 +33,7 @@ const HomeNews = ({ addNewsState }) => {
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
-  const [news, setNews] = useState([]);
+
   const [editNews, setEditNews] = useState({});
 
   const [obj, setObj] = useState({});
