@@ -47,19 +47,31 @@ export const sortByDate = (array) => {
   });
 };
 
-export const sortByDateFIFO = (array) => {
+export const sortByCreatedDate = (array) => {
   return _.sortBy(array, function(o) { return new moment(o.created_at); });
 };
-export const sortByAboutDateFIFO = (array) => {
+
+export const sortCreatedDateByDesc = (array) => {
+  return _.orderBy(array, function(o) { return new moment(o.created_at); },['desc']);
+};
+
+
+export const sortByUpdatedDate = (array) => {
   return _.sortBy(array, function(o) { return new moment(o.updated_at); });
 };
+
+export const sortUpdatedDateByDesc = (array) => {
+  return _.orderBy(array, function(o) { return new moment(o.updated_at); },['desc']);
+};
+
+
 
 export const getFirstShortDescription = (data) => {
   return data.substring(0, 50);
 };
 
 export const mapServicePagetoComponent = (data) => {
-  const services = sortByDateFIFO(data.services);
+  const services = sortByCreatedDate(data.services);
   const serviceSection = data.serviceSection;
   const displayCount = 5
 
@@ -82,6 +94,6 @@ export const mapServicePagetoComponent = (data) => {
 };
 
 const getservicelist = (service) => {
-    let data = sortByDateFIFO(service)
+    let data = sortByCreatedDate(service)
     return service = data.splice(0,1)
 }

@@ -8,8 +8,8 @@ class BaseModel(models.Model):
     id =            models.UUIDField(primary_key=True, default = uuid.uuid4, unique=True, editable=False)
     created_by =    models.CharField(max_length=50, null=True, blank=True)
     updated_by =    models.CharField(max_length=50, null=True, blank=True)
-    created_at =    models.DateTimeField(auto_now= True)
-    updated_at =    models.DateTimeField(auto_now_add= True)
+    created_at =    models.DateTimeField(auto_now_add= True)
+    updated_at =    models.DateTimeField(auto_now= True)
 
     class Meta:
         abstract = True 

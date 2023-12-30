@@ -53,6 +53,7 @@ const Careers = () => {
         let response = await axiosClientServiceApi.get(
           `/careers/clientSelectedCareers/${id}/`,
         );
+        
         setPosts(response.data.careers);
       } catch (error) {
         console.log("Unable to get the Career data");
