@@ -56,6 +56,7 @@ const Services = () => {
   useEffect(() => {
     if(!uid){
       getSelectedServiceObject(HeaderServiceID);
+      removeCookie('HeaderServiceID')
     }else{
       getSelectedServiceObject(uid);
     }
