@@ -17,9 +17,10 @@ import {
   getCarouselFields,
   getNewslFields,
 } from "../../util/dynamicFormFields";
-
+import moment from "moment";
 // Styles
 import "./HomeNews.css";
+import { sortCreatedDateByDesc } from "../../util/dataFormatUtil";
 
 const HomeNews = ({ addNewsState }) => {
   const location = useLocation()
@@ -53,7 +54,8 @@ const HomeNews = ({ addNewsState }) => {
           `/appNews/clientAppNews/`,
         );
         if (response?.status === 200) {
-          setNews(response.data.appNews);
+          const data = sortCreatedDateByDesc(response.data.appNews)
+          setNews(data);
         }
       } catch (error) {
         console.log("unable to access ulr because of server is down");
@@ -160,6 +162,7 @@ const HomeNews = ({ addNewsState }) => {
                     "update new description"
                   )}
                 </div>
+                {/* <p>{moment(item.created_at).format('DD-MM-YYYY hh:mm:ss')}</p> */}
                 <Link
                   className="text-primary moreLink"
                   onClick={() => handleModel(item)}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
 // Components
 import { useAdminLoginStatus } from "../customhook/useAdminLoginStatus";
@@ -17,6 +18,7 @@ import ModelBg from "../ModelBg";
 import FooterAdminFeilds from "../../Admin/Components/forms/FooterInputs";
 import ContactInputs from "../../Admin/Components/forms/ContactInputs";
 import AdminTermsPolicy from "../../Admin/Components/TermsPrivacy/index";
+import { getFooterValues } from "../../features/footer/footerActions";
 
 const Footer = () => {
   const editComponentObj = {
@@ -33,6 +35,28 @@ const Footer = () => {
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [termsAndPolicyData, setTermsAndPolicyData] = useState({});
   const [termsAndConditionData, setTermsAndConditionData] = useState({});
+  const { footerData, error } = useSelector(
+    (state) => state.footerData,
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (footerData?.length === 0) {
+      dispatch(getFooterValues());
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!componentEdit.address && footerData?.address?.length > 0) {
+      dispatch(getFooterValues());
+    }
+  }, [componentEdit.address]);
+
+  useEffect(() => {
+    if (footerData?.address?.length > 0) {
+      setFooterValues(footerData.address[0]);
+    }
+  }, [footerData]);
 
   const showModel = (type) => {
     console.log(termsAndConditionData)
@@ -52,25 +76,6 @@ const Footer = () => {
   const closeModel = () => {
     setModelShow(!modelShow);
   };
-
-  useEffect(() => {
-    const getFooterValues = async () => {
-      try {
-        const response = await axiosClientServiceApi.get(
-          `footer/getClientAddress/`,
-        );
-        
-        if (response?.data?.address?.length > 0) {
-          setFooterValues(response.data.address[0]);
-        }
-      } catch (e) {
-        console.log("unable to access ulr because of server is down");
-      }
-    };
-    if (!componentEdit.address) {
-      getFooterValues();
-    }
-  }, [componentEdit.address]);
 
   const editHandler = (name, value) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -157,13 +162,15 @@ const Footer = () => {
                 {footerValues.phonen_number} <br />
                 {footerValues.phonen_number_2}
               </div>
+              {footerValues.emailid ? (     
               <div className="mb-md-0 mt-3">
                 Email
                 <br />
                 <a href={`mailto:${footerValues.emailid}`}>
                   {footerValues.emailid}{" "}
                 </a>
-              </div>
+              </div>) :""}
+         
             </div>
 
             <hr className="d-block d-md-none" />
@@ -270,6 +277,7 @@ const Footer = () => {
           <FooterAdminFeilds
             editHandler={editHandler}
             componentType="address"
+            footerValues={footerValues}
           />
         </div>
       ) : (
