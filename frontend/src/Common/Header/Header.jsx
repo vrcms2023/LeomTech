@@ -329,16 +329,16 @@ export const ClientMenu = ({ serviceMenuList }) => {
           </NavLink>
         </li>
         {isAdmin ? (
-          <li className="nav-item">
+          <li className="nav-item adminSettingsLink">
             <NavLink
               to="/main"
               className={({ isActive }) =>
                 isActive
-                  ? "bg-secondary p-2 text-white nav-Link active"
-                  : "bg-secondary p-2 text-white nav-Link"
+                  ? "bg-secondary p-2 px-5 p-md-2 rounded text-white nav-Link active"
+                  : "bg-secondary p-2 px-5 p-md-2 rounded text-white nav-Link"
               }
             >
-              Admin Pages
+              Admin Settings
             </NavLink>
           </li>
         ) : (

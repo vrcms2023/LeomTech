@@ -62,7 +62,7 @@
 @media (max-width: 991px) {
   .nav-item {
     border-bottom: 1px solid rgba(22, 93, 61, 0.3);
-    padding: 10px 25px;
+    padding: 12px 25px;
     text-align: center;
   }
 
