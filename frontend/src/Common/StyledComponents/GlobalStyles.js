@@ -156,7 +156,7 @@ body {
 
 
 .btn-primary {
-    background-color:${({ theme }) => theme.primaryColor}; 
+    background-color:${({ theme }) => theme.primaryColor} !important; 
     color:${({ theme }) => theme.white};
     box-shadow: 0 4px 4px 0 ${({ theme }) => theme.secondaryColor};
 }
