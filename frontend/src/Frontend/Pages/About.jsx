@@ -45,6 +45,10 @@ const About = () => {
   const [editCarousel, setEditCarousel] = useState({});
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
+  useEffect(() => {
     removeActiveClass();
   }, []);
 
