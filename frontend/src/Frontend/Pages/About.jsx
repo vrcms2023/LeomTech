@@ -45,10 +45,6 @@ const About = () => {
   const [editCarousel, setEditCarousel] = useState({});
 
   useEffect(() => {
-    // window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
     removeActiveClass();
   }, []);
 
@@ -99,7 +95,6 @@ const About = () => {
               toast.success(`${name} is deleted`);
       }
     };
-
 
       confirmAlert({
         customUI: ({ onClose }) => {
@@ -173,8 +168,6 @@ const About = () => {
     
 
     <div className="container my-md-5 ">
-        
-      
         <div className="row">
           <div className="col-md-6 fs-3 mt-4 mt-md-0">
             <Title title="About Us" />
@@ -221,7 +214,7 @@ const About = () => {
 
               <div className="row mt-4 aboutPage">
         {aboutList.length > 0 ? aboutList.map((item, index) => (
-          <>
+        
           <div key={item.id}
             className={`row mb-5${isAdmin ? "border border-warning mb-3 position-relative" : ""} ${
               index % 2 === 0 ? "normalCSS" : "flipCSS"
@@ -262,7 +255,6 @@ const About = () => {
               <div
                 dangerouslySetInnerHTML={{ __html: item.aboutus_description }}
               />
-              
             </div>
 
             <div className="col-lg-6 d-none d-lg-block h-100">
@@ -270,10 +262,8 @@ const About = () => {
               <img src={getImagePath(item.path)} alt="" className="img-fluid" />
             </div>
            </div>
-            
+           <hr />
           </div>
-          <hr />
-          </>
         )) : <p className="text-center text-muted py-5">Please add page contents...</p>}
 
       </div>

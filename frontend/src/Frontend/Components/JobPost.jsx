@@ -21,12 +21,11 @@ import "./JobPost.css";
 import { sortCreatedDateByDesc } from "../../util/dataFormatUtil";
 import { showPosteddate } from "../../util/commonUtil";
 
-const JobPost = ({ addJobs }) => {
+const JobPost = ({ addJobs, posts, setPosts,  }) => {
   const editComponentObj = {
     job: false,
   };
 
-  const [posts, setPosts] = useState([]);
   const [editPost, setEditPosts] = useState({});
   const [show, setShow] = useState(false);
   const isAdmin = useAdminLoginStatus();

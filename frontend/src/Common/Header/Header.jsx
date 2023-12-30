@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, Link, NavLink } from "react-router-dom";
 import Button from "../Button";
-import { getCookie, removeAllCookies } from "../../util/cookieUtil";
+import { getCookie, removeAllCookies, setCookie } from "../../util/cookieUtil";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/auth/authSlice";
 import { toast } from "react-toastify";
@@ -101,6 +101,7 @@ const Header = () => {
         );
         if (response?.status === 200) {
           const data = _.sortBy(response.data.servicesList, [function(o) { return o.services_page_title; }]);
+          setCookie("HeaderServiceID", data[0].id)
           setServiceMenuList(data);
         }
       } catch (e) {

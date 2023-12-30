@@ -27,6 +27,7 @@ import { toast } from "react-toastify";
 import { confirmAlert } from "react-confirm-alert";
 import DeleteDialog from "../../Common/DeleteDialog";
 import { sortByCreatedDate } from "../../util/dataFormatUtil";
+import { getCookie, removeCookie } from "../../util/cookieUtil";
 
 const Services = () => {
   const editComponentObj = {
@@ -44,6 +45,7 @@ const Services = () => {
   const [selectedServiceList, setSelectedServiceList] = useState([]);
   const [editCarousel, setEditCarousel] = useState({});
   let { uid } = useParams();
+  const HeaderServiceID = getCookie("HeaderServiceID")
 
 
 
@@ -52,8 +54,13 @@ const Services = () => {
   }, []);
 
   useEffect(() => {
-    getSelectedServiceObject(uid);
-  }, [uid]);
+    if(!uid){
+      getSelectedServiceObject(HeaderServiceID);
+    }else{
+      getSelectedServiceObject(uid);
+    }
+   
+  }, [uid,HeaderServiceID]);
 
   useEffect(() => {
     removeActiveClass();

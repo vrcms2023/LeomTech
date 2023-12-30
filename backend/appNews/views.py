@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from rest_framework import status
 from django.http import Http404
 from common.utility import get_news_data_From_request_Object 
+from django.db.models import Q
 
 # Create your views here.
     
@@ -81,3 +82,19 @@ class ClientAppNews(generics.CreateAPIView):
         serializer = AppNewsSerializer(snippets, many=True)
         return Response({"appNews": serializer.data}, status=status.HTTP_200_OK)
     
+class NewsSearchAPIView(generics.ListAPIView):
+    permission_classes = [permissions.AllowAny]
+    serializer_class = AppNewsSerializer
+  
+    def get_object(self, query):
+        try:
+            return AppNews.objects.filter(
+                Q(news_title__icontains=query) | Q(news_description__icontains=query)
+            )
+        except AppNews.DoesNotExist:
+            raise Http404
+
+    def get(self, request, query, format=None):
+        snippet = self.get_object(query)
+        serializer = AppNewsSerializer(snippet, many=True)
+        return Response({"appNews": serializer.data}, status=status.HTTP_200_OK)
