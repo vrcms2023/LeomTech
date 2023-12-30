@@ -25,7 +25,6 @@ body {
     font-family: ${({ theme }) => theme.fontFamily};
     background-color: ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.textColor};
-    word-break: break-all;
 }
 
 

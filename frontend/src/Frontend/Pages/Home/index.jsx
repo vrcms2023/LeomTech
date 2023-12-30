@@ -140,7 +140,7 @@ const Home = () => {
         {/* ABriefAbout */}
         <div className="row ABriefAbout">
           <ABriefAbout
-            title="Who We Are"
+            title="Who We Are "
             cssClass="mb-2 fw-bold title mb-4"
             linkClass="btn btn-primary mt-5"
             dimensions={imageDimensionsJson("whoweare")}
