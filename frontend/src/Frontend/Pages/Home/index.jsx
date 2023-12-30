@@ -42,6 +42,7 @@ const Home = () => {
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [show, setShow] = useState(false);
+  const [news, setNews] = useState([]);
 
   const editHandler = (name, value) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
@@ -152,7 +153,7 @@ const Home = () => {
             <div className="container">
               <h2 className="mb-5">News</h2>
               <div className="row">
-                <HomeNews />
+                <HomeNews news={news} setNews={setNews}/>
               </div>
             </div>
           </div>
