@@ -1,5 +1,6 @@
 import React from "react";
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
+import Button from "../../../Common/Button";
 
 const ContactInputs = ({ editHandler, componentType }) => {
   const closeHandler = () => {
@@ -37,9 +38,15 @@ const ContactInputs = ({ editHandler, componentType }) => {
                 </div>
               </div>
 
-              <div className="text-center mt-5">
+              <div className="d-flex justify-content-center align-items-center gap-1 gap-md-3 mt-5">
                 <button className="btn btn-secondary mx-3">Clear</button>
                 <button className="btn btn-primary">Save</button>
+                <Button
+                type="submit"
+                cssClass="btn border"
+                label={"Close"}
+                handlerChange={closeHandler}
+              />
               </div>
             </form>
           </div>

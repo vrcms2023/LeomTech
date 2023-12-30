@@ -8,6 +8,7 @@ import { axiosServiceApi } from "../../../util/axiosUtil";
 import { toast } from "react-toastify";
 import moment from "moment";
 import { generateOptionLength } from "../../../util/commonUtil";
+import Button from "../../../Common/Button";
 
 const JobPost = ({ editHandler, componentType, type, editPost }) => {
   const [editorState, setEditorState] = useState("");
@@ -157,7 +158,7 @@ const JobPost = ({ editHandler, componentType, type, editPost }) => {
               </div>
 
               <div className="row">
-                <div className="text-center">
+                <div className="d-flex justify-content-center align-items-center gap-1 gap-md-3">
                   {!editPost?.id ? (
                     <button
                       className="btn btn-secondary m-3"
@@ -170,6 +171,12 @@ const JobPost = ({ editHandler, componentType, type, editPost }) => {
                   )}
 
                   <button className="btn btn-primary">Save</button>
+                  <Button
+                type="submit"
+                cssClass="btn border"
+                label={"Close"}
+                handlerChange={closeHandler}
+              />
                 </div>
               </div>
             </form>

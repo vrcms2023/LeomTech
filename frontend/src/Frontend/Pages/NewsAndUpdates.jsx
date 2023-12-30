@@ -97,9 +97,8 @@ const NewsAndUpdates = () => {
         ""
       )}
 
+
       <div className="container mt-4 my-md-5 newsAndUpdates">
-       
-       
 
 {isAdmin ? (
           <div className="text-end mb-4">
@@ -122,6 +121,7 @@ const NewsAndUpdates = () => {
               <Title title="News And Updates" cssClass="blue-900 fs-4 mb-4" />
             </div>
             <div className="col-md-6">
+
               <Search setObject={setNews}
                 clientSearchURL={'/appNews/searchAppNews/'}
                 adminSearchURL={'/appNews/createAppNews/'}
@@ -129,9 +129,10 @@ const NewsAndUpdates = () => {
                 searchfiledDeatails={'News title / News description'}
               />
             </div>
-            </div>
+
            
         <div className="row mb-5">
+
           {componentEdit.addNews ? (
             <div className="adminEditTestmonial">
               <AddEditAdminNews
