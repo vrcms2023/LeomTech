@@ -115,8 +115,8 @@ const Careers = () => {
         <div className="row">
           <div className="col-12 d-flex justify-content-between align-items-center gap-3">
             <Title title="Careers Details" cssClass="fw-bold fs-4" />
-            <Link to="/careers" className="btn btn-secondary d-flex justify-content-center align-items-center gap-3">
-              <i className="fa fa-chevron-left me-2" aria-hidden="true"></i>
+            <Link to="/careers" className="btn btn-secondary d-flex justify-content-center align-items-center gap-2">
+              <i className="fa fa-chevron-left" aria-hidden="true"></i>
               <span className="d-none d-md-block">Back</span>
             </Link>
           </div>

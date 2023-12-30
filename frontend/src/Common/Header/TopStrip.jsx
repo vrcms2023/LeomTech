@@ -56,12 +56,14 @@ const TopStrip = () => {
       
         <span> {footerValues?.phonen_number ? footerValues?.phonen_number : ''} </span>
       
-      {footerValues.emailid ? (<span>
+      {footerValues.emailid ? (
+        <span>
           <i className="fa fa-paper-plane me-1" aria-hidden="true"></i>
           <a href={`mailto:${footerValues.emailid}`}>
                   {footerValues.emailid}{" "}
                 </a>
         </span>) : ""}  
+
         {isAdmin ? (
           <>
             <span>
