@@ -227,7 +227,8 @@ const JobPost = ({ addJobs }) => {
               </span>
               <small className="d-block">
                 <strong className="d-block">Posted on</strong> 
-                [<strong className="">{showPosteddate(item.posted_date)}</strong>] days ago 
+                {showPosteddate(item.posted_date) == 0 ? "Today" : <>[ <strong className="">{showPosteddate(item.posted_date)}</strong> ] days ago</>  }
+                
               </small>
 
               {/* {isAdmin ? (
