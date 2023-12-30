@@ -13,7 +13,7 @@ import DeleteDialog from "../../../Common/DeleteDialog";
 import Title from "../../../Common/Title";
 import moment from "moment";
 import './services.css'
-import { sortByDateFIFO } from "../../../util/dataFormatUtil";
+import { sortByCreatedDate } from "../../../util/dataFormatUtil";
 
 const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
   const [serviceName, setServiceName] = useState("");
@@ -83,7 +83,7 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
     try {
       const response = await axiosServiceApi.get(`/services/createService/`);
       if (response?.status === 200) {
-        const data = sortByDateFIFO(response.data.services)
+        const data = sortByCreatedDate(response.data.services)
         setServiceList(data);
         if (onPageLoadAction.current) {
           setSelectedServiceProject(data[0]);

@@ -9,9 +9,14 @@ import {
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
 import { InputField } from "./FormFields";
 
-const FooterAdminFeilds = ({ editHandler, componentType }) => {
+const FooterAdminFeilds = ({ editHandler, componentType, footerValues }) => {
   const [userName, setUserName] = useState("");
-  const { register, reset, handleSubmit } = useForm();
+  const { register, reset, handleSubmit } = useForm({
+    defaultValues: useMemo(() => {
+      return footerValues;
+    }, [footerValues]),
+    mode: "onChange",
+  });
 
   const closeHandler = () => {
     editHandler(componentType, false);
@@ -48,22 +53,6 @@ const FooterAdminFeilds = ({ editHandler, componentType }) => {
       console.log("unable to save the footer form");
     }
   };
-
-  useEffect(() => {
-    const getFooterValues = async () => {
-      try {
-        const response = await axiosClientServiceApi.get(
-          `/footer/getClientAddress/`,
-        );
-        if (response?.data?.address?.length > 0) {
-          reset(response.data.address[0]);
-        }
-      } catch (error) {
-        console.log("unable to save the footer form");
-      }
-    };
-    getFooterValues();
-  }, []);
 
   return (
     <div className="">

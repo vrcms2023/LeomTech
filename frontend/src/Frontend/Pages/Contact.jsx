@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import { useDispatch, useSelector } from "react-redux";
 // Components
 import Title from "../../Common/Title";
 import BriefIntroFrontend from "../../Common/BriefIntro";
@@ -26,6 +26,7 @@ import "./Contact.css";
 
 // images
 import ContactBanner from "../../Images/contact.png";
+import { getFooterValues } from "../../features/footer/footerActions";
 
 const Contact = () => {
   const editComponentObj = {
@@ -55,6 +56,11 @@ const Contact = () => {
   const [footerValues, setFooterValues] = useState(false);
   const navigate = useNavigate();
   const [mapValues, setMapValues] = useState("");
+  const { footerData, error } = useSelector(
+    (state) => state.footerData,
+  );
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     removeActiveClass();
@@ -120,23 +126,17 @@ const Contact = () => {
   }, []);
 
   useEffect(() => {
-    const getFooterValues = async () => {
-      try {
-        const response = await axiosClientServiceApi.get(
-          `footer/getClientAddress/`,
-        );
-        
-        if (response?.data?.address?.length > 0) {
-          setFooterValues(response.data.address[0]);
-        }
-      } catch (e) {
-        console.log("unable to access ulr because of server is down");
-      }
-    };
-    if (!componentEdit.address) {
-      getFooterValues();
+    if (!componentEdit.address && footerData?.address?.length > 0) {
+      dispatch(getFooterValues());
     }
   }, [componentEdit.address]);
+
+  useEffect(() => {
+    if (footerData?.address?.length > 0) {
+      setFooterValues(footerData.address[0]);
+    }
+  }, [footerData]);
+
 
   useEffect(() => {
     if (!componentEdit.map) {
@@ -266,7 +266,7 @@ const Contact = () => {
             </div>
             {componentEdit.address ? (
               <div className="adminEditTestmonial">
-                <AddressTextArea editHandler={editHandler} componentType="address" />
+                <AddressTextArea editHandler={editHandler} componentType="address" footerValues={footerValues} />
               </div>
             ) : (
               ""
