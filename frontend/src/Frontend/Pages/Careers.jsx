@@ -143,7 +143,7 @@ const Careers = () => {
             clientSearchURL={'/careers/searchCareers/'}
             adminSearchURL={'/careers/createCareer/'}
             clientDefaultURL={'/careers/clientCareersList/'}
-            searchfiledDeatails={'Job Title / Comapny name / location '}
+            searchfiledDeatails={'Job Title, Comapny name, location '}
             />
           </div>
         </div>

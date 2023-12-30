@@ -114,7 +114,8 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
       );
 
       if (response.status === 200) {
-        toast.success(`Service published successfully`);
+        let services = response.data.services
+        toast.success(`Service ${services.publish ? 'published' : 'un published'} successfully`);
         setSelectedServiceProject(response.data.services);
         getServiceList()
       }
