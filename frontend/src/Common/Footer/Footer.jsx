@@ -154,8 +154,10 @@ const Footer = () => {
               <div>
                 Phone
                 <br />
-                {footerValues.phonen_number} <br />
-                {footerValues.phonen_number_2}
+                <p className="mb-0">{footerValues.phonen_number}</p>
+                <p>
+                  {footerValues.phonen_number_2 ? <>{footerValues.phonen_number_2} <i class="fa fa-whatsapp text-white fs-3 ms-2" aria-hidden="true"></i></> : "" }
+                </p>
               </div>
               <div className="mb-md-0 mt-3">
                 Email
