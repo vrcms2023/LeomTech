@@ -6,6 +6,7 @@ import {
   axiosServiceApi,
   axiosClientServiceApi,
 } from "../../../util/axiosUtil";
+import Button from "../../../Common/Button";
 
 const GoogleMap = ({ editHandler, componentType, mapValues }) => {
   const closeHandler = () => {
@@ -92,11 +93,17 @@ const GoogleMap = ({ editHandler, componentType, mapValues }) => {
           </div>
 
           <div className="row">
-            <div className="text-center">
+            <div className="d-flex justify-content-center align-items-center gap-1 gap-md-3">
               {/* <button className="btn btn-secondary mx-3">Clear</button> */}
               <button onClick={saveGoogleMapUrl} className="btn btn-primary">
                 Save
               </button>
+              <Button
+                type="submit"
+                cssClass="btn border"
+                label={"Close"}
+                handlerChange={closeHandler}
+              />
             </div>
           </div>
         </div>
