@@ -66,7 +66,7 @@ const HomeServices = ({ title }) => {
           <div className="col-md-6 p-2 homeServiceImg">
             <img src={item.path ? getImagePath(item.path) : serviceImg1} alt={item.alternitivetext} className="img-fluid w-100 h-100" />
           </div>
-          <div className="col-md-6 p-4 homeServiceDetails">
+          <div className="col-md-6 p-2 p-md-4 homeServiceDetails">
             <Title title={item.feature_title} cssClass="fw-bold serviceTitle" />
             {item.feature_description ? (
                 <div className="description" dangerouslySetInnerHTML={{ __html: item.feature_description }} />
