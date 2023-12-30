@@ -97,16 +97,15 @@ const NewsAndUpdates = () => {
         ""
       )}
 
+      <div className="container my-4 newsAndUpdates">
 
-      <div className="container mt-4 my-md-5 newsAndUpdates">
-
-{isAdmin ? (
+      {isAdmin ? (
           <div className="text-end mb-4">
             <Link
               to="#"
               className="btn btn-primary"
               onClick={() => editHandler("addNews", true)}
-            >Add News{" "}
+            >Add News
               <i className="fa fa-plus ms-2" aria-hidden="true"></i>
             </Link>
           </div>
@@ -115,8 +114,8 @@ const NewsAndUpdates = () => {
         )}
 
 
-          <div className="row mb-4">
-        
+        <div className="row mb-4">
+         
             <div className="col-md-6">
               <Title title="News And Updates" cssClass="blue-900 fs-4 mb-4" />
             </div>
@@ -130,9 +129,9 @@ const NewsAndUpdates = () => {
               />
             </div>
 
-           
-        <div className="row mb-5">
+            </div>
 
+<div className="row mb-5">
           {componentEdit.addNews ? (
             <div className="adminEditTestmonial">
               <AddEditAdminNews
