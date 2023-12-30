@@ -55,7 +55,7 @@ const HomeServices = ({ title }) => {
     <>
       {clientServiceList.map((servicelist, index) => 
         servicelist?.service.map((item) => (
-        <div className="row service mb-4" key={`${index}+homeService`}>
+        <div className="row service mb-3 mb-md-5" key={`${index}+homeService`}>
           <div className="position-relative">
             {/* {isAdmin ? (
               <EditIcon editHandler={() => editHandler("service", true)} />
@@ -63,13 +63,13 @@ const HomeServices = ({ title }) => {
               ""
             )} */}
           </div>
-          <div className="col-md-6 p-2">
+          <div className="col-md-6 p-2 homeServiceImg">
             <img src={item.path ? getImagePath(item.path) : serviceImg1} alt={item.alternitivetext} className="img-fluid w-100 h-100" />
           </div>
-          <div className="col-md-6 p-4">
-            <Title title={item.feature_title} cssClass="fs-3 fw-bold" />
+          <div className="col-md-6 p-4 homeServiceDetails">
+            <Title title={item.feature_title} cssClass="fw-bold serviceTitle" />
             {item.feature_description ? (
-                <div dangerouslySetInnerHTML={{ __html: item.feature_description }} />
+                <div className="description" dangerouslySetInnerHTML={{ __html: item.feature_description }} />
               ) : (
                 ""
               )}
