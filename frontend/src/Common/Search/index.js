@@ -10,7 +10,8 @@ const Search = ({
   setObject,
   clientSearchURL,
   adminSearchURL,
-  clientDefaultURL
+  clientDefaultURL,
+  searchfiledDeatails
 }) => {
 
   const [searchQuery, setSearchquery]= useState('')
@@ -46,7 +47,8 @@ const Search = ({
   }
 
   return (
-    <div className="input-group mb-3 search">
+    <>
+     <div className="input-group mb-3 search">
       <input
         type="text"
         className="form-control"
@@ -59,6 +61,9 @@ const Search = ({
         <i className="fa fa-search" aria-hidden="true"></i>
       </span>
     </div>
+    {searchfiledDeatails ? searchfiledDeatails : ''}
+    </>
+   
   );
 };
 

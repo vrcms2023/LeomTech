@@ -108,6 +108,7 @@ const NewsAndUpdates = () => {
                 clientSearchURL={'/appNews/searchAppNews/'}
                 adminSearchURL={'/appNews/createAppNews/'}
                 clientDefaultURL={'/appNews/clientAppNews/'}
+                searchfiledDeatails={'News title and New description'}
               />
             </div>
             {isAdmin ? (
