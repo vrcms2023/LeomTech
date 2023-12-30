@@ -99,16 +99,16 @@ const NewsAndUpdates = () => {
 
       <div className="container my-4 newsAndUpdates">
         <div className="row">
-          <div className="d-flex justify-content-between">
-          <div className="col-md-4">
-            <Title title="News And Updates" cssClass="blue-900 fs-4 mb-4" />
+          <div className="d-flex justify-content-between my-4">
+            <div className="col-md-4">
+              <Title title="News And Updates" cssClass="blue-900 fs-4 mb-4" />
             </div>
             <div className="col-md-5 mb-4">
               <Search setObject={setNews}
                 clientSearchURL={'/appNews/searchAppNews/'}
                 adminSearchURL={'/appNews/createAppNews/'}
                 clientDefaultURL={'/appNews/clientAppNews/'}
-                searchfiledDeatails={'News title and New description'}
+                searchfiledDeatails={'News title / News description'}
               />
             </div>
             {isAdmin ? (

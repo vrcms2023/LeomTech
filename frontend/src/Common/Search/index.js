@@ -47,12 +47,12 @@ const Search = ({
   }
 
   return (
-    <>
-     <div className="input-group mb-3 search">
+    <div className="d-flex justify-conent-start align-items-center align-items-md-start flex-column">
+     <div className="input-group mb-1 search">
       <input
         type="text"
         className="form-control"
-        placeholder="Search"
+        placeholder="Search by"
         aria-label="Search"
         onChange={onChangeInputHandler}
         onKeyDown={handleKeyDown} 
@@ -61,8 +61,11 @@ const Search = ({
         <i className="fa fa-search" aria-hidden="true"></i>
       </span>
     </div>
-    {searchfiledDeatails ? searchfiledDeatails : ''}
-    </>
+    <div className="d-flex justify-conent-center align-items-center gap-2">
+      {/* <span className="text-muted">Search by</span> */}
+      <span className="badge bg-secondary fw-normal px-4">{searchfiledDeatails ? searchfiledDeatails : ''}</span>
+      </div>
+    </div>
    
   );
 };
