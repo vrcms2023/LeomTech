@@ -163,10 +163,10 @@ const About = () => {
         ""
       )}
 
-      <div className="container my-md-5 ">
+      <div className="container-fluid container-lg my-md-5 ">
         <div className="row">
           <div className="col-md-6 fs-3 mt-4 mt-md-0">
-            <Title title="About Us" />
+            <Title title="About Us" cssClass="fs-1" />
           </div>
           {isAdmin ? (
             <div className="col-md-6">
@@ -211,79 +211,85 @@ const About = () => {
           ""
         )}
 
-        <div className="row mt-4 aboutPage">
+        <div className="row aboutPage">
           {aboutList.length > 0 ? (
             aboutList.map((item, index) => (
-              <div
-                key={item.id}
-                className={`row mb-5${
-                  isAdmin ? "border border-warning mb-3 position-relative" : ""
-                } ${index % 2 === 0 ? "normalCSS" : "flipCSS"}`}
-              >
-                {isAdmin ? (
-                  <>
-                    <EditIcon
-                      editHandler={() => editHandler("editSection", true, item)}
-                    />
-                    <Link
-                      className="deleteSection"
-                      onClick={() => deleteAboutSection(item)}
-                    >
-                      <i
-                        className="fa fa-trash-o text-danger fs-4"
-                        aria-hidden="true"
-                      ></i>
-                    </Link>
-                  </>
-                ) : (
-                  ""
-                )}
-                <div className="col-12 col-lg-6 p-3 p-md-5 py-md-4 d-flex justify-content-center align-items-start flex-column">
-                  {item.aboutus_title ? (
-                    <Title
-                      title={item.aboutus_title}
-                      cssClass="fs-1 fw-bold mt-3 mb-1"
-                    />
+              <>
+                <div
+                  key={item.id}
+                  className={`row mb-2 ${
+                    isAdmin
+                      ? "border border-warning mb-3 position-relative"
+                      : ""
+                  } ${index % 2 === 0 ? "normalCSS" : "flipCSS"}`}
+                >
+                  {isAdmin ? (
+                    <>
+                      <EditIcon
+                        editHandler={() =>
+                          editHandler("editSection", true, item)
+                        }
+                      />
+                      <Link
+                        className="deleteSection"
+                        onClick={() => deleteAboutSection(item)}
+                      >
+                        <i
+                          className="fa fa-trash-o text-danger fs-4"
+                          aria-hidden="true"
+                        ></i>
+                      </Link>
+                    </>
                   ) : (
                     ""
                   )}
+                  <div className="col-12 col-lg-7 p-3 p-md-4 py-md-4 d-flex justify-content-center align-items-start flex-column">
+                    {item.aboutus_title ? (
+                      <Title
+                        title={item.aboutus_title}
+                        cssClass="fs-1 fw-bold mb-1"
+                      />
+                    ) : (
+                      ""
+                    )}
 
-                  {item.aboutus_sub_title ? (
-                    <Title
-                      title={item.aboutus_sub_title}
-                      cssClass="fs-5 text-secondary mb-2"
-                    />
-                  ) : (
-                    ""
-                  )}
-                  {/* <p>{moment(item.created_at).format('DD-MM-YYYY hh:mm:ss')}</p> */}
-                  {item.aboutus_sub_title ? (
-                    <Title
-                      title={item.aboutus_sub_title}
-                      cssClass="fs-5 text-secondary mb-2"
-                    />
-                  ) : (
-                    ""
-                  )}
+                    {item.aboutus_sub_title ? (
+                      <Title
+                        title={item.aboutus_sub_title}
+                        cssClass="fs-5 text-secondary mb-2"
+                      />
+                    ) : (
+                      ""
+                    )}
+                    {/* <p>{moment(item.created_at).format('DD-MM-YYYY hh:mm:ss')}</p> */}
+                    {item.aboutus_sub_title ? (
+                      <Title
+                        title={item.aboutus_sub_title}
+                        cssClass="fs-5 text-secondary mb-2"
+                      />
+                    ) : (
+                      ""
+                    )}
 
-                  <div
-                    dangerouslySetInnerHTML={{
-                      __html: item.aboutus_description,
-                    }}
-                  />
-                </div>
-
-                <div className="col-lg-6 d-none d-lg-block h-100">
-                  <div className="h-100 p-3 p-md-5 py-md-4 d-flex flex-column justify-content-center align-items-center reset ">
-                    <img
-                      src={getImagePath(item.path)}
-                      alt=""
-                      className="img-fluid"
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: item.aboutus_description,
+                      }}
                     />
                   </div>
+
+                  <div className="col-lg-5 d-none d-lg-block h-100">
+                    <div className="h-100 p-3 p-md-5 py-md-4 d-flex flex-column justify-content-center align-items-center reset ">
+                      <img
+                        src={getImagePath(item.path)}
+                        alt=""
+                        className="img-fluid"
+                      />
+                    </div>
+                  </div>
                 </div>
-                <hr />
-              </div>
+                <hr className="border-secondary" />
+              </>
             ))
           ) : (
             <p className="text-center text-muted py-5">
