@@ -95,7 +95,7 @@ const FooterAdminFeilds = ({ editHandler, componentType, footerValues }) => {
                 register={register}
               />
               <InputField
-                label="Phone 2"
+                label="WhatsApp No."
                 fieldName="phonen_number_2"
                 register={register}
               />
