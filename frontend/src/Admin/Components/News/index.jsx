@@ -19,7 +19,7 @@ export const News = ({
   editCarousel,
   setEditCarousel,
   showDescription = true,
-  dimensions
+  dimensions,
 }) => {
   const projectID = "a62d7759-a e6b-4e49-a129-1ee208c6789d";
   const [userName, setUserName] = useState("");

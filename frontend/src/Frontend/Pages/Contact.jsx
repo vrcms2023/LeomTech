@@ -18,8 +18,10 @@ import GoogleMap from "../../Admin/Components/forms/GoogleMap";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
 import { getCookie, removeCookie, setCookie } from "../../util/cookieUtil";
 import { removeActiveClass } from "../../util/ulrUtil";
-import { getFormDynamicFields, imageDimensionsJson } from "../../util/dynamicFormFields";
-
+import {
+  getFormDynamicFields,
+  imageDimensionsJson,
+} from "../../util/dynamicFormFields";
 
 // Styles
 import "./Contact.css";
@@ -56,9 +58,7 @@ const Contact = () => {
   const [footerValues, setFooterValues] = useState(false);
   const navigate = useNavigate();
   const [mapValues, setMapValues] = useState("");
-  const { footerData, error } = useSelector(
-    (state) => state.footerData,
-  );
+  const { footerData, error } = useSelector((state) => state.footerData);
 
   const dispatch = useDispatch();
 
@@ -136,7 +136,6 @@ const Contact = () => {
       setFooterValues(footerData.address[0]);
     }
   }, [footerData]);
-
 
   useEffect(() => {
     if (!componentEdit.map) {
@@ -266,7 +265,11 @@ const Contact = () => {
             </div>
             {componentEdit.address ? (
               <div className="adminEditTestmonial">
-                <AddressTextArea editHandler={editHandler} componentType="address" footerValues={footerValues} />
+                <AddressTextArea
+                  editHandler={editHandler}
+                  componentType="address"
+                  footerValues={footerValues}
+                />
               </div>
             ) : (
               ""
@@ -425,8 +428,6 @@ const Contact = () => {
           </div>
         </div>
       </div>
-
-
 
       {componentEdit.map ? (
         <div className="adminEditTestmonial">

@@ -87,9 +87,9 @@ const AdminTermsAndPrivacy = ({
                   : ""
               }
             />
-            </div>
+          </div>
 
-            <div className="col-md-6 bg-light  border-start border-3">
+          <div className="col-md-6 bg-light  border-start border-3">
             <RichTextInputEditor
               label={"Privacy Policy"}
               editorSetState={setPolicyEditorState}
@@ -99,28 +99,28 @@ const AdminTermsAndPrivacy = ({
                   : ""
               }
             />
-            </div>
+          </div>
 
-            <div className="d-flex justify-content-center align-items-center gap-1 gap-md-3 my-5">
-              {/* <button onClick={resetForm} type="reset" className="btn btn-secondary mx-3">
+          <div className="d-flex justify-content-center align-items-center gap-1 gap-md-3 my-5">
+            {/* <button onClick={resetForm} type="reset" className="btn btn-secondary mx-3">
                   Clear
                 </button> */}
-              <button
-                onClick={onSubmitHandler}
-                type="submit"
-                className="btn btn-primary"
-              >
-                Save
-              </button>
-              <Button
-                type="submit"
-                cssClass="btn border"
-                label={"Close"}
-                handlerChange={closeHandler}
-              />
-            </div>
+            <button
+              onClick={onSubmitHandler}
+              type="submit"
+              className="btn btn-primary"
+            >
+              Save
+            </button>
+            <Button
+              type="submit"
+              cssClass="btn border"
+              label={"Close"}
+              handlerChange={closeHandler}
+            />
           </div>
         </div>
+      </div>
     </>
   );
 };

@@ -41,7 +41,7 @@ export const getAboutUSSectionFields = () => {
       label: "Description",
       type: "richText",
       fieldName: "aboutus_description",
-    }
+    },
   };
 };
 
@@ -116,7 +116,7 @@ export const getTestimonialsFields = (category) => {
 };
 
 export const getServiceFormFields = (id, title) => {
-  console.log("title", title)
+  console.log("title", title);
   return {
     feature_title: {
       label: "Service Title",
@@ -179,6 +179,6 @@ export const imageDimensionsJson = (component) => {
       w: "1500px",
       h: "400px",
     },
-  }
- return imgDimension[component];
+  };
+  return imgDimension[component];
 };

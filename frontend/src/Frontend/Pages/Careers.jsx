@@ -10,7 +10,10 @@ import ModelBg from "../../Common/ModelBg";
 import Banner from "../../Common/Banner";
 
 import { removeActiveClass } from "../../util/ulrUtil";
-import { getFormDynamicFields, imageDimensionsJson } from "../../util/dynamicFormFields";
+import {
+  getFormDynamicFields,
+  imageDimensionsJson,
+} from "../../util/dynamicFormFields";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 
 // Images Imports
@@ -139,17 +142,22 @@ const Careers = () => {
             <Title title="Careers" cssClass="fs-3" />
           </div>
           <div className="col-md-6">
-            <Search setObject={setPosts}
-            clientSearchURL={'/careers/searchCareers/'}
-            adminSearchURL={'/careers/createCareer/'}
-            clientDefaultURL={'/careers/clientCareersList/'}
-            searchfiledDeatails={'Job Title / Comapny name / location '}
+            <Search
+              setObject={setPosts}
+              clientSearchURL={"/careers/searchCareers/"}
+              adminSearchURL={"/careers/createCareer/"}
+              clientDefaultURL={"/careers/clientCareersList/"}
+              searchfiledDeatails={"Job Title, Comapny name, location "}
             />
           </div>
         </div>
 
         <div className="row mb-5">
-          <JobPost addJobs={componentEdit.addjob} posts={posts} setPosts={setPosts}/>
+          <JobPost
+            addJobs={componentEdit.addjob}
+            posts={posts}
+            setPosts={setPosts}
+          />
         </div>
       </div>
 

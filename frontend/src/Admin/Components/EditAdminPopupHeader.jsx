@@ -20,7 +20,6 @@ const EditAdminPopupHeader = ({ closeHandler, title, type }) => {
       >
         <span className="d-none d-md-block">Close</span>
         <i className="fa fa-times fs-4" aria-hidden="true"></i>
-        
       </Link>
     </div>
   );

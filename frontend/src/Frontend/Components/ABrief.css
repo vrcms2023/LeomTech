@@ -2,15 +2,16 @@
 .ABrief .title {
   font-size: 2.5rem;
   border: 0px;
-   /* border-left-width: 15px;
+  /* border-left-width: 15px;
   border-style: Solid; */
   height: 100px;
-    line-height: 170px;
-    display: flex;
-    justify-content: end;
+  line-height: 170px;
+  display: flex;
+  justify-content: end;
 }
 
-.ABrief .title::before, .ABrief h3::before {
+.ABrief .title::before,
+.ABrief h3::before {
   content: "";
   border-left-width: 12px;
   border-style: Solid;

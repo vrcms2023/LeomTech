@@ -24,7 +24,7 @@ import {
 import { getImagePath } from "../../util/commonUtil";
 import Error from "./Error";
 
-import './componentsCommonStyes.css'
+import "./componentsCommonStyes.css";
 
 registerPlugin(
   FilePondPluginFileValidateType,
@@ -58,7 +58,7 @@ const FileUpload = ({
   imageUpdateURL = "/gallery/updateGalleryDetails/",
   extraFormParamas = [],
   dimensions,
-  closeHandler
+  closeHandler,
 }) => {
   const [files, setFiles] = useState([]);
   const [extTypes, setExtTypes] = useState([]);
@@ -91,14 +91,14 @@ const FileUpload = ({
     ],
   };
 
-  useEffect(()=>{
-    if(!editImage?.id){
-      reset({})
+  useEffect(() => {
+    if (!editImage?.id) {
+      reset({});
     }
-  },[editImage])
+  }, [editImage]);
 
   useEffect(() => {
-    setError("")
+    setError("");
     reset(editImage?.id ? editImage : {});
     if (editImage?.pageType) {
       setPageType(editImage.pageType.split("-")[1]);
@@ -151,7 +151,7 @@ const FileUpload = ({
             formData.append("feature_description", editorState);
           } else if (key === "news_description") {
             formData.append("news_description", editorState);
-          } else if(key === "aboutus_description") {
+          } else if (key === "aboutus_description") {
             formData.append("aboutus_description", editorState);
           } else if (
             key === "banner_descripiton" &&
@@ -211,7 +211,7 @@ const FileUpload = ({
       );
       if (response?.status === 200) {
         updatedFileChnages([response]);
-        closePopupWindow()
+        closePopupWindow();
       }
     } catch (error) {
       console.log(error);
@@ -223,8 +223,8 @@ const FileUpload = ({
    */
   const postImages = async (data) => {
     const arrURL = [];
-    if(files.length === 0){
-      setError("Please add an image ")
+    if (files.length === 0) {
+      setError("Please add an image ");
     }
     if (files.length > 0) {
       files.forEach((element, index) => {
@@ -244,7 +244,7 @@ const FileUpload = ({
     try {
       await Promise.all(arrURL).then(function (values) {
         updatedFileChnages(values);
-        closePopupWindow()
+        closePopupWindow();
       });
     } catch (error) {
       console.log(error);
@@ -311,30 +311,29 @@ const FileUpload = ({
   };
 
   const onUpdateFiles = (files) => {
-    setError('')
-    setFiles(files)
-  }
+    setError("");
+    setFiles(files);
+  };
 
   const closePopupWindow = () => {
-    if(closeHandler && typeof closeHandler === 'function'){
+    if (closeHandler && typeof closeHandler === "function") {
       // setTimeout(() =>{
       //   closeHandler()
       // },1000)
-      closeHandler()
+      closeHandler();
     }
-  }
+  };
 
   return (
     <>
       <form className="" onSubmit={handleSubmit(uploadFile)}>
         <div className="mb-3 row">
           <label className="col-sm-3 col-form-label text-start text-md-end">
-           <Title title={title} cssClass="requiredField" /> 
+            <Title title={title} cssClass="requiredField" />
           </label>
           <div className="col-sm-9">
-          {error ? (<Error>{error}</Error>) : ''}
+            {error ? <Error>{error}</Error> : ""}
             <div className="border border-3 mb-0 shadow-lg">
-             
               <FilePond
                 labelIdle='Drag & Drop your files or <span className="filepond--label-action">Browse</span>'
                 labelInvalidField="invalid files"
@@ -353,7 +352,10 @@ const FileUpload = ({
             </div>
             {dimensions ? (
               <div>
-                <small className="text-muted">Min. Width - {dimensions.w} & Height - {dimensions.h} will be the good for resolution. </small>
+                <small className="text-muted">
+                  Min. Width - {dimensions.w} & Height - {dimensions.h} will be
+                  the good for resolution.{" "}
+                </small>
               </div>
             ) : (
               ""
@@ -433,7 +435,7 @@ const FileUpload = ({
               <button type="submit" className="btn btn-primary">
                 {editImage?.id ? "Update" : "Save"}
               </button>
-              
+
               <Button
                 type="submit"
                 cssClass="btn border"

@@ -5,12 +5,13 @@
   /* border-left-width: 15px;
   border-style: Solid; */
   height: 100px;
-    line-height: 170px;
-    display: flex;
-    justify-content: end;
+  line-height: 170px;
+  display: flex;
+  justify-content: end;
 }
 
-.ABriefAbout .title::before, .ABriefAbout h3::before {
+.ABriefAbout .title::before,
+.ABriefAbout h3::before {
   content: "";
   border-left-width: 12px;
   border-style: Solid;

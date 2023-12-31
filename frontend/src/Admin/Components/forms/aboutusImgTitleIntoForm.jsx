@@ -91,43 +91,43 @@ const AboutImageInputsForm = ({
   return (
     <>
       {/* {editCarousel.id ? ( */}
-        <div className="bg-white">
-          <EditAdminPopupHeader
-            closeHandler={closeHandler}
-            title={componentType}
-          />
-          <div className="container">
-            <div className="row py-0 pb-md-5">
-              <div className="col-md-8 offset-md-2 mb-5 mb-md-0">
-                <div className="container">
-                  <FileUpload
-                    title={imageLabel}
-                    project={project}
-                    updated_by={userName}
-                    category={category}
-                    gallerysetState={setImgGallery}
-                    maxFiles={1}
-                    galleryState={imgGallery}
-                    validTypes="image/png,image/jpeg"
-                    descriptionTitle="Caption"
-                    titleTitle="Title"
-                    alternitivetextTitle="Image Alt Text"
-                    saveState={setSaveState}
-                    showDescription={showDescription}
-                    buttonLable="Save"
-                    editImage={editCarousel}
-                    setEditCarousel={setEditCarousel}
-                    imagePostURL={imagePostURL}
-                    imageUpdateURL={imageUpdateURL}
-                    extraFormParamas={extraFormParamas}
-                    showExtraFormFields={showExtraFormFields}
-                    dimensions={dimensions}
-                  />
-                </div>
+      <div className="bg-white">
+        <EditAdminPopupHeader
+          closeHandler={closeHandler}
+          title={componentType}
+        />
+        <div className="container">
+          <div className="row py-0 pb-md-5">
+            <div className="col-md-8 offset-md-2 mb-5 mb-md-0">
+              <div className="container">
+                <FileUpload
+                  title={imageLabel}
+                  project={project}
+                  updated_by={userName}
+                  category={category}
+                  gallerysetState={setImgGallery}
+                  maxFiles={1}
+                  galleryState={imgGallery}
+                  validTypes="image/png,image/jpeg"
+                  descriptionTitle="Caption"
+                  titleTitle="Title"
+                  alternitivetextTitle="Image Alt Text"
+                  saveState={setSaveState}
+                  showDescription={showDescription}
+                  buttonLable="Save"
+                  editImage={editCarousel}
+                  setEditCarousel={setEditCarousel}
+                  imagePostURL={imagePostURL}
+                  imageUpdateURL={imageUpdateURL}
+                  extraFormParamas={extraFormParamas}
+                  showExtraFormFields={showExtraFormFields}
+                  dimensions={dimensions}
+                />
               </div>
             </div>
           </div>
         </div>
+      </div>
       {/* ) : (
         ""
       )} */}

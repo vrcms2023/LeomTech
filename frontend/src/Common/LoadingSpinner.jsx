@@ -9,7 +9,9 @@ export default function LoadingSpinner(isLoading) {
       <div className="spanner show">
         {/* <div class="loader"></div> */}
         <div className="d-flex justify-content-center align-item-center">
-          <div className="spinner-border" style={iconStyle} role="status"> </div>
+          <div className="spinner-border" style={iconStyle} role="status">
+            {" "}
+          </div>
           <span className="sr-only">Loading...</span>
         </div>
       </div>

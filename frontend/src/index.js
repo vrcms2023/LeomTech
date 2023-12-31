@@ -10,7 +10,7 @@ import { render } from "react-dom";
 
 import reportWebVitals from "./reportWebVitals";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+//const root = ReactDOM.createRoot(document.getElementById("root"));
 render(
   <React.StrictMode>
     <Provider store={store}>
