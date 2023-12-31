@@ -13,16 +13,37 @@
   padding: 10px 100px 40px;
 }
 
-.titleCaption .description {
+.titleCaption .title, .titleCaption .description {
   width: 50%;
 }
 
 @media (max-width: 576px) {
+
+  .pageBanner img {
+    height: 230px;
+  }
+
   .titleCaption {
     padding: 10px 50px 40px;
   }
 
+  .titleCaption .title {
+    overflow: hidden;
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .titleCaption .subTitle {
+    display: none
+  }
+
   .titleCaption .description {
     width: 100%;
+    font-size: 1rem !important;
+    overflow: hidden;
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 }
