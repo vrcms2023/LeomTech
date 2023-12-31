@@ -39,7 +39,7 @@
   }
   .carousel-caption {
     width: 70%;
-    top: 50%
+    top: 50%;
   }
   .carousel-caption h1 {
     font-size: 1.6rem;
@@ -51,10 +51,10 @@
   }
 
   .carousel-caption span.subtitle {
-    display: none
+    display: none;
   }
   .carousel-caption p.description {
-    font-size: .9rem !important;
+    font-size: 0.9rem !important;
     letter-spacing: 0.1rem;
     font-weight: normal;
     overflow: hidden;
@@ -62,7 +62,7 @@
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
   }
-  
+
   .carousel-item img,
   .homeCarousel::after {
     height: 50vh;

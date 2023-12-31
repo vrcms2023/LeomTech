@@ -86,6 +86,7 @@ const Services = () => {
         `/services/getSelectedClientService/${id}/`,
       );
       setSelectedServiceList(sortByCreatedDate(response.data.servicesFeatures));
+      window.scrollTo(0, 0);
     } catch (error) {
       console.log("Unable to get the intro");
     }

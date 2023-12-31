@@ -36,11 +36,7 @@ const BriefIntroFrontend = ({ pageType, introState }) => {
               ""
             ) : (
               <Title
-                title={`${
-                  introValue.intro_title
-                    ? introValue.intro_title
-                    : "Please Update Title"
-                }`}
+                title={introValue.intro_title}
                 cssClass="mb-0 fw-bold fs-2 text-center"
               />
             )}
@@ -48,18 +44,14 @@ const BriefIntroFrontend = ({ pageType, introState }) => {
               ""
             ) : (
               <Title
-                title={`${
-                  introValue.intro_title
-                    ? introValue.subTitle
-                    : "Please Update Title"
-                }`}
+                title={introValue.subTitle}
                 cssClass="mb-3 fw-bold text-secondary fs-6 text-center"
               />
             )}
             <p className="text-center lh-md m-0 fs-6 fw-medium">
               {introValue.intro_desc
                 ? introValue.intro_desc
-                : "Please Update Description"}
+                : "Please Update Brief Intro"}
             </p>
           </div>
         </div>

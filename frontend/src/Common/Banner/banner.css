@@ -13,12 +13,12 @@
   padding: 10px 100px 40px;
 }
 
-.titleCaption .title, .titleCaption .description {
+.titleCaption .title,
+.titleCaption .description {
   width: 50%;
 }
 
 @media (max-width: 576px) {
-
   .pageBanner img {
     height: 230px;
   }
@@ -35,7 +35,7 @@
   }
 
   .titleCaption .subTitle {
-    display: none
+    display: none;
   }
 
   .titleCaption .description {

@@ -255,19 +255,24 @@ const Footer = () => {
             ""
           )}
 
-
-         <div className="d-flex justify-content-center align-items-center flex-column flex-md-row gap-1 gap-md-2">
-          <small>&copy; 2023 - All rights reserved</small>
-         
-          <span className="d-inline-block  d-none d-md-block">|</span>
-          <Link to="" className="text-decoration-underline" onClick={() => showModel("TC")}>
-            Terms & Conditions
-          </Link>{" "}
-          <span className="d-inline-block d-none d-md-block">|</span>
-          <Link to="" className="text-decoration-underline" onClick={() => showModel("PP")}>
-            Privacy Policy
-          </Link>
-
+          <div className="d-flex justify-content-center align-items-center flex-column flex-md-row gap-1 gap-md-2">
+            <small>&copy; 2023 - All rights reserved</small>
+            <span className="d-inline-block  d-none d-md-block">|</span>
+            <Link
+              to=""
+              className="text-decoration-underline"
+              onClick={() => showModel("TC")}
+            >
+              Terms & Conditions
+            </Link>{" "}
+            <span className="d-inline-block d-none d-md-block">|</span>
+            <Link
+              to=""
+              className="text-decoration-underline"
+              onClick={() => showModel("PP")}
+            >
+              Privacy Policy
+            </Link>
           </div>
           <span className="d-block mt-2 dby">
             designed by{" "}
