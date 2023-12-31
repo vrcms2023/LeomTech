@@ -81,7 +81,7 @@ const Header = () => {
       setLoginState(false);
       setUserName("");
     }
-    if(!userInfo && getCookie("access")) {
+    if (!userInfo && getCookie("access")) {
       dispatch(getUser());
     }
   }, [userInfo]);

@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { registerUser, userLogin, getUser, getRefreshToken } from "./authActions";
+import {
+  registerUser,
+  userLogin,
+  getUser,
+  getRefreshToken,
+} from "./authActions";
 import { removeAllCookies } from "../../util/cookieUtil";
 
 // initialize userToken from local storage
@@ -86,7 +91,6 @@ const authSlice = createSlice({
       state.loading = false;
       state.error = payload;
     },
-
 
     // Refesh Token
     [getRefreshToken.pending]: (state) => {

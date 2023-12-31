@@ -29,14 +29,13 @@ import DeleteDialog from "../../Common/DeleteDialog";
 import { sortByCreatedDate } from "../../util/dataFormatUtil";
 import { getCookie, removeCookie } from "../../util/cookieUtil";
 
-
 const Services = () => {
   const editComponentObj = {
     addSection: false,
     editSection: false,
     banner: false,
     briefIntro: false,
-    servicePagebanner:false,
+    servicePagebanner: false,
   };
 
   const pageType = "services";
@@ -57,7 +56,6 @@ const Services = () => {
   useEffect(() => {
     if (!uid) {
       getSelectedServiceObject(HeaderServiceID);
-      
     } else {
       getSelectedServiceObject(uid);
     }
@@ -80,9 +78,9 @@ const Services = () => {
   }, [selectedServiceProject]);
 
   const getSelectedServiceObject = async (id) => {
-    if(!id) {
+    if (!id) {
       navigate("/");
-    } 
+    }
     try {
       let response = await axiosClientServiceApi.get(
         `/services/getSelectedClientService/${id}/`,
@@ -235,7 +233,7 @@ const Services = () => {
         ) : (
           ""
         )}
-{/* 
+        {/* 
 {isAdmin ? (
           <EditIcon editHandler={() => editHandler("servicePagebanner", true)} />
         ) : (
