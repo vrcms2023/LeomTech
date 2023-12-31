@@ -49,11 +49,11 @@ const AdminFooter = ({ editHandler }) => {
                 <button className="btn btn-secondary mx-3">Clear</button>
                 <button className="btn btn-primary">Save</button>
                 <Button
-                type="submit"
-                cssClass="btn border"
-                label={"Close"}
-                handlerChange={closeHandler}
-              />
+                  type="submit"
+                  cssClass="btn border"
+                  label={"Close"}
+                  handlerChange={closeHandler}
+                />
               </div>
             </form>
           </div>

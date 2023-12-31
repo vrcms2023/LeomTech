@@ -13,7 +13,7 @@ import { removeActiveClass } from "../../util/ulrUtil";
 import {
   getFormDynamicFields,
   getAboutUSSectionFields,
-  imageDimensionsJson
+  imageDimensionsJson,
 } from "../../util/dynamicFormFields";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 
@@ -26,8 +26,7 @@ import DeleteDialog from "../../Common/DeleteDialog";
 import { sortByUpdatedDate } from "../../util/dataFormatUtil";
 import moment from "moment";
 
-import './About.css'
-
+import "./About.css";
 
 const About = () => {
   const editComponentObj = {
@@ -47,7 +46,7 @@ const About = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  
+
   useEffect(() => {
     removeActiveClass();
   }, []);
@@ -65,13 +64,10 @@ const About = () => {
     document.body.style.overflow = "hidden";
   };
 
-
   const getAboutUsList = async (id) => {
     try {
-      let response = await axiosClientServiceApi.get(
-        `aboutus/clientAboutus/`,
-      );
-      let data = sortByUpdatedDate(response.data.aboutus)
+      let response = await axiosClientServiceApi.get(`aboutus/clientAboutus/`);
+      let data = sortByUpdatedDate(response.data.aboutus);
       setAboutList(data);
     } catch (error) {
       console.log("Unable to get the intro");
@@ -81,38 +77,37 @@ const About = () => {
   useEffect(() => {
     if (!componentEdit.editSection && !componentEdit.addSection) {
       getAboutUsList();
-      setEditCarousel({})
+      setEditCarousel({});
     }
   }, [componentEdit.editSection, componentEdit.addSection]);
 
   const deleteAboutSection = (item) => {
     const id = item.id;
     const name = item.aboutus_title;
-    
+
     const deleteSection = async () => {
       const response = await axiosServiceApi.delete(
         `/aboutus/updateAboutus/${id}/`,
       );
       if (response.status === 204) {
-              const list = aboutList.filter((list) => list.id !== id);
-              setAboutList(list);
-              toast.success(`${name} is deleted`);
+        const list = aboutList.filter((list) => list.id !== id);
+        setAboutList(list);
+        toast.success(`${name} is deleted`);
       }
     };
 
-      confirmAlert({
-        customUI: ({ onClose }) => {
-          return (
-            <DeleteDialog
-              onClose={onClose}
-              callback={deleteSection}
-              message={`deleting the ${name} Service?`}
-            />
-          );
-        },
-      });
-    
-  }
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <DeleteDialog
+            onClose={onClose}
+            callback={deleteSection}
+            message={`deleting the ${name} Service?`}
+          />
+        );
+      },
+    });
+  };
 
   return (
     <>
@@ -168,31 +163,31 @@ const About = () => {
         ""
       )}
 
-    
-    
-
-    <div className="container my-md-5 ">
+      <div className="container my-md-5 ">
         <div className="row">
           <div className="col-md-6 fs-3 mt-4 mt-md-0">
             <Title title="About Us" />
           </div>
-          {isAdmin ? 
+          {isAdmin ? (
             <div className="col-md-6">
               <div className="d-flex justify-content-end align-items-center mb-3">
                 <span className="fw-bold me-2">Add content </span>
                 <button
-                type="submit"
-                className="btn btn-primary px-3"
-                onClick={() => editHandler("addSection", true)}
-                > <i className="fa fa-plus" aria-hidden="true"></i>
+                  type="submit"
+                  className="btn btn-primary px-3"
+                  onClick={() => editHandler("addSection", true)}
+                >
+                  {" "}
+                  <i className="fa fa-plus" aria-hidden="true"></i>
                 </button>
               </div>
             </div>
-            : "" }
-          </div>
-      
+          ) : (
+            ""
+          )}
+        </div>
 
-          {componentEdit.editSection || componentEdit.addSection ? (
+        {componentEdit.editSection || componentEdit.addSection ? (
           <div className="adminEditTestmonial">
             <AddEditAdminNews
               editHandler={editHandler}
@@ -214,64 +209,88 @@ const About = () => {
           </div>
         ) : (
           ""
-      )}
+        )}
 
-              <div className="row mt-4 aboutPage">
-        {aboutList.length > 0 ? aboutList.map((item, index) => (
-        
-          <div key={item.id}
-            className={`row mb-5${isAdmin ? "border border-warning mb-3 position-relative" : ""} ${
-              index % 2 === 0 ? "normalCSS" : "flipCSS"
-            }`}
-          >
-            {isAdmin ? (
-              <>
-              <EditIcon
-                editHandler={() => editHandler("editSection", true, item)}
-              />
-              <Link className="deleteSection" onClick={() => deleteAboutSection(item)}> 
-                <i className="fa fa-trash-o text-danger fs-4" aria-hidden="true"></i>
-              </Link>
-              </>
-            ) : (
-              ""
-            )}
-            <div className="col-12 col-lg-6 p-3 p-md-5 py-md-4 d-flex justify-content-center align-items-start flex-column">
-              {item.aboutus_title ? 
-              <Title title={item.aboutus_title}
-                cssClass="fs-1 fw-bold mt-3 mb-1"
-              /> : ""}
-              
-              {item.aboutus_sub_title ? 
-              <Title
-              title={ item.aboutus_sub_title }
-              cssClass="fs-5 text-secondary mb-2"
-              />
-              : ""}
-              {/* <p>{moment(item.created_at).format('DD-MM-YYYY hh:mm:ss')}</p> */}
-              {item.aboutus_sub_title ? 
-              <Title
-                title={ item.aboutus_sub_title }
-                cssClass="fs-5 text-secondary mb-2"
-              />
-             : ""}
-              
+        <div className="row mt-4 aboutPage">
+          {aboutList.length > 0 ? (
+            aboutList.map((item, index) => (
               <div
-                dangerouslySetInnerHTML={{ __html: item.aboutus_description }}
-              />
-            </div>
+                key={item.id}
+                className={`row mb-5${
+                  isAdmin ? "border border-warning mb-3 position-relative" : ""
+                } ${index % 2 === 0 ? "normalCSS" : "flipCSS"}`}
+              >
+                {isAdmin ? (
+                  <>
+                    <EditIcon
+                      editHandler={() => editHandler("editSection", true, item)}
+                    />
+                    <Link
+                      className="deleteSection"
+                      onClick={() => deleteAboutSection(item)}
+                    >
+                      <i
+                        className="fa fa-trash-o text-danger fs-4"
+                        aria-hidden="true"
+                      ></i>
+                    </Link>
+                  </>
+                ) : (
+                  ""
+                )}
+                <div className="col-12 col-lg-6 p-3 p-md-5 py-md-4 d-flex justify-content-center align-items-start flex-column">
+                  {item.aboutus_title ? (
+                    <Title
+                      title={item.aboutus_title}
+                      cssClass="fs-1 fw-bold mt-3 mb-1"
+                    />
+                  ) : (
+                    ""
+                  )}
 
-            <div className="col-lg-6 d-none d-lg-block h-100">
-            <div className="h-100 p-3 p-md-5 py-md-4 d-flex flex-column justify-content-center align-items-center reset ">
-              <img src={getImagePath(item.path)} alt="" className="img-fluid" />
-            </div>
-           </div>
-           <hr />
-          </div>
-        )) : <p className="text-center text-muted py-5">Please add page contents...</p>}
+                  {item.aboutus_sub_title ? (
+                    <Title
+                      title={item.aboutus_sub_title}
+                      cssClass="fs-5 text-secondary mb-2"
+                    />
+                  ) : (
+                    ""
+                  )}
+                  {/* <p>{moment(item.created_at).format('DD-MM-YYYY hh:mm:ss')}</p> */}
+                  {item.aboutus_sub_title ? (
+                    <Title
+                      title={item.aboutus_sub_title}
+                      cssClass="fs-5 text-secondary mb-2"
+                    />
+                  ) : (
+                    ""
+                  )}
 
-      </div>
-     
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: item.aboutus_description,
+                    }}
+                  />
+                </div>
+
+                <div className="col-lg-6 d-none d-lg-block h-100">
+                  <div className="h-100 p-3 p-md-5 py-md-4 d-flex flex-column justify-content-center align-items-center reset ">
+                    <img
+                      src={getImagePath(item.path)}
+                      alt=""
+                      className="img-fluid"
+                    />
+                  </div>
+                </div>
+                <hr />
+              </div>
+            ))
+          ) : (
+            <p className="text-center text-muted py-5">
+              Please add page contents...
+            </p>
+          )}
+        </div>
       </div>
 
       {show && <ModelBg />}

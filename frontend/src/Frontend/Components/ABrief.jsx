@@ -94,24 +94,24 @@ const ABrief = ({ title, cssClass, linkClass, moreLink, dimensions }) => {
         ) : (
           ""
         )}
-        {bannerdata ? 
-        <Title title={bannerdata.banner_title} cssClass={cssClass} />
-        : 
-        ""
-        }
+        {bannerdata ? (
+          <Title title={bannerdata.banner_title} cssClass={cssClass} />
+        ) : (
+          ""
+        )}
         {/* <Title
           title={
             bannerdata?.banner_title ? bannerdata.banner_title : "upload Title"
           }
           cssClass={cssClass}
         /> */}
-        
-          <p className="lh-md mt-4">
-            {bannerdata?.banner_descripiton
-              ? bannerdata.banner_descripiton
-              : "upload Description"}
-          </p>
-        
+
+        <p className="lh-md mt-4">
+          {bannerdata?.banner_descripiton
+            ? bannerdata.banner_descripiton
+            : "upload Description"}
+        </p>
+
         <div>
           <Link to={moreLink} className={linkClass}>
             Join Us Now

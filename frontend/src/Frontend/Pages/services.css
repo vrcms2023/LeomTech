@@ -6,8 +6,8 @@
   padding: 15px;
 }
 
-.normalCSS, .flipCSS {
-  
+.normalCSS,
+.flipCSS {
 }
 
 .flipCSS {
@@ -40,7 +40,7 @@
   width: auto !important;
   border: 2px dashed rgb(255, 193, 7);
   background-color: #fff;
-  padding: 5px 12px
+  padding: 5px 12px;
 }
 
 .editIcon {

@@ -11,7 +11,10 @@ import DeleteDialog from "../../Common/DeleteDialog";
 import ModelBg from "../../Common/ModelBg";
 import { getBaseURL } from "../../util/ulrUtil";
 import { getImagePath } from "../../util/commonUtil";
-import { axiosClientServiceApi,  axiosFileUploadServiceApi } from "../../util/axiosUtil";
+import {
+  axiosClientServiceApi,
+  axiosFileUploadServiceApi,
+} from "../../util/axiosUtil";
 import {
   getFormDynamicFields,
   getCarouselFields,
@@ -23,7 +26,7 @@ import "./HomeNews.css";
 import { sortCreatedDateByDesc } from "../../util/dataFormatUtil";
 
 const HomeNews = ({ addNewsState, news, setNews }) => {
-  const location = useLocation()
+  const location = useLocation();
   const baseURL = getBaseURL();
   const editComponentObj = {
     news: false,
@@ -54,7 +57,7 @@ const HomeNews = ({ addNewsState, news, setNews }) => {
           `/appNews/clientAppNews/`,
         );
         if (response?.status === 200) {
-          const data = sortCreatedDateByDesc(response.data.appNews)
+          const data = sortCreatedDateByDesc(response.data.appNews);
           setNews(data);
         }
       } catch (error) {
@@ -175,27 +178,26 @@ const HomeNews = ({ addNewsState, news, setNews }) => {
         ))
       ) : (
         <div className="text-center">
-          
           {isAdmin ? (
             <>
-           {/* {location.pathname} */}
-            {location.pathname === "/news" ? 
-              <p className="text-center fs-6">Please add news items</p>
-            : 
-            <>
-              <p className="text-center fs-6">Currently there are no news items found.</p>
-              <Link
-                to="/news"
-                className="btn btn-primary fs-6"
-              >
-                Go To News
-              </Link>
-            </>
-             }
-            
+              {/* {location.pathname} */}
+              {location.pathname === "/news" ? (
+                <p className="text-center fs-6">Please add news items</p>
+              ) : (
+                <>
+                  <p className="text-center fs-6">
+                    Currently there are no news items found.
+                  </p>
+                  <Link to="/news" className="btn btn-primary fs-6">
+                    Go To News
+                  </Link>
+                </>
+              )}
             </>
           ) : (
-            <p className="text-center fs-6">Currently there are no news items found.</p>
+            <p className="text-center fs-6">
+              Currently there are no news items found.
+            </p>
           )}
         </div>
       )}
@@ -225,8 +227,11 @@ const HomeNews = ({ addNewsState, news, setNews }) => {
           <div className="newsModalWrapper p-4 bg-white shadow-lg">
             <div className="d-flex justify-content-between align-items-center gap-4 mb-1 pb-2 border-bottom">
               <Title title={obj.news_title} cssClass="fw-bold fs-6" />
-              <Link onClick={closeModel} className="text-danger text-uppercase d-flex gap-2 justify-content-center align-items-center">
-                <span className="d-none d-lg-block">Close</span> 
+              <Link
+                onClick={closeModel}
+                className="text-danger text-uppercase d-flex gap-2 justify-content-center align-items-center"
+              >
+                <span className="d-none d-lg-block">Close</span>
                 <i className="fa fa-times fs-3" aria-hidden="true"></i>
               </Link>
             </div>

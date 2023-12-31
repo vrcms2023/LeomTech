@@ -13,7 +13,7 @@ import {
   getFormDynamicFields,
   getCarouselFields,
   getNewslFields,
-  imageDimensionsJson
+  imageDimensionsJson,
 } from "../../util/dynamicFormFields";
 import ModelBg from "../../Common/ModelBg";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
@@ -98,14 +98,14 @@ const NewsAndUpdates = () => {
       )}
 
       <div className="container my-4 newsAndUpdates">
-
-      {isAdmin ? (
+        {isAdmin ? (
           <div className="text-end mb-4">
             <Link
               to="#"
               className="btn btn-primary"
               onClick={() => editHandler("addNews", true)}
-            >Add News
+            >
+              Add News
               <i className="fa fa-plus ms-2" aria-hidden="true"></i>
             </Link>
           </div>
@@ -113,25 +113,22 @@ const NewsAndUpdates = () => {
           ""
         )}
 
-
         <div className="row mb-4">
-         
-            <div className="col-md-6">
-              <Title title="News And Updates" cssClass="blue-900 fs-4 mb-4" />
-            </div>
-            <div className="col-md-6">
+          <div className="col-md-6">
+            <Title title="News And Updates" cssClass="blue-900 fs-4 mb-4" />
+          </div>
+          <div className="col-md-6">
+            <Search
+              setObject={setNews}
+              clientSearchURL={"/appNews/searchAppNews/"}
+              adminSearchURL={"/appNews/createAppNews/"}
+              clientDefaultURL={"/appNews/clientAppNews/"}
+              searchfiledDeatails={"News title / News description"}
+            />
+          </div>
+        </div>
 
-              <Search setObject={setNews}
-                clientSearchURL={'/appNews/searchAppNews/'}
-                adminSearchURL={'/appNews/createAppNews/'}
-                clientDefaultURL={'/appNews/clientAppNews/'}
-                searchfiledDeatails={'News title / News description'}
-              />
-            </div>
-
-            </div>
-
-<div className="row mb-5">
+        <div className="row mb-5">
           {componentEdit.addNews ? (
             <div className="adminEditTestmonial">
               <AddEditAdminNews
@@ -150,9 +147,12 @@ const NewsAndUpdates = () => {
           ) : (
             ""
           )}
-          
 
-          <HomeNews addNewsState={componentEdit.addNews} news={news} setNews={setNews}/>
+          <HomeNews
+            addNewsState={componentEdit.addNews}
+            news={news}
+            setNews={setNews}
+          />
         </div>
       </div>
       {showModal && <Model obj={obj} closeModel={closeModel} flag="news" />}

@@ -56,7 +56,11 @@ const Testimonials = ({ testimonis }) => {
   }, [index]);
 
   const ListOfTestimonials = testimonis?.map((item, indexPeople) => {
-    const { testimonial_description, testimonial_sub_title, testimonial_title, path
+    const {
+      testimonial_description,
+      testimonial_sub_title,
+      testimonial_title,
+      path,
     } = item;
     let position = "nextSlide";
     if (indexPeople === index) {
@@ -84,7 +88,9 @@ const Testimonials = ({ testimonis }) => {
             alt="User"
           />
         )}
-        <p className="mt-3 mb-5 px-3 px-md-5 text-white fs-6">{item.testimonial_description}</p>
+        <p className="mt-3 mb-5 px-3 px-md-5 text-white fs-6">
+          {item.testimonial_description}
+        </p>
         <div className="d-flex justify-content-center gap-5">
           <Link to="" onClick={() => setIndex(index + 1)}>
             {" "}
@@ -101,11 +107,7 @@ const Testimonials = ({ testimonis }) => {
     );
   });
 
-  return (
-    <>
-      {ListOfTestimonials}
-    </>
-  );
+  return <>{ListOfTestimonials}</>;
 };
 
 export default Testimonials;
