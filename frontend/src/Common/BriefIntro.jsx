@@ -30,8 +30,8 @@ const BriefIntroFrontend = ({ pageType, introState }) => {
   return (
     <div className="container-fluid">
       <div className="row">
-        <div className=" py-4 mx-0 briefIntro">
-          <div className="col-md-10 offset-md-1 px-4 py-2 py-md-4 ">
+        <div className=" p-4 mx-0 briefIntro">
+          <div className="col-md-10 offset-md-1 py-2 py-md-4 ">
             {introValue.intro_title === "" ? (
               ""
             ) : (
@@ -45,10 +45,10 @@ const BriefIntroFrontend = ({ pageType, introState }) => {
             ) : (
               <Title
                 title={introValue.subTitle}
-                cssClass="mb-3 fw-bold text-secondary fs-6 text-center"
+                cssClass="mb-3 fw-bold text-secondary text-center"
               />
             )}
-            <p className="text-center lh-md m-0 fs-6 fw-medium">
+            <p className="text-center lh-md m-0 fw-medium">
               {introValue.intro_desc
                 ? introValue.intro_desc
                 : "Please Update Brief Intro"}
