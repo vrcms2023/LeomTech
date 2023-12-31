@@ -1,7 +1,12 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, Link, NavLink } from "react-router-dom";
 import Button from "../Button";
-import { getCookie, removeAllCookies, removeCookie, setCookie } from "../../util/cookieUtil";
+import {
+  getCookie,
+  removeAllCookies,
+  removeCookie,
+  setCookie,
+} from "../../util/cookieUtil";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../features/auth/authSlice";
 import { toast } from "react-toastify";
@@ -23,7 +28,10 @@ import "./Styles.css";
 import Logo from "../../Images/logo.svg";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
 import { getUser } from "../../features/auth/authActions";
-import { storeServiceMenuValueinCookie, urlStringFormat } from "../../util/commonUtil";
+import {
+  storeServiceMenuValueinCookie,
+  urlStringFormat,
+} from "../../util/commonUtil";
 
 const Header = () => {
   const editComponentObj = {
@@ -110,7 +118,7 @@ const Header = () => {
               return o.services_page_title;
             },
           ]);
-          storeServiceMenuValueinCookie( data[0])
+          storeServiceMenuValueinCookie(data[0]);
           setServiceMenuList(data);
         }
       } catch (e) {
@@ -120,8 +128,6 @@ const Header = () => {
 
     getServiceMenuList();
   }, []);
-
-
 
   const links = document.querySelectorAll("#navbarSupportedContent li");
 
@@ -278,7 +284,15 @@ export const ClientMenu = ({ serviceMenuList }) => {
               serviceMenuList &&
               serviceMenuList.map((item) => (
                 <li key={item.id}>
-                  <Link to={`/services/${urlStringFormat(item.services_page_title)}/`} onClick={() => {storeServiceMenuValueinCookie(item)}} className="dropdown-item">
+                  <Link
+                    to={`/services/${urlStringFormat(
+                      item.services_page_title,
+                    )}/`}
+                    onClick={() => {
+                      storeServiceMenuValueinCookie(item);
+                    }}
+                    className="dropdown-item"
+                  >
                     {item.services_page_title}
                   </Link>
                 </li>

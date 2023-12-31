@@ -118,7 +118,13 @@ const Footer = () => {
                   <Link to="/about">About Us</Link>
                 </li>
                 <li>
-                  <Link to={`/services/${urlStringFormat(getCookie('pageLoadServiceName'))}`}>Services</Link>
+                  <Link
+                    to={`/services/${urlStringFormat(
+                      getCookie("pageLoadServiceName"),
+                    )}`}
+                  >
+                    Services
+                  </Link>
                 </li>
                 <li>
                   <Link to="/careers">Careers</Link>

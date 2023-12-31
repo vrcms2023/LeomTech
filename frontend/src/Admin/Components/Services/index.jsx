@@ -30,7 +30,7 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
   };
 
   const onClickSelectedService = (item) => {
-    storeServiceMenuValueinCookie(item)
+    storeServiceMenuValueinCookie(item);
     setSelectedServiceProject(item);
     window.scroll(0, 700);
     // document.getElementById('servicesPage').scrollTo(0,100);
