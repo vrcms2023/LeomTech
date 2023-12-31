@@ -12,14 +12,14 @@ import BriefIntroFrontend from "../../Common/BriefIntro";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 import AddService from "../../Admin/Components/Services";
 import AddEditAdminNews from "../../Admin/Components/News";
-import { removeActiveClass } from "../../util/ulrUtil";
+import { getBaseURL, getHostDetils, removeActiveClass } from "../../util/ulrUtil";
 import {
   getFormDynamicFields,
   getServiceFormFields,
   imageDimensionsJson,
 } from "../../util/dynamicFormFields";
 import { axiosClientServiceApi, axiosServiceApi } from "../../util/axiosUtil";
-import { getImagePath } from "../../util/commonUtil";
+import { getImagePath, urlStringFormat } from "../../util/commonUtil";
 
 // CSS Imports
 import "./services.css";
@@ -44,22 +44,21 @@ const Services = () => {
   const [show, setShow] = useState(false);
   const [selectedServiceProject, setSelectedServiceProject] = useState({});
   const [selectedServiceList, setSelectedServiceList] = useState([]);
+  const [selectedServiceName, setSelectedServiceName] = useState();
   const [editCarousel, setEditCarousel] = useState({});
   let { uid } = useParams();
   const navigate = useNavigate();
-  const HeaderServiceID = getCookie("HeaderServiceID");
+  const pageLoadServiceID = getCookie("pageLoadServiceID");
+  const pageLoadServiceName = getCookie("pageLoadServiceName");
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   useEffect(() => {
-    if (!uid) {
-      getSelectedServiceObject(HeaderServiceID);
-    } else {
-      getSelectedServiceObject(uid);
-    }
-  }, [uid, HeaderServiceID]);
+    getSelectedServiceObject(pageLoadServiceID);
+    setSelectedServiceName(pageLoadServiceName)
+  }, [uid, pageLoadServiceID]);
 
   useEffect(() => {
     removeActiveClass();
@@ -73,6 +72,7 @@ const Services = () => {
           ? selectedServiceProject?.services_page_title
           : "",
       });
+      setSelectedServiceName(urlStringFormat(selectedServiceProject?.services_page_title))
       getSelectedServiceObject(selectedServiceProject.id);
     }
   }, [selectedServiceProject]);
@@ -87,6 +87,10 @@ const Services = () => {
       );
       setSelectedServiceList(sortByCreatedDate(response.data.servicesFeatures));
       window.scrollTo(0, 0);
+      if (window.history.replaceState) {
+        const url = `${getHostDetils()}/services/${pageLoadServiceName}`
+        window.history.pushState({}, null, url)
+      }
     } catch (error) {
       console.log("Unable to get the intro");
     }

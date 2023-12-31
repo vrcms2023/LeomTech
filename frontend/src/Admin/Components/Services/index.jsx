@@ -14,6 +14,7 @@ import Title from "../../../Common/Title";
 import moment from "moment";
 import "./services.css";
 import { sortByCreatedDate } from "../../../util/dataFormatUtil";
+import { storeServiceMenuValueinCookie } from "../../../util/commonUtil";
 
 const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
   const [serviceName, setServiceName] = useState("");
@@ -29,7 +30,7 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
   };
 
   const onClickSelectedService = (item) => {
-    console.log(item);
+    storeServiceMenuValueinCookie(item)
     setSelectedServiceProject(item);
     window.scroll(0, 700);
     // document.getElementById('servicesPage').scrollTo(0,100);
