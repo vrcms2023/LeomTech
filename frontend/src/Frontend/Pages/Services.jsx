@@ -57,6 +57,10 @@ const Services = () => {
   useEffect(() => {
     getSelectedServiceObject(pageLoadServiceID);
     setSelectedServiceName(pageLoadServiceName);
+    setSelectedServiceProject({
+      id: pageLoadServiceID,
+      services_page_title: pageLoadServiceName,
+    });
   }, [uid, pageLoadServiceID]);
 
   useEffect(() => {

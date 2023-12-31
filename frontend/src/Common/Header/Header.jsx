@@ -32,6 +32,7 @@ import {
   storeServiceMenuValueinCookie,
   urlStringFormat,
 } from "../../util/commonUtil";
+import { sortByCreatedDate } from "../../util/dataFormatUtil";
 
 const Header = () => {
   const editComponentObj = {
@@ -113,11 +114,7 @@ const Header = () => {
           `/services/clientServiceList/`,
         );
         if (response?.status === 200) {
-          const data = _.sortBy(response.data.servicesList, [
-            function (o) {
-              return o.services_page_title;
-            },
-          ]);
+          const data = sortByCreatedDate(response.data.servicesList);
           storeServiceMenuValueinCookie(data[0]);
           setServiceMenuList(data);
         }

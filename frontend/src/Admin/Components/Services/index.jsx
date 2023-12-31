@@ -88,7 +88,7 @@ const AddService = ({ setSelectedServiceProject, selectedServiceProject }) => {
       if (response?.status === 200) {
         const data = sortByCreatedDate(response.data.services);
         setServiceList(data);
-        if (onPageLoadAction.current) {
+        if (onPageLoadAction.current && !getCookie("pageLoadServiceID")) {
           setSelectedServiceProject(data[0]);
           onPageLoadAction.current = false;
         }
