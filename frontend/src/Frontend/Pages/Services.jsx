@@ -156,9 +156,7 @@ const Services = () => {
           ""
         )}
         <Banner
-          getBannerAPIURL={`banner/clientBannerIntro/${pageType}-${urlStringFormat(
-            pageLoadServiceName,
-          )}-banner/`}
+          getBannerAPIURL={`banner/clientBannerIntro/${pageType}-${pageLoadServiceName}-banner/`}
           bannerState={componentEdit.banner}
           pageLoadServiceName={pageLoadServiceName}
         />
@@ -169,7 +167,7 @@ const Services = () => {
           <ImageInputsForm
             editHandler={editHandler}
             componentType="banner"
-            pageType={`${pageType}-banner`}
+            pageType={`${pageType}-${pageLoadServiceName}-banner`}
             imageLabel="Banner Image"
             showDescription={false}
             showExtraFormFields={getFormDynamicFields(
