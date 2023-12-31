@@ -41,15 +41,14 @@ export const getObjectDescription = (type, item) => {
   return type === "testmonial" ? item[testimonial_Field] : item[carouse_Field];
 };
 
-
 export const storeServiceMenuValueinCookie = (item) => {
-  removeCookie("pageLoadServiceID")
-  removeCookie("pageLoadServiceName")
+  removeCookie("pageLoadServiceID");
+  removeCookie("pageLoadServiceName");
   setCookie("pageLoadServiceID", item.id);
   setCookie("pageLoadServiceName", urlStringFormat(item.services_page_title));
-}
+};
 
 export const urlStringFormat = (str) => {
-  if(!str) return null;
-  return str.replace(/\s+/g, '-').toLowerCase()
-}
+  if (!str) return null;
+  return str.replace(/\s+/g, "-").toLowerCase();
+};

@@ -12,7 +12,7 @@ import BriefIntroFrontend from "../../Common/BriefIntro";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 import AddService from "../../Admin/Components/Services";
 import AddEditAdminNews from "../../Admin/Components/News";
-import {  getReactHostDetils, removeActiveClass } from "../../util/ulrUtil";
+import { getReactHostDetils, removeActiveClass } from "../../util/ulrUtil";
 import {
   getFormDynamicFields,
   getServiceFormFields,
@@ -35,7 +35,6 @@ const Services = () => {
     editSection: false,
     banner: false,
     briefIntro: false,
-    servicePagebanner: false,
   };
 
   const pageType = "services";
@@ -57,7 +56,7 @@ const Services = () => {
 
   useEffect(() => {
     getSelectedServiceObject(pageLoadServiceID);
-    setSelectedServiceName(pageLoadServiceName)
+    setSelectedServiceName(pageLoadServiceName);
   }, [uid, pageLoadServiceID]);
 
   useEffect(() => {
@@ -72,7 +71,9 @@ const Services = () => {
           ? selectedServiceProject?.services_page_title
           : "",
       });
-      setSelectedServiceName(urlStringFormat(selectedServiceProject?.services_page_title))
+      setSelectedServiceName(
+        urlStringFormat(selectedServiceProject?.services_page_title),
+      );
       getSelectedServiceObject(selectedServiceProject.id);
     }
   }, [selectedServiceProject]);
@@ -88,8 +89,8 @@ const Services = () => {
       setSelectedServiceList(sortByCreatedDate(response.data.servicesFeatures));
       window.scrollTo(0, 0);
       if (window.history.replaceState) {
-        const url = `${getReactHostDetils()}/services/${pageLoadServiceName}`
-        window.history.pushState({}, null, url)
+        const url = `${getReactHostDetils()}/services/${pageLoadServiceName}`;
+        window.history.pushState({}, null, url);
       }
     } catch (error) {
       console.log("Unable to get the intro");
@@ -155,8 +156,11 @@ const Services = () => {
           ""
         )}
         <Banner
-          getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`}
+          getBannerAPIURL={`banner/clientBannerIntro/${pageType}-${urlStringFormat(
+            pageLoadServiceName,
+          )}-banner/`}
           bannerState={componentEdit.banner}
+          pageLoadServiceName={pageLoadServiceName}
         />
       </div>
 
@@ -168,7 +172,9 @@ const Services = () => {
             pageType={`${pageType}-banner`}
             imageLabel="Banner Image"
             showDescription={false}
-            showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
+            showExtraFormFields={getFormDynamicFields(
+              `${pageType}-${selectedServiceName}-banner`,
+            )}
             dimensions={imageDimensionsJson("banner")}
           />
         </div>
@@ -238,28 +244,6 @@ const Services = () => {
         ) : (
           ""
         )}
-        {/* 
-{isAdmin ? (
-          <EditIcon editHandler={() => editHandler("servicePagebanner", true)} />
-        ) : (
-          ""
-        )}
-
-        {componentEdit.servicePagebanner ? (
-          <div className="adminEditTestmonial">
-            <ImageInputsForm
-              editHandler={editHandler}
-              componentType="banner"
-              pageType={`${pageType}-banner`}
-              imageLabel="Banner Image"
-              showDescription={false}
-              showExtraFormFields={getFormDynamicFields(`${pageType}-${selectedServiceProject?.services_page_title}-banner`)}
-              dimensions={imageDimensionsJson("banner")}
-            />
-          </div>
-        ) : (
-          ""
-        )} */}
 
         {componentEdit.editSection || componentEdit.addSection ? (
           <div className="adminEditTestmonial">

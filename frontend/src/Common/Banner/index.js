@@ -9,7 +9,7 @@ import Title from "../Title";
 import "./banner.css";
 import { getImagePath } from "../../util/commonUtil";
 
-const Banner = ({ getBannerAPIURL, bannerState }) => {
+const Banner = ({ getBannerAPIURL, bannerState, pageLoadServiceName }) => {
   const [bannerdata, setBannerData] = useState([]);
   const baseURL = getBaseURL();
 
@@ -19,15 +19,18 @@ const Banner = ({ getBannerAPIURL, bannerState }) => {
         const response = await axiosClientServiceApi.get(getBannerAPIURL);
         if (response?.status == 200) {
           setBannerData(response.data.imageModel);
+        } else {
+          setBannerData({});
         }
       } catch (error) {
+        setBannerData({});
         console.log("unable to access ulr because of server is down");
       }
     };
     if (!bannerState) {
       getBannerData();
     }
-  }, [bannerState]);
+  }, [bannerState, pageLoadServiceName]);
 
   return (
     <div className="pageBanner">
