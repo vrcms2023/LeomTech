@@ -53,7 +53,7 @@ const Careers = () => {
         let response = await axiosClientServiceApi.get(
           `/careers/clientSelectedCareers/${id}/`,
         );
-        
+
         setPosts(response.data.careers);
       } catch (error) {
         console.log("Unable to get the Career data");
@@ -115,12 +115,14 @@ const Careers = () => {
         <div className="row">
           <div className="col-12 d-flex justify-content-between align-items-center gap-3">
             <Title title="Careers Details" cssClass="fw-bold fs-4" />
-            <Link to="/careers" className="btn btn-secondary d-flex justify-content-center align-items-center gap-2">
+            <Link
+              to="/careers"
+              className="btn btn-secondary d-flex justify-content-center align-items-center gap-2"
+            >
               <i className="fa fa-chevron-left" aria-hidden="true"></i>
               <span className="d-none d-md-block">Back</span>
             </Link>
           </div>
-         
         </div>
 
         <div className="row mt-4 d-flex flex-rowreverse">

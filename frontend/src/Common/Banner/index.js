@@ -33,20 +33,36 @@ const Banner = ({ getBannerAPIURL, bannerState }) => {
     <div className="pageBanner">
       <div
         className={
-          (bannerdata.banner_descripiton && bannerdata.banner_title) || bannerdata.banner_descripiton || bannerdata.banner_title
+          (bannerdata.banner_descripiton && bannerdata.banner_title) ||
+          bannerdata.banner_descripiton ||
+          bannerdata.banner_title
             ? "titleCaption d-flex align-items-end justify-content-end flex-column"
             : ""
         }
       >
-        {bannerdata.banner_title === "" ?  "" :
-          <Title title={bannerdata.banner_title} cssClass="title text-end text-white fs-2 shadow-lg" />
-        }
-        {bannerdata.banner_subTitle === "" ?  "" :
-        <Title title={bannerdata.banner_subTitle} cssClass="subTitle text-end text-white fw-normal shadow-lg" />
-        }
-        {bannerdata.banner_descripiton === "" ?  "" :
-          <small className="description text-end text-white d-block mt-2 fs-6">{bannerdata.banner_descripiton}</small>
-         }
+        {bannerdata.banner_title === "" ? (
+          ""
+        ) : (
+          <Title
+            title={bannerdata.banner_title}
+            cssClass="title text-end text-white fs-2 shadow-lg"
+          />
+        )}
+        {bannerdata.banner_subTitle === "" ? (
+          ""
+        ) : (
+          <Title
+            title={bannerdata.banner_subTitle}
+            cssClass="subTitle text-end text-white fw-normal shadow-lg"
+          />
+        )}
+        {bannerdata.banner_descripiton === "" ? (
+          ""
+        ) : (
+          <small className="description text-end text-white d-block mt-2 fs-6">
+            {bannerdata.banner_descripiton}
+          </small>
+        )}
       </div>
       <img
         src={bannerdata.path ? getImagePath(bannerdata.path) : ""}

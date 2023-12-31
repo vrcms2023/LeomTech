@@ -17,7 +17,7 @@ const footerSlice = createSlice({
     },
   },
   extraReducers: {
-    // Footer 
+    // Footer
     [getFooterValues.pending]: (state) => {
       state.loading = true;
       state.error = null;

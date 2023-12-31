@@ -1,5 +1,5 @@
 .requiredField:after {
-    content: "*";
-    color: #e32;
-    display:inline;
+  content: "*";
+  color: #e32;
+  display: inline;
 }

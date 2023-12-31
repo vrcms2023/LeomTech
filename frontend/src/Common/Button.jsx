@@ -1,7 +1,14 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-const Button = ({ type, cssClass, label, handlerChange, disabled = false, icon }) => {
+const Button = ({
+  type,
+  cssClass,
+  label,
+  handlerChange,
+  disabled = false,
+  icon,
+}) => {
   return (
     <button
       disabled={disabled}

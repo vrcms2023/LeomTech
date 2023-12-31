@@ -35,9 +35,7 @@ const Footer = () => {
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [termsAndPolicyData, setTermsAndPolicyData] = useState({});
   const [termsAndConditionData, setTermsAndConditionData] = useState({});
-  const { footerData, error } = useSelector(
-    (state) => state.footerData,
-  );
+  const { footerData, error } = useSelector((state) => state.footerData);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -59,7 +57,7 @@ const Footer = () => {
   }, [footerData]);
 
   const showModel = (type) => {
-    console.log(termsAndConditionData)
+    console.log(termsAndConditionData);
     if (type === "PP") {
       setTermsAndConditionData({
         title: "Privacy Polacy",
@@ -158,20 +156,32 @@ const Footer = () => {
               <h5>Reach Us</h5>
               <div>
                 <p className="text-secondary">Phone</p>
-                
+
                 <p className="">{footerValues.phonen_number}</p>
                 <p>
-                  {footerValues.phonen_number_2 ? <>{footerValues.phonen_number_2} <i className="fa fa-whatsapp text-warning fs-1 ms-2" aria-hidden="true"></i></> : "" }
+                  {footerValues.phonen_number_2 ? (
+                    <>
+                      {footerValues.phonen_number_2}{" "}
+                      <i
+                        className="fa fa-whatsapp text-warning fs-1 ms-2"
+                        aria-hidden="true"
+                      ></i>
+                    </>
+                  ) : (
+                    ""
+                  )}
                 </p>
               </div>
-              {footerValues.emailid ? (     
-              <div className="mb-md-0 mt-4">
-                <p className="text-secondary">Email</p>
-                <a href={`mailto:${footerValues.emailid}`}>
-                  {footerValues.emailid}{" "}
-                </a>
-              </div>) :""}
-         
+              {footerValues.emailid ? (
+                <div className="mb-md-0 mt-4">
+                  <p className="text-secondary">Email</p>
+                  <a href={`mailto:${footerValues.emailid}`}>
+                    {footerValues.emailid}{" "}
+                  </a>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
 
             <hr className="d-block d-md-none" />
@@ -244,17 +254,16 @@ const Footer = () => {
           ) : (
             ""
           )}
-         <div className="d-flex justify-content-center align-items-center flex-column flex-md-row gap-1 gap-md-2">
-          <small>&copy; 2023 - All rights reserved</small>
-         
-          <span className="d-inline-block  d-none d-md-block">|</span>
-          <Link to="" onClick={() => showModel("TC")}>
-            Terms & Conditions
-          </Link>{" "}
-          <span className="d-inline-block d-none d-md-block">|</span>
-          <Link to="" onClick={() => showModel("PP")}>
-            Privacy Policy
-          </Link>
+          <div className="d-flex justify-content-center align-items-center flex-column flex-md-row gap-1 gap-md-2">
+            <small>&copy; 2023 - All rights reserved</small>
+            <span className="d-inline-block  d-none d-md-block">|</span>
+            <Link to="" onClick={() => showModel("TC")}>
+              Terms & Conditions
+            </Link>{" "}
+            <span className="d-inline-block d-none d-md-block">|</span>
+            <Link to="" onClick={() => showModel("PP")}>
+              Privacy Policy
+            </Link>
           </div>
           <span className="d-block mt-2 dby">
             designed by{" "}

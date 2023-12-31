@@ -75,7 +75,7 @@ const JobPost = ({ editHandler, componentType, type, editPost }) => {
                 fieldName="job_title"
                 register={register}
                 cssClass="requiredField"
-                />
+              />
               <InputField
                 label="Company name"
                 fieldName="company_name"
@@ -172,11 +172,11 @@ const JobPost = ({ editHandler, componentType, type, editPost }) => {
 
                   <button className="btn btn-primary">Save</button>
                   <Button
-                type="submit"
-                cssClass="btn border"
-                label={"Close"}
-                handlerChange={closeHandler}
-              />
+                    type="submit"
+                    cssClass="btn border"
+                    label={"Close"}
+                    handlerChange={closeHandler}
+                  />
                 </div>
               </div>
             </form>

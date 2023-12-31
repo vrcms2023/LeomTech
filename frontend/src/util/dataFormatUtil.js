@@ -48,23 +48,36 @@ export const sortByDate = (array) => {
 };
 
 export const sortByCreatedDate = (array) => {
-  return _.sortBy(array, function(o) { return new moment(o.created_at); });
+  return _.sortBy(array, function (o) {
+    return new moment(o.created_at);
+  });
 };
 
 export const sortCreatedDateByDesc = (array) => {
-  return _.orderBy(array, function(o) { return new moment(o.created_at); },['desc']);
+  return _.orderBy(
+    array,
+    function (o) {
+      return new moment(o.created_at);
+    },
+    ["desc"],
+  );
 };
 
-
 export const sortByUpdatedDate = (array) => {
-  return _.sortBy(array, function(o) { return new moment(o.updated_at); });
+  return _.sortBy(array, function (o) {
+    return new moment(o.updated_at);
+  });
 };
 
 export const sortUpdatedDateByDesc = (array) => {
-  return _.orderBy(array, function(o) { return new moment(o.updated_at); },['desc']);
+  return _.orderBy(
+    array,
+    function (o) {
+      return new moment(o.updated_at);
+    },
+    ["desc"],
+  );
 };
-
-
 
 export const getFirstShortDescription = (data) => {
   return data.substring(0, 50);
@@ -73,12 +86,12 @@ export const getFirstShortDescription = (data) => {
 export const mapServicePagetoComponent = (data) => {
   const services = sortByCreatedDate(data.services);
   const serviceSection = data.serviceSection;
-  const displayCount = 5
+  const displayCount = 5;
 
   return services.reduce((acc, val, ind) => {
     let service = [];
-    if(ind >= displayCount) {
-      service = getservicelist(service)
+    if (ind >= displayCount) {
+      service = getservicelist(service);
       return acc.concat({ ...val, service });
     }
     serviceSection.forEach((el, i) => {
@@ -86,14 +99,13 @@ export const mapServicePagetoComponent = (data) => {
         service.push(el);
       }
     });
-   
-    service = getservicelist(service)
+
+    service = getservicelist(service);
     return acc.concat({ ...val, service });
   }, []);
-
 };
 
 const getservicelist = (service) => {
-    let data = sortByCreatedDate(service)
-    return service = data.splice(0,1)
-}
+  let data = sortByCreatedDate(service);
+  return (service = data.splice(0, 1));
+};

@@ -29,7 +29,7 @@ const JobBriefDetails = ({ jobDetails }) => {
       <div className="d-flex justify-content-between align-items-start align-items-lg-center flex-column flex-lg-row">
         <div className="d-flex flex-column flex-md-row justify-content-between align-items-start gap-3">
           <div className="d-flex gap-2 justify-content-center align-items-start">
-            <strong >Posted </strong> 
+            <strong>Posted </strong>
             <span>{showPosteddate(jobDetails.posted_date)} days ago</span>
           </div>
           <div className="d-flex gap-2 justify-content-center align-items-start">
@@ -37,10 +37,16 @@ const JobBriefDetails = ({ jobDetails }) => {
             {jobDetails.openings ? jobDetails.openings : 0}
           </div>
         </div>
-        <a className="btn btn-primary mt-3 mt-lg-0" href={`mailto:${jobDetails.contactEmail ?jobDetails.contactEmail :"contact@leomtech.com" }`}>
-        Contact US
-                </a>
-
+        <a
+          className="btn btn-primary mt-3 mt-lg-0"
+          href={`mailto:${
+            jobDetails.contactEmail
+              ? jobDetails.contactEmail
+              : "contact@leomtech.com"
+          }`}
+        >
+          Contact US
+        </a>
       </div>
     </div>
   );

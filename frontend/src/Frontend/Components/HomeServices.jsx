@@ -13,7 +13,11 @@ import ServiceForm from "../../Admin/Components/forms/ImgTitleIntoForm-List";
 import ModelBg from "../../Common/ModelBg";
 import EditIcon from "../../Common/AdminEditIcon";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
-import { mapServicePagetoComponent, sortByDate, sortByCreatedDate } from "../../util/dataFormatUtil";
+import {
+  mapServicePagetoComponent,
+  sortByDate,
+  sortByCreatedDate,
+} from "../../util/dataFormatUtil";
 import { getImagePath } from "../../util/commonUtil";
 
 const HomeServices = ({ title }) => {
@@ -33,52 +37,67 @@ const HomeServices = ({ title }) => {
   };
 
   useEffect(() => {
-    getClinetServiceList()
-  },[])
+    getClinetServiceList();
+  }, []);
 
   const getClinetServiceList = async () => {
     try {
-      
       let response = await axiosClientServiceApi.get(
         `/services/getClientHomePageService/`,
       );
-      
-      let data = mapServicePagetoComponent(response.data)
-          setClientServiceList(data);
+
+      let data = mapServicePagetoComponent(response.data);
+      setClientServiceList(data);
     } catch (error) {
       console.log("Unable to get the intro");
     }
   };
-  
 
   return (
     <>
-      {clientServiceList.map((servicelist, index) => 
+      {clientServiceList.map((servicelist, index) =>
         servicelist?.service.map((item) => (
-        <div className="row service mb-3 mb-md-5" key={`${index}+homeService`}>
-          <div className="position-relative">
-            {/* {isAdmin ? (
+          <div
+            className="row service mb-3 mb-md-5"
+            key={`${index}+homeService`}
+          >
+            <div className="position-relative">
+              {/* {isAdmin ? (
               <EditIcon editHandler={() => editHandler("service", true)} />
             ) : (
               ""
             )} */}
-          </div>
-          <div className="col-md-6 p-2 homeServiceImg">
-            <img src={item.path ? getImagePath(item.path) : serviceImg1} alt={item.alternitivetext} className="img-fluid w-100 h-100" />
-          </div>
-          <div className="col-md-6 p-2 p-md-4 homeServiceDetails">
-            <Title title={item.feature_title} cssClass="fw-bold serviceTitle" />
-            {item.feature_description ? (
-                <div className="description" dangerouslySetInnerHTML={{ __html: item.feature_description }} />
+            </div>
+            <div className="col-md-6 p-2 homeServiceImg">
+              <img
+                src={item.path ? getImagePath(item.path) : serviceImg1}
+                alt={item.alternitivetext}
+                className="img-fluid w-100 h-100"
+              />
+            </div>
+            <div className="col-md-6 p-2 p-md-4 homeServiceDetails">
+              <Title
+                title={item.feature_title}
+                cssClass="fw-bold serviceTitle"
+              />
+              {item.feature_description ? (
+                <div
+                  className="description"
+                  dangerouslySetInnerHTML={{ __html: item.feature_description }}
+                />
               ) : (
                 ""
               )}
-            <Link to={`/services/${item.serviceID}/`} className="btn btn-primary mt-4">
-              Know More
-            </Link>
+              <Link
+                to={`/services/${item.serviceID}/`}
+                className="btn btn-primary mt-4"
+              >
+                Know More
+              </Link>
+            </div>
           </div>
-        </div>
-      )))}
+        )),
+      )}
 
       {componentEdit.service ? (
         <div className="adminEditTestmonial">

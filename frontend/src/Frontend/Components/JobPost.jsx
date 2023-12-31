@@ -21,7 +21,7 @@ import "./JobPost.css";
 import { sortCreatedDateByDesc } from "../../util/dataFormatUtil";
 import { showPosteddate } from "../../util/commonUtil";
 
-const JobPost = ({ addJobs, posts, setPosts,  }) => {
+const JobPost = ({ addJobs, posts, setPosts }) => {
   const editComponentObj = {
     job: false,
   };
@@ -30,7 +30,7 @@ const JobPost = ({ addJobs, posts, setPosts,  }) => {
   const [show, setShow] = useState(false);
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
-  const userCookie = getCookie("access")
+  const userCookie = getCookie("access");
 
   const editHandler = (name, value, item) => {
     setEditPosts(item);
@@ -45,15 +45,17 @@ const JobPost = ({ addJobs, posts, setPosts,  }) => {
     }
   }, [componentEdit.job, addJobs]);
 
-   const getCareerData = async () => {
+  const getCareerData = async () => {
     let response = null;
     try {
-      if(userCookie){
+      if (userCookie) {
         response = await axiosServiceApi.get(`/careers/createCareer/`);
       } else {
-        response = await axiosClientServiceApi.get(`/careers/clientCareersList/`);
+        response = await axiosClientServiceApi.get(
+          `/careers/clientCareersList/`,
+        );
       }
-      const data = sortCreatedDateByDesc(response.data.careers)
+      const data = sortCreatedDateByDesc(response.data.careers);
       setPosts(data);
     } catch (error) {
       console.log("Unable to get the Career data");
@@ -93,8 +95,12 @@ const JobPost = ({ addJobs, posts, setPosts,  }) => {
       );
 
       if (response.status === 200) {
-        let careers = response.data.careers
-        toast.success(`Career ${careers.publish ? 'published' : 'un published'} successfully`);
+        let careers = response.data.careers;
+        toast.success(
+          `Career ${
+            careers.publish ? "published" : "un published"
+          } successfully`,
+        );
         getCareerData();
       }
     } catch (error) {
@@ -156,30 +162,29 @@ const JobPost = ({ addJobs, posts, setPosts,  }) => {
                   </div>
 
                   <div className="">
-              <Link to="" onClick={() => publishCareer(item)}>
-                {item.publish ? (
-                  <small className="bg-success p-1 text-white px-2 rounded">
-                    Published
-                  </small>
-                ) : (
-                  <small className="bg-secondary p-1 text-white px-2 rounded">
-                    Un Pub'd
-                  </small>
-                )}
-              </Link>
-              {/* <EditIcon editHandler={() => publishCareer(item)} /> */}
-            </div>
+                    <Link to="" onClick={() => publishCareer(item)}>
+                      {item.publish ? (
+                        <small className="bg-success p-1 text-white px-2 rounded">
+                          Published
+                        </small>
+                      ) : (
+                        <small className="bg-secondary p-1 text-white px-2 rounded">
+                          Un Pub'd
+                        </small>
+                      )}
+                    </Link>
+                    {/* <EditIcon editHandler={() => publishCareer(item)} /> */}
+                  </div>
                 </>
               ) : (
-                
                 <div>
-                <Link
-                  to={`/career-details/${item.id}/`}
-                  className="text-secondary"
-                >
-                  <i className="fa fa-expand" aria-hidden="true"></i>
-                </Link>
-              </div>
+                  <Link
+                    to={`/career-details/${item.id}/`}
+                    className="text-secondary"
+                  >
+                    <i className="fa fa-expand" aria-hidden="true"></i>
+                  </Link>
+                </div>
               )}
             </div>
 
@@ -198,7 +203,10 @@ const JobPost = ({ addJobs, posts, setPosts,  }) => {
 
             <div className="p-3 jobPost">
               <small className="d-block location mb-3">
-                <i className="fa fa-map-marker fs-5 text-muted" aria-hidden="true"></i>{" "}
+                <i
+                  className="fa fa-map-marker fs-5 text-muted"
+                  aria-hidden="true"
+                ></i>{" "}
                 {item.job_location}
               </small>
               <Title title={item.job_title} cssClass="fs-5 fw-bold" />
@@ -226,9 +234,18 @@ const JobPost = ({ addJobs, posts, setPosts,  }) => {
                 {item.experience_to ? item.experience_to : 0} Years
               </span>
               <small className="d-block">
-                <strong className="d-block">Posted on</strong> 
-                {showPosteddate(item.posted_date) == 0 ? "Today" : <>[ <strong className="">{showPosteddate(item.posted_date)}</strong> ] days ago</>  }
-                
+                <strong className="d-block">Posted on</strong>
+                {showPosteddate(item.posted_date) == 0 ? (
+                  "Today"
+                ) : (
+                  <>
+                    [{" "}
+                    <strong className="">
+                      {showPosteddate(item.posted_date)}
+                    </strong>{" "}
+                    ] days ago
+                  </>
+                )}
               </small>
 
               {/* {isAdmin ? (

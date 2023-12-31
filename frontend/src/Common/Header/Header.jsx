@@ -100,8 +100,12 @@ const Header = () => {
           `/services/clientServiceList/`,
         );
         if (response?.status === 200) {
-          const data = _.sortBy(response.data.servicesList, [function(o) { return o.services_page_title; }]);
-          setCookie("HeaderServiceID", data[0].id)
+          const data = _.sortBy(response.data.servicesList, [
+            function (o) {
+              return o.services_page_title;
+            },
+          ]);
+          setCookie("HeaderServiceID", data[0].id);
           setServiceMenuList(data);
         }
       } catch (e) {
@@ -119,12 +123,11 @@ const Header = () => {
   // on clicking of menu Item Menu will be hided
   links.forEach((item) => {
     item.addEventListener("click", function (event) {
-      if(!event.target.classList.contains('isChildAvailable')){
+      if (!event.target.classList.contains("isChildAvailable")) {
         menu.classList.remove("show");
       }
     });
   });
-
 
   function logOutHandler() {
     removeAllCookies();

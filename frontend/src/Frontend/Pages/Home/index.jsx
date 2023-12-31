@@ -157,7 +157,7 @@ const Home = () => {
             <div className="container">
               <h2 className="mb-5">News</h2>
               <div className="row">
-                <HomeNews news={news} setNews={setNews}/>
+                <HomeNews news={news} setNews={setNews} />
               </div>
             </div>
           </div>
@@ -182,9 +182,15 @@ const Home = () => {
               ""
             )}
             {/* End Of Edit Testimonials */}
-            {testimonis.length < 1 ? (testimonis.length, "Current No Testimonials Found") :
-            testimonis.length == 1 ? <h4>Please add 2 or more testimonials.</h4> :
-             testimonis.length > 1 ? <Testimonials testimonis={testimonis} /> :  "" }
+            {testimonis.length < 1 ? (
+              (testimonis.length, "Current No Testimonials Found")
+            ) : testimonis.length == 1 ? (
+              <h4>Please add 2 or more testimonials.</h4>
+            ) : testimonis.length > 1 ? (
+              <Testimonials testimonis={testimonis} />
+            ) : (
+              ""
+            )}
 
             {/* {testimonis.length > 0 ? (
               <Testimonials testimonis={testimonis} />

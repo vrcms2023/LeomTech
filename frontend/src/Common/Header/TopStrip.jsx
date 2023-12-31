@@ -20,9 +20,7 @@ const TopStrip = () => {
   const [userName, setUserName] = useState("");
   const [loginState, setLoginState] = useState(false);
   const { userInfo } = useSelector((state) => state.auth);
-  const { footerData, error } = useSelector(
-    (state) => state.footerData,
-  );
+  const { footerData, error } = useSelector((state) => state.footerData);
 
   useEffect(() => {
     if (footerData?.address?.length > 0) {
@@ -53,16 +51,21 @@ const TopStrip = () => {
         <Title title="Welcome to Leom Tech" cssClass={"fs-6 fw-normal"} />
       </div>
       <div className="d-flex justify-content-between gap-4 quickContact">
-      
-        <span> {footerValues?.phonen_number ? footerValues?.phonen_number : ''} </span>
-      
-      {footerValues.emailid ? (
         <span>
-          <i className="fa fa-paper-plane me-1" aria-hidden="true"></i>
-          <a href={`mailto:${footerValues.emailid}`}>
-                  {footerValues.emailid}{" "}
-                </a>
-        </span>) : ""}  
+          {" "}
+          {footerValues?.phonen_number ? footerValues?.phonen_number : ""}{" "}
+        </span>
+
+        {footerValues.emailid ? (
+          <span>
+            <i className="fa fa-paper-plane me-1" aria-hidden="true"></i>
+            <a href={`mailto:${footerValues.emailid}`}>
+              {footerValues.emailid}{" "}
+            </a>
+          </span>
+        ) : (
+          ""
+        )}
 
         {isAdmin ? (
           <>

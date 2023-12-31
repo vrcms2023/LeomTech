@@ -64,12 +64,11 @@ const ABriefAbout = ({ title, cssClass, linkClass, dimensions }) => {
         )}
         <div className="row h-100">
           <div className="col-md-12 p-4 pt-0 p-lg-5 pt-lg-0 d-flex justify-content-start align-items-start flex-column">
-            
-          {bannerData ? 
-          <Title title={bannerData.banner_title} cssClass={cssClass} />
-          : 
-          ""
-            }
+            {bannerData ? (
+              <Title title={bannerData.banner_title} cssClass={cssClass} />
+            ) : (
+              ""
+            )}
 
             {/* <Title
               title={

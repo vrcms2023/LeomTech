@@ -12,14 +12,13 @@ const Carousel = ({ carouselState }) => {
   const [carousel, setCarousel] = useState([]);
   const baseURL = getBaseURL();
 
-
   useEffect(() => {
     const getCarousels = async () => {
       try {
         const response = await axiosClientServiceApi.get(
           `carousel/clientCarousel/`,
         );
-     
+
         if (response?.status == 200) {
           let key = Object.keys(response.data);
           setCarousel(response.data[key]);
@@ -40,7 +39,7 @@ const Carousel = ({ carouselState }) => {
       data-bs-ride="carousel"
     >
       <div className="carousel-inner">
-        {carousel.length > 0 ? 
+        {carousel.length > 0 ? (
           carousel?.map((item, index) => (
             <div
               className={`carousel-item ${index == 0 ? "active" : ""}`}
@@ -52,29 +51,33 @@ const Carousel = ({ carouselState }) => {
                 className="d-block w-100"
               />
               <div className="carousel-caption d-none d-md-block">
-                {item.carouse_title ? 
-                  <h1 className="fw-bold">
-                    {item.carouse_title }
-                  </h1>
-                : "" }
-                  
-                  {item.carouse_sub_title ? 
+                {item.carouse_title ? (
+                  <h1 className="fw-bold">{item.carouse_title}</h1>
+                ) : (
+                  ""
+                )}
+
+                {item.carouse_sub_title ? (
                   <span className="fw-normal fs-6">
-                    {item.carouse_sub_title }
+                    {item.carouse_sub_title}
                   </span>
-                  : "" }
-                  
-                  {item.carouse_description ? 
-                  <p className="fw-normal fs-5">
-                  {item.carouse_description}
-                  </p>
-                  : "" }
-                  
-               </div>
+                ) : (
+                  ""
+                )}
+
+                {item.carouse_description ? (
+                  <p className="fw-normal fs-5">{item.carouse_description}</p>
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
           ))
-        : 
-        <div className="d-flex justify-content-center align-items-center fs-5 text-muted text-center noImg">Please add images for Carousel...</div>}
+        ) : (
+          <div className="d-flex justify-content-center align-items-center fs-5 text-muted text-center noImg">
+            Please add images for Carousel...
+          </div>
+        )}
         {/* {carousel?.map((item, index) => (
           <div
             className={`carousel-item ${index == 0 ? "active" : ""}`}

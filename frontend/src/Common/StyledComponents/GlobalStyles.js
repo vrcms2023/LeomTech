@@ -75,7 +75,7 @@ body {
   theme.ABriefTitleBorderColor}; }
 
   .ABrief h3::before, .ABrief .title::before {border-color: ${({ theme }) =>
-  theme.ABriefTitleBorderColor}; }
+    theme.ABriefTitleBorderColor}; }
 
 .ABriefAbout {
     background-color:${({ theme }) => theme.ABriefAboutBg}; 
@@ -85,8 +85,9 @@ body {
 .ABriefAbout h3, .ABriefAbout .title { border-color: ${({ theme }) =>
   theme.ABriefAboutTitleBorderColor}; }
 
-.ABriefAbout h3::before, .ABriefAbout .title::before { border-color: ${({ theme }) =>
-  theme.ABriefAboutTitleBorderColor}; }
+.ABriefAbout h3::before, .ABriefAbout .title::before { border-color: ${({
+  theme,
+}) => theme.ABriefAboutTitleBorderColor}; }
 
 .testimonials {
     background-color:${({ theme }) => theme.testimonialsBg}; 

@@ -17,7 +17,7 @@
   margin-left: 25px;
 }
 
-.jobDescription ul li{
+.jobDescription ul li {
   padding: 5px 0;
   /* list-style-type: disclosure-closed !important; */
   list-style: none !important;
@@ -25,9 +25,9 @@
 
 .jobDescription ul li::before {
   content: "\2B9E";
-  color: #27AAE1;
+  color: #27aae1;
   /* font-weight: bold; */
-  display: inline-block; 
+  display: inline-block;
   width: 1em;
   margin-left: -1em;
 }
