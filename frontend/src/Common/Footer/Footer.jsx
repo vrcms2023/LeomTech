@@ -248,11 +248,11 @@ const Footer = () => {
           <small>&copy; 2023 - All rights reserved</small>
          
           <span className="d-inline-block  d-none d-md-block">|</span>
-          <Link to="" onClick={() => showModel("TC")}>
+          <Link to="" className="text-decoration-underline" onClick={() => showModel("TC")}>
             Terms & Conditions
           </Link>{" "}
           <span className="d-inline-block d-none d-md-block">|</span>
-          <Link to="" onClick={() => showModel("PP")}>
+          <Link to="" className="text-decoration-underline" onClick={() => showModel("PP")}>
             Privacy Policy
           </Link>
           </div>
