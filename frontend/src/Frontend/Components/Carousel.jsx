@@ -50,27 +50,28 @@ const Carousel = ({ carouselState }) => {
                 alt={item.alternitivetext}
                 className="d-block w-100"
               />
-              <div className="carousel-caption d-none d-md-block">
-                {item.carouse_title ? (
-                  <h1 className="fw-bold">{item.carouse_title}</h1>
-                ) : (
-                  ""
-                )}
 
-                {item.carouse_sub_title ? (
-                  <span className="fw-normal fs-6">
-                    {item.carouse_sub_title}
+              <div className="carousel-caption ">
+                {item.carouse_title ? 
+                  <h1 className="fw-bold">
+                    {item.carouse_title }
+                  </h1>
+                : "" }
+                  
+                  {item.carouse_sub_title ? 
+                  <span className="fw-normal subtitle fs-6">
+                    {item.carouse_sub_title }
                   </span>
-                ) : (
-                  ""
-                )}
+                  : "" }
+                  
+                  {item.carouse_description ? 
+                  <p className="fw-normal description fs-5">
+                  {item.carouse_description}
+                  </p>
+                  : "" }
+                  
+               </div>
 
-                {item.carouse_description ? (
-                  <p className="fw-normal fs-5">{item.carouse_description}</p>
-                ) : (
-                  ""
-                )}
-              </div>
             </div>
           ))
         ) : (
