@@ -88,8 +88,8 @@ const Services = () => {
       );
       setSelectedServiceList(sortByCreatedDate(response.data.servicesFeatures));
       window.scrollTo(0, 0);
-      if (window.history.replaceState) {
-        const url = `${getReactHostDetils()}/services/${pageLoadServiceName}`;
+      if (window.history.replaceState && isAdmin) {
+        const url = `${getReactHostDetils()}/services/${pageLoadServiceName}/`;
         window.history.pushState({}, null, url);
       }
     } catch (error) {

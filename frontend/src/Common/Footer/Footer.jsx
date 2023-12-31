@@ -121,7 +121,7 @@ const Footer = () => {
                   <Link
                     to={`/services/${urlStringFormat(
                       getCookie("pageLoadServiceName"),
-                    )}`}
+                    )}/`}
                   >
                     Services
                   </Link>
