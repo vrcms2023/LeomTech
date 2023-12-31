@@ -22,6 +22,7 @@ import "./Styles.css";
 // Images
 import Logo from "../../Images/logo.svg";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
+import { getUser } from "../../features/auth/authActions";
 
 const Header = () => {
   const editComponentObj = {
@@ -79,6 +80,9 @@ const Header = () => {
     } else {
       setLoginState(false);
       setUserName("");
+    }
+    if(!userInfo && getCookie("access")) {
+      dispatch(getUser());
     }
   }, [userInfo]);
 

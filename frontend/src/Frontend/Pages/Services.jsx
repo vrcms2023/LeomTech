@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 // Components
 import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
@@ -29,12 +29,14 @@ import DeleteDialog from "../../Common/DeleteDialog";
 import { sortByCreatedDate } from "../../util/dataFormatUtil";
 import { getCookie, removeCookie } from "../../util/cookieUtil";
 
+
 const Services = () => {
   const editComponentObj = {
     addSection: false,
     editSection: false,
     banner: false,
     briefIntro: false,
+    servicePagebanner:false,
   };
 
   const pageType = "services";
@@ -45,6 +47,7 @@ const Services = () => {
   const [selectedServiceList, setSelectedServiceList] = useState([]);
   const [editCarousel, setEditCarousel] = useState({});
   let { uid } = useParams();
+  const navigate = useNavigate();
   const HeaderServiceID = getCookie("HeaderServiceID");
 
   useEffect(() => {
@@ -54,7 +57,7 @@ const Services = () => {
   useEffect(() => {
     if (!uid) {
       getSelectedServiceObject(HeaderServiceID);
-      removeCookie("HeaderServiceID");
+      
     } else {
       getSelectedServiceObject(uid);
     }
@@ -77,6 +80,9 @@ const Services = () => {
   }, [selectedServiceProject]);
 
   const getSelectedServiceObject = async (id) => {
+    if(!id) {
+      navigate("/");
+    } 
     try {
       let response = await axiosClientServiceApi.get(
         `/services/getSelectedClientService/${id}/`,
@@ -229,6 +235,28 @@ const Services = () => {
         ) : (
           ""
         )}
+{/* 
+{isAdmin ? (
+          <EditIcon editHandler={() => editHandler("servicePagebanner", true)} />
+        ) : (
+          ""
+        )}
+
+        {componentEdit.servicePagebanner ? (
+          <div className="adminEditTestmonial">
+            <ImageInputsForm
+              editHandler={editHandler}
+              componentType="banner"
+              pageType={`${pageType}-banner`}
+              imageLabel="Banner Image"
+              showDescription={false}
+              showExtraFormFields={getFormDynamicFields(`${pageType}-${selectedServiceProject?.services_page_title}-banner`)}
+              dimensions={imageDimensionsJson("banner")}
+            />
+          </div>
+        ) : (
+          ""
+        )} */}
 
         {componentEdit.editSection || componentEdit.addSection ? (
           <div className="adminEditTestmonial">

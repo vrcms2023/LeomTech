@@ -113,7 +113,7 @@ const AdminBanner = ({
                   <div className="row mb-4 slideItem" key={index}>
                     <div className="col-2 col-md-2">
                       <i
-                        class="fa fa-picture-o fs-2 d-lg-none"
+                        className="fa fa-picture-o fs-2 d-lg-none"
                         aria-hidden="true"
                       ></i>
                       <img
