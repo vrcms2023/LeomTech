@@ -240,12 +240,24 @@ const Contact = () => {
               </p>
 
               <div>
-                <Title title="Phone Number" cssClass="" />
-                {footerValues.phonen_number} <br />
-                {footerValues.phonen_number_2}
-                <br />
-                <br />
-                <Title title="Email Id" cssClass="" />
+                <Title title="Phone Number :" cssClass="mb-2" />
+                {/* {footerValues.phonen_number} 
+                {footerValues.phonen_number_2} */}
+                <p className="">{footerValues.phonen_number}</p>
+                <p>
+                  {footerValues.phonen_number_2 ? (
+                    <>
+                      {footerValues.phonen_number_2}{" "}
+                      <i
+                        className="fa fa-whatsapp text-white fs-1 ms-2"
+                        aria-hidden="true"
+                      ></i>
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </p>
+                <Title title="Email Id :" cssClass="mt-5 mb-2" />
                 <p>
                   <a
                     className="fs-6 text-white"

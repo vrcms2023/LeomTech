@@ -48,12 +48,7 @@ const AdminFooter = ({ editHandler }) => {
               <div className="d-flex justify-content-center align-items-center gap-1 gap-md-3">
                 <button className="btn btn-secondary mx-3">Clear</button>
                 <button className="btn btn-primary">Save</button>
-                <Button
-                  type="submit"
-                  cssClass="btn border"
-                  label={"Close"}
-                  handlerChange={closeHandler}
-                />
+                <Button type="submit" cssClass="btn border" label={"Close"} />
               </div>
             </form>
           </div>
