@@ -10,7 +10,7 @@
 /frontend/build/
 # testing
 /coverage
-
+/backend/
 # production
 /build/
 /media/
