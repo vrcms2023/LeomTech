@@ -12,7 +12,7 @@ import BriefIntroFrontend from "../../Common/BriefIntro";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 import AddService from "../../Admin/Components/Services";
 import AddEditAdminNews from "../../Admin/Components/News";
-import { getBaseURL, getHostDetils, removeActiveClass } from "../../util/ulrUtil";
+import {  getReactHostDetils, removeActiveClass } from "../../util/ulrUtil";
 import {
   getFormDynamicFields,
   getServiceFormFields,
@@ -88,7 +88,7 @@ const Services = () => {
       setSelectedServiceList(sortByCreatedDate(response.data.servicesFeatures));
       window.scrollTo(0, 0);
       if (window.history.replaceState) {
-        const url = `${getHostDetils()}/services/${pageLoadServiceName}`
+        const url = `${getReactHostDetils()}/services/${pageLoadServiceName}`
         window.history.pushState({}, null, url)
       }
     } catch (error) {

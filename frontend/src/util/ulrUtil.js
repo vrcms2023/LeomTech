@@ -26,7 +26,7 @@ export const getUserName = () => {
 };
 
 
-export const getHostDetils = () => {
+export const getReactHostDetils = () => {
   return process.env.NODE_ENV === "production"
   ? process.env.REACT_APP_SERVER_URL
   : "http://localhost:3000";
