@@ -10,7 +10,7 @@
 /frontend/build/
 # testing
 /coverage
-/backend/*
+# /backend/*
 # production
 /build/
 /media/
@@ -43,3 +43,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+# *.py
+# *.pyc
