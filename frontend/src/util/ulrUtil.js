@@ -24,3 +24,10 @@ export function hideHandBurgerIcon(pathList) {
 export const getUserName = () => {
   return getCookie("userName");
 };
+
+
+export const getReactHostDetils = () => {
+  return process.env.NODE_ENV === "production"
+  ? process.env.REACT_APP_SERVER_URL
+  : "http://localhost:3000";
+}

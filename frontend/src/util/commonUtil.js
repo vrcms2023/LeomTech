@@ -1,5 +1,6 @@
 import moment from "moment";
 import { getBaseURL } from "./ulrUtil";
+import { removeCookie, setCookie } from "./cookieUtil";
 
 export const generateOptionLength = (values) => {
   return Array.from({ length: values }, (_, i) => i + 1);
@@ -39,3 +40,16 @@ export const getObjectDescription = (type, item) => {
   const testimonial_Field = "testimonial_description";
   return type === "testmonial" ? item[testimonial_Field] : item[carouse_Field];
 };
+
+
+export const storeServiceMenuValueinCookie = (item) => {
+  removeCookie("pageLoadServiceID")
+  removeCookie("pageLoadServiceName")
+  setCookie("pageLoadServiceID", item.id);
+  setCookie("pageLoadServiceName", urlStringFormat(item.services_page_title));
+}
+
+export const urlStringFormat = (str) => {
+  if(!str) return null;
+  return str.replace(/\s+/g, '-').toLowerCase()
+}

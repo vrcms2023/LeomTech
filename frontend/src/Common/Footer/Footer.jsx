@@ -19,6 +19,8 @@ import FooterAdminFeilds from "../../Admin/Components/forms/FooterInputs";
 import ContactInputs from "../../Admin/Components/forms/ContactInputs";
 import AdminTermsPolicy from "../../Admin/Components/TermsPrivacy/index";
 import { getFooterValues } from "../../features/footer/footerActions";
+import { getCookie } from "../../util/cookieUtil";
+import { urlStringFormat } from "../../util/commonUtil";
 
 const Footer = () => {
   const editComponentObj = {
@@ -116,7 +118,7 @@ const Footer = () => {
                   <Link to="/about">About Us</Link>
                 </li>
                 <li>
-                  <Link to="/services">Services</Link>
+                  <Link to={`/services/${urlStringFormat(getCookie('pageLoadServiceName'))}`}>Services</Link>
                 </li>
                 <li>
                   <Link to="/careers">Careers</Link>
