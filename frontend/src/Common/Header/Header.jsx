@@ -115,7 +115,9 @@ const Header = () => {
         );
         if (response?.status === 200) {
           const data = sortByCreatedDate(response.data.servicesList);
-          storeServiceMenuValueinCookie(data[0]);
+          if (!getCookie("pageLoadServiceName")) {
+            storeServiceMenuValueinCookie(data[0]);
+          }
           setServiceMenuList(data);
         }
       } catch (e) {
