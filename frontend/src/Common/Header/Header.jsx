@@ -258,7 +258,7 @@ export const ClientMenu = ({ serviceMenuList }) => {
 
         <li className="nav-item dropdown">
           <NavLink
-            id="navbarDropdown"
+            id="ServicesnavbarDropdown"
             data-bs-toggle="dropdown"
             aria-expanded="false"
             role="button"
@@ -271,7 +271,7 @@ export const ClientMenu = ({ serviceMenuList }) => {
           >
             Services
           </NavLink>
-          <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul className="dropdown-menu" aria-labelledby="ServicesnavbarDropdown">
             {}
             {isAdmin ? (
               <li>
@@ -311,7 +311,7 @@ export const ClientMenu = ({ serviceMenuList }) => {
         </li>
         <li className="nav-item dropdown">
           <NavLink
-            id="navbarDropdown"
+            id="KnowledgeHubnavbarDropdown"
             data-bs-toggle="dropdown"
             aria-expanded="false"
             role="button"
@@ -324,7 +324,7 @@ export const ClientMenu = ({ serviceMenuList }) => {
           >
             KnowledgeHub
           </NavLink>
-          <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+          <ul className="dropdown-menu" aria-labelledby="KnowledgeHubnavbarDropdown">
             <li>
               <Link to="/news" className="dropdown-item">
                 News and Updates

@@ -55,6 +55,13 @@ const Services = () => {
   }, []);
 
   useEffect(() => {
+    const id = document.getElementById("ServicesnavbarDropdown");
+    if (id) {
+      id.classList.add("active");
+    }
+  });
+
+  useEffect(() => {
     getSelectedServiceObject(pageLoadServiceID);
     setSelectedServiceName(pageLoadServiceName);
     setSelectedServiceProject({
