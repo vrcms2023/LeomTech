@@ -44,6 +44,13 @@ const NewsAndUpdates = () => {
     removeActiveClass();
   }, []);
 
+  useEffect(() => {
+    const id = document.getElementById("KnowledgeHubnavbarDropdown");
+    if (id) {
+      id.classList.add("active");
+    }
+  });
+
   const [showModal, setShowModal] = useState(false);
 
   const [obj, setObj] = useState({});
