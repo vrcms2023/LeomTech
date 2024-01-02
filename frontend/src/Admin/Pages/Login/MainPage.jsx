@@ -17,6 +17,30 @@ const MainPage = () => {
         cssClass="text-dark fs-3 mb-4 fw-bold text-center"
       />
       <ul className="list-group mainLinks">
+        <li className="list-group-item list-group-item-action text-center border-secondary py-3">
+          <Link to="/dashboard" className="blue-500 text-decoration-none fs-4">
+            Dashboard
+          </Link>
+        </li>
+        <li className="list-group-item list-group-item-action text-center border-secondary py-3">
+          <Link to="/addproject" className="text-decoration-none blue-500 fs-4">
+            Add Project
+          </Link>
+        </li>
+        <li className="list-group-item list-group-item-action text-center border-secondary py-3">
+          <Link to="/adminNews" className="blue-500 text-decoration-none fs-4">
+            New & Updates
+          </Link>
+        </li>
+        <li className="list-group-item list-group-item-action text-center border-secondary py-3">
+          <Link
+            to="/testimonial"
+            className="blue-500 text-decoration-none fs-4"
+          >
+            Testimonials
+          </Link>
+        </li>
+
         {isSuperAdmin ? (
           <li className="list-group-item list-group-item-action text-center border-secondary py-3">
             <Link

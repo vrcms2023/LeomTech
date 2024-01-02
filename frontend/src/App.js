@@ -11,15 +11,27 @@ import {
 // Components
 import Footer from "./Common/Footer/Footer";
 import Header from "./Common/Header/Header";
-import Home from "./Frontend/Pages/Home";
+import Home from "./Frontend/Pages/Home/index";
 import About from "./Frontend/Pages/About";
+import Projects from "./Frontend/Pages/Projects";
+import ProjectGallery from "./Frontend/Pages/ProjectGallery";
 import Services from "./Frontend/Pages/Services";
 import Careers from "./Frontend/Pages/Careers";
 import CareerDetails from "./Frontend/Pages/career-details";
 import Contact from "./Frontend/Pages/Contact";
+import Dashboard from "./Admin/Pages/Login/Dashboard";
+import AddProject from "./Admin/Pages/Login/AddProject";
+import ProtectedRoute from "./Frontend/Components/ProtectedRoute";
+import AdminNews from "./Admin/Pages/Login/AdminNews";
+import ProjectTabs from "./Frontend/Components/ProjectsTabs/ProjecTabs";
+import { getCookie } from "./util/cookieUtil";
+import { removeActiveClass } from "./util/ulrUtil";
 import MainPage from "./Admin/Pages/Login/MainPage";
 import NewsAndUpdates from "./Frontend/Pages/NewsAndUpdates";
 import PageNotFound from "./Frontend/Pages/PageNotFound";
+import { ToastContainer } from "react-toastify";
+import AdminTestimonial from "./Admin/Pages/Login/AdminTestimonial";
+import "react-toastify/dist/ReactToastify.min.css";
 
 import Login from "./Admin/Pages/Auth/Login";
 import Registration from "./Admin/Pages/Auth/Registration";
@@ -31,16 +43,10 @@ import ResetPasswordConfirmation from "./Admin/Pages/Auth/ResetPasswordConfirmat
 import AuthForm from "./Admin/Pages/Auth/AuthForm";
 import UserAdmin from "./Admin/Pages/Auth/UserAdmin";
 import UnauthorizedPage from "./Admin/Pages/Login/UnauthorizedPage";
+import "react-confirm-alert/src/react-confirm-alert.css";
 import ContactUSAdmin from "./Admin/Pages/Auth/ContactUSAdmin";
 import LoadingSpinner from "./Common/LoadingSpinner";
 import TopStrip from "./Common/Header/TopStrip";
-
-import ProtectedRoute from "./Frontend/Components/ProtectedRoute";
-import ProjectTabs from "./Frontend/Components/ProjectsTabs/ProjecTabs";
-
-import { ToastContainer } from "react-toastify";
-import { getCookie } from "./util/cookieUtil";
-import { removeActiveClass } from "./util/ulrUtil";
 
 // CSS
 import "./App.css";
@@ -68,6 +74,8 @@ function App() {
     "/adminNews",
     "/main",
     "/dashboard",
+    "/editproject",
+    "/addproject",
     "/testimonial",
     "/contactUSList",
     "/userAdmin",
@@ -108,6 +116,9 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Home />} />
             <Route exact path="/about" element={<About />} />
+          <Route exact path="/projects" element={<Projects />} />
+          <Route exact path="/project-details" element={<ProjectTabs />} />
+          <Route exact path="/gallery" element={<ProjectGallery />} />
             <Route exact path="/services" element={<Services />} />
             <Route exact path="/services/:uid/" element={<Services />} />
             <Route exact path="/careers" element={<Careers />} />
@@ -160,12 +171,59 @@ function App() {
                 </ProtectedRoute>
               }
             />
-            <Route
-              exact
-              path="/userAdmin"
-              element={
-                <ProtectedRoute>
-                  <UserAdmin />{" "}
+          <Route
+            exact
+            path="/addproject"
+            element={
+              <ProtectedRoute>
+                <AddProject />{" "}
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/editproject/:id"
+            element={
+              <ProtectedRoute>
+                <AddProject />{" "}
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />{" "}
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/userAdmin"
+            element={
+              <ProtectedRoute>
+                <UserAdmin />{" "}
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/adminNews"
+            element={
+              <ProtectedRoute>
+                {" "}
+                <AdminNews />{" "}
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            exact
+            path="/testimonial"
+            element={
+              <ProtectedRoute>
+                {" "}
+                <AdminTestimonial />
                 </ProtectedRoute>
               }
             />
