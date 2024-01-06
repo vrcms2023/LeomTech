@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { axiosClientServiceApi } from "../util/axiosUtil";
+import { axiosClientServiceApi, axiosServiceApi } from "../util/axiosUtil";
+import { getCookie } from "../util/cookieUtil";
 
 const CustomPagination = ({ paginationData, paginationURL, paginationSearchURL, setCurrentPage, currentPage, setResponseData, pageLoadResult }) => {
     const { total_count, per_page_size, next_url, previous_url } = paginationData;
+    const userCookie = getCookie("access");
     const pageNumbers = [];
     for (let i = 0; i < Math.ceil(total_count / per_page_size); i++) {
         pageNumbers.push(i+1);
@@ -12,8 +14,14 @@ const CustomPagination = ({ paginationData, paginationURL, paginationSearchURL, 
    
     const getSelectedPageData = async(number) => {
         const apiURL = pageLoadResult ? paginationURL : paginationSearchURL
+        let response;
         try {
-            const response = await axiosClientServiceApi.get(`${apiURL}?p=${number}`);
+            if (userCookie) {
+                response = await axiosServiceApi.get(`${apiURL}?p=${number}`);
+              } else {
+                response = await axiosClientServiceApi.get(`${apiURL}?p=${number}`);
+              }
+           
             if (response?.status == 200 && response.data?.results?.length > 0) {
               setResponseData(response.data)
               setCurrentPage(number)
