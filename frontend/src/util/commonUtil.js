@@ -52,3 +52,12 @@ export const urlStringFormat = (str) => {
   if (!str) return null;
   return str.replace(/\s+/g, "-").toLowerCase();
 };
+
+export const paginationDataFormat =(data)=>{
+  return {
+    total_count: data.total_count,
+    per_page_size : data.per_page_size,
+    next_url :data.next,
+    previous_url : data.previous
+  }
+}
