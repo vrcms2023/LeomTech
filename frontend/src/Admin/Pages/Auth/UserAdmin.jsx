@@ -92,7 +92,7 @@ const UserAdmin = () => {
   };
 
   return (
-    <div className="container-fluid pt-5" style={{ marginTop: "120px" }}>
+    <div className="container-fluid pt-5" >
       <div className="row px-3 px-lg-5">
         <div className="text-end d-flex justify-content-between">
           <Title title={"User's"} cssClass="text-start fs-4" />
