@@ -55,8 +55,19 @@ const Services = () => {
   }, []);
 
   useEffect(() => {
+    const id = document.getElementById("ServicesnavbarDropdown");
+    if (id) {
+      id.classList.add("active");
+    }
+  });
+
+  useEffect(() => {
     getSelectedServiceObject(pageLoadServiceID);
     setSelectedServiceName(pageLoadServiceName);
+    setSelectedServiceProject({
+      id: pageLoadServiceID,
+      services_page_title: pageLoadServiceName,
+    });
   }, [uid, pageLoadServiceID]);
 
   useEffect(() => {
@@ -156,9 +167,7 @@ const Services = () => {
           ""
         )}
         <Banner
-          getBannerAPIURL={`banner/clientBannerIntro/${pageType}-${urlStringFormat(
-            pageLoadServiceName,
-          )}-banner/`}
+          getBannerAPIURL={`banner/clientBannerIntro/${pageType}-${pageLoadServiceName}-banner/`}
           bannerState={componentEdit.banner}
           pageLoadServiceName={pageLoadServiceName}
         />
@@ -169,7 +178,7 @@ const Services = () => {
           <ImageInputsForm
             editHandler={editHandler}
             componentType="banner"
-            pageType={`${pageType}-banner`}
+            pageType={`${pageType}-${pageLoadServiceName}-banner`}
             imageLabel="Banner Image"
             showDescription={false}
             showExtraFormFields={getFormDynamicFields(

@@ -12,8 +12,10 @@ const Search = ({
   adminSearchURL,
   clientDefaultURL,
   searchfiledDeatails,
+  setPageloadResults,
+  setSearchquery,
+  searchQuery
 }) => {
-  const [searchQuery, setSearchquery] = useState("");
   const userCookie = getCookie("access");
 
   const onChangeInputHandler = (event) => {
@@ -38,10 +40,8 @@ const Search = ({
       } else {
         response = await axiosClientServiceApi.get(clientDefaultURL);
       }
-      let key = Object.keys(response.data);
-      const data = sortCreatedDateByDesc(response.data[key]);
-      console.log(data);
-      setObject(data);
+      setObject(response.data);
+      setPageloadResults(false)
     } catch (error) {
       console.log("Unable to get the  data");
     }

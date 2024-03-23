@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'djoser',
 	'corsheaders',
     'user_auth',
+    'addressList',
     'realestate',
     'gallery',
     'testimonials',
@@ -214,7 +215,7 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
+    )
 }
 
 # JWT Settings
