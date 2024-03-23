@@ -45,24 +45,22 @@ const UserAdmin = () => {
 
   const handleUserDelete = (user) => {
     console.log(user);
-    const deleteUser = async () => {
-      const response = await axiosServiceApi.delete(
-        `/user/auth/users/me/?current_password=Abcd@1234`,
-      );
-      console.log(response)
-    };
+    // const deleteUser = async () => {
+    //   const response = await axiosServiceApi.delete(`/user/auth/users/me/`);
+    //   console.log(response);
+    // };
 
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <DeleteDialog
-            onClose={onClose}
-            callback={deleteUser}
-            message={`you want to delete the ${user.userName}`}
-          />
-        );
-      },
-    });
+    // confirmAlert({
+    //   customUI: ({ onClose }) => {
+    //     return (
+    //       <DeleteDialog
+    //         onClose={onClose}
+    //         callback={deleteUser}
+    //         message={`you want to delete the ${user.userName}`}
+    //       />
+    //     );
+    //   },
+    // });
   };
 
   /**
@@ -75,7 +73,7 @@ const UserAdmin = () => {
         `/user/auth/appAccess/${user.id}/`,
         {
           is_appAccess: !user.is_appAccess,
-        },
+        }
       );
 
       if (response.status !== 200) {
@@ -92,7 +90,7 @@ const UserAdmin = () => {
   };
 
   return (
-    <div className="container-fluid pt-5" >
+    <div className="container-fluid pt-5">
       <div className="row px-3 px-lg-5">
         <div className="text-end d-flex justify-content-between">
           <Title title={"User's"} cssClass="text-start fs-4" />
