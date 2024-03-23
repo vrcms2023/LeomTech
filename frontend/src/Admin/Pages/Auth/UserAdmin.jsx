@@ -46,10 +46,10 @@ const UserAdmin = () => {
   const handleUserDelete = (user) => {
     console.log(user);
     const deleteUser = async () => {
-      // const response = await axiosServiceApi.delete(
-      //   `/user/auth/users/me/`,
-      // );
-      //console.log(response)
+      const response = await axiosServiceApi.delete(
+        `/user/auth/users/me/?current_password=Abcd@1234`,
+      );
+      console.log(response)
     };
 
     confirmAlert({
@@ -115,7 +115,7 @@ const UserAdmin = () => {
                 <th>Email</th>
                 <th>Admin type</th>
                 <th colSpan={2}>Active status</th>
-                {/* <th>Action</th> */}
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -155,7 +155,7 @@ const UserAdmin = () => {
                       ""
                     )}
                   </td>
-                  {/* <td>
+                  <td>
                     {user.id !== userId && !user.is_admin ? (
                       <Link to="" onClick={() => handleUserDelete(user)}>
                         <i
@@ -167,7 +167,7 @@ const UserAdmin = () => {
                     ) : (
                       ""
                     )}
-                  </td> */}
+                  </td>
                 </tr>
               ))}
             </tbody>
