@@ -346,7 +346,7 @@ const FileUpload = ({
                 maxParallelUploads={4}
                 disabled={disabledFile}
                 credits={false}
-                acceptedFileTypes={extTypes}
+                // acceptedFileTypes={extTypes}
                 instantUpload={false}
               />
             </div>

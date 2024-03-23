@@ -11,7 +11,9 @@ import EditIcon from "../../Common/AdminEditIcon";
 import ModelBg from "../../Common/ModelBg";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 import AdminBriefIntro from "../../Admin/Components/BriefIntro/index";
+
 import AddressTextArea from "../../Admin/Components/forms/FooterInputs";
+import AddressForm from "../../Admin/Components/forms/AddressForm";
 import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
 import GoogleMap from "../../Admin/Components/forms/GoogleMap";
 
@@ -77,6 +79,7 @@ const Contact = () => {
    * contactus form submit
    */
   const onFormSubmit = async (e) => {
+    console.log(formData)
     e.preventDefault();
     const errors = validationform(formData);
     setFormerror(errors);
@@ -220,12 +223,68 @@ const Contact = () => {
 
       <div className="container-fluid">
         <div className="row">
-          <div className="contactAddress position-relative col-md-4 text-white d-flex justify-content-start align-items-start blueBg-500 p-5 py-3 p-md-5">
+          <div className="contactAddress position-relative col-md-8 text-white d-flex justify-content-start align-items-start blueBg-500 p-5 py-3 p-md-5">
             {isAdmin ? (
               <EditIcon editHandler={() => editHandler("address", true)} />
             ) : (
               ""
             )}
+
+            {componentEdit.address ? (
+              <div className="adminEditTestmonial">
+                
+                <AddressForm
+                  editHandler={editHandler}
+                  componentType="address"
+                  footerValues={footerValues}
+                />
+                {/* <AddressTextArea
+                  editHandler={editHandler}
+                  componentType="address"
+                  footerValues={footerValues}
+                /> */}
+              </div>
+            ) : (
+              ""
+            )}
+
+            <div className="d-flex align-items-center flex-wrap gap-5">
+              <div>
+                <p className="mb-5">
+                  {footerValues.address_dr_no}, {footerValues.location} <br />
+                  {footerValues.street} <br />
+                  {footerValues.city} - {footerValues.postcode} <br />
+                  {footerValues.state}
+                </p>
+              </div>
+
+              <div>
+                <p className="mb-5">
+                  {footerValues.address_dr_no}, {footerValues.location} <br />
+                  {footerValues.street} <br />
+                  {footerValues.city} - {footerValues.postcode} <br />
+                  {footerValues.state}
+                </p>
+              </div>
+
+              <div>
+                <p className="mb-5">
+                  {footerValues.address_dr_no}, {footerValues.location} <br />
+                  {footerValues.street} <br />
+                  {footerValues.city} - {footerValues.postcode} <br />
+                  {footerValues.state}
+                </p>
+              </div>
+
+              <div>
+                <p className="mb-5">
+                  {footerValues.address_dr_no}, {footerValues.location} <br />
+                  {footerValues.street} <br />
+                  {footerValues.city} - {footerValues.postcode} <br />
+                  {footerValues.state}
+                </p>
+              </div>
+            </div>
             <div className="address`">
               <Title title="Address" cssClass="fs-3" />
               {/* <Title
@@ -275,20 +334,10 @@ const Contact = () => {
                 </p>
               </div>
             </div>
-            {componentEdit.address ? (
-              <div className="adminEditTestmonial">
-                <AddressTextArea
-                  editHandler={editHandler}
-                  componentType="address"
-                  footerValues={footerValues}
-                />
-              </div>
-            ) : (
-              ""
-            )}
+            
           </div>
 
-          <div className="col-md-8 d-flex justify-content-center align-items-center flex-column">
+          <div className="col-md-4 d-flex justify-content-center align-items-center flex-column">
             {success && (
               <Alert
                 mesg={"Thank you for contact us"}
