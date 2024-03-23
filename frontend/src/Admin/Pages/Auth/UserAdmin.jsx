@@ -45,24 +45,22 @@ const UserAdmin = () => {
 
   const handleUserDelete = (user) => {
     console.log(user);
-    const deleteUser = async () => {
-      // const response = await axiosServiceApi.delete(
-      //   `/user/auth/users/me/`,
-      // );
-      //console.log(response)
-    };
+    // const deleteUser = async () => {
+    //   const response = await axiosServiceApi.delete(`/user/auth/users/me/`);
+    //   console.log(response);
+    // };
 
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <DeleteDialog
-            onClose={onClose}
-            callback={deleteUser}
-            message={`you want to delete the ${user.userName}`}
-          />
-        );
-      },
-    });
+    // confirmAlert({
+    //   customUI: ({ onClose }) => {
+    //     return (
+    //       <DeleteDialog
+    //         onClose={onClose}
+    //         callback={deleteUser}
+    //         message={`you want to delete the ${user.userName}`}
+    //       />
+    //     );
+    //   },
+    // });
   };
 
   /**
@@ -75,7 +73,7 @@ const UserAdmin = () => {
         `/user/auth/appAccess/${user.id}/`,
         {
           is_appAccess: !user.is_appAccess,
-        },
+        }
       );
 
       if (response.status !== 200) {
@@ -92,7 +90,7 @@ const UserAdmin = () => {
   };
 
   return (
-    <div className="container-fluid pt-5" >
+    <div className="container-fluid pt-5">
       <div className="row px-3 px-lg-5">
         <div className="text-end d-flex justify-content-between">
           <Title title={"User's"} cssClass="text-start fs-4" />
@@ -115,7 +113,7 @@ const UserAdmin = () => {
                 <th>Email</th>
                 <th>Admin type</th>
                 <th colSpan={2}>Active status</th>
-                {/* <th>Action</th> */}
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -155,7 +153,7 @@ const UserAdmin = () => {
                       ""
                     )}
                   </td>
-                  {/* <td>
+                  <td>
                     {user.id !== userId && !user.is_admin ? (
                       <Link to="" onClick={() => handleUserDelete(user)}>
                         <i
@@ -167,7 +165,7 @@ const UserAdmin = () => {
                     ) : (
                       ""
                     )}
-                  </td> */}
+                  </td>
                 </tr>
               ))}
             </tbody>
