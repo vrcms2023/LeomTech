@@ -87,7 +87,7 @@ const Footer = () => {
     const getFooterValues = async () => {
       try {
         const response = await axiosClientServiceApi.get(
-          `/footer/getTermsAndCondition/`,
+          `/footer/getTermsAndCondition/`
         );
         if (response?.data?.terms?.length > 0) {
           setTermsAndPolicyData(response?.data?.terms[0]);
@@ -120,7 +120,7 @@ const Footer = () => {
                 <li>
                   <Link
                     to={`/services/${urlStringFormat(
-                      getCookie("pageLoadServiceName"),
+                      getCookie("pageLoadServiceName")
                     )}/`}
                   >
                     Services

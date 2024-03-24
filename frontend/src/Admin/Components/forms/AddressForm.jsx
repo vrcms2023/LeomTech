@@ -1,24 +1,21 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { getCookie } from "../../../util/cookieUtil";
-import {
-  axiosClientServiceApi,
-  axiosServiceApi,
-} from "../../../util/axiosUtil";
+import { axiosServiceApi } from "../../../util/axiosUtil";
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
 import { InputField } from "./FormFields";
 import Button from "../../../Common/Button";
 import { Link } from "react-router-dom";
+import DeleteDialog from "../../../Common/DeleteDialog";
+import { confirmAlert } from "react-confirm-alert";
+import _ from "lodash";
 
-const FooterAdminFeilds = ({ editHandler, componentType, footerValues }) => {
+const AddressForm = ({ editHandler, componentType, addressList }) => {
   const [userName, setUserName] = useState("");
-  const { register, reset, handleSubmit } = useForm({
-    defaultValues: useMemo(() => {
-      return footerValues;
-    }, [footerValues]),
-    mode: "onChange",
-  });
+  const { register, reset, handleSubmit, setValue } = useForm({});
+  const [listofAddress, setListofAddress] = useState(addressList);
+  const [editAddress, setEditAddress] = useState(addressList[0]);
 
   const closeHandler = () => {
     editHandler(componentType, false);
@@ -29,33 +26,81 @@ const FooterAdminFeilds = ({ editHandler, componentType, footerValues }) => {
     setUserName(getCookie("userName"));
   }, []);
 
+  const handleCarouselEdit = (event, address) => {
+    event.preventDefault();
+    setEditAddress(address);
+    const fieldKeys = Object.keys(address);
+    fieldKeys.forEach((item) => {
+      setValue(item, address[item]);
+    });
+  };
+
+  /**
+   *
+   * Delete image
+   */
+  const thumbDelete = (id, name) => {
+    const deleteImageByID = async () => {
+      const response = await axiosServiceApi.delete(
+        `address/updateAddress/${id}/`
+      );
+      if (response.status == 204) {
+        const list = listofAddress.filter((item) => item.id !== id);
+        setListofAddress(list);
+      }
+    };
+
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <DeleteDialog
+            onClose={onClose}
+            callback={deleteImageByID}
+            message={`deleting the ${name} image?`}
+          />
+        );
+      },
+    });
+  };
+
   /**
    * Save Footer values
    */
   const onSubmit = async (data) => {
     console.log(data, "data");
     let response = "";
-    // try {
-    //   if (data.id) {
-    //     data["updated_by"] = userName;
-    //     response = await axiosServiceApi.put(
-    //       `/address/createAddress/${data.id}/`,
-    //       data,
-    //     );
-    //   } else {
-    //     // data["created_by"] = userName;
-    //     response = await axiosServiceApi.post(`/address/createAddress/`, data);
-    //     console.log("New Address", response)
-    //   }
+    try {
+      if (data.id) {
+        data["updated_by"] = userName;
+        response = await axiosServiceApi.put(
+          `/address/updateAddress/${data.id}/`,
+          data
+        );
+      } else {
+        // data["created_by"] = userName;
+        response = await axiosServiceApi.post(`/address/createAddress/`, data);
+        console.log("New Address", response);
+      }
 
-    //   if (response.status == 200 || response.status == 201) {
-    //     reset(response.data.address[0]);
-    //     toast.success(`Footer Values are updated successfully `);
-    //     closeHandler();
-    //   }
-    // } catch (error) {
-    //   console.log("unable to save the footer form");
-    // }
+      if (response.status == 200 || response.status == 201) {
+        reset();
+        toast.success(`Address Values are updated successfully `);
+        updateAddressList(response.data.addressList);
+      }
+    } catch (error) {
+      console.log("unable to save the footer form");
+    }
+  };
+
+  const updateAddressList = (data) => {
+    const valueExit = _.some(addressList, function (o) {
+      return _.includes(o, data.id);
+    });
+    if (!valueExit) {
+      let list = [...listofAddress];
+      list.push(data);
+      setListofAddress(list);
+    }
   };
 
   return (
@@ -65,13 +110,29 @@ const FooterAdminFeilds = ({ editHandler, componentType, footerValues }) => {
         <div className="container">
           <div className="row p-4">
             <div className="col-md-6 mb-md-0">
-              <InputField label="Country" fieldName="address_dr_no" register={register} />
+              <InputField
+                label="Country"
+                fieldName="location_title"
+                register={register}
+              />
               <InputField label="State" fieldName="state" register={register} />
               <InputField label="City" fieldName="city" register={register} />
-              <InputField label="Location" fieldName="location" register={register} />
-              <InputField label="Street" fieldName="street" register={register} />
-              <InputField label="Door Number" fieldName="address_dr_no" register={register} />
-              
+              <InputField
+                label="Location"
+                fieldName="location"
+                register={register}
+              />
+              <InputField
+                label="Street"
+                fieldName="street"
+                register={register}
+              />
+              <InputField
+                label="Door Number"
+                fieldName="address_dr_no"
+                register={register}
+              />
+
               <InputField
                 label="Postcode"
                 fieldName="postcode"
@@ -95,18 +156,19 @@ const FooterAdminFeilds = ({ editHandler, componentType, footerValues }) => {
             </div>
 
             <div className="col-md-6 mb-md-0 px-5 text-black">
-              
-              <div className="row mb-4">
-                <div className="col-8">
-                  USA<br />
-                  State <br />
-                  City <br />
-                  Location
-                </div>
+              {listofAddress.map((item) => (
+                <>
+                  <div className="row mb-4">
+                    <div className="col-8">
+                      {item.location_title}
+                      <br />
+                      {item.city} - {item.postcode} <br />
+                      {item.state} <br />
+                    </div>
 
-                <div className="col-4 d-flex justify-content-around align-items-center flex-md-row gap-3">
+                    <div className="col-4 d-flex justify-content-around align-items-center flex-md-row gap-3">
                       <Link
-                        // onClick={(event) => handleCarouselEdit(event, item)}
+                        onClick={(event) => handleCarouselEdit(event, item)}
                       >
                         <i
                           className="fa fa-pencil fs-4 text-warning"
@@ -114,12 +176,9 @@ const FooterAdminFeilds = ({ editHandler, componentType, footerValues }) => {
                         ></i>
                       </Link>
                       <Link
-                        // onClick={(event) =>
-                        //   thumbDelete(
-                        //     item.id,
-                        //     getObjectTitle(componentType, item),
-                        //   )
-                        // }
+                        onClick={(event) =>
+                          thumbDelete(item.id, item.location_title)
+                        }
                       >
                         <i
                           className="fa fa-trash fs-4 text-danger"
@@ -127,44 +186,10 @@ const FooterAdminFeilds = ({ editHandler, componentType, footerValues }) => {
                         ></i>
                       </Link>
                     </div>
-              </div>
-              <hr />
-
-              <div className="row">
-                <div className="col-8">
-                  USA<br />
-                  State <br />
-                  City <br />
-                  Location
-                </div>
-
-                <div className="col-4 d-flex justify-content-around align-items-center flex-md-row gap-3">
-                      <Link
-                        // onClick={(event) => handleCarouselEdit(event, item)}
-                      >
-                        <i
-                          className="fa fa-pencil fs-4 text-warning"
-                          aria-hidden="true"
-                        ></i>
-                      </Link>
-                      <Link
-                        // onClick={(event) =>
-                        //   thumbDelete(
-                        //     item.id,
-                        //     getObjectTitle(componentType, item),
-                        //   )
-                        // }
-                      >
-                        <i
-                          className="fa fa-trash fs-4 text-danger"
-                          aria-hidden="true"
-                        ></i>
-                      </Link>
-                    </div>
-              </div>
-              <hr />
-             
-             
+                  </div>
+                  <hr />
+                </>
+              ))}
             </div>
           </div>
           <div className="row">
@@ -189,4 +214,4 @@ const FooterAdminFeilds = ({ editHandler, componentType, footerValues }) => {
   );
 };
 
-export default FooterAdminFeilds;
+export default AddressForm;
