@@ -130,7 +130,7 @@ const Contact = () => {
   }, []);
 
   useEffect(() => {
-    if (!componentEdit.address && addressList?.addressList?.length > 0) {
+    if (!componentEdit.address) {
       dispatch(getAddressList());
     }
   }, [componentEdit.address]);
