@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 // Components
@@ -12,13 +11,12 @@ import ModelBg from "../../Common/ModelBg";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
 import AdminBriefIntro from "../../Admin/Components/BriefIntro/index";
 
-import AddressTextArea from "../../Admin/Components/forms/FooterInputs";
 import AddressForm from "../../Admin/Components/forms/AddressForm";
 import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
 import GoogleMap from "../../Admin/Components/forms/GoogleMap";
 
 import { axiosClientServiceApi } from "../../util/axiosUtil";
-import { getCookie, removeCookie, setCookie } from "../../util/cookieUtil";
+import { removeCookie, setCookie } from "../../util/cookieUtil";
 import { removeActiveClass } from "../../util/ulrUtil";
 import {
   getFormDynamicFields,
@@ -29,8 +27,7 @@ import {
 import "./Contact.css";
 
 // images
-import ContactBanner from "../../Images/contact.png";
-import { getFooterValues } from "../../features/footer/footerActions";
+import { getAddressList } from "../../features/address/addressActions";
 
 const Contact = () => {
   const editComponentObj = {
@@ -53,14 +50,12 @@ const Contact = () => {
   const isAdmin = useAdminLoginStatus();
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const [formData, setFormData] = useState(formObject);
-  const [mesg, setMesg] = useState("");
   const [show, setShow] = useState(false);
   const [formerror, setFormerror] = useState({});
   const [success, setsuccess] = useState(false);
-  const [footerValues, setFooterValues] = useState(false);
-  const navigate = useNavigate();
+
   const [mapValues, setMapValues] = useState("");
-  const { footerData, error } = useSelector((state) => state.footerData);
+  const { addressList } = useSelector((state) => state.addressList);
 
   const dispatch = useDispatch();
 
@@ -79,7 +74,7 @@ const Contact = () => {
    * contactus form submit
    */
   const onFormSubmit = async (e) => {
-    console.log(formData)
+    console.log(formData);
     e.preventDefault();
     const errors = validationform(formData);
     setFormerror(errors);
@@ -129,16 +124,16 @@ const Contact = () => {
   }, []);
 
   useEffect(() => {
-    if (!componentEdit.address && footerData?.address?.length > 0) {
-      dispatch(getFooterValues());
+    if (addressList?.length === 0) {
+      dispatch(getAddressList());
     }
-  }, [componentEdit.address]);
+  }, []);
 
   useEffect(() => {
-    if (footerData?.address?.length > 0) {
-      setFooterValues(footerData.address[0]);
+    if (!componentEdit.address && addressList?.addressList?.length > 0) {
+      dispatch(getAddressList());
     }
-  }, [footerData]);
+  }, [componentEdit.address]);
 
   useEffect(() => {
     if (!componentEdit.map) {
@@ -155,7 +150,7 @@ const Contact = () => {
   const getGoogleMapUrl = async () => {
     try {
       const response = await axiosClientServiceApi.get(
-        `footer/getGoogleMapURL/`,
+        `footer/getGoogleMapURL/`
       );
       if (response?.data?.mapURL) {
         const data = response.data.mapURL[0];
@@ -232,109 +227,52 @@ const Contact = () => {
 
             {componentEdit.address ? (
               <div className="adminEditTestmonial">
-                
                 <AddressForm
                   editHandler={editHandler}
                   componentType="address"
-                  footerValues={footerValues}
+                  addressList={addressList.addressList}
                 />
-                {/* <AddressTextArea
-                  editHandler={editHandler}
-                  componentType="address"
-                  footerValues={footerValues}
-                /> */}
               </div>
             ) : (
               ""
             )}
 
-            <div className="d-flex align-items-center flex-wrap gap-5">
-              <div>
-                <p className="mb-5">
-                  {footerValues.address_dr_no}, {footerValues.location} <br />
-                  {footerValues.street} <br />
-                  {footerValues.city} - {footerValues.postcode} <br />
-                  {footerValues.state}
-                </p>
-              </div>
-
-              <div>
-                <p className="mb-5">
-                  {footerValues.address_dr_no}, {footerValues.location} <br />
-                  {footerValues.street} <br />
-                  {footerValues.city} - {footerValues.postcode} <br />
-                  {footerValues.state}
-                </p>
-              </div>
-
-              <div>
-                <p className="mb-5">
-                  {footerValues.address_dr_no}, {footerValues.location} <br />
-                  {footerValues.street} <br />
-                  {footerValues.city} - {footerValues.postcode} <br />
-                  {footerValues.state}
-                </p>
-              </div>
-
-              <div>
-                <p className="mb-5">
-                  {footerValues.address_dr_no}, {footerValues.location} <br />
-                  {footerValues.street} <br />
-                  {footerValues.city} - {footerValues.postcode} <br />
-                  {footerValues.state}
-                </p>
-              </div>
-            </div>
-            <div className="address`">
-              <Title title="Address" cssClass="fs-3" />
-              {/* <Title
-                title="We’d Love to Hear From You, Get In Touch With Us!"
-                cssClass="fs-6 mb-4"
-              /> */}
-              <p className="mb-5">
-                {footerValues.address_dr_no}, {footerValues.location} <br />
-                {footerValues.street} <br />
-                {footerValues.city} - {footerValues.postcode} <br />
-                {footerValues.state}
-              </p>
-
-              <div>
-                <Title title="Phone Number :" cssClass="mb-2" />
-                {/* {footerValues.phonen_number} 
-                {footerValues.phonen_number_2} */}
-                <p className="">{footerValues.phonen_number}</p>
-                <p>
-                  {footerValues.phonen_number_2 ? (
-                    <>
-                      {footerValues.phonen_number_2}{" "}
-                      <i
-                        className="fa fa-whatsapp text-white fs-1 ms-2"
-                        aria-hidden="true"
-                      ></i>
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </p>
-                <Title title="Email Id :" cssClass="mt-5 mb-2" />
-                <p>
-                  <a
-                    className="fs-6 text-white"
-                    href={`mailto:${footerValues.emailid}`}
-                  >
-                    {footerValues.emailid}{" "}
-                  </a>
-                  {/* <a
-                    href="mailto:contact@hprinfraprojects.com"
-                    className="fs-6 text-white"
-                  >
-                    {" "}
-                    contact@hprinfraprojects.com
-                  </a> */}
-                </p>
+            <div className="d-flex gap-5">
+              <div className="address`">
+                <Title title="Address" cssClass="fs-3" />
+                <hr />
+                <div className="d-flex align-items-center flex-wrap gap-5">
+                  {addressList?.addressList?.map((item) => (
+                    <div>
+                      <Title title={item.location_title} cssClass="mb-2 fs-4" />
+                      <p className="mb-5">
+                        {item.address_dr_no}, {item.location} <br />
+                        {item.street} <br />
+                        {item.city} - {item.postcode} <br />
+                        {item.state}
+                      </p>
+                      {item.phonen_number && (
+                        <>
+                          <Title title="Phone Number :" cssClass="mb-2" />
+                          <p className="">{item.phonen_number}</p>
+                        </>
+                      )}
+                      <p>
+                        {item.phonen_number_2 && (
+                          <>
+                            {item.phonen_number_2}{" "}
+                            <i
+                              className="fa fa-whatsapp text-white fs-1 ms-2"
+                              aria-hidden="true"
+                            ></i>
+                          </>
+                        )}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-            
           </div>
 
           <div className="col-md-4 d-flex justify-content-center align-items-center flex-column">
