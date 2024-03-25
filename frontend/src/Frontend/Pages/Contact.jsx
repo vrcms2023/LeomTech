@@ -218,7 +218,7 @@ const Contact = () => {
 
       <div className="container-fluid">
         <div className="row">
-          <div className="contactAddress position-relative col-md-8 text-white d-flex justify-content-start align-items-start blueBg-500 p-5 py-3 p-md-5">
+          <div className="contactAddress position-relative col-md-12 col-lg-7 text-white blueBg-500 p-5 py-3 p-md-5">
             {isAdmin ? (
               <EditIcon editHandler={() => editHandler("address", true)} />
             ) : (
@@ -236,46 +236,53 @@ const Contact = () => {
             ) : (
               ""
             )}
-
-            <div className="d-flex gap-5">
-              <div className="address`">
-                <Title title="Address" cssClass="fs-3" />
-                <hr />
-                <div className="d-flex align-items-center flex-wrap gap-5">
+              <div className="container">
+                <div className="row">
+                  
                   {addressList?.addressList?.map((item) => (
-                    <div>
+                    <div className="col-sm-6 col-md-4 my-4 my-nd-0">
                       <Title title={item.location_title} cssClass="mb-2 fs-4" />
-                      <p className="mb-5">
-                        {item.address_dr_no}, {item.location} <br />
-                        {item.street} <br />
-                        {item.city} - {item.postcode} <br />
-                        {item.state}
-                      </p>
-                      {item.phonen_number && (
-                        <>
-                          <Title title="Phone Number :" cssClass="mb-2" />
-                          <p className="">{item.phonen_number}</p>
-                        </>
-                      )}
-                      <p>
-                        {item.phonen_number_2 && (
-                          <>
-                            {item.phonen_number_2}{" "}
-                            <i
-                              className="fa fa-whatsapp text-white fs-1 ms-2"
-                              aria-hidden="true"
-                            ></i>
-                          </>
-                        )}
-                      </p>
+                      <div className="mb-2">
+                          <p className="m-0">{item.address_dr_no}</p>
+                          <p className="m-0">{item.location} </p>
+                          <p className="m-0">{item.street} </p>
+                          <p className="m-0">{item.city} </p>
+                          <p className="m-0">{item.postcode}</p>
+                          <p className="m-0">{item.state}</p>
+                          <p className="mt-2">
+                            {item.phonen_number && (
+                            <> 
+                            {/* <Title title="Phone Number :" cssClass="mb-2" /> */}
+                            <p className=""><i class="fa fa-phone-square text-white fs-4 ms-2" aria-hidden="true"></i>  {item.phonen_number}</p>
+                            </>
+                             )}
+                          </p>
+                          <p className="mt-2">
+                           {item.phonen_number_2 && (
+                              <>
+                                <i
+                                  className="fa fa-whatsapp text-white fs-4 ms-2"
+                                  aria-hidden="true"
+                                ></i> {item.phonen_number_2}{" "}
+                                
+                              </>
+                            )}
+                          </p>
+                      </div>
                     </div>
                   ))}
+                  
                 </div>
               </div>
-            </div>
+
+              <div className="address">
+                <div className="d-flex flex-wrap gap-4">
+                  
+                </div>
+              </div>
           </div>
 
-          <div className="col-md-4 d-flex justify-content-center align-items-center flex-column">
+          <div className="col-md-12 col-lg-5 d-flex justify-content-center align-items-center flex-column py-5">
             {success && (
               <Alert
                 mesg={"Thank you for contact us"}
@@ -284,7 +291,7 @@ const Contact = () => {
             )}
 
             <form
-              className="my-2 py-3 py-md-5 contactForm"
+              className="my-2 contactForm"
               onSubmit={onFormSubmit}
             >
               <Title title="Quick contact" cssClass="text-black fw-bold mb-4" />
