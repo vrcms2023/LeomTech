@@ -108,7 +108,7 @@ const AddressForm = ({ editHandler, componentType, addressList }) => {
       <EditAdminPopupHeader closeHandler={closeHandler} title={componentType} />
       <form className="" onSubmit={handleSubmit(onSubmit)}>
         <div className="container">
-          <div className="row p-4">
+          <div className="row">
             <div className="col-md-6 mb-md-0">
               <InputField
                 label="Country"
@@ -156,14 +156,15 @@ const AddressForm = ({ editHandler, componentType, addressList }) => {
             </div>
 
             <div className="col-md-6 mb-md-0 px-5 text-black">
-              {listofAddress.map((item) => (
+              {listofAddress.length > 0 ?
+              
+              listofAddress.map((item) => (
                 <>
-                  <div className="row mb-4">
+                  <div className="row">
                     <div className="col-8">
-                      {item.location_title}
-                      <br />
-                      {item.city} - {item.postcode} <br />
-                      {item.state} <br />
+                      <p className="m-0 fw-bold">{item.location_title}</p>
+                      <small>{item.city} - {item.postcode}</small> <br />
+                      <small>{item.state} </small>
                     </div>
 
                     <div className="col-4 d-flex justify-content-around align-items-center flex-md-row gap-3">
@@ -187,9 +188,12 @@ const AddressForm = ({ editHandler, componentType, addressList }) => {
                       </Link>
                     </div>
                   </div>
-                  <hr />
+                  <hr className="text-muted" />
                 </>
-              ))}
+              ))
+
+              : <h4 className="text-center m-5 text-warning">No Contacts found.</h4>}
+              
             </div>
           </div>
           <div className="row">
