@@ -10,10 +10,17 @@ import { Link } from "react-router-dom";
 import DeleteDialog from "../../../Common/DeleteDialog";
 import { confirmAlert } from "react-confirm-alert";
 import _ from "lodash";
+import { fieldValidation } from "../../../util/validationUtil";
 
 const AddressForm = ({ editHandler, componentType, addressList }) => {
   const [userName, setUserName] = useState("");
-  const { register, reset, handleSubmit, setValue } = useForm({});
+  const {
+    register,
+    reset,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm({});
   const [listofAddress, setListofAddress] = useState(addressList);
   const [editAddress, setEditAddress] = useState(addressList[0]);
 
@@ -67,7 +74,6 @@ const AddressForm = ({ editHandler, componentType, addressList }) => {
    * Save Footer values
    */
   const onSubmit = async (data) => {
-    console.log(data, "data");
     let response = "";
     try {
       if (data.id) {
@@ -114,9 +120,17 @@ const AddressForm = ({ editHandler, componentType, addressList }) => {
                 label="Country"
                 fieldName="location_title"
                 register={register}
+                validationObject={fieldValidation.location_title}
+                error={errors?.location_title?.message}
               />
               <InputField label="State" fieldName="state" register={register} />
-              <InputField label="City" fieldName="city" register={register} />
+              <InputField
+                label="City"
+                fieldName="city"
+                register={register}
+                validationObject={fieldValidation.city}
+                error={errors?.city?.message}
+              />
               <InputField
                 label="Location"
                 fieldName="location"
@@ -137,63 +151,75 @@ const AddressForm = ({ editHandler, componentType, addressList }) => {
                 label="Postcode"
                 fieldName="postcode"
                 register={register}
+                validationObject={fieldValidation.postcode}
+                error={errors?.postcode?.message}
               />
               <InputField
                 label="Email"
                 fieldName="emailid"
                 register={register}
+                validationObject={fieldValidation.emailid}
+                error={errors?.emailid?.message}
               />
               <InputField
                 label="Phone"
                 fieldName="phonen_number"
                 register={register}
+                validationObject={fieldValidation.phonen_number}
+                error={errors?.phonen_number?.message}
               />
               <InputField
                 label="WhatsApp No."
                 fieldName="phonen_number_2"
                 register={register}
+                validationObject={fieldValidation.phonen_number_2}
+                error={errors?.phonen_number_2?.message}
               />
             </div>
 
             <div className="col-md-6 mb-md-0 px-5 text-black">
-              {listofAddress.length > 0 ?
-              
-              listofAddress.map((item) => (
-                <>
-                  <div className="row">
-                    <div className="col-8">
-                      <p className="m-0 fw-bold">{item.location_title}</p>
-                      <small>{item.city} - {item.postcode}</small> <br />
-                      <small>{item.state} </small>
-                    </div>
+              {listofAddress.length > 0 ? (
+                listofAddress.map((item, index) => (
+                  <>
+                    <div className="row" key={index}>
+                      <div className="col-8">
+                        <p className="m-0 fw-bold">{item.location_title}</p>
+                        <small>
+                          {item.city} - {item.postcode}
+                        </small>{" "}
+                        <br />
+                        <small>{item.state} </small>
+                      </div>
 
-                    <div className="col-4 d-flex justify-content-around align-items-center flex-md-row gap-3">
-                      <Link
-                        onClick={(event) => handleCarouselEdit(event, item)}
-                      >
-                        <i
-                          className="fa fa-pencil fs-4 text-warning"
-                          aria-hidden="true"
-                        ></i>
-                      </Link>
-                      <Link
-                        onClick={(event) =>
-                          thumbDelete(item.id, item.location_title)
-                        }
-                      >
-                        <i
-                          className="fa fa-trash fs-4 text-danger"
-                          aria-hidden="true"
-                        ></i>
-                      </Link>
+                      <div className="col-4 d-flex justify-content-around align-items-center flex-md-row gap-3">
+                        <Link
+                          onClick={(event) => handleCarouselEdit(event, item)}
+                        >
+                          <i
+                            className="fa fa-pencil fs-4 text-warning"
+                            aria-hidden="true"
+                          ></i>
+                        </Link>
+                        <Link
+                          onClick={(event) =>
+                            thumbDelete(item.id, item.location_title)
+                          }
+                        >
+                          <i
+                            className="fa fa-trash fs-4 text-danger"
+                            aria-hidden="true"
+                          ></i>
+                        </Link>
+                      </div>
                     </div>
-                  </div>
-                  <hr className="text-muted" />
-                </>
-              ))
-
-              : <h4 className="text-center m-5 text-warning">No Contacts found.</h4>}
-              
+                    <hr className="text-muted" />
+                  </>
+                ))
+              ) : (
+                <h4 className="text-center m-5 text-warning">
+                  No Contacts found.
+                </h4>
+              )}
             </div>
           </div>
           <div className="row">

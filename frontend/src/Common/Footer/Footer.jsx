@@ -21,6 +21,7 @@ import AdminTermsPolicy from "../../Admin/Components/TermsPrivacy/index";
 import { getFooterValues } from "../../features/footer/footerActions";
 import { getCookie } from "../../util/cookieUtil";
 import { urlStringFormat } from "../../util/commonUtil";
+import { getAddressList } from "../../features/address/addressActions";
 
 const Footer = () => {
   const editComponentObj = {
@@ -31,6 +32,7 @@ const Footer = () => {
   };
 
   const [footerValues, setFooterValues] = useState(false);
+  const [address, setAddress] = useState({});
   const [show, setShow] = useState(false);
   const [modelShow, setModelShow] = useState(false);
   const isAdmin = useAdminLoginStatus();
@@ -38,6 +40,7 @@ const Footer = () => {
   const [termsAndPolicyData, setTermsAndPolicyData] = useState({});
   const [termsAndConditionData, setTermsAndConditionData] = useState({});
   const { footerData, error } = useSelector((state) => state.footerData);
+  const { addressList } = useSelector((state) => state.addressList);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -57,6 +60,18 @@ const Footer = () => {
       setFooterValues(footerData.address[0]);
     }
   }, [footerData]);
+
+  useEffect(() => {
+    if (addressList?.length === 0) {
+      dispatch(getAddressList());
+    }
+  }, []);
+
+  useEffect(() => {
+    if (addressList?.addressList?.length > 0) {
+      setAddress(addressList.addressList[0]);
+    }
+  }, [addressList]);
 
   const showModel = (type) => {
     console.log(termsAndConditionData);
@@ -152,10 +167,15 @@ const Footer = () => {
 
               <div className="text-center text-md-start">
                 <h5>Address</h5>
-                {footerValues.address_dr_no}, {footerValues.location} <br />
-                {footerValues.street} <br />
-                {footerValues.city} - {footerValues.postcode} <br />
-                {footerValues.state}
+                {address.location_title} <br />
+                {address.address_dr_no}, <br />
+                {address.location} <br />
+                {address.street} <br />
+                {address.city}
+                <br />
+                {address.state}
+                <br />
+                Pincode - {address.postcode}
               </div>
             </div>
 
@@ -165,13 +185,13 @@ const Footer = () => {
               <div>
                 <p className="text-secondary">Phone</p>
 
-                <p className="">{footerValues.phonen_number}</p>
+                <p className="">{address.phonen_number}</p>
                 <p>
-                  {footerValues.phonen_number_2 ? (
+                  {address.phonen_number_2 ? (
                     <>
-                      {footerValues.phonen_number_2}{" "}
+                      {address.phonen_number_2}{" "}
                       <i
-                        className="fa fa-whatsapp text-warning fs-1 ms-2"
+                        className="fa fa-whatsapp text-warning fs-3 ms-2"
                         aria-hidden="true"
                       ></i>
                     </>
@@ -180,12 +200,10 @@ const Footer = () => {
                   )}
                 </p>
               </div>
-              {footerValues.emailid ? (
+              {address.emailid ? (
                 <div className="mb-md-0 mt-4">
                   <p className="text-secondary">Email</p>
-                  <a href={`mailto:${footerValues.emailid}`}>
-                    {footerValues.emailid}{" "}
-                  </a>
+                  <a href={`mailto:${address.emailid}`}>{address.emailid} </a>
                 </div>
               ) : (
                 ""
