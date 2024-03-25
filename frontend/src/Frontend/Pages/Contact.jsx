@@ -196,7 +196,7 @@ const Contact = () => {
 
       <div className="container-fluid">
         <div className="row">
-          <div className="contactAddress position-relative col-md-12 col-lg-7 text-white blueBg-500 p-5 py-3 p-md-5">
+          <div className="contactAddress position-relative col-md-12 text-white blueBg-500 p-5 py-3 p-md-5">
             {isAdmin ? (
               <EditIcon editHandler={() => editHandler("address", true)} />
             ) : (
@@ -217,8 +217,8 @@ const Contact = () => {
             <div className="container">
               <div className="row">
                 {addressList?.addressList?.map((item, index) => (
-                  <div className="col-md-6 my-4 my-nd-0" key={index}>
-                    <Title title={item.location_title} cssClass="mb-2 fs-4" />
+                  <div className="col-md-3 my-4 my-nd-0" key={index}>
+                    <Title title={item.location_title} cssClass="mb-2 fs-4 text-black" />
                     <div className="mb-2">
                       <p className="m-0">{item.address_dr_no}</p>
                       <p className="m-0">{item.location} </p>
@@ -273,8 +273,29 @@ const Contact = () => {
             </div>
           </div>
 
-          <div className="col-md-12 col-lg-5 d-flex justify-content-center align-items-center flex-column py-5">
-            {success && (
+          
+        </div>
+
+        <div className="row">
+          <div className="col-md-7 position-relative">
+            {isAdmin ? (
+              <EditIcon editHandler={() => editHandler("map", true)} />
+            ) : (
+              ""
+            )}
+            {mapValues.google_map_url && (
+              <iframe
+                className="googlemap"
+                src={mapValues?.google_map_url}
+                height="450"
+                width="100%"
+              ></iframe>
+            )}
+
+            
+          </div>
+          <div className="col-md-5">
+              {success && (
               <Alert
                 mesg={"Thank you for contact us"}
                 cssClass={`alert text-white w-75 mt-3 p-2 text-center bg-success`}
@@ -282,10 +303,10 @@ const Contact = () => {
             )}
 
             <form
-              className="my-2 contactForm"
+              className="my-5 contactForm"
               onSubmit={handleSubmit(onFormSubmit)}
             >
-              <Title title="Quick contact" cssClass="text-black fw-bold mb-4" />
+              <Title title="Quick contact" cssClass="text-black text-center fs-3 fw-bold mb-4" />
               <InputField
                 label="Name"
                 fieldName="firstName"
@@ -327,31 +348,6 @@ const Contact = () => {
                 </div>
               </div>
             </form>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col">
-            {isAdmin ? (
-              <EditIcon editHandler={() => editHandler("map", true)} />
-            ) : (
-              ""
-            )}
-            {mapValues.google_map_url && (
-              <iframe
-                className="googlemap"
-                src={mapValues?.google_map_url}
-                height="450"
-                width="100%"
-              ></iframe>
-            )}
-
-            {/* <iframe
-              className="googlemap"
-              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15226.413145928846!2d78.441906!3d17.430816!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x80e4d67809745a48!2sHPR+INFRA+PROJECTS!5e0!3m2!1sen!2sin!4v1442574301202"
-              height="450"
-              width="100%"
-            ></iframe> */}
           </div>
         </div>
       </div>
