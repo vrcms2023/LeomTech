@@ -112,7 +112,7 @@ const AddressForm = ({ editHandler, componentType, addressList }) => {
   return (
     <div className="">
       <EditAdminPopupHeader closeHandler={closeHandler} title={componentType} />
-      <form className="" onSubmit={handleSubmit(onSubmit)}>
+      <form className="mt-5" onSubmit={handleSubmit(onSubmit)}>
         <div className="container">
           <div className="row">
             <div className="col-md-6 mb-md-0">
@@ -146,14 +146,13 @@ const AddressForm = ({ editHandler, componentType, addressList }) => {
                 fieldName="address_dr_no"
                 register={register}
               />
-
-              <InputField
+              {/* <InputField
                 label="Postcode"
                 fieldName="postcode"
                 register={register}
                 validationObject={fieldValidation.postcode}
                 error={errors?.postcode?.message}
-              />
+              /> */}
               <InputField
                 label="Email"
                 fieldName="emailid"
@@ -232,7 +231,7 @@ const AddressForm = ({ editHandler, componentType, addressList }) => {
               </button>
               <Button
                 type="submit"
-                cssClass="btn border"
+                cssClass="btn btn-outline"
                 label={"Close"}
                 handlerChange={closeHandler}
               />

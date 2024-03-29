@@ -175,12 +175,13 @@ body {
 }
 
 .btn-outline {
-    border: 1px solid ${({ theme }) => theme.white} !important; 
-    color:${({ theme }) => theme.white};
+    border: 1px solid ${({ theme }) => theme.secondaryColor} !important; 
+    color:${({ theme }) => theme.secondaryColor};
 }
 
 .btn-outline:hover {
     border: 1px solid ${({ theme }) => theme.primaryColor} !important;  
+    color:${({ theme }) => theme.primaryColor};
 }
 
 footer {
