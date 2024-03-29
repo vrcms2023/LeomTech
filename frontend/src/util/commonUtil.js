@@ -1,6 +1,7 @@
 import moment from "moment";
 import { getBaseURL } from "./ulrUtil";
 import { removeCookie, setCookie } from "./cookieUtil";
+import _ from "lodash";
 
 export const generateOptionLength = (values) => {
   return Array.from({ length: values }, (_, i) => i + 1);
@@ -53,11 +54,17 @@ export const urlStringFormat = (str) => {
   return str.replace(/\s+/g, "-").toLowerCase();
 };
 
-export const paginationDataFormat =(data)=>{
+export const paginationDataFormat = (data) => {
   return {
     total_count: data.total_count,
-    per_page_size : data.per_page_size,
-    next_url :data.next,
-    previous_url : data.previous
-  }
-}
+    per_page_size: data.per_page_size,
+    next_url: data.next,
+    previous_url: data.previous,
+  };
+};
+
+export const sortByFieldName = (array, fieldName) => {
+  return _.sortBy(array, function (o) {
+    return o[fieldName];
+  });
+};

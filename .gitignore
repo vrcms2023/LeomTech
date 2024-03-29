@@ -45,4 +45,4 @@ dist-ssr
 *.sw?
 *.py
 *.pyc
-__pycache__/
+/__pycache__/

@@ -168,7 +168,7 @@ const Footer = () => {
               <div className="text-center text-md-start">
                 <h5>Address</h5>
                 <span className="d-block">{address.location_title}</span>
-                <span className="d-block">{address.address_dr_no } </span>
+                <span className="d-block">{address.address_dr_no} </span>
                 <span className="d-block">{address.location}</span>
                 <span className="d-block">{address.street}</span>
                 <span className="d-block">{address.city}</span>

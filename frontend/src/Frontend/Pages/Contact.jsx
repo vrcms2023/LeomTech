@@ -208,7 +208,7 @@ const Contact = () => {
                 <AddressForm
                   editHandler={editHandler}
                   componentType="address"
-                  addressList={addressList.addressList}
+                  addressList={addressList}
                 />
               </div>
             ) : (
@@ -216,9 +216,12 @@ const Contact = () => {
             )}
             <div className="container">
               <div className="row">
-                {addressList?.addressList?.map((item, index) => (
+                {addressList?.map((item, index) => (
                   <div className="col-md-3 my-4 my-nd-0" key={index}>
-                    <Title title={item.location_title} cssClass="mb-2 fs-4 text-black" />
+                    <Title
+                      title={item.location_title}
+                      cssClass="mb-2 fs-4 text-black"
+                    />
                     <div className="mb-2">
                       <p className="m-0">{item.address_dr_no}</p>
                       <p className="m-0">{item.location} </p>
@@ -272,8 +275,6 @@ const Contact = () => {
               <div className="d-flex flex-wrap gap-4"></div>
             </div>
           </div>
-
-          
         </div>
 
         <div className="row">
@@ -291,11 +292,9 @@ const Contact = () => {
                 width="100%"
               ></iframe>
             )}
-
-            
           </div>
           <div className="col-md-5">
-              {success && (
+            {success && (
               <Alert
                 mesg={"Thank you for contact us"}
                 cssClass={`alert text-white w-75 mt-3 p-2 text-center bg-success`}
@@ -306,7 +305,10 @@ const Contact = () => {
               className="my-5 contactForm"
               onSubmit={handleSubmit(onFormSubmit)}
             >
-              <Title title="Quick contact" cssClass="text-black text-center fs-3 fw-bold mb-4" />
+              <Title
+                title="Quick contact"
+                cssClass="text-black text-center fs-3 fw-bold mb-4"
+              />
               <InputField
                 label="Name"
                 fieldName="firstName"
