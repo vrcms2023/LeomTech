@@ -164,7 +164,6 @@ const Footer = () => {
             <div className="col-md-3 pb-3 pb-md-0">
               <div className="socialLinks">
                 <h5>Social Media</h5>
-
                 {footerValues.facebook_url ? (
                   <Link to={footerValues.facebook_url} target="_blank">
                     <i className="fa fa-facebook-square" aria-hidden="true"></i>
