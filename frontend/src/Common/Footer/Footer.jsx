@@ -163,6 +163,56 @@ const Footer = () => {
             <hr className="d-block d-md-none" />
             <div className="col-md-3 pb-3 pb-md-0">
 
+              {isAdmin ? (
+                <EditIcon editHandler={() => editHandler("address", true)} />
+              ) : (
+                ""
+              )}
+
+              <div className="text-center text-md-start">
+                <h5>Address</h5>
+                <span className="d-block">{address.location_title}</span>
+                <span className="d-block">{address.address_dr_no} </span>
+                <span className="d-block">{address.location}</span>
+                <span className="d-block">{address.street}</span>
+                <span className="d-block">{address.city}</span>
+                <span className="d-block">{address.state}</span>
+                <span className="d-block">Pincode - {address.postcode}</span>
+              </div>
+            </div>
+
+            <hr className="d-block d-md-none" />
+            <div className="col-md-3 text-center text-md-start pb-3 pb-md-0">
+              <h5>Reach Us</h5>
+              <div>
+                <p className="text-secondary">Phone</p>
+
+                <p className="">{address.phonen_number}</p>
+                <p>
+                  {address.phonen_number_2 ? (
+                    <>
+                      {address.phonen_number_2}{" "}
+                      <i
+                        className="fa fa-whatsapp text-warning fs-3 ms-2"
+                        aria-hidden="true"
+                      ></i>
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </p>
+              </div>
+              {address.emailid ? (
+                <div className="mb-md-0 mt-4">
+                  <p className="text-secondary">Email</p>
+                  <a href={`mailto:${address.emailid}`}>{address.emailid} </a>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
+
+
             <div className="socialLinks">
             <h5>Social Media</h5>
                 {footerValues.facebook_url ? (

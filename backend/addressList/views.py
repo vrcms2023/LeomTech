@@ -57,6 +57,32 @@ class UpdateAddressListDetail(APIView):
         snippet = self.get_object(pk)
         snippet.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+    
+
+class UpdateAddressIndex(APIView):
+    """
+    Retrieve, update or delete a address instance.
+    """
+    def get_object(self, pk):
+        try:
+            return AddressList.objects.get(pk=pk)
+        except AddressList.DoesNotExist:
+            raise Http404
+
+    def put(self, request, pk, format=None):
+        #AddressList.objects.filter(id=pk).update(address_position=request.data['index'])
+        snippet = self.get_object(pk)
+        requestObj ={
+            'address_position': request.data['index'],
+            'updated_by' : request.data['updated_by']
+        }
+        serializer = AddressListSerializer(snippet, data=requestObj)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"addressList": serializer.data}, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
 """ 
 Client Service View
