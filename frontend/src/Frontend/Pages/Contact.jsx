@@ -233,13 +233,11 @@ const Contact = () => {
                         {item.phonen_number && (
                           <>
                             {/* <Title title="Phone Number :" cssClass="mb-2" /> */}
-                            <p className="">
-                              <i
-                                className="fa fa-phone-square text-white fs-4 me-2"
-                                aria-hidden="true"
-                              ></i>{" "}
-                              {item.phonen_number}
-                            </p>
+                            <i
+                              className="fa fa-phone-square text-white fs-4 me-2"
+                              aria-hidden="true"
+                            ></i>{" "}
+                            {item.phonen_number}
                           </>
                         )}
                       </p>
