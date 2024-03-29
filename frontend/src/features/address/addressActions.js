@@ -1,5 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
+import { sortByFieldName } from "../../util/commonUtil";
 
 export const getAddressList = createAsyncThunk(
   "project/clientAddressList",
@@ -9,7 +10,8 @@ export const getAddressList = createAsyncThunk(
         `address/getClientAddress/`
       );
 
-      return data;
+      let response = sortByFieldName(data.addressList, "address_position");
+      return response;
     } catch (error) {
       // return custom error message from API if any
       if (error.response && error.response.data.message) {

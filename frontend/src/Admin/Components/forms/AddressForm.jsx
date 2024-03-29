@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { getCookie } from "../../../util/cookieUtil";
 import { axiosServiceApi } from "../../../util/axiosUtil";
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
 import { InputField } from "./FormFields";
 import Button from "../../../Common/Button";
-import { Link } from "react-router-dom";
+
 import DeleteDialog from "../../../Common/DeleteDialog";
 import { confirmAlert } from "react-confirm-alert";
 import _ from "lodash";
 import { fieldValidation } from "../../../util/validationUtil";
+import DraggableAddress from "../AddressList/DraggableAddress";
+import DraggableAddressList from "../AddressList/DraggableAddressList";
+import { getAddressList } from "../../../features/address/addressActions";
+import { sortByFieldName } from "../../../util/commonUtil";
 
 const AddressForm = ({ editHandler, componentType, addressList }) => {
   const [userName, setUserName] = useState("");
@@ -23,6 +29,8 @@ const AddressForm = ({ editHandler, componentType, addressList }) => {
   } = useForm({});
   const [listofAddress, setListofAddress] = useState(addressList);
   const [editAddress, setEditAddress] = useState(addressList[0]);
+
+  const dispatch = useDispatch();
 
   const closeHandler = () => {
     editHandler(componentType, false);
@@ -83,7 +91,8 @@ const AddressForm = ({ editHandler, componentType, addressList }) => {
           data
         );
       } else {
-        // data["created_by"] = userName;
+        data["created_by"] = userName;
+        data["address_position"] = listofAddress.length;
         response = await axiosServiceApi.post(`/address/createAddress/`, data);
         console.log("New Address", response);
       }
@@ -99,13 +108,45 @@ const AddressForm = ({ editHandler, componentType, addressList }) => {
   };
 
   const updateAddressList = (data) => {
-    const valueExit = _.some(addressList, function (o) {
-      return _.includes(o, data.id);
-    });
-    if (!valueExit) {
-      let list = [...listofAddress];
+    const item = listofAddress.filter((item) => item.id === data.id);
+    let list = [...listofAddress];
+    if (item.length > 0) {
+      list.splice(item[0].address_position, 1);
+      list.splice(list.length, 0, data);
+    } else {
       list.push(data);
-      setListofAddress(list);
+    }
+    const _list = sortByFieldName(list, "address_position");
+    setListofAddress(_list);
+  };
+
+  /**
+   * Drag and drop logic
+   */
+  const dragEnded = (param) => {
+    const { source, destination } = param;
+    if (!destination) return true;
+    let _arr = [...listofAddress];
+    const item = _arr.splice(source.index, 1)[0];
+
+    _arr.splice(destination.index, 0, item);
+    updateObjectIndex(listofAddress[source.index], destination.index);
+    updateObjectIndex(listofAddress[destination.index], source.index);
+    setListofAddress(_arr);
+  };
+
+  const updateObjectIndex = async (item, index) => {
+    let data = {};
+    data["updated_by"] = userName;
+    data["index"] = index;
+    try {
+      let response = await axiosServiceApi.put(
+        `/address/updateindex/${item.id}/`,
+        data
+      );
+      console.log(response);
+    } catch (error) {
+      console.log("unable to save the footer form");
     }
   };
 
@@ -146,6 +187,7 @@ const AddressForm = ({ editHandler, componentType, addressList }) => {
                 fieldName="address_dr_no"
                 register={register}
               />
+
               {/* <InputField
                 label="Postcode"
                 fieldName="postcode"
@@ -177,48 +219,39 @@ const AddressForm = ({ editHandler, componentType, addressList }) => {
             </div>
 
             <div className="col-md-6 mb-md-0 px-5 text-black">
-              {listofAddress.length > 0 ? (
-                listofAddress.map((item, index) => (
-                  <>
-                    <div className="row" key={index}>
-                      <div className="col-8">
-                        <p className="m-0 fw-bold">{item.location_title}</p>
-                        <small>
-                          {item.city} - {item.postcode}
-                        </small>{" "}
-                        <br />
-                        <small>{item.state} </small>
-                      </div>
-
-                      <div className="col-4 d-flex justify-content-around align-items-center flex-md-row gap-3">
-                        <Link
-                          onClick={(event) => handleCarouselEdit(event, item)}
-                        >
-                          <i
-                            className="fa fa-pencil fs-4 text-warning"
-                            aria-hidden="true"
-                          ></i>
-                        </Link>
-                        <Link
-                          onClick={(event) =>
-                            thumbDelete(item.id, item.location_title)
-                          }
-                        >
-                          <i
-                            className="fa fa-trash fs-4 text-danger"
-                            aria-hidden="true"
-                          ></i>
-                        </Link>
-                      </div>
-                    </div>
-                    <hr className="text-muted" />
-                  </>
-                ))
-              ) : (
-                <h4 className="text-center m-5 text-warning">
-                  No Contacts found.
-                </h4>
-              )}
+              <DragDropContext onDragEnd={dragEnded}>
+                <Droppable droppableId="address-wrapper">
+                  {(provided, snapshot) => (
+                    <DraggableAddressList
+                      ref={provided.innerRef}
+                      {...provided.droppableProps}
+                    >
+                      {listofAddress.map((_address, index) => {
+                        return (
+                          <Draggable
+                            draggableId={`${_address.id}`}
+                            index={index}
+                            key={_address.id}
+                          >
+                            {(_provided, _snapshot) => (
+                              <DraggableAddress
+                                ref={_provided.innerRef}
+                                dragHandleProps={_provided.dragHandleProps}
+                                {..._provided.draggableProps}
+                                snapshot={_snapshot}
+                                item={_address}
+                                thumbDelete={thumbDelete}
+                                handleCarouselEdit={handleCarouselEdit}
+                              />
+                            )}
+                          </Draggable>
+                        );
+                      })}
+                      {provided.placeholder}
+                    </DraggableAddressList>
+                  )}
+                </Droppable>
+              </DragDropContext>
             </div>
           </div>
           <div className="row">

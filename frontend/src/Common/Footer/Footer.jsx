@@ -44,7 +44,8 @@ const Footer = () => {
   const dispatch = useDispatch();
 
   const date = new Date();
-  const fullYear = date.getFullYear()
+  const fullYear = date.getFullYear();
+
 
   useEffect(() => {
     if (footerData?.length === 0) {
@@ -165,6 +166,7 @@ const Footer = () => {
 
             <div className="socialLinks">
             <h5>Social Media</h5>
+
                 {footerValues.facebook_url ? (
                   <Link to={footerValues.facebook_url} target="_blank">
                     <i className="fa fa-facebook-square" aria-hidden="true"></i>
@@ -272,8 +274,8 @@ const Footer = () => {
 
             <hr className="d-block d-md-none" />
             <div className="col-md-6 text-center socialLinks d-flex justify-content-end align-items-center ">
-              <img src={Logo} alt="LEOMTECH" style={{opacity: .2}} />
-              
+              <img src={Logo} alt="LEOMTECH" style={{ opacity: 0.2 }} />
+
             </div>
           </div>
         </div>

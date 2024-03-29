@@ -16,3 +16,4 @@ class AddressList(BaseModel):
         emailid =           models.CharField(max_length=100, null=True, blank=True )
         phonen_number =     models.CharField(max_length=100, null=True, blank=True )
         phonen_number_2 =   models.CharField(max_length=100, null=True, blank=True )
+        address_position =  models.IntegerField(null=True, blank=True)
