@@ -92,7 +92,7 @@ export const AdminNews = () => {
       imageUrls: newsObject.map(function (item) {
         return item.path;
       }),
-      updated_By: userName,
+      updated_by: userName,
       created_by: newsState?.created_by ? newsState?.created_by : userName,
       id: id,
     };
@@ -100,7 +100,7 @@ export const AdminNews = () => {
     try {
       let response = "";
       if (editState) {
-        news.updated_By = userName;
+        news.updated_by = userName;
         response = await axiosServiceApi.put(`/appNews/updateAppNews/${id}/`, {
           ...news,
         });

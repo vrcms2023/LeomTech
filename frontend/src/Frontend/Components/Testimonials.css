@@ -21,6 +21,15 @@
 .testimonials .testimonialImg {
   width: 125px;
   height: 125px;
+  object-fit: cover;
+}
+
+.testimonials i.fa {
+  color: #3f3f3f;
+}
+
+.testimonials i.fa:hover {
+  color: #fff;
 }
 
 .article {

@@ -1,58 +1,73 @@
 import React, { useState, useEffect } from "react";
 
-// Components 
+// Components
 
 import Title from "../../Common/Title";
 import Model from "../../Common/Model";
 import EditIcon from "../../Common/AdminEditIcon";
 import ImageInputsForm from "../../Admin/Components/forms/ImgTitleIntoForm";
-import News from "./News";
+import News from "../Components/News";
 import { axiosClientServiceApi } from "../../util/axiosUtil";
 import { removeActiveClass } from "../../util/ulrUtil";
+import {
+  getFormDynamicFields,
+  getCarouselFields,
+  getNewslFields,
+  imageDimensionsJson,
+} from "../../util/dynamicFormFields";
 import ModelBg from "../../Common/ModelBg";
 import { useAdminLoginStatus } from "../../Common/customhook/useAdminLoginStatus";
-
+import AddEditAdminNews from "../../Admin/Components/News/index";
 import Banner from "../../Common/Banner";
 
 // Styles
 import "./NewsAndUpdates.css";
-
-// Images Imports
-import NewsBanner from '../../Images/Banner_8.jpg'
+import { Link } from "react-router-dom";
+import AdminBanner from "../../Admin/Components/forms/ImgTitleIntoForm-List";
+import HomeNews from "../Components/HomeNews";
+import Search from "../../Common/Search";
+import CustomPagination from "../../Common/CustomPagination";
+import { paginationDataFormat } from "../../util/commonUtil";
+import { sortCreatedDateByDesc } from "../../util/dataFormatUtil";
 
 const NewsAndUpdates = () => {
   const editComponentObj = {
+    addNews: false,
     banner: false,
     news: false,
   };
+
+  const pageType = "news";
   const [news, setNews] = useState([]);
   const [show, setShow] = useState(false);
   const [componentEdit, SetComponentEdit] = useState(editComponentObj);
   const isAdmin = useAdminLoginStatus();
+  const [showModal, setShowModal] = useState(false);
+  const [obj, setObj] = useState({});
+
+  const [paginationData, setPaginationData] = useState({})
+  const [pageLoadResult, setPageloadResults] = useState(false)
+  const [searchQuery, setSearchquery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     removeActiveClass();
   }, []);
 
   useEffect(() => {
-    const getNews = async () => {
-      try{
-      const response = await axiosClientServiceApi.get(
-        `/appNews/clientAppNews/`,
-      );
-      if (response?.status == 200) {
-        setNews(response.data.appNews);
-      }
-    }catch(error){
-      console.log("unable to access ulr because of server is down")
+    const id = document.getElementById("KnowledgeHubnavbarDropdown");
+    if (id) {
+      id.classList.add("active");
     }
-    };
-    getNews();
-  }, []);
+  });
+  
 
-  const [showModal, setShowModal] = useState(false);
+  const setResponseData = (data) => {
+    setNews(data.results.length > 0 ? sortCreatedDateByDesc(data.results) : []);
+    setPaginationData(paginationDataFormat(data))
+    setCurrentPage(1)
+  }
 
-  const [obj, setObj] = useState({});
 
   const articleHandler = (id) => {
     const searchObj = news.find((newsItem) => newsItem.id === id);
@@ -68,48 +83,120 @@ const NewsAndUpdates = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const dateFormat = (date) => {
-    let datestring = date;
-    return datestring.slice(0, 10);
-  };
-
   const editHandler = (name, value) => {
     SetComponentEdit((prevFormData) => ({ ...prevFormData, [name]: value }));
     setShow(!show);
     document.body.style.overflow = "hidden";
-  }
+  };
   return (
     <>
       {/* Page Banner Component */}
       <div className="position-relative">
-        {isAdmin ? <EditIcon editHandler={() => editHandler("banner", true)} /> : "" }
-         <Banner bannerImg={NewsBanner} alt="About LeomTech" title={'Leom Tech'} caption={'IT Consulting Services'}/>
+        {isAdmin ? (
+          <EditIcon editHandler={() => editHandler("banner", true)} />
+        ) : (
+          ""
+        )}
+        <Banner
+          getBannerAPIURL={`banner/clientBannerIntro/${pageType}-banner/`}
+          bannerState={componentEdit.banner}
+        />
       </div>
+      {componentEdit.banner ? (
+        <div className="adminEditTestmonial">
+          <ImageInputsForm
+            editHandler={editHandler}
+            componentType="banner"
+            pageType={`${pageType}-banner`}
+            imageLabel="Banner Image"
+            showDescription={false}
+            showExtraFormFields={getFormDynamicFields(`${pageType}-banner`)}
+            dimensions={imageDimensionsJson("banner")}
+          />
+        </div>
+      ) : (
+        ""
+      )}
 
       <div className="container my-4 newsAndUpdates">
-        <div className="row">
-          <Title title="News And Updates" cssClass="blue-900 fs-4 mb-4" />
-          {news?.length > 0 &&
-            news.map((item) => (
-              <News
-                item={item}
-                dateFormat={dateFormat}
-                key={item.id}
-                articleHandler={articleHandler}
+        {isAdmin ? (
+          <div className="text-end mb-4">
+            <Link
+              to="#"
+              className="btn btn-primary"
+              onClick={() => editHandler("addNews", true)}
+            >
+              Add News
+              <i className="fa fa-plus ms-2" aria-hidden="true"></i>
+            </Link>
+          </div>
+        ) : (
+          ""
+        )}
+
+        <div className="row mb-4">
+          <div className="col-md-6">
+            <Title title="News And Updates" cssClass="blue-900 fs-4 mb-4" />
+          </div>
+          <div className="col-md-6">
+            <Search
+              setObject={setResponseData}
+              clientSearchURL={"/appNews/searchAppNews/"}
+              adminSearchURL={"/appNews/createAppNews/"}
+              clientDefaultURL={"/appNews/clientAppNews/"}
+              searchfiledDeatails={"News Title / News Description"}
+              setPageloadResults={setPageloadResults}
+              setSearchquery={setSearchquery}
+              searchQuery={searchQuery}
+            />
+          </div>
+        </div>
+
+        <div className="row mb-5">
+          {componentEdit.addNews ? (
+            <div className="adminEditTestmonial">
+              <AddEditAdminNews
+                editHandler={editHandler}
+                componentType="addNews"
+                imageGetURL="appNews/createAppNews/"
+                imagePostURL="appNews/createAppNews/"
+                imageUpdateURL="appNews/updateAppNews/"
+                imageDeleteURL="appNews/updateAppNews/"
+                imageLabel="Add News Image"
+                showDescription={false}
+                showExtraFormFields={getNewslFields("addNews")}
+                dimensions={imageDimensionsJson("addNews")}
               />
-            ))}
+            </div>
+          ) : (
+            ""
+          )}
+
+          <HomeNews
+            addNewsState={componentEdit.addNews}
+            news={news}
+            setNews={setResponseData}
+            setPageloadResults={setPageloadResults}
+          />
+          <div>
+          
+        {paginationData?.total_count ? (
+           <CustomPagination 
+           paginationData={paginationData}  
+           paginationURL={isAdmin ? '/appNews/createAppNews/':'/appNews/clientAppNews/'} 
+           paginationSearchURL={searchQuery ? `appNews/searchAppNews/${searchQuery}/` : isAdmin ? '/appNews/createAppNews/': '/appNews/clientAppNews/'}
+           searchQuery={searchQuery}
+           setCurrentPage={setCurrentPage}
+           currentPage={currentPage}
+           setResponseData={setResponseData}
+           pageLoadResult={pageLoadResult}/>
+        ):''}
+      </div>
         </div>
       </div>
       {showModal && <Model obj={obj} closeModel={closeModel} flag="news" />}
       {showModal && <ModelBg closeModel={closeModel} />}
 
-
-      {componentEdit.banner ? 
-        <div className='container position-fixed adminEditTestmonial p-1'>
-          <ImageInputsForm editHandler={editHandler} componentType="banner" />
-        </div>
-      : ""}
-      
       {show && <ModelBg />}
     </>
   );

@@ -45,24 +45,22 @@ const UserAdmin = () => {
 
   const handleUserDelete = (user) => {
     console.log(user);
-    const deleteUser = async () => {
-      // const response = await axiosServiceApi.delete(
-      //   `/user/auth/users/me/`,
-      // );
-      //console.log(response)
-    };
+    // const deleteUser = async () => {
+    //   const response = await axiosServiceApi.delete(`/user/auth/users/me/`);
+    //   console.log(response);
+    // };
 
-    confirmAlert({
-      customUI: ({ onClose }) => {
-        return (
-          <DeleteDialog
-            onClose={onClose}
-            callback={deleteUser}
-            message={`you want to delete the ${user.userName}`}
-          />
-        );
-      },
-    });
+    // confirmAlert({
+    //   customUI: ({ onClose }) => {
+    //     return (
+    //       <DeleteDialog
+    //         onClose={onClose}
+    //         callback={deleteUser}
+    //         message={`you want to delete the ${user.userName}`}
+    //       />
+    //     );
+    //   },
+    // });
   };
 
   /**
@@ -75,7 +73,7 @@ const UserAdmin = () => {
         `/user/auth/appAccess/${user.id}/`,
         {
           is_appAccess: !user.is_appAccess,
-        },
+        }
       );
 
       if (response.status !== 200) {
@@ -92,17 +90,15 @@ const UserAdmin = () => {
   };
 
   return (
-    <div className="container-fluid pt-5" style={{ marginTop: "120px" }}>
+    <div className="container-fluid pt-5">
       <div className="row px-3 px-lg-5">
         <div className="text-end d-flex justify-content-between">
-          <Title
-            title={"User Admin Pages"}
-            cssClass="text-center blue-500 fs-4"
-          />
+          <Title title={"User's"} cssClass="text-start fs-4" />
           <Button
             type="submit"
             cssClass="btn btn-secondary"
-            label="Back to Menu"
+            label="Back"
+            icon="fa-chevron-left"
             handlerChange={() => navigate("/main")}
           />
         </div>
@@ -117,17 +113,33 @@ const UserAdmin = () => {
                 <th>Email</th>
                 <th>Admin type</th>
                 <th colSpan={2}>Active status</th>
-                {/* <th>Action</th> */}
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
               {userDetails?.map((user) => (
-                <tr key={user.id} >
-                  <td className={`${user.is_admin ? 'text-danger' : ''}`}>{user.userName}</td>
-                  <td className={`${user.is_admin ? 'text-danger' : ''}`}>{user.email}</td>
-                  <td className={`${user.is_admin ? 'text-danger' : ''}`}>{user.is_admin ? "Super Admin" : "User"}</td>
-                  <td className={`${user.is_admin ? 'text-danger' : ''}`}><span className={`badge ${user.is_appAccess ? 'bg-success' : 'bg-secondary text-mute'} fw-normal`}>{user.is_appAccess ? 'Active' : 'In Active'} </span></td>
-                  <td className={`${user.is_admin ? 'text-danger' : ''}`}>
+                <tr key={user.id}>
+                  <td className={`${user.is_admin ? "text-danger" : ""}`}>
+                    {user.userName}
+                  </td>
+                  <td className={`${user.is_admin ? "text-danger" : ""}`}>
+                    {user.email}
+                  </td>
+                  <td className={`${user.is_admin ? "text-danger" : ""}`}>
+                    {user.is_admin ? "Super Admin" : "User"}
+                  </td>
+                  <td className={`${user.is_admin ? "text-danger" : ""}`}>
+                    <span
+                      className={`badge ${
+                        user.is_appAccess
+                          ? "bg-success"
+                          : "bg-secondary text-mute"
+                      } fw-normal`}
+                    >
+                      {user.is_appAccess ? "Active" : "In Active"}{" "}
+                    </span>
+                  </td>
+                  <td className={`${user.is_admin ? "text-danger" : ""}`}>
                     {user.id !== userId && !user.is_admin ? (
                       <input
                         type="checkbox"
@@ -141,7 +153,7 @@ const UserAdmin = () => {
                       ""
                     )}
                   </td>
-                  {/* <td>
+                  <td>
                     {user.id !== userId && !user.is_admin ? (
                       <Link to="" onClick={() => handleUserDelete(user)}>
                         <i
@@ -153,7 +165,7 @@ const UserAdmin = () => {
                     ) : (
                       ""
                     )}
-                  </td> */}
+                  </td>
                 </tr>
               ))}
             </tbody>
