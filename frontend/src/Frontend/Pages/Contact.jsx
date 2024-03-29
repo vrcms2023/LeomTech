@@ -224,7 +224,7 @@ const Contact = () => {
                       <p className="m-0">{item.location} </p>
                       <p className="m-0">{item.street} </p>
                       <p className="m-0">{item.city} </p>
-                      <p className="m-0">Pincode - {item.postcode}</p>
+                      {/* <p className="m-0">Pincode - {item.postcode}</p> */}
                       <p className="mb-3">{item.state}</p>
                       <p className="mt-2">
                         {item.phonen_number && (

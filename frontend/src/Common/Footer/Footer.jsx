@@ -43,6 +43,9 @@ const Footer = () => {
   const { addressList } = useSelector((state) => state.addressList);
   const dispatch = useDispatch();
 
+  const date = new Date();
+  const fullYear = date.getFullYear()
+
   useEffect(() => {
     if (footerData?.length === 0) {
       dispatch(getFooterValues());
@@ -159,59 +162,9 @@ const Footer = () => {
             </div>
             <hr className="d-block d-md-none" />
             <div className="col-md-3 pb-3 pb-md-0">
-              {isAdmin ? (
-                <EditIcon editHandler={() => editHandler("address", true)} />
-              ) : (
-                ""
-              )}
 
-              <div className="text-center text-md-start">
-                <h5>Address</h5>
-                <span className="d-block">{address.location_title}</span>
-                <span className="d-block">{address.address_dr_no } </span>
-                <span className="d-block">{address.location}</span>
-                <span className="d-block">{address.street}</span>
-                <span className="d-block">{address.city}</span>
-                <span className="d-block">{address.state}</span>
-                <span className="d-block">Pincode - {address.postcode}</span>
-              </div>
-            </div>
-
-            <hr className="d-block d-md-none" />
-            <div className="col-md-3 text-center text-md-start pb-3 pb-md-0">
-              <h5>Reach Us</h5>
-              <div>
-                <p className="text-secondary">Phone</p>
-
-                <p className="">{address.phonen_number}</p>
-                <p>
-                  {address.phonen_number_2 ? (
-                    <>
-                      {address.phonen_number_2}{" "}
-                      <i
-                        className="fa fa-whatsapp text-warning fs-3 ms-2"
-                        aria-hidden="true"
-                      ></i>
-                    </>
-                  ) : (
-                    ""
-                  )}
-                </p>
-              </div>
-              {address.emailid ? (
-                <div className="mb-md-0 mt-4">
-                  <p className="text-secondary">Email</p>
-                  <a href={`mailto:${address.emailid}`}>{address.emailid} </a>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
-
-            <hr className="d-block d-md-none" />
-            <div className="col-md-3 text-center socialLinks ">
-              <img src={Logo} alt="" />
-              <div>
+            <div className="socialLinks">
+            <h5>Social Media</h5>
                 {footerValues.facebook_url ? (
                   <Link to={footerValues.facebook_url} target="_blank">
                     <i className="fa fa-facebook-square" aria-hidden="true"></i>
@@ -268,6 +221,59 @@ const Footer = () => {
                   ""
                 )}
               </div>
+              {/* {isAdmin ? (
+                <EditIcon editHandler={() => editHandler("address", true)} />
+              ) : (
+                ""
+              )} */}
+
+              {/* <div className="text-center text-md-start">
+                <h5>Address</h5>
+                <span className="d-block">{address.location_title}</span>
+                <span className="d-block">{address.address_dr_no } </span>
+                <span className="d-block">{address.location}</span>
+                <span className="d-block">{address.street}</span>
+                <span className="d-block">{address.city}</span>
+                <span className="d-block">{address.state}</span>
+                <span className="d-block">Pincode - {address.postcode}</span>
+              </div> */}
+            </div>
+
+            <hr className="d-block d-md-none" />
+            {/* <div className="col-md-3 text-center text-md-start pb-3 pb-md-0">
+              <h5>Reach Us</h5>
+              <div>
+                <p className="text-secondary">Phone</p>
+
+                <p className="">{address.phonen_number}</p>
+                <p>
+                  {address.phonen_number_2 ? (
+                    <>
+                      {address.phonen_number_2}{" "}
+                      <i
+                        className="fa fa-whatsapp text-warning fs-3 ms-2"
+                        aria-hidden="true"
+                      ></i>
+                    </>
+                  ) : (
+                    ""
+                  )}
+                </p>
+              </div>
+              {address.emailid ? (
+                <div className="mb-md-0 mt-4">
+                  <p className="text-secondary">Email</p>
+                  <a href={`mailto:${address.emailid}`}>{address.emailid} </a>
+                </div>
+              ) : (
+                ""
+              )}
+            </div> */}
+
+            <hr className="d-block d-md-none" />
+            <div className="col-md-6 text-center socialLinks d-flex justify-content-end align-items-center ">
+              <img src={Logo} alt="LEOMTECH" style={{opacity: .2}} />
+              
             </div>
           </div>
         </div>
@@ -280,7 +286,7 @@ const Footer = () => {
           )}
 
           <div className="d-flex justify-content-center align-items-center flex-column flex-md-row gap-1 gap-md-2">
-            <small>&copy; 2023 - All rights reserved</small>
+            <small>&copy; {fullYear} - All rights reserved</small>
             <span className="d-inline-block  d-none d-md-block">|</span>
             <Link
               to=""
