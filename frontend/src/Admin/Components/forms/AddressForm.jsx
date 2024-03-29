@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import { getCookie } from "../../../util/cookieUtil";
@@ -15,7 +14,6 @@ import _ from "lodash";
 import { fieldValidation } from "../../../util/validationUtil";
 import DraggableAddress from "../AddressList/DraggableAddress";
 import DraggableAddressList from "../AddressList/DraggableAddressList";
-import { getAddressList } from "../../../features/address/addressActions";
 import { sortByFieldName } from "../../../util/commonUtil";
 
 const AddressForm = ({ editHandler, componentType, addressList }) => {
@@ -29,8 +27,6 @@ const AddressForm = ({ editHandler, componentType, addressList }) => {
   } = useForm({});
   const [listofAddress, setListofAddress] = useState(addressList);
   const [editAddress, setEditAddress] = useState(addressList[0]);
-
-  const dispatch = useDispatch();
 
   const closeHandler = () => {
     editHandler(componentType, false);
@@ -59,7 +55,7 @@ const AddressForm = ({ editHandler, componentType, addressList }) => {
       const response = await axiosServiceApi.delete(
         `address/updateAddress/${id}/`
       );
-      if (response.status == 204) {
+      if (response.status === 204) {
         const list = listofAddress.filter((item) => item.id !== id);
         setListofAddress(list);
       }
@@ -123,16 +119,27 @@ const AddressForm = ({ editHandler, componentType, addressList }) => {
   /**
    * Drag and drop logic
    */
-  const dragEnded = (param) => {
+  const dragEnded = async (param) => {
     const { source, destination } = param;
     if (!destination) return true;
     let _arr = [...listofAddress];
-    const item = _arr.splice(source.index, 1)[0];
 
-    _arr.splice(destination.index, 0, item);
-    updateObjectIndex(listofAddress[source.index], destination.index);
-    updateObjectIndex(listofAddress[destination.index], source.index);
-    setListofAddress(_arr);
+    _arr.splice(source.index, 1);
+    _arr.splice(destination.index, 1);
+
+    const sourceobj = await updateObjectIndex(
+      listofAddress[source.index],
+      destination.index
+    );
+
+    const destinationObj = await updateObjectIndex(
+      listofAddress[destination.index],
+      source.index
+    );
+    _arr.push(sourceobj);
+    _arr.push(destinationObj);
+    const _list = sortByFieldName(_arr, "address_position");
+    setListofAddress(_list);
   };
 
   const updateObjectIndex = async (item, index) => {
@@ -144,7 +151,9 @@ const AddressForm = ({ editHandler, componentType, addressList }) => {
         `/address/updateindex/${item.id}/`,
         data
       );
-      console.log(response);
+      if (response?.data?.addressList) {
+        return response.data.addressList;
+      }
     } catch (error) {
       console.log("unable to save the footer form");
     }
