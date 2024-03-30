@@ -7,6 +7,7 @@ import { axiosServiceApi } from "../../../util/axiosUtil";
 import EditAdminPopupHeader from "../EditAdminPopupHeader";
 import { InputField } from "./FormFields";
 import Button from "../../../Common/Button";
+import { useDispatch, useSelector } from "react-redux";
 
 import DeleteDialog from "../../../Common/DeleteDialog";
 import { confirmAlert } from "react-confirm-alert";
@@ -15,8 +16,10 @@ import { fieldValidation } from "../../../util/validationUtil";
 import DraggableAddress from "../AddressList/DraggableAddress";
 import DraggableAddressList from "../AddressList/DraggableAddressList";
 import { sortByFieldName } from "../../../util/commonUtil";
+import { getAddressList } from "../../../features/address/addressActions";
 
-const AddressForm = ({ editHandler, componentType, addressList }) => {
+const AddressForm = ({ editHandler, componentType, address }) => {
+  const { addressList } = useSelector((state) => state.addressList);
   const [userName, setUserName] = useState("");
   const {
     register,
@@ -25,8 +28,9 @@ const AddressForm = ({ editHandler, componentType, addressList }) => {
     setValue,
     formState: { errors },
   } = useForm({});
-  const [listofAddress, setListofAddress] = useState(addressList);
-  const [editAddress, setEditAddress] = useState(addressList[0]);
+  const [listofAddress, setListofAddress] = useState(address);
+  const [editAddress, setEditAddress] = useState(address[0]);
+  const dispatch = useDispatch();
 
   const closeHandler = () => {
     editHandler(componentType, false);
@@ -124,23 +128,23 @@ const AddressForm = ({ editHandler, componentType, addressList }) => {
     if (!destination) return true;
     let _arr = [...listofAddress];
 
-    _arr.splice(source.index, 1);
-    _arr.splice(destination.index, 1);
-
     const sourceobj = await updateObjectIndex(
-      listofAddress[source.index],
+      _arr[source.index],
       destination.index
     );
 
     const destinationObj = await updateObjectIndex(
-      listofAddress[destination.index],
+      _arr[destination.index],
       source.index
     );
-    _arr.push(sourceobj);
-    _arr.push(destinationObj);
-    const _list = sortByFieldName(_arr, "address_position");
-    setListofAddress(_list);
+    dispatch(getAddressList());
   };
+
+  useEffect(() => {
+    if (addressList?.length > 0) {
+      setListofAddress(addressList);
+    }
+  }, [addressList]);
 
   const updateObjectIndex = async (item, index) => {
     let data = {};
