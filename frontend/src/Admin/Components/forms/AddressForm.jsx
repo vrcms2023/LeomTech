@@ -232,6 +232,7 @@ const AddressForm = ({ editHandler, componentType, address }) => {
             </div>
 
             <div className="col-md-6 mb-md-0 px-5 text-black">
+            <p className="text-warning fs-5">Use drag option to shuffle the addresses</p>
               <DragDropContext onDragEnd={dragEnded}>
                 <Droppable droppableId="address-wrapper">
                   {(provided, snapshot) => (

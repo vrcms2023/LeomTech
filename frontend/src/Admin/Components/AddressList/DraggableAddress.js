@@ -24,13 +24,13 @@ const DraggableAddress = forwardRef(
         className={"card p-2 my-2 " + (snapshot.isDragging ? "hovering" : "")}
       >
         <div>
-          <div className="row">
-            <div className="col-1">
-              <span {...dragHandleProps}>
-                <i className="fa fa-arrows-alt" aria-hidden="true"></i>
+          <div className="row position-reltive">
+           
+          <span {...dragHandleProps} className="position-absolute" style={{top: "-1px", left: "-30px", padding: "5px", background: "#ddd", width: "30px", borderRadius: "5px"}}>
+                <i className="fa fa-arrows-alt fs-5" aria-hidden="true"></i>
               </span>
-            </div>
-            <div className="col-7">
+           
+            <div className="col-8">
               <p className="m-0 fw-bold">{item?.location_title}</p>
               <small>
                 {item?.city} - {item?.postcode}
