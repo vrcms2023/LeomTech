@@ -208,7 +208,7 @@ const Contact = () => {
                 <AddressForm
                   editHandler={editHandler}
                   componentType="address"
-                  addressList={addressList}
+                  address={addressList}
                 />
               </div>
             ) : (
